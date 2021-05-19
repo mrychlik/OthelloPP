@@ -4,6 +4,7 @@ LDFLAGS  = -lm -lboost_unit_test_framework
 all: main test_suite
 
 main.o: Board.hpp util.hpp
+Board.o: Board.hpp
 
 OBJS = main.o Board.o
 main: $(OBJS)
