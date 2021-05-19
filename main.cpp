@@ -1,7 +1,17 @@
+/**
+ * @file   main.cpp
+ * @author Marek Rychlik <marek@cannonball.lan>
+ * @date   Wed May 19 14:11:02 2021
+ * 
+ * @brief  Othello game driver.
+ * 
+ * 
+ */
+
 #include <iostream>
 #include <string>
 #include <cstring>
-#include "Oboard.hh"
+#include "Board.hpp"
 
 #ifndef deque
 #include <deque>
