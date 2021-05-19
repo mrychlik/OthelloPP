@@ -32,7 +32,7 @@ public:
   bool anyLegalMoves(bool) const;
   bool operator==(const Board&) const;
 
-  operator std::string() { return toString(); };
+  operator std::string() const { return toString(); };
   
   friend std::ostream& operator<<(std::ostream& s, const Board& b) { return s << b.toString(); };
 
