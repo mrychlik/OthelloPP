@@ -1,14 +1,22 @@
-ARGS = -std=c++11 -g -pthread -Wall -Wextra
+CXXFLAGS = -std=c++20 -O0 -ggdb3
+LDFLAGS  = -lm -lboost_unit_test_framework
 
-all: othe
-clean:
-	rm *.o othe 
+all: main test_suite
 
-Oboard.o : Oboard.cc Oboard.hh 
-	g++ ${ARGS} -c Oboard.cc
+main.o: Board.hpp util.hpp
 
-main.o : Oboard.hh main.cc
-	g++ ${ARGS} -c main.cc
+OBJS = main.o Board.o
+main: $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
-othe : Oboard.o main.o
-	g++ ${ARGS} Oboard.o main.o -o othe
+UNIT_OBJS = unit_tests.o testlib.o
+test_suite: $(UNIT_OBJS)
+	$(CXX) $(CXXFLAGS) $(UNIT_OBJS) -o $@ $(LDFLAGS)
+
+clean: 
+	-rm *.o
+	-rm $(PROGRAMS)
+
+doc: Doxyfile
+	doxygen $<
+
