@@ -22,7 +22,7 @@ public:
   int score() const;
   int value() const;
   Board* move(bool,int,int);
-  int tileNum();
+  int tileNum() const;
   void copy(Board*);
 
   std::deque<Board*> children(bool);
