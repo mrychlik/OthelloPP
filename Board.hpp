@@ -10,7 +10,6 @@
 
 #ifndef BOARD_HPP
 #define BOARD_HPP 1
-#else
 
 #include <string>
 #include <deque>
