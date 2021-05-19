@@ -158,36 +158,36 @@ void garbageCollect(TreeNode* oldRoot, TreeNode* newRoot) {
 }
 
 //return tileNum=0 if no moves available
-Board* getPlayerMove(TreeNode* currentRoot) {
+Board getPlayerMove(TreeNode* currentRoot) {
   if (currentRoot->board->anyLegalMoves(true)) { //moves for white
     bool goodInput;
     int x,y;
 
-    do {
-      goodInput = true;
-      try {
-        std::cout << "Player Move x" << std::endl;
-        std::cin >> x; 
-        std::cout << "Player Move y" << std::endl;
-        std::cin >> y; 
-      } catch (...) {//not numbers, etc
-        goodInput = false; 
+    while(std::cin) {
+      std::cout << "Player Move x and y" << std::endl;
+      std::cin >> x >> y ; 
+      if(std::cin.fail()) {
+	std::cerr << "Bad x\n"; 
+	continue;
       }
-      
-      if (goodInput) {
-        if (x < 0 || x > 7 || y < 0 || y > 7) {
-          goodInput = false;
-        } else if (!currentRoot->board->isLegal(true, x , y)) {//no good
-          goodInput = false;
-        }
-      }
-    } while (!goodInput);
+    };
+    if(std::cin.bad()) {
+      throw "Input stream bad during input of x and y.";
+    }
+    
+    if (x < 0 || x > 7 || y < 0 || y > 7) {
+      std::cerr << "Input value x or y is invalid: " << x << ", " << y << "\n";
+      throw "Invalid input";
+    }
+    
+    if (!currentRoot->board->isLegal(true, x , y)) {//no good
+      std::cerr << "Move is invalid: " << x << ", " << y << "\n";
+      continue;
+    }
     
     // if the input is good
-    return currentRoot->board->move(true, x, y);
+    return *currentRoot->board->move(true, x, y);
   } else {
-    return nullptr; //empty (tileNum = 0)
-  }
 }
 
 //must be called after update and after getPlayerMove
