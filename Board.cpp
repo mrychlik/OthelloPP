@@ -12,11 +12,11 @@
 
 const int order[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
-bool Board::isFilled(int x, int y) {
+bool Board::isFilled(int x, int y) const {
   return (filled[y] & (0b10000000 >> x));
 };
 
-bool Board::isWhite(int x, int y) {
+bool Board::isWhite(int x, int y) const {
   return (coloredWhite[y] & (0b10000000 >> x));
 };
 
@@ -144,16 +144,16 @@ void Board::copy(Board* from) {
   scoreInt = from->scoreInt;
 }
 
-std::string Board::toString(bool big) {
+std::string Board::toString(bool big) const {
   if (big) return toStringBig();
   else return toStringSmall();
 }
 
-std::string Board::toString() {
+std::string Board::toString() const {
   return toString(false);
 }
 
-std::string Board::toStringSmall() {
+std::string Board::toStringSmall() const {
   std::string out = " 01234567\n";
   const char esc = 27;
   std::string fg, bg, tile;
@@ -182,7 +182,7 @@ std::string Board::toStringSmall() {
   return out;
 }
 
-std::string Board::toStringBig() {
+std::string Board::toStringBig() const {
   std::string out = "";
   const char esc = 27;
   std::string fg,bg,tile;
