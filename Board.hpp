@@ -15,17 +15,6 @@
 #include <deque>
 
 class Board {
-private:
-  char filled[8];
-  char coloredWhite[8];
-  char turnAndTile; //first bit is isWhite'sTurn, last 7 are number of tiles on board
-  signed char scoreInt;
-
-  bool isFilled(int, int); 
-  bool isWhite(int, int); 
-  void flipToWhite(int, int); 
-  void flipToBlack(int, int); 
-  
 public:
   Board();
   Board(Board*);
@@ -43,6 +32,17 @@ public:
   bool isLegal(bool, int, int);
   bool anyLegalMoves(bool);
   bool operator==(const Board&);
+
+private:
+  char filled[8];
+  char coloredWhite[8];
+  char turnAndTile; //first bit is isWhite'sTurn, last 7 are number of tiles on board
+  signed char scoreInt;
+
+  bool isFilled(int, int); 
+  bool isWhite(int, int); 
+  void flipToWhite(int, int); 
+  void flipToBlack(int, int); 
 };
 
 #endif // BOARD_HPP
