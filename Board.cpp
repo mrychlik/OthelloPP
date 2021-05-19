@@ -48,10 +48,22 @@ Board::Board(Board* b) {
   this->copy(b);
 }
 
-int Board::score () const { // # of white tiles - # black tiles
+/** 
+ * # of white tiles - # black tiles
+ * 
+ * 
+ * @return 
+ */
+int Board::score () const { 
   return this->scoreInt;
 }
 
+/** 
+ * Static evaluator?
+ * 
+ * 
+ * @return 
+ */
 int Board::value() const {
   int value = this->scoreInt;
 
