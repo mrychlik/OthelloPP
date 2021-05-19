@@ -73,7 +73,7 @@ int Board::value() const {
   return value;
 }
 
-int Board::tileNum () {
+int Board::tileNum () const {
   return (int)(turnAndTile & 0b01111111); //last seven bits
 }
 
