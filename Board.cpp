@@ -143,19 +143,6 @@ Board* Board::move(bool playWhite, int x, int y) {
   }
 }
 
-// NOTE: The default copy assignment
-// suffices on this POD.
-#if 0
-void Board::copy(const Board& from) {
-  for (int i = 0; i < 8; i++) {
-    filled[i] = from.filled[i];
-    coloredWhite[i] = from.coloredWhite[i];
-  }
-  turnAndTile = from.turnAndTile;
-  scoreInt = from.scoreInt;
-}
-#endif
-
 std::string Board::toString(bool big) const {
   if (big) return toStringBig();
   else return toStringSmall();
