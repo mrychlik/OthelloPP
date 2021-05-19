@@ -14,6 +14,7 @@
 #include <string>
 #include <deque>
 #include <iosfwd>
+#include <cinttypes>
 
 class Board {
 public:
