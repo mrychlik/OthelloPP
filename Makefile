@@ -14,6 +14,9 @@ UNIT_OBJS = unit_tests.o testlib.o Board.o
 test_suite: $(UNIT_OBJS)
 	$(CXX) $(CXXFLAGS) $(UNIT_OBJS) -o $@ $(LDFLAGS)
 
+check: test_suite
+	./test_suite
+
 clean: 
 	-rm *.o
 	-rm $(PROGRAMS)
