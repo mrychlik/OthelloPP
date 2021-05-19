@@ -257,7 +257,7 @@ bool Board::whitesTurn() const {
   return ((turnAndTile & 0b10000000) != 0);
 }
 
-bool Board::isLegal(bool playWhite, int x, int y) { //slightly modified version of move()
+bool Board::isLegal(bool playWhite, int x, int y) const { //slightly modified version of move()
   if (x > 7 || x < 0 || y > 7 || y < 0) return false;
   if (isFilled(x,y)) return false;
   int tmpx, tmpy, distance, end;
@@ -279,7 +279,7 @@ bool Board::isLegal(bool playWhite, int x, int y) { //slightly modified version 
   return false;
 }
 
-bool Board::anyLegalMoves(bool playWhite) {
+bool Board::anyLegalMoves(bool playWhite) const {
   for (int x = 0; x < 8; x++) {
     for (int y = 0; y < 8; y++) {
       if (isLegal(playWhite,x,y)) return true;
