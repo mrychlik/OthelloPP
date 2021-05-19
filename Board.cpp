@@ -1,4 +1,14 @@
-#include "Oboard.hh"
+/**
+ * @file   Board.cpp
+ * @author Marek Rychlik <marek@cannonball.lan>
+ * @date   Wed May 19 13:51:37 2021
+ * 
+ * @brief  Board implementation
+ * 
+ * 
+ */
+
+#include "Board.hpp"
 
 const int order[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
