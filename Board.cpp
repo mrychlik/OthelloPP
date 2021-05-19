@@ -253,7 +253,7 @@ std::deque<Board*> Board::children (bool playingWhite) {
   return out;
 }
 
-bool Board::whitesTurn() {
+bool Board::whitesTurn() const {
   return ((turnAndTile & 0b10000000) != 0);
 }
 
