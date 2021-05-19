@@ -13,6 +13,7 @@
 
 #include <string>
 #include <deque>
+#include <iosfwd>
 
 class Board {
 public:
@@ -25,19 +26,23 @@ public:
   void copy(Board*);
 
   std::deque<Board*> children(bool);
-  bool whitesTurn();
-  bool isLegal(bool, int, int);
-  bool anyLegalMoves(bool);
+
+  bool whitesTurn() const;
+  bool isLegal(bool, int, int) const;
+  bool anyLegalMoves(bool) const;
   bool operator==(const Board&);
 
-  operator std::string() { return this->toString(); };
+  operator std::string() { return toString(); };
+  
+  friend std::ostream& operator<<(std::ostream& s, const Board& b) { return s << b.toString(); };
+
 
 private:
 
-  std::string toStringSmall();
-  std::string toStringBig();
-  std::string toString();
-  std::string toString(bool);
+  std::string toStringSmall() const;
+  std::string toStringBig() const;
+  std::string toString() const;
+  std::string toString(bool) const;
 
 
   char filled[8];
@@ -45,10 +50,13 @@ private:
   char turnAndTile; //first bit is isWhite'sTurn, last 7 are number of tiles on board
   signed char scoreInt;
 
-  bool isFilled(int, int); 
-  bool isWhite(int, int); 
+  bool isFilled(int, int) const; 
+  bool isWhite(int, int) const; 
   void flipToWhite(int, int); 
   void flipToBlack(int, int); 
 };
+
+
+
 
 #endif // BOARD_HPP
