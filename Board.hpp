@@ -30,7 +30,7 @@ public:
   bool whitesTurn() const;
   bool isLegal(bool, int, int) const;
   bool anyLegalMoves(bool) const;
-  bool operator==(const Board&);
+  bool operator==(const Board&) const;
 
   operator std::string() { return toString(); };
   
