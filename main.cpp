@@ -3,7 +3,7 @@
  * @author Marek Rychlik <marek@cannonball.lan>
  * @date   Wed May 19 14:11:02 2021
  * 
- * @brief  Othello game driver.
+ * @brief  Othello game driver implementation.
  * 
  * 
  */
