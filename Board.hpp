@@ -26,7 +26,7 @@ public:
   Board* move(bool,int,int);
   int tileNum() const;
 
-  void copy(Board*);
+  // void copy(Board*); Only used to implement POD copy, which is unnecessary
 
   std::deque<Board*> children(bool);
 
