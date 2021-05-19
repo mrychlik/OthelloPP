@@ -44,9 +44,13 @@ Board::Board() {
   scoreInt = 0;
 }
 
-Board::Board(Board* b) {
+// NOTE: No need for a copy constructor as long as class remains POD.
+// Objects are copied componentwise, which is fine.
+#if 0
+Board::Board(const Board& b) {
   this->copy(b);
 }
+#endif
 
 /** 
  * # of white tiles - # black tiles
@@ -120,7 +124,7 @@ Board* Board::move(bool playWhite, int x, int y) {
 
   if (legal) {
     int numFlipped = 0;
-    Board* c = new Board(this);
+    Board* c = new Board(*this);
 
     for (int r = 0; r < 8; r++) { //rays, must be at least 1 that is > 0
       if (toFlip[r] != 0) numFlipped += toFlip[r]-1;
@@ -147,14 +151,18 @@ Board* Board::move(bool playWhite, int x, int y) {
   }
 }
 
-void Board::copy(Board* from) {
+// NOTE: The default copy assignment
+// suffices on this POD.
+#if 0
+void Board::copy(const Board& from) {
   for (int i = 0; i < 8; i++) {
-    filled[i] = from->filled[i];
-    coloredWhite[i] = from->coloredWhite[i];
+    filled[i] = from.filled[i];
+    coloredWhite[i] = from.coloredWhite[i];
   }
-  turnAndTile = from->turnAndTile;
-  scoreInt = from->scoreInt;
+  turnAndTile = from.turnAndTile;
+  scoreInt = from.scoreInt;
 }
+#endif
 
 std::string Board::toString(bool big) const {
   if (big) return toStringBig();

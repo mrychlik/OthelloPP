@@ -10,7 +10,7 @@ OBJS = main.o Board.o
 main: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
-UNIT_OBJS = unit_tests.o testlib.o
+UNIT_OBJS = unit_tests.o testlib.o Board.o
 test_suite: $(UNIT_OBJS)
 	$(CXX) $(CXXFLAGS) $(UNIT_OBJS) -o $@ $(LDFLAGS)
 
