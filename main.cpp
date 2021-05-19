@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+
 #include "Board.hpp"
 
 #ifndef deque
@@ -227,7 +228,7 @@ int main() {
   int mind = 4, maxd = 6;
   int curTileNum;
 
-  std::cout << absTreeRoot->board->toStringBig() << std::endl;
+  std::cout << absTreeRoot->board << std::endl;
 
   while(absTreeRoot->board->tileNum() != 64) {
     curTileNum = absTreeRoot->board->tileNum();
@@ -268,7 +269,7 @@ int main() {
     bestResponse = bestMove(absTreeRoot, possiblePlayerMove);
 
     //print board state
-    std::cout << bestResponse->board->toStringBig() << std::endl;
+    std::cout << bestResponse->board << std::endl;
 
     //stop gen tread
     treeLock.lock();
