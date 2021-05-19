@@ -20,7 +20,7 @@ public:
   Board();
   Board(Board*);
   int score() const;
-  int value();
+  int value() const;
   Board* move(bool,int,int);
   int tileNum();
   void copy(Board*);
