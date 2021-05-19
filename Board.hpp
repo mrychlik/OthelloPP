@@ -34,7 +34,9 @@ public:
 
   operator std::string() const { return toString(); };
   
-  friend std::ostream& operator<<(std::ostream& s, const Board& b) { return s << b.toString(); };
+  friend std::ostream& operator<<(std::ostream& s, const Board& b) {
+    return s << b.toString();
+  };
 
 
 private:
