@@ -19,7 +19,7 @@ class Board {
 public:
   Board();
   Board(Board*);
-  int score();
+  int score() const;
   int value();
   Board* move(bool,int,int);
   int tileNum();
