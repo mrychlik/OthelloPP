@@ -74,7 +74,7 @@ int Board::value() const {
 }
 
 int Board::tileNum () const {
-  return (int)(turnAndTile & 0b01111111); //last seven bits
+  return turnAndTile & 0b01111111; //last seven bits
 }
 
 Board* Board::move(bool playWhite, int x, int y) {
