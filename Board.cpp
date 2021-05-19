@@ -44,14 +44,6 @@ Board::Board() {
   scoreInt = 0;
 }
 
-// NOTE: No need for a copy constructor as long as class remains POD.
-// Objects are copied componentwise, which is fine.
-#if 0
-Board::Board(const Board& b) {
-  this->copy(b);
-}
-#endif
-
 /** 
  * # of white tiles - # black tiles
  * 
