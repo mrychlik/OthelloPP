@@ -19,11 +19,13 @@
 class Board {
 public:
   Board();
-  Board(Board*);
+  //Board(Board*); Unconventional copy constructor; the default works on POD like this
+
   int score() const;
   int value() const;
   Board* move(bool,int,int);
   int tileNum() const;
+
   void copy(Board*);
 
   std::deque<Board*> children(bool);
