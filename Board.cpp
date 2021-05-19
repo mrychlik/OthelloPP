@@ -48,11 +48,11 @@ Board::Board(Board* b) {
   this->copy(b);
 }
 
-int Board::score () { // # of white tiles - # black tiles
+int Board::score () const { // # of white tiles - # black tiles
   return this->scoreInt;
 }
 
-int Board::value() {
+int Board::value() const {
   int value = this->scoreInt;
 
   //maybe add linear change to value of score vs terriory?
@@ -288,7 +288,7 @@ bool Board::anyLegalMoves(bool playWhite) const {
   return false;
 }
 
-bool Board::operator==(const Board& b) {
+bool Board::operator==(const Board& b) const {
   if (turnAndTile != b.turnAndTile) return false;
   for (int i : {3,4,2,5,1,6,0,7}) {
     if (!(filled[i] == b.filled[i] && coloredWhite[i] == b.coloredWhite[i])) return false;
