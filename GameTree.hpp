@@ -17,6 +17,8 @@
 //should I mark some/all as volatile? return to think about, update and gen work at same time I think
 class TreeNode {
 public:
+  Board board;
+
   TreeNode(const Board& b, std::deque<TreeNode*> d, unsigned char r, bool g, signed char v)
     : board(b),
       downlinks(d),
@@ -33,7 +35,7 @@ public:
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
 
 private:
-  Board board;
+
   std::deque<TreeNode*> downlinks;
   unsigned char referenceCount;
   bool generatedChildren;
