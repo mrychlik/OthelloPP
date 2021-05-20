@@ -113,8 +113,9 @@ Board::move_bag_type Board::moves(bool playWhite) const
 	    end = 2;		//ran into an empty space
 	  } else if( isWhite(tmpx,tmpy) == playWhite) {
 	    end = (distance > 1)? 3:4; //ran into own color late vs early
+	  } else {
+	    distance++;
 	  }
-	  else distance++;
 	}
 	if (end == 3) toFlip[ray] = distance;
 	else toFlip[ray] = 0;
