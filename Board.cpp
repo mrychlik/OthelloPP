@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
 static const char esc = '';
 static const std::string reset = "[0m";
@@ -268,11 +269,11 @@ bool Board::anyLegalMoves(bool playWhite) const {
 }
 
 bool Board::operator==(const Board& b) const {
-  if (turnAndTile != b.turnAndTile) return false;
-  for (int i : {3,4,2,5,1,6,0,7}) {
-    if (!(filled[i] == b.filled[i] && coloredWhite[i] == b.coloredWhite[i])) return false;
-  }
-  return true;
+  // NOTE: IntScore omitted from comparison
+  return ( turnAndTile == b.turnAndTile )
+    && std::equal(filled, b.filled, filled + 8)
+    && std::equal(coloredWhite, b.coloredWhite, coloredWhite + 8);
+
 }
 
 Board::operator std::string() const {
