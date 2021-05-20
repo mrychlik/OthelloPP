@@ -37,14 +37,13 @@ void Board::flipToBlack(int x, int y) {
   coloredWhite[y] = coloredWhite[y] & (~(0x80 >> x));
 };
 
-Board::Board() {
+Board::Board() :
+  scoreInt(0)
+{
   for (int i = 0; i < 8; i++) {
     if (i < 5 && i > 2) {
       filled[i] = 0b00011000;
       coloredWhite[i] = (i==3)? 0b00001000:0b00010000;
-    } else {
-      filled[i] = 0;
-      coloredWhite[i] = 0;
     }
   }
   turnAndTile = 0b10000100; //white's turn and 4 pieces on Board
