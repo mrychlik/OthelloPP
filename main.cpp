@@ -56,7 +56,7 @@ int main() {
 
     //update tree values
     absTreeRoot.updateTreeDesireablility(curTileNum); //pass tileNum as update#, no repeats
-
+    
     //check for early game end
     if (possiblePlayerMove != nullptr) {
       if (!(possiblePlayerMove->anyLegalMoves(false) || possiblePlayerMove->anyLegalMoves(true))) {//no one has a move
@@ -92,7 +92,7 @@ int main() {
     treeLock.unlock();
 
     //garbage collect
-    garbageCollect(absTreeRoot, bestResponse);
+    // garbageCollect(absTreeRoot, bestResponse);
     absTreeRoot = bestResponse;
   }
   
