@@ -35,17 +35,17 @@ public:
   bool anyLegalMoves(bool) const;
   bool operator==(const Board&) const;
 
-  operator std::string() const { return toString(); };
+  operator std::string() const;
   
   friend std::ostream& operator<<(std::ostream& s, const Board& b);
 
-private:
+public:
 
   std::ostream& print(std::ostream& s, bool big = false) const;
   std::ostream& printSmall(std::ostream& s) const;
   std::ostream& printBig(std::ostream& s) const;
 
-
+private:
   char filled[8];
   char coloredWhite[8];
   char turnAndTile; //first bit is isWhite'sTurn, last 7 are number of tiles on board
