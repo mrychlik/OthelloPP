@@ -30,7 +30,7 @@ public:
   void updateTreeDesireablility(unsigned char upNum);
 
   Board::move_type getPlayerMove() const;
-  TreeNode* bestMove(const Board& possiblePlayerMove) const;
+  TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
 
 private:
   Board board;
