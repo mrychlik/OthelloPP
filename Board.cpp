@@ -269,7 +269,7 @@ bool Board::anyLegalMoves(bool playWhite) const {
 }
 
 bool Board::operator==(const Board& b) const {
-  // NOTE: IntScore omitted from comparison
+  // NOTE: IntScore is omitted from the comparison
   return ( turnAndTile == b.turnAndTile )
     && std::equal(filled, b.filled, filled + 8)
     && std::equal(coloredWhite, b.coloredWhite, coloredWhite + 8);
