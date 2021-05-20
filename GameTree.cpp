@@ -26,28 +26,27 @@ void TreeNode::expand(int minDepth, int maxDepth) {
     auto& current = queue.front();
     queue.pop_front(); //returns nothing, see previous line
 
-    if (current->generatedChildren) {
+    if (current->isExpanded) {
       for (TreeNode* a : current->downlinks) {
         queue.push_back(a);
       }
-    } else if (current->board.tileNum() < maxDepth){ 
-      auto move_bag = current->board.moves(current->board.whitesTurn());
+    } else if (current->tileNum() < maxDepth){ 
+      auto move_bag = current->moves(current->whitesTurn());
       if( move_bag.empty() ) {
-	move_bag = current->board.moves(!current->board.whitesTurn()); //check for play agains
+	move_bag = current->moves(!current->whitesTurn()); //check for play agains
       }
-      TreeNode* matched;
       for (auto m: move_bag) {
-        matched = nullptr;
+        TreeNode* matched = nullptr;
         //check for existing nodes in generation
 	auto board = std::get<2>(m);
         for (TreeNode* n : genStack) {// HELLA SLOW !!!!!!!!!!! FIX w/ custom PQ I guess
-          if( n->board == board) {
+          if( *n == board) {
             matched = n;
             break;
-          } else if( n->board.tileNum() <= current->board.tileNum() ) break; //only old ones there
+          } else if( n->tileNum() <= current->tileNum() ) break; //only old ones there
         }
         if (matched == nullptr) {
-          TreeNode out(board, std::deque<TreeNode*>(), 1, false, board.value());
+          TreeNode out(board);
           current->downlinks.push_front(&out); //possibly change value()
           queue.push_back(&out);
         } else {
@@ -55,12 +54,12 @@ void TreeNode::expand(int minDepth, int maxDepth) {
           queue.push_back(matched);
         }
       }
-      current->generatedChildren = true; //must happen after actual gen
+      current->isExpanded = true; //must happen after actual gen
     }
     genStack.push_front(current);
 
-    if (current->board.tileNum() > minDepth) {
-      if (current->board.tileNum() >= minDepth){
+    if (current->tileNum() > minDepth) {
+      if (current->tileNum() >= minDepth){
         std::cerr << "finished exploration early" << std::endl;
         return; //main is waiting, drop the queue.
       }
@@ -75,10 +74,10 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
   updateNumber = upNum;
   signed char curVal;
   bool initialized = false;
-  if (generatedChildren && !downlinks.empty()) {
+  if (isExpanded && !downlinks.empty()) {
     for (TreeNode* a : downlinks) {
       if (a->updateNumber != upNum) a->updateTreeDesireablility(upNum); //avoid recalcing when there are loops
-      if (board.whitesTurn()) {
+      if (whitesTurn()) {
         //since computer just played, the value of n should be the *greatest* of the downlinks, assume player is smart
         //(postive value is good for white, neg is good for black)
         //each is one possible player move
@@ -95,9 +94,9 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
         }
       }
     }
-    value = curVal;
+    this->value = curVal;
   } else {//no children
-    value = board.value();
+    this->value = value();
   }
 }
 
