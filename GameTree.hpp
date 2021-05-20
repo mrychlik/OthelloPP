@@ -29,6 +29,7 @@ public:
   }
   void expand(int minDepth, int maxDepth);
   void updateTreeDesireablility(unsigned char upNum);
+
   Board* getPlayerMove() const;
   TreeNode* bestMove(const Board& possiblePlayerMove) const;
 
