@@ -181,7 +181,6 @@ std::ostream& Board::printSmall(std::ostream& s) const {
 }
 
 std::ostream& Board::printBig(std::ostream& s) const {
-  const char esc = 27;
   std::string reset = "";
   reset.push_back(esc);
   reset.push_back('[');
