@@ -33,6 +33,9 @@ BOOST_AUTO_TEST_CASE(test_board_print_small)
 
 BOOST_AUTO_TEST_CASE(test_board_move)
 {
+  // TODO: Use several boards with known
+  // move bag as test cases
+
   Board b;
   auto move_bag = b.moves(true);
   for( auto& m : move_bag) {
