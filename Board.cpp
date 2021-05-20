@@ -94,7 +94,7 @@ int Board::tileNum () const {
 
 Board::move_bag_type Board::moves(bool playWhite) const
 {
-  move_bag_type retval;
+  move_bag_type move_bag;
   for( auto x = 0; x < 8; ++x) {
     for( auto y = 0; y < 8; ++y) {
       if (isFilled(x,y)) continue;
