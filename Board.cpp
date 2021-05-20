@@ -154,8 +154,12 @@ Board::moves(bool playWhite) const
 	    else c.flipToBlack(x + (d*order[r][0]), y + (d*order[r][1]));
 	  }
 	}
-	if (playWhite) c.flipToWhite(x,y); //place new tile
-	else c.flipToBlack(x,y);
+
+	if( playWhite ) {
+	  c.flipToWhite(x,y);	//place new tile
+	} else {
+	  c.flipToBlack(x,y);
+	}
 
 	numFlipped = 2 * numFlipped + 1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
 
@@ -167,7 +171,7 @@ Board::moves(bool playWhite) const
 	} else {
 	  c.scoreInt = scoreInt + numFlipped; //play white, score increases
 	}
-	c.numTiles = tn;
+	//c.numTiles = tn;
 	move_bag.push_back(move_type(x, y, c));
       }
     }
