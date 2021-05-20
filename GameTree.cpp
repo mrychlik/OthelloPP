@@ -152,13 +152,21 @@ Board* TreeNode::getPlayerMove() {
   return board->move(true, x, y);
 }
 
-//must be called after update and after getPlayerMove
-//imporart that root be the Node *before* the player's move. Enables catching no player moves
-//should work as long as there are *any* legal moves, for white or black
+/** 
+ * TODO: Something should go here.
+ * must be called after update and after getPlayerMove
+ * imporart that root be the Node *before* the player's move. Enables catching no player moves
+ * should work as long as there are *any* legal moves, for white or black
+ * 
+ * 
+ * @param possiblePlayerMove 
+ * 
+ * @return 
+ */
 TreeNode* TreeNode::bestMove(Board* possiblePlayerMove) {
   if (possiblePlayerMove != nullptr) {
     //return most desirable grandchild of player child
-    for (TreeNode* a : root->downlinks) {
+    for (TreeNode* a : downlinks) {
       if (*(a->board) == *possiblePlayerMove) { //branch of the players latest move
         for (TreeNode* b : a->downlinks) {
           if (b->value == a->value) { //is the best of said options
@@ -170,8 +178,8 @@ TreeNode* TreeNode::bestMove(Board* possiblePlayerMove) {
     return nullptr; //dummy return, idk if that matters, should be fine, as long as passed board is legal
   } else {
     //pick best child of root
-    for (TreeNode* a : root->downlinks) { 
-      if (a->value == root->value) { //best of options
+    for (TreeNode* a : downlinks) { 
+      if (a->value == value) { //best of options
         return a;
       }
     }
