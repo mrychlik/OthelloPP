@@ -10,6 +10,9 @@
 
 #include "Board.hpp"
 
+#include <iostream>
+#include <sstream>
+
 const int order[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
 bool Board::isFilled(int x, int y) const {
@@ -160,7 +163,7 @@ std::ostream& Board::printSmall(std::ostream& s) const {
   s << " 01234567\n";
   const char esc = 27;
   for (int y = 0; y < 8; y++) {
-    out += std::to_string(y);
+    s << y;
     for (int x = 0; x < 8; x++) {
       auto bg = (y%2 == x%2)? "42":"43";
       auto fg = (isWhite(x,y))? "37":"30";
@@ -171,8 +174,8 @@ std::ostream& Board::printSmall(std::ostream& s) const {
     }
     s << esc << "[0m" << y << "\n"
       << " 01234567\n";
-    return s;
   }
+  return s;
 }
 
 std::ostream& Board::printBig(std::ostream& s) const {
@@ -187,7 +190,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
     << "  0  1  2  3  4  5  6  7 \n";
 
   for (int y = 0; y < 8; y++) {
-    out += " ";
+    s << " ";
     for (int c = 0; c < 8; c++) {
       auto bg = (c%2 == y%2)? "42":"43";
       s << esc
@@ -285,5 +288,8 @@ bool Board::operator==(const Board& b) const {
   return true;
 }
 
-operator Board::std::string() const {
+Board::operator std::string() const {
+  std::stringstream buf;
+  buf << *this;
+  return buf.str();
 }
