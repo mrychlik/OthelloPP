@@ -39,9 +39,10 @@ void Board::flipToBlack(int x, int y) {
 
 Board::Board() :
   scoreInt(0),
-  turnAndTile(0b10000100), // white's turn and 4 pieces on Board  
-  filled(),		   // Necessary for 0 initialization
-  coloredWhite()	   // Ditto
+  turn(1),			// white's turn and 
+  numTiles(4),			//4 pieces on Board  
+  filled(),			// Necessary for 0 initialization
+  coloredWhite()		// Ditto
 {
   // Standard Othello board initialization
   filled[3] = filled[4] = 0b00011000;
