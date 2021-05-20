@@ -14,6 +14,7 @@
 #include <sstream>
 
 static const char esc = '';
+static const std::string reset = "['0m";
 
 static const int order[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
@@ -181,11 +182,6 @@ std::ostream& Board::printSmall(std::ostream& s) const {
 }
 
 std::ostream& Board::printBig(std::ostream& s) const {
-  std::string reset = "";
-  reset.push_back(esc);
-  reset.push_back('[');
-  reset += "0m";
-
   s << esc << "[1;1H" << esc
     << "[0J"
     << "  0  1  2  3  4  5  6  7 \n";
