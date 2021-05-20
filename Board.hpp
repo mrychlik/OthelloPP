@@ -20,7 +20,9 @@
 
 
 class Board {
-  typedef std::vector<std::tuple<int, int, Board>> move_bag_type;
+public:
+  typedef std::tuple<int, int, Board> move_type;
+  typedef std::vector<move_type> move_bag_type;
 
 public:
   Board();
