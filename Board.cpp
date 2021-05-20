@@ -172,9 +172,9 @@ std::ostream& Board::printSmall(std::ostream& s) const {
       //out += esc + "[" + fg + ";" + bg + "m" + tile;
       s << esc << '[' << fg << ';' << bg << 'm' << tile;
     }
-    s << esc << "[0m" << y << "\n"
-      << " 01234567\n";
   }
+  s << esc << "[0m" << y << "\n"
+    << " 01234567\n";
   return s;
 }
 
