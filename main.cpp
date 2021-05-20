@@ -12,8 +12,9 @@
 #include <string>
 #include <cstring>
 
-#include "Board.hpp"
 #include "GameTree.hpp"
+#include "Board.hpp"
+
 
 #ifndef deque
 #include <deque>
@@ -35,24 +36,26 @@ int main() {
   //declare+initialize
   TreeNode absTreeRoot(new Board(), std::deque<TreeNode*>(), 1, false, 0); //0 value? idk, should not matter
 
-  TreeNode* bestResponse;
-  std::thread treeGenerator;
-  int mind = 4, maxd = 6;
-  int curTileNum;
+  const int mind = 4, maxd = 6;
 
-  std::cout << absTreeRoot->board << std::endl;
+  std::cout << absTreeRoot.board << std::endl;
 
-  while(absTreeRoot->board->tileNum() != 64) {
-    curTileNum = absTreeRoot->board->tileNum();
+  while(absTreeRoot.board->tileNum() != 64) {
+    auto curTileNum = absTreeRoot.board->tileNum();
 
     //start tree generation
-    treeGenerator = std::thread(expandTree, absTreeRoot, (curTileNum+mind), (curTileNum+maxd)); 
+    auto treeGenerator = std::thread( ( [&absTreeRoot] (int minDepth, int maxDepth) -> void
+				 {
+				   absTreeRoot.expand(minDepth, maxDepth);
+				 }),
+				 (curTileNum + mind),
+				 (curTileNum + maxd)); 
 
     //get player move, if there is one
-    Board* possiblePlayerMove = getPlayerMove(absTreeRoot);
+    Board* possiblePlayerMove = absTreeRoot.getPlayerMove();
 
     //update tree values
-    updateTreeDesireablility(absTreeRoot, curTileNum); //pass tileNum as update#, no repeats
+    absTreeRoot.updateTreeDesireablility(curTileNum); //pass tileNum as update#, no repeats
 
     //check for early game end
     if (possiblePlayerMove != nullptr) {
@@ -67,10 +70,10 @@ int main() {
         return 0;
       }
     } else {//player can't move, check for possible cpu moves
-      if (!absTreeRoot->board->anyLegalMoves(false)) {//black has no moves, game ends
+      if (!absTreeRoot.board->anyLegalMoves(false)) {//black has no moves, game ends
         std::cout << "No possible moves for either player, ending game" << std::endl;
-        if (absTreeRoot->board->score() > 0) std::cout << "White Wins";
-        else if (absTreeRoot->board->score() < 0) std::cout << "Black Wins";
+        if (absTreeRoot.board->score() > 0) std::cout << "White Wins";
+        else if (absTreeRoot.board->score() < 0) std::cout << "Black Wins";
         else std::cout << "Tie";
         std::cout << std::endl;
         return 0;
@@ -78,10 +81,10 @@ int main() {
     }
 
     //get best move + do so
-    bestResponse = bestMove(absTreeRoot, possiblePlayerMove);
+    auto bestResponse = absTreeRoot.bestMove(possiblePlayerMove);
 
     //print board state
-    std::cout << bestResponse->board << std::endl;
+    std::cout << bestResponse.board << std::endl;
 
     //stop gen tread
     treeLock.lock();
@@ -97,8 +100,8 @@ int main() {
   treeLock.lock();
   if (treeGenerator.joinable()) treeGenerator.join(); //hopefully this catches it finishing between this and previous line
   std::cout << "No possible moves for either player, ending game" << std::endl;
-  if (absTreeRoot->board->score() > 0) std::cout << "White Wins";
-  else if (absTreeRoot->board->score() < 0) std::cout << "Black Wins";
+  if (absTreeRoot.board->score() > 0) std::cout << "White Wins";
+  else if (absTreeRoot.board->score() < 0) std::cout << "Black Wins";
   else std::cout << "Tie";
   std::cout << std::endl;
   return 0;
