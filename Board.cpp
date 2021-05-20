@@ -122,7 +122,7 @@ Board::moves(bool playWhite) const
 	  } else if( !isFilled(tmpx,tmpy) ) {
 	    end = 2;		//ran into an empty space
 	  } else if( isWhite(tmpx,tmpy) == playWhite) {
-	    end = (distance > 1)? 3:4; //ran into own color late vs early
+	    end = (distance > 1)? 3 : 4; //ran into own color late vs early
 	  } else {
 	    distance++;
 	  }
