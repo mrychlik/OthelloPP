@@ -5,8 +5,9 @@ all: main test_suite
 
 main.o: Board.hpp
 Board.o: Board.hpp
+GameTree.o: GameTree.hpp
 
-OBJS = main.o Board.o
+OBJS = main.o Board.o GameTree.o
 main: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
