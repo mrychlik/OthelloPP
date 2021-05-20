@@ -34,14 +34,14 @@ std::mutex treeLock; //starts unlocked
 
 int main() {
   //declare+initialize
-  TreeNode absTreeRoot(new Board(), std::deque<TreeNode*>(), 1, false, 0); //0 value? idk, should not matter
+  TreeNode absTreeRoot(Board(), std::deque<TreeNode*>(), 1, false, 0); //0 value? idk, should not matter
 
   const int mind = 4, maxd = 6;
 
   std::cout << absTreeRoot.board << std::endl;
 
-  while(absTreeRoot.board->tileNum() != 64) {
-    auto curTileNum = absTreeRoot.board->tileNum();
+  while(absTreeRoot.board.tileNum() != 64) {
+    auto curTileNum = absTreeRoot.board.tileNum();
     
     //start tree generation
     auto treeGenerator = std::thread( ( [&absTreeRoot] (int minDepth, int maxDepth) -> void
@@ -52,28 +52,30 @@ int main() {
 				 (curTileNum + maxd)); 
 
     //get player move, if there is one
-    Board* possiblePlayerMove = absTreeRoot.getPlayerMove();
+    try {
+      auto possiblePlayerMove = absTreeRoot.getPlayerMove();
 
-    //update tree values
-    absTreeRoot.updateTreeDesireablility(curTileNum); //pass tileNum as update#, no repeats
+      //update tree values
+      absTreeRoot.updateTreeDesireablility(curTileNum); //pass tileNum as update#, no repeats
     
     //check for early game end
-    if (possiblePlayerMove != nullptr) {
-      if (!(possiblePlayerMove->anyLegalMoves(false) || possiblePlayerMove->anyLegalMoves(true))) {//no one has a move
-        treeLock.lock();
-        if (treeGenerator.joinable()) treeGenerator.join(); //hopefully this catches it finishing between this and previous line
+      auto board = std::get<2>(possiblePlayerMove);
+      auto moves_black = board.moves(false);
+      auto moves_white = board.moves(true);
+      if ( moves_black.empty() && moves_white.empty()) {//no one has a move
         std::cout << "No possible moves for either player, ending game" << std::endl;
-        if (possiblePlayerMove->score() > 0) std::cout << "White Wins";
-        else if (possiblePlayerMove->score() < 0) std::cout << "Black Wins";
+        if (board.score() > 0) std::cout << "White Wins";
+        else if (board.score() < 0) std::cout << "Black Wins";
         else std::cout << "Tie";
         std::cout << std::endl;
         return 0;
       }
-    } else {//player can't move, check for possible cpu moves
-      if (!absTreeRoot.board->anyLegalMoves(false)) {//black has no moves, game ends
+    } catch(...) {
+      //player can't move, check for possible cpu moves
+      if ( moves_black.empty() ) {//black has no moves, game ends
         std::cout << "No possible moves for either player, ending game" << std::endl;
-        if (absTreeRoot.board->score() > 0) std::cout << "White Wins";
-        else if (absTreeRoot.board->score() < 0) std::cout << "Black Wins";
+        if (absTreeRoot.board.score() > 0) std::cout << "White Wins";
+        else if (absTreeRoot.board.score() < 0) std::cout << "Black Wins";
         else std::cout << "Tie";
         std::cout << std::endl;
         return 0;
