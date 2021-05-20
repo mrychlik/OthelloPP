@@ -9,6 +9,8 @@
  */
 
 #include "GameTree.hpp"
+#include "Board.hpp"
+#include <iostream>
 
 
 void TreeNode::expand(int minDepth, int maxDepth) {
@@ -16,12 +18,12 @@ void TreeNode::expand(int minDepth, int maxDepth) {
 
   //return and make this a cleaner generational check, but this will work for now
   std::deque<TreeNode*> genStack = std::deque<TreeNode*>();
-  std::deque<TreeNode*> queue = std::deque<TreeNode*>();
+  std::deque<TreeNode*> queue    = std::deque<TreeNode*>();
   
-  queue.push_back(root);
-  TreeNode* current;
+  queue.push_back(this);
+
   while (!queue.empty()) {
-    current = queue.front();
+    auto& current = queue.front();
     queue.pop_front(); //returns nothing, see previous line
 
     if (current->generatedChildren) {
@@ -29,10 +31,12 @@ void TreeNode::expand(int minDepth, int maxDepth) {
         queue.push_back(a);
       }
     } else if (current->board->tileNum() < maxDepth){ 
-      std::deque<Board*> children = current->board->children(current->board->whitesTurn());
-      if (children.empty()) children = current->board->children(!current->board->whitesTurn()); //check for play agains
+      auto move_bag = current->board->moves(current->board->whitesTurn());
+      if( move_bag.empty() ) {
+	move_bag = current->board->moves(!current->board->whitesTurn()); //check for play agains
+      }
       TreeNode* matched;
-      for (Board* b : children) {
+      for (auto move: move_bag) {
         matched = nullptr;
         //check for existing nodes in generation
         for (TreeNode* n : genStack) {// HELLA SLOW !!!!!!!!!!! FIX w/ custom PQ I guess
@@ -43,10 +47,9 @@ void TreeNode::expand(int minDepth, int maxDepth) {
           } else if (n->board->tileNum() <= current->board->tileNum()) break; //only old ones there
         }
         if (matched == nullptr) {
-          TreeNode* out = new TreeNode();
-          *out = tn(b, std::deque<TreeNode*>(), 1, false, b->value());
-          current->downlinks.push_front(out); //possibly change value()
-          queue.push_back(out);
+          TreeNode out(b, std::deque<TreeNode*>(), 1, false, b->value());
+          current->downlinks.push_front(&out); //possibly change value()
+          queue.push_back(&out);
         } else {
           current->downlinks.push_front(matched);
           matched->referenceCount++;
@@ -58,10 +61,7 @@ void TreeNode::expand(int minDepth, int maxDepth) {
     genStack.push_front(current);
 
     if (current->board->tileNum() > minDepth) {
-      if (treeLock.try_lock()) {
-        //succeeds in locking, no sweat. keep working
-        treeLock.unlock();
-      } else if (current->board->tileNum() >= minDepth){
+      if (current->board->tileNum() >= minDepth){
         std::cerr << "finished exploration early" << std::endl;
         return; //main is waiting, drop the queue.
       }
@@ -78,7 +78,7 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
   bool initialized = false;
   if (generatedChildren && !downlinks.empty()) {
     for (TreeNode* a : downlinks) {
-      if (a->updateNumber != upNum) updateTreeDesireablility(a,upNum); //avoid recalcing when there are loops
+      if (a->updateNumber != upNum) a->updateTreeDesireablility(upNum); //avoid recalcing when there are loops
       if (board->whitesTurn()) {
         //since computer just played, the value of n should be the *greatest* of the downlinks, assume player is smart
         //(postive value is good for white, neg is good for black)
@@ -102,26 +102,8 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
   }
 }
 
-//must be called as only thread on tree to avoid segfaults
-void garbageCollect(TreeNode* oldRoot, TreeNode* newRoot) {  
-  std::deque<TreeNode*> toDel = std::deque<TreeNode*>(); //dfs
-  toDel.push_front(oldRoot);
-  TreeNode* current;
-  while (!toDel.empty()) {
-    current = toDel.front();
-    toDel.pop_front();
-    if (--(current->referenceCount) == 0 && current != newRoot) {
-      if (current->generatedChildren) {
-        for (TreeNode* a : current->downlinks) toDel.push_front(a);
-      }
-      delete current->board;
-      delete current;
-    }
-  }
-}
-
 //return tileNum=0 if no moves available
-Board* TreeNode::getPlayerMove() {
+Board* TreeNode::getPlayerMove() const {
   if (!board->anyLegalMoves(true)) { //moves for white
     throw "No moves for white.";
   }
@@ -163,27 +145,17 @@ Board* TreeNode::getPlayerMove() {
  * 
  * @return 
  */
-TreeNode* TreeNode::bestMove(Board* possiblePlayerMove) {
-  if (possiblePlayerMove != nullptr) {
-    //return most desirable grandchild of player child
-    for (TreeNode* a : downlinks) {
-      if (*(a->board) == *possiblePlayerMove) { //branch of the players latest move
-        for (TreeNode* b : a->downlinks) {
-          if (b->value == a->value) { //is the best of said options
-            return b; 
-          }
-        }
+TreeNode* TreeNode::bestMove(const Board& possiblePlayerMove) const {
+  //return most desirable grandchild of player child
+  for (TreeNode* a : downlinks) {
+    if (*(a->board) == *possiblePlayerMove) { //branch of the players latest move
+      for (TreeNode* b : a->downlinks) {
+	if (b->value == a->value) { //is the best of said options
+	  return b; 
+	}
       }
     }
-    return nullptr; //dummy return, idk if that matters, should be fine, as long as passed board is legal
-  } else {
-    //pick best child of root
-    for (TreeNode* a : downlinks) { 
-      if (a->value == value) { //best of options
-        return a;
-      }
-    }
-    return nullptr; //same as above, dummy
   }
+  return nullptr; //dummy return, idk if that matters, should be fine, as long as passed board is legal
 }
 
