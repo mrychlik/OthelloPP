@@ -34,8 +34,11 @@ BOOST_AUTO_TEST_CASE(test_board_print_small)
 BOOST_AUTO_TEST_CASE(test_board_move)
 {
   Board b;
-  auto c = b.move(true, 5, 4);
-  std::cout << c;
-  
+  auto move_bag = b.moves(true);
+  for( auto& m : move_bag) {
+    std::cout << std::get<0>(m) << "\n"
+	      << std::get<1>(m) << "\n"
+	      << std::get<2>(m) << "\n";
+  }
 }
 
