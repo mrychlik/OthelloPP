@@ -15,19 +15,30 @@
 #include "Board.hpp"
 
 //should I mark some/all as volatile? return to think about, update and gen work at same time I think
-class TreeNode {
+class TreeNode : public Board {
 public:
-  Board board;
-
-  TreeNode(const Board& b, std::deque<TreeNode*> d, unsigned char r, bool g, signed char v)
-    : board(b),
-      downlinks(d),
-      referenceCount(r),
-      generatedChildren(g),
+  /** 
+   * Constructor of a node with a given board.
+   * 
+   * @param b 
+   * 
+   * @return 
+   */
+  TreeNode(const Board& b = Board())
+    : Board(b),
+      isExpanded(false),
       updateNumber(0),
-      value(v)
+      value(b.value())
   {      
   }
+  
+  /** 
+   * Expands nodes whose depth falls in the range
+   * [minDepth, maxDepth).
+   * 
+   * @param minDepth 
+   * @param maxDepth 
+   */
   void expand(int minDepth, int maxDepth);
   void updateTreeDesireablility(unsigned char upNum);
 
@@ -37,8 +48,7 @@ public:
 private:
 
   std::deque<TreeNode*> downlinks;
-  unsigned char referenceCount;
-  bool generatedChildren;
+  bool isExpanded;
   unsigned char updateNumber;
   signed char value; //TDB, need to consider what counts as valuable
 };
