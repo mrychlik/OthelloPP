@@ -89,7 +89,7 @@ int Board::value() const {
 }
 
 int Board::tileNum () const {
-  return turnAndTile & 0b01111111; //last seven bits
+  return turnAndTile & 0x7F; //last seven bits
 }
 
 Board* Board::move(bool playWhite, int x, int y) {
@@ -136,7 +136,7 @@ Board* Board::move(bool playWhite, int x, int y) {
     else c->flipToBlack(x,y);
 
     numFlipped = (2*numFlipped)+1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
-    char tn = (this->turnAndTile & 0b01111111) + 1;
+    char tn = (this->turnAndTile & 0x7F) + 1;
     if (!playWhite) {
       tn = tn | 0x80; //change turn back. if just played white, then its B's turn and it can stay as a 0;
       c->scoreInt = this->scoreInt - numFlipped; //play black, score decreases
