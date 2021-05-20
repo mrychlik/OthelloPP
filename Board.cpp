@@ -107,7 +107,7 @@ Board::move_bag_type Board::moves(bool playWhite) const
 	  tmpx = x + distance * order[ray][0];
 	  tmpy = y + distance * order[ray][1];
 
-	  if (tmpx < 0 || tmpx > 7 || tmpy < 0 || tmpy > 7) {
+	  if ( tmpx < 0 || tmpx > 7 || tmpy < 0 || tmpy > 7 ) {
 	    end = 1;		//ran off edge
 	  } else if( !isFilled(tmpx,tmpy) ) {
 	    end = 2;		//ran into an empty space
