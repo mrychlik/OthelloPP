@@ -52,7 +52,6 @@ void TreeNode::expand(int minDepth, int maxDepth) {
           queue.push_back(&out);
         } else {
           current->downlinks.push_front(matched);
-          matched->referenceCount++;
           queue.push_back(matched);
         }
       }
@@ -153,12 +152,12 @@ TreeNode::getPlayerMove() const {
  * 
  * @return 
  */
-Board::move_type TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
+TreeNode*
+TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
   //return most desirable grandchild of player child
   auto& board = std::get<2>(possiblePlayerMove);
-  for (auto m : downlinks) {
-    auto& c = std::get<2>(m);
-    if (c == board) { //branch of the players latest move
+  for (auto a : downlinks) {
+    if (a->board == board) { //branch of the players latest move
       for (auto b : a->downlinks) {
 	if (b->value == a->value) { //is the best of said options
 	  return b; 
