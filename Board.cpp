@@ -114,6 +114,7 @@ Board::moves(bool playWhite) const
       for (int ray = 0; ray < 8; ray++) { //iter over cardinal + diagonals
 	distance = 1;
 	end = 0;
+
 	while (end == 0) {
 	  tmpx = x + distance * order[ray][0];
 	  tmpy = y + distance * order[ray][1];
