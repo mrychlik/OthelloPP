@@ -167,7 +167,7 @@ Board::moves(bool playWhite) const
 	  c.flipToBlack(x,y);
 	}
 
-	numFlipped = 2 * numFlipped + 1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
+	numFlipped = 2*numFlipped + 1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
 
 	c.numTiles = numTiles + 1;
 	if (!playWhite) {
