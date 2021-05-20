@@ -153,7 +153,7 @@ Board::moves(bool playWhite) const
 	  }
 
 	  for (int d = 1; d < toFlip[r]; d++) { //above calced length
-	    if(playWhite) {
+	    if( playWhite ) {
 	      c.flipToWhite(x + (d*order[r][0]), y + (d*order[r][1])); //update Board c according to color
 	    } else {
 	      c.flipToBlack(x + (d*order[r][0]), y + (d*order[r][1]));
