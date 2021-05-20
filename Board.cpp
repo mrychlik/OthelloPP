@@ -92,7 +92,8 @@ int Board::tileNum () const {
   return turnAndTile & 0x7F; //last seven bits
 }
 
-Board::move_bag_type Board::moves(bool playWhite) const
+Board::move_bag_type
+Board::moves(bool playWhite) const
 {
   move_bag_type move_bag;
   for( auto x = 0; x < 8; ++x) {
