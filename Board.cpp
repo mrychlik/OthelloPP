@@ -199,8 +199,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
 	<< 'm'
 	<< "   ";
     }  
-    s << reset + "\n"
-      << y;
+    s << reset << "\n" << y;
     for (int x = 0; x < 8; x++) {
       auto bg = (y%2 == x%2)? "42":"43";
       auto fg = (isWhite(x,y))? "37":"30";
