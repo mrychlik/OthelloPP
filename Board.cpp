@@ -14,7 +14,7 @@
 #include <sstream>
 
 static const char esc = '';
-static const std::string reset = "['0m";
+static const std::string reset = "[0m";
 
 static const int order[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
