@@ -17,7 +17,7 @@ void TreeNode::expand(int minDepth, int maxDepth) {
   //return and make this a cleaner generational check, but this will work for now
   std::deque<TreeNode*> genStack = std::deque<TreeNode*>();
   std::deque<TreeNode*> queue = std::deque<TreeNode*>();
-
+  
   queue.push_back(root);
   TreeNode* current;
   while (!queue.empty()) {
@@ -121,8 +121,8 @@ void garbageCollect(TreeNode* oldRoot, TreeNode* newRoot) {
 }
 
 //return tileNum=0 if no moves available
-Board* getPlayerMove(TreeNode* currentRoot) {
-  if (!currentRoot->board->anyLegalMoves(true)) { //moves for white
+Board* TreeNode::getPlayerMove() {
+  if (!board->anyLegalMoves(true)) { //moves for white
     throw "No moves for white.";
   }
   int x,y;
@@ -145,17 +145,17 @@ Board* getPlayerMove(TreeNode* currentRoot) {
     throw "Invalid input";
   }
     
-  if (!currentRoot->board->isLegal(true, x , y)) {//no good
+  if (!board->isLegal(true, x , y)) {//no good
     std::cerr << "Move is invalid: " << x << ", " << y << "\n";
     throw "Invalid move";
   }
-  return currentRoot->board->move(true, x, y);
+  return board->move(true, x, y);
 }
 
 //must be called after update and after getPlayerMove
 //imporart that root be the Node *before* the player's move. Enables catching no player moves
 //should work as long as there are *any* legal moves, for white or black
-TreeNode* bestMove(TreeNode* root, Board* possiblePlayerMove) {
+TreeNode* TreeNode::bestMove(Board* possiblePlayerMove) {
   if (possiblePlayerMove != nullptr) {
     //return most desirable grandchild of player child
     for (TreeNode* a : root->downlinks) {
