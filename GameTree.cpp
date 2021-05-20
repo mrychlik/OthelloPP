@@ -95,7 +95,7 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
       }
     }
     this->value = curVal;
-  } else {//no children
+  } else {			//no children
     this->value = value();
   }
 }
