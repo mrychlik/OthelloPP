@@ -63,7 +63,7 @@ int main() {
       //update tree values
       absTreeRoot.updateTreeDesireablility(curTileNum); //pass tileNum as update#, no repeats
     
-    //check for early game end
+      //check for early game end
       auto board = std::get<2>(possiblePlayerMove);
       auto moves_black = board.moves(false);
       auto moves_white = board.moves(true);
