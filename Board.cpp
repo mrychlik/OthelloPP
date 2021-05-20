@@ -98,7 +98,7 @@ int Board::tileNum () const {
  * @param playWhite 
  * 
  * @return A list of triples (x, y, board) such
- *         that board is the board after move (x, y)
+ *         that board is the board after a valid move (x, y)
  *         is made.
  */
 Board::move_bag_type
@@ -246,35 +246,9 @@ bool Board::whitesTurn() const {
   return ((turnAndTile & 0x80) != 0);
 }
 
-bool Board::isLegal(bool playWhite, int x, int y) const { //slightly modified version of move()
-  if (x > 7 || x < 0 || y > 7 || y < 0) return false;
-  if (isFilled(x,y)) return false;
-  int tmpx, tmpy, distance, end;
-  for (int ray = 0; ray < 8; ray++) { //iter over cardinal + diagonals
-    distance = 1;
-    end = 0;
-    while (end == 0) {
-      tmpx = x + (distance*order[ray][0]);
-      tmpy = y + (distance*order[ray][1]);
-
-      if (tmpx < 0 || tmpx > 7 || tmpy < 0 || tmpy > 7) end = 1; //ran off edge
-      else if (!isFilled(tmpx,tmpy)) end = 2; //ran into an empty space
-      else if (isWhite(tmpx,tmpy) == playWhite) end = (distance > 1)? 3:4; //ran into own color late vs early
-      else distance++;
-    }
-    if (end == 3) return true;
-  } 
-
-  return false;
-}
 
 bool Board::anyLegalMoves(bool playWhite) const {
-  for (int x = 0; x < 8; x++) {
-    for (int y = 0; y < 8; y++) {
-      if (isLegal(playWhite,x,y)) return true;
-    }
-  }
-  return false;
+  return !moves(playWhite).empty();
 }
 
 bool Board::operator==(const Board& b) const {
