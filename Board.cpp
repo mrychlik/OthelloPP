@@ -90,7 +90,7 @@ int Board::value() const {
 }
 
 int Board::tileNum () const {
-  return turnAndTile & 0x7F; //last seven bits
+  return numTiles;
 }
 
 /** 
@@ -157,15 +157,17 @@ Board::moves(bool playWhite) const
 	if (playWhite) c.flipToWhite(x,y); //place new tile
 	else c.flipToBlack(x,y);
 
-	numFlipped = (2*numFlipped)+1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
-	char tn = (this->turnAndTile & 0x7F) + 1;
+	numFlipped = 2 * numFlipped + 1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
+
+	c.numTiles = numTiles + 1;
 	if (!playWhite) {
-	  tn = tn | 0x80; //change turn back. if just played white, then its B's turn and it can stay as a 0;
-	  c.scoreInt = this->scoreInt - numFlipped; //play black, score decreases
+	  // change turn back. if just played white, then its B's turn and no change
+	  c.turn = 1; 
+	  c.scoreInt = scoreInt - numFlipped; //play black, score decreases
 	} else {
-	  c.scoreInt = this->scoreInt + numFlipped; //play white, score increases
+	  c.scoreInt = scoreInt + numFlipped; //play white, score increases
 	}
-	c.turnAndTile = tn;
+	c.numTiles = tn;
 	move_bag.push_back(move_type(x, y, c));
       }
     }
@@ -244,7 +246,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
 }
 
 bool Board::whitesTurn() const {
-  return ((turnAndTile & 0x80) != 0);
+  return turn;
 }
 
 
@@ -254,7 +256,8 @@ bool Board::anyLegalMoves(bool playWhite) const {
 
 bool Board::operator==(const Board& b) const {
   // NOTE: IntScore is omitted from the comparison
-  return ( turnAndTile == b.turnAndTile )
+  return  turn == b.turn
+    && numTiles == b.numTiles
     && std::equal(filled, b.filled, filled + 8)
     && std::equal(coloredWhite, b.coloredWhite, coloredWhite + 8);
 }
