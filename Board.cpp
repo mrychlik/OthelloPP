@@ -43,6 +43,7 @@ Board::Board() :
   filled(),		   // Necessary for 0 initialization
   coloredWhite()	   // Ditto
 {
+  // Standard Othello board initialization
   filled[3] = filled[4] = 0b00011000;
   coloredWhite[3] = 0b00001000;
   coloredWhite[4] = 0b00010000;
