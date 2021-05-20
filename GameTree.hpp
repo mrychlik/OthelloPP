@@ -12,13 +12,12 @@
 #define GAME_TREE_HPP 1
 
 #include <deque>
-
-class Board;
+#include "Board.hpp"
 
 //should I mark some/all as volatile? return to think about, update and gen work at same time I think
 class TreeNode {
 public:
-  TreeNode(Board* b, std::deque<TreeNode*> d, unsigned char r, bool g, signed char v)
+  TreeNode(const Board& b, std::deque<TreeNode*> d, unsigned char r, bool g, signed char v)
     : board(b),
       downlinks(d),
       referenceCount(r),
@@ -30,11 +29,11 @@ public:
   void expand(int minDepth, int maxDepth);
   void updateTreeDesireablility(unsigned char upNum);
 
-  Board* getPlayerMove() const;
+  Board::move_type getPlayerMove() const;
   TreeNode* bestMove(const Board& possiblePlayerMove) const;
 
 private:
-  Board* board;
+  Board board;
   std::deque<TreeNode*> downlinks;
   unsigned char referenceCount;
   bool generatedChildren;
