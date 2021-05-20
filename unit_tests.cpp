@@ -45,3 +45,32 @@ BOOST_AUTO_TEST_CASE(test_board_move)
   }
 }
 
+BOOST_AUTO_TEST_CASE(test_board_move_fancy)
+{
+  // TODO: Use several boards with known
+  // move bag as test cases
+
+  Board b;
+  auto move_bag = b.moves(true);
+  for( auto& m : move_bag) {
+    auto [x, y, board] = m;
+    std::cout << "x: " << x << ", "
+	      << "y: " << y << "\n"
+	      << board << "\n";
+  }
+}
+
+BOOST_AUTO_TEST_CASE(test_board_move_text)
+{
+  // TODO: Use several boards with known
+  // move bag as test cases
+
+  Board b;
+  auto move_bag = b.moves(true);
+  for( auto& m : move_bag) {
+    auto [x, y, board] = m;
+    std::cout << "x: " << x << ", "
+	      << "y: " << y << "\n";
+  }
+}
+
