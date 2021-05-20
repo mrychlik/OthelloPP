@@ -273,7 +273,6 @@ bool Board::operator==(const Board& b) const {
   return ( turnAndTile == b.turnAndTile )
     && std::equal(filled, b.filled, filled + 8)
     && std::equal(coloredWhite, b.coloredWhite, coloredWhite + 8);
-
 }
 
 Board::operator std::string() const {
