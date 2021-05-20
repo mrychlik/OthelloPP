@@ -92,6 +92,15 @@ int Board::tileNum () const {
   return turnAndTile & 0x7F; //last seven bits
 }
 
+/** 
+ * Generate all moves.
+ * 
+ * @param playWhite 
+ * 
+ * @return A list of triples (x, y, board) such
+ *         that board is the board after move (x, y)
+ *         is made.
+ */
 Board::move_bag_type
 Board::moves(bool playWhite) const
 {
