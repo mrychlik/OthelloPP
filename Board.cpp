@@ -19,21 +19,21 @@ static const std::string reset = "[0m";
 static const int order[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
 bool Board::isFilled(int x, int y) const {
-  return (filled[y] & (0b10000000 >> x));
+  return (filled[y] & (0x80 >> x));
 };
 
 bool Board::isWhite(int x, int y) const {
-  return (coloredWhite[y] & (0b10000000 >> x));
+  return (coloredWhite[y] & (0x80 >> x));
 };
 
 void Board::flipToWhite(int x, int y) {
-  filled[y] = filled[y] | (0b10000000 >> x);
-  coloredWhite[y] = coloredWhite[y] | (0b10000000 >> x);
+  filled[y] = filled[y] | (0x80 >> x);
+  coloredWhite[y] = coloredWhite[y] | (0x80 >> x);
 };
 
 void Board::flipToBlack(int x, int y) {
-  filled[y] = filled[y] | (0b10000000 >> x);
-  coloredWhite[y] = coloredWhite[y] & (~(0b10000000 >> x));
+  filled[y] = filled[y] | (0x80 >> x);
+  coloredWhite[y] = coloredWhite[y] & (~(0x80 >> x));
 };
 
 Board::Board() {
@@ -137,7 +137,7 @@ Board* Board::move(bool playWhite, int x, int y) {
     numFlipped = (2*numFlipped)+1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
     char tn = (this->turnAndTile & 0b01111111) + 1;
     if (!playWhite) {
-      tn = tn | 0b10000000; //change turn back. if just played white, then its B's turn and it can stay as a 0;
+      tn = tn | 0x80; //change turn back. if just played white, then its B's turn and it can stay as a 0;
       c->scoreInt = this->scoreInt - numFlipped; //play black, score decreases
     } else {
       c->scoreInt = this->scoreInt + numFlipped; //play white, score increases
@@ -233,7 +233,7 @@ std::deque<Board*> Board::children (bool playingWhite) {
 }
 
 bool Board::whitesTurn() const {
-  return ((turnAndTile & 0b10000000) != 0);
+  return ((turnAndTile & 0x80) != 0);
 }
 
 bool Board::isLegal(bool playWhite, int x, int y) const { //slightly modified version of move()
