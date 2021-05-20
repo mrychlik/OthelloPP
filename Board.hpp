@@ -49,10 +49,13 @@ private:
   std::ostream& printSmall(std::ostream& s) const;
   std::ostream& printBig(std::ostream& s) const;
 
-  char filled[8];
-  char coloredWhite[8];
-  char turnAndTile; //first bit is isWhite'sTurn, last 7 are number of tiles on board
-  signed char scoreInt;
+  int8_t filled[8];
+  int8_t coloredWhite[8];
+
+  int turn     : 1;		/**< Is it White's turn? */
+  int numTiles : 7;		/**< Number of tiles on board */
+
+  int scoreInt : 8;		/**< Score */
 
   bool isFilled(int, int) const; 
   bool isWhite(int, int) const; 
