@@ -194,8 +194,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
     s << " ";
     for (int c = 0; c < 8; c++) {
       auto bg = (c%2 == y%2)? "42":"43";
-      s << esc
-	<< "[;" << bg << "m   ";
+      s << esc << "[;" << bg << "m   ";
     }  
     s << reset << "\n" << y;
     for (int x = 0; x < 8; x++) {
@@ -205,13 +204,8 @@ std::ostream& Board::printBig(std::ostream& s) const {
       if (isFilled(x,y)){
 	tile = (isWhite(x,y))? "W":"B"; 
       } else tile = " ";
-      s << esc
-	<< '['
-	<< fg
-	<< ';'
-	<< bg
-	<< 'm'
-	<< " " << tile << " ";
+      s << esc << '[' << fg << ';' << bg
+	<< "m " << tile << " ";
     }
     s << reset << y << "\n"
       << " ";
