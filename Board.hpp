@@ -26,7 +26,6 @@ public:
 
 public:
   Board();
-  //Board(Board*); Unconventional copy constructor; the default works on POD like this
 
   int score() const;
   int value() const;
