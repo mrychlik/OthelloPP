@@ -1,4 +1,4 @@
-CXXFLAGS = -std=c++20 -O0 -ggdb3 -pthread
+CXXFLAGS = -std=c++20 -O0 -ggdb3 -pthread -Wall
 LDFLAGS  = -lm -lboost_unit_test_framework
 
 all: main test_suite
@@ -11,7 +11,7 @@ OBJS = main.o Board.o GameTree.o
 main: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
-UNIT_OBJS = unit_tests.o testlib.o Board.o
+UNIT_OBJS = unit_tests.o testlib.o Board.o GameTree.o
 test_suite: $(UNIT_OBJS)
 	$(CXX) $(CXXFLAGS) $(UNIT_OBJS) -o $@ $(LDFLAGS)
 
