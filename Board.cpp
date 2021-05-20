@@ -92,62 +92,66 @@ int Board::tileNum () const {
   return turnAndTile & 0x7F; //last seven bits
 }
 
-Board* Board::move(bool playWhite, int x, int y) {
-  if (x > 7 || x < 0 || y > 7 || y < 0) return nullptr;
-  if (isFilled(x,y)) return nullptr;
-  int tmpx, tmpy, distance, end;
-  int toFlip[8];
-  for (int ray = 0; ray < 8; ray++) { //iter over cardinal + diagonals
-    distance = 1;
-    end = 0;
-    while (end == 0) {
-      tmpx = x + (distance*order[ray][0]);
-      tmpy = y + (distance*order[ray][1]);
+Board::move_bag_type Board::moves(bool playWhite) const
+{
+  move_bag_type retval;
+  for( auto x = 0; x < 8; ++x) {
+    for( auto y = 0; y < 8; ++y) {
+      if (isFilled(x,y)) continue;
+      int tmpx, tmpy, distance, end;
+      int toFlip[8];
+      for (int ray = 0; ray < 8; ray++) { //iter over cardinal + diagonals
+	distance = 1;
+	end = 0;
+	while (end == 0) {
+	  tmpx = x + (distance*order[ray][0]);
+	  tmpy = y + (distance*order[ray][1]);
 
-      if (tmpx < 0 || tmpx > 7 || tmpy < 0 || tmpy > 7) end = 1; //ran off edge
-      else if (!isFilled(tmpx,tmpy)) end = 2; //ran into an empty space
-      else if (isWhite(tmpx,tmpy) == playWhite) end = (distance > 1)? 3:4; //ran into own color late vs early
-      else distance++;
-    }
-    if (end == 3) toFlip[ray] = distance;
-    else toFlip[ray] = 0;
-  } //checked all rays and populated toFlip
+	  if (tmpx < 0 || tmpx > 7 || tmpy < 0 || tmpy > 7) end = 1; //ran off edge
+	  else if (!isFilled(tmpx,tmpy)) end = 2; //ran into an empty space
+	  else if (isWhite(tmpx,tmpy) == playWhite) end = (distance > 1)? 3:4; //ran into own color late vs early
+	  else distance++;
+	}
+	if (end == 3) toFlip[ray] = distance;
+	else toFlip[ray] = 0;
+      } //checked all rays and populated toFlip
 
-  bool legal = false;
-  for (int i : toFlip) { //any legal flips from playing here?
-    if (i != 0) {
-      legal = true;
-      break;
-    }
-  }
+      bool legal = false;
+      for (int i : toFlip) { //any legal flips from playing here?
+	if (i != 0) {
+	  legal = true;
+	  break;
+	}
+      }
 
-  if (legal) {
-    int numFlipped = 0;
-    Board* c = new Board(*this);
+      if (legal) {
+	int numFlipped = 0;
+	Board c(*this);
 
-    for (int r = 0; r < 8; r++) { //rays, must be at least 1 that is > 0
-      if (toFlip[r] != 0) numFlipped += toFlip[r]-1;
-      for (int d = 1; d < toFlip[r]; d++) { //above calced length
-        if (playWhite) c->flipToWhite(x + (d*order[r][0]), y + (d*order[r][1])); //update Board c according to color
-        else c->flipToBlack(x + (d*order[r][0]), y + (d*order[r][1]));
+	for (int r = 0; r < 8; r++) { //rays, must be at least 1 that is > 0
+	  if (toFlip[r] != 0) numFlipped += toFlip[r]-1;
+	  for (int d = 1; d < toFlip[r]; d++) { //above calced length
+	    if (playWhite) c.flipToWhite(x + (d*order[r][0]), y + (d*order[r][1])); //update Board c according to color
+	    else c.flipToBlack(x + (d*order[r][0]), y + (d*order[r][1]));
+	  }
+	}
+	if (playWhite) c.flipToWhite(x,y); //place new tile
+	else c.flipToBlack(x,y);
+
+	numFlipped = (2*numFlipped)+1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
+	char tn = (this->turnAndTile & 0x7F) + 1;
+	if (!playWhite) {
+	  tn = tn | 0x80; //change turn back. if just played white, then its B's turn and it can stay as a 0;
+	  c.scoreInt = this->scoreInt - numFlipped; //play black, score decreases
+	} else {
+	  c.scoreInt = this->scoreInt + numFlipped; //play white, score increases
+	}
+	c.turnAndTile = tn;
+	retval.push_back(move_type(x, y, c));
       }
     }
-    if (playWhite) c->flipToWhite(x,y); //place new tile
-    else c->flipToBlack(x,y);
-
-    numFlipped = (2*numFlipped)+1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
-    char tn = (this->turnAndTile & 0x7F) + 1;
-    if (!playWhite) {
-      tn = tn | 0x80; //change turn back. if just played white, then its B's turn and it can stay as a 0;
-      c->scoreInt = this->scoreInt - numFlipped; //play black, score decreases
-    } else {
-      c->scoreInt = this->scoreInt + numFlipped; //play white, score increases
-    }
-    c->turnAndTile = tn;
-    return c;
-  } else { //not legal
-    return nullptr;
   }
+  return retval;
 }
 
 std::ostream& operator<<(std::ostream& s, const Board& b) {
@@ -218,19 +222,6 @@ std::ostream& Board::printBig(std::ostream& s) const {
   }
   s << "  0  1  2  3  4  5  6  7 \n";
   return s;
-}
-
-std::deque<Board*> Board::children (bool playingWhite) {
-  std::deque<Board*> out = std::deque<Board*>();
-  Board* d;
-  for (int x = 0; x < 8; x++) {
-    for (int y = 0; y < 8; y++) {
-      if ((d = move(playingWhite,x,y)) != nullptr) {
-	out.push_front(d);
-      }
-    }
-  }
-  return out;
 }
 
 bool Board::whitesTurn() const {
