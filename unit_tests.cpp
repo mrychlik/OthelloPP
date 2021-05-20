@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_CASE(test_board_print)
 BOOST_AUTO_TEST_CASE(test_board_print_big)
 {
   Board b;
-  b.printBig(std::cout);
+  b.print(std::cout, true);
 }
 
 BOOST_AUTO_TEST_CASE(test_board_move)
