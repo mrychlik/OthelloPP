@@ -15,20 +15,21 @@
 #include <deque>
 #include <iosfwd>
 #include <cinttypes>
+#include <vector>
+#include <tuple>
+
 
 class Board {
+  typedef std::vector<std::tuple<int, int, Board>> move_bag_type;
+
 public:
   Board();
   //Board(Board*); Unconventional copy constructor; the default works on POD like this
 
   int score() const;
   int value() const;
-  Board* move(bool,int,int);
+  move_bag_type moves(bool playWhite) const;
   int tileNum() const;
-
-  // void copy(Board*); Only used to implement POD copy, which is unnecessary
-
-  std::deque<Board*> children(bool);
 
   bool whitesTurn() const;
   bool isLegal(bool, int, int) const;
