@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE(test_board_print_big)
 BOOST_AUTO_TEST_CASE(test_board_print_small)
 {
   Board b;
-  b.print(std::cout, true);
+  b.print(std::cout, false);
 }
 
 BOOST_AUTO_TEST_CASE(test_board_move)
