@@ -37,17 +37,13 @@ public:
 
   operator std::string() const { return toString(); };
   
-  friend std::ostream& operator<<(std::ostream& s, const Board& b) {
-    return s << b.toString();
-  };
-
+  friend std::ostream& operator<<(std::ostream& s, const Board& b);
 
 private:
 
-  std::string toStringSmall() const;
-  std::string toStringBig() const;
-  std::string toString() const;
-  std::string toString(bool) const;
+  std::ostream& print(std::ostream& s, bool big = false) const;
+  std::ostream& printSmall(std::ostream& s) const;
+  std::ostream& printBig(std::ostream& s) const;
 
 
   char filled[8];
