@@ -42,7 +42,7 @@ int main() {
 
   while(absTreeRoot.board->tileNum() != 64) {
     auto curTileNum = absTreeRoot.board->tileNum();
-
+    
     //start tree generation
     auto treeGenerator = std::thread( ( [&absTreeRoot] (int minDepth, int maxDepth) -> void
 				 {
@@ -98,7 +98,7 @@ int main() {
   
   //should be unessisary, the early game end should catch 64 tile game ends, just to be safe thoug
   treeLock.lock();
-  if (treeGenerator.joinable()) treeGenerator.join(); //hopefully this catches it finishing between this and previous line
+  //if (treeGenerator.joinable()) treeGenerator.join(); //hopefully this catches it finishing between this and previous line
   std::cout << "No possible moves for either player, ending game" << std::endl;
   if (absTreeRoot.board->score() > 0) std::cout << "White Wins";
   else if (absTreeRoot.board->score() < 0) std::cout << "Black Wins";
