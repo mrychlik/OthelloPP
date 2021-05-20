@@ -147,7 +147,7 @@ Board::move_bag_type Board::moves(bool playWhite) const
 	  c.scoreInt = this->scoreInt + numFlipped; //play white, score increases
 	}
 	c.turnAndTile = tn;
-	retval.push_back(move_type(x, y, c));
+	move_bag.push_back(move_type(x, y, c));
       }
     }
   }
