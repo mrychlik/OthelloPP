@@ -5,7 +5,8 @@
  * 
  * @brief  Game tree implementation
  * 
- * 
+ * The game Othello is nicely discribed in this YouTube video:
+ *     https://www.youtube.com/watch?v=xDnYEOsjZnM
  */
 
 #include "GameTree.hpp"
@@ -68,12 +69,20 @@ void TreeNode::expand(int minDepth, int maxDepth) {
   std::cerr << "finished exploration naturally" << std::endl;
 }
 
-//recursive to update the value of a the whole tree
-//hopefully safe to work on tree at same time as gen
+/** 
+ * Recursive update of the value of a the whole tree
+ * hopefully safe to work on tree at same time as gen
+ * (MR: We cannot hope for that) 
+ * 
+ * 
+ * @param upNum 
+ */
+
 void TreeNode::updateTreeDesireablility(unsigned char upNum) {
   updateNumber = upNum;
   signed char curVal;
   bool initialized = false;
+
   if (isExpanded && !downlinks.empty()) {
     for (TreeNode* a : downlinks) {
       if (a->updateNumber != upNum) a->updateTreeDesireablility(upNum); //avoid recalcing when there are loops
@@ -96,14 +105,14 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
     }
     this->value = curVal;
   } else {			//no children
-    this->value = value();
+    this->value = this->Board::value();
   }
 }
 
 //return tileNum=0 if no moves available
 Board::move_type
 TreeNode::getPlayerMove() const {
-  if (!board.anyLegalMoves(true)) { //moves for white
+  if (!anyLegalMoves(true)) { //moves for white
     throw std::runtime_error("No moves for white.");
   }
 
@@ -127,7 +136,7 @@ TreeNode::getPlayerMove() const {
     throw std::runtime_error("Invalid input");
   }
     
-  auto move_bag = board.moves(true);
+  auto move_bag = moves(true);
 
   for( auto& m : move_bag) {
     auto [x1, y1, board1] = m;
@@ -142,7 +151,8 @@ TreeNode::getPlayerMove() const {
 
 /** 
  * TODO: Something should go here.
- * must be called after update and after getPlayerMove
+ *
+ * ... must be called after update and after getPlayerMove
  * imporart that root be the Node *before* the player's move. Enables catching no player moves
  * should work as long as there are *any* legal moves, for white or black
  * 
