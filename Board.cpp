@@ -13,9 +13,9 @@
 #include <iostream>
 #include <sstream>
 
-const char esc = '';
+static const char esc = '';
 
-const int order[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
+static const int order[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
 bool Board::isFilled(int x, int y) const {
   return (filled[y] & (0b10000000 >> x));
