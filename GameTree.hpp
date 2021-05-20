@@ -16,14 +16,8 @@
 class Board;
 
 //should I mark some/all as volatile? return to think about, update and gen work at same time I think
-struct TreeNode {
-  Board* board;
-  std::deque<TreeNode*> downlinks;
-  unsigned char referenceCount;
-  bool generatedChildren;
-  unsigned char updateNumber;
-  signed char value; //TDB, need to consider what counts as valuable
-
+class TreeNode {
+public:
   TreeNode(Board* b, std::deque<TreeNode*> d, unsigned char r, bool g, signed char v)
     : board(b),
       downlinks(d),
@@ -36,7 +30,16 @@ struct TreeNode {
   void expand(int minDepth, int maxDepth);
   void updateTreeDesireablility(unsigned char upNum);
   Board* getPlayerMove() const;
-  TreeNode bestMove(Board* possiblePlayerMove) const;
+  TreeNode* bestMove(const Board& possiblePlayerMove) const;
+
+private:
+  Board* board;
+  std::deque<TreeNode*> downlinks;
+  unsigned char referenceCount;
+  bool generatedChildren;
+  unsigned char updateNumber;
+  signed char value; //TDB, need to consider what counts as valuable
+
 };
 
 #endif
