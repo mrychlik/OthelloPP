@@ -13,6 +13,8 @@
 #include <iostream>
 #include <sstream>
 
+const char esc = '';
+
 const int order[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
 bool Board::isFilled(int x, int y) const {
@@ -161,7 +163,6 @@ std::ostream& Board::print(std::ostream& s, bool big) const {
 
 std::ostream& Board::printSmall(std::ostream& s) const {
   s << " 01234567\n";
-  const char esc = '';
   for (int y = 0; y < 8; y++) {
     s << y;
     for (int x = 0; x < 8; x++) {
