@@ -195,10 +195,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
     for (int c = 0; c < 8; c++) {
       auto bg = (c%2 == y%2)? "42":"43";
       s << esc
-	<< '['
-	<< ";" << bg //no fg
-	<< 'm'
-	<< "   ";
+	<< "[;" << bg << "m   ";
     }  
     s << reset << "\n" << y;
     for (int x = 0; x < 8; x++) {
