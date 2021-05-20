@@ -151,7 +151,7 @@ Board::move_bag_type Board::moves(bool playWhite) const
       }
     }
   }
-  return retval;
+  return move_bag;
 }
 
 std::ostream& operator<<(std::ostream& s, const Board& b) {
