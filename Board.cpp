@@ -117,8 +117,11 @@ Board::move_bag_type Board::moves(bool playWhite) const
 	    distance++;
 	  }
 	}
-	if (end == 3) toFlip[ray] = distance;
-	else toFlip[ray] = 0;
+	if (end == 3) {
+	  toFlip[ray] = distance;
+	} else {
+	  toFlip[ray] = 0;
+	}
       } //checked all rays and populated toFlip
 
       bool legal = false;
