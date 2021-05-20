@@ -149,7 +149,7 @@ std::ostream& operator<<(std::ostream& s, const Board& b) {
 
 
 
-std::ostream& Board::print(bool big, std::ostream& s) const {
+std::ostream& Board::print(std::ostream& s, bool big) const {
   if (big) {
     return printBig(s);
   } else
@@ -176,112 +176,114 @@ std::ostream& Board::printSmall(std::ostream& s) const {
 }
 
 std::ostream& Board::printBig(std::ostream& s) const {
-    const char esc = 27;
-    std::string reset = "";
-    reset.push_back(esc);
-    reset.push_back('[');
-    reset += "0m";
+  const char esc = 27;
+  std::string reset = "";
+  reset.push_back(esc);
+  reset.push_back('[');
+  reset += "0m";
 
-    s << esc << "[1;1H" << esc
-      << "[0J"
-      << "  0  1  2  3  4  5  6  7 \n";
+  s << esc << "[1;1H" << esc
+    << "[0J"
+    << "  0  1  2  3  4  5  6  7 \n";
 
+  for (int y = 0; y < 8; y++) {
+    out += " ";
+    for (int c = 0; c < 8; c++) {
+      auto bg = (c%2 == y%2)? "42":"43";
+      s << esc
+	<< '['
+	<< ";" << bg //no fg
+	<< 'm'
+	<< "   ";
+    }  
+    s << reset + "\n"
+      << y;
+    for (int x = 0; x < 8; x++) {
+      auto bg = (y%2 == x%2)? "42":"43";
+      auto fg = (isWhite(x,y))? "37":"30";
+      auto tile = " "; // consider revising
+      if (isFilled(x,y)){
+	tile = (isWhite(x,y))? "W":"B"; 
+      } else tile = " ";
+      s << esc
+	<< '['
+	<< fg
+	<< ';'
+	<< bg
+	<< 'm'
+	<< " " << tile << " ";
+    }
+    s << reset << y << "\n"
+      << " ";
+    for (int c = 0; c < 8; c++) {
+      auto bg = (c%2 == y%2)? "42":"43";
+      s << esc
+	<< '['
+	<< ";" << bg //no fg
+	<< 'm'
+	<< "   ";
+    }  
+    s << reset << "\n";
+  }
+  s << "  0  1  2  3  4  5  6  7 \n";
+  return s;
+}
+
+std::deque<Board*> Board::children (bool playingWhite) {
+  std::deque<Board*> out = std::deque<Board*>();
+  Board* d;
+  for (int x = 0; x < 8; x++) {
     for (int y = 0; y < 8; y++) {
-      out += " ";
-      for (int c = 0; c < 8; c++) {
-	auto bg = (c%2 == y%2)? "42":"43";
-	s << esc
-	  << '['
-	  << ";" << bg //no fg
-	  << 'm'
-	  << "   ";
-      }  
-      s << reset + "\n"
-	<< y;
-      for (int x = 0; x < 8; x++) {
-	auto bg = (y%2 == x%2)? "42":"43";
-	auto fg = (isWhite(x,y))? "37":"30";
-	auto tile = " "; // consider revising
-	if (isFilled(x,y)){
-	  tile = (isWhite(x,y))? "W":"B"; 
-	} else tile = " ";
-	s << esc
-	  << '['
-	  << fg
-	  << ';'
-	  << bg
-	  << 'm'
-	  << " " << tile << " ";
-      }
-      s << reset << y << "\n"
-	<< " ";
-      for (int c = 0; c < 8; c++) {
-	auto bg = (c%2 == y%2)? "42":"43";
-	s << esc
-	  << '['
-	  << ";" << bg //no fg
-	  << 'm'
-	  << "   ";
-      }  
-      s << reset << "\n";
-    }
-    s << "  0  1  2  3  4  5  6  7 \n";
-    return s;
-  }
-
-  std::deque<Board*> Board::children (bool playingWhite) {
-    std::deque<Board*> out = std::deque<Board*>();
-    Board* d;
-    for (int x = 0; x < 8; x++) {
-      for (int y = 0; y < 8; y++) {
-	if ((d = move(playingWhite,x,y)) != nullptr) {
-	  out.push_front(d);
-	}
+      if ((d = move(playingWhite,x,y)) != nullptr) {
+	out.push_front(d);
       }
     }
-    return out;
   }
+  return out;
+}
 
-  bool Board::whitesTurn() const {
-    return ((turnAndTile & 0b10000000) != 0);
-  }
+bool Board::whitesTurn() const {
+  return ((turnAndTile & 0b10000000) != 0);
+}
 
-  bool Board::isLegal(bool playWhite, int x, int y) const { //slightly modified version of move()
-    if (x > 7 || x < 0 || y > 7 || y < 0) return false;
-    if (isFilled(x,y)) return false;
-    int tmpx, tmpy, distance, end;
-    for (int ray = 0; ray < 8; ray++) { //iter over cardinal + diagonals
-      distance = 1;
-      end = 0;
-      while (end == 0) {
-	tmpx = x + (distance*order[ray][0]);
-	tmpy = y + (distance*order[ray][1]);
+bool Board::isLegal(bool playWhite, int x, int y) const { //slightly modified version of move()
+  if (x > 7 || x < 0 || y > 7 || y < 0) return false;
+  if (isFilled(x,y)) return false;
+  int tmpx, tmpy, distance, end;
+  for (int ray = 0; ray < 8; ray++) { //iter over cardinal + diagonals
+    distance = 1;
+    end = 0;
+    while (end == 0) {
+      tmpx = x + (distance*order[ray][0]);
+      tmpy = y + (distance*order[ray][1]);
 
-	if (tmpx < 0 || tmpx > 7 || tmpy < 0 || tmpy > 7) end = 1; //ran off edge
-	else if (!isFilled(tmpx,tmpy)) end = 2; //ran into an empty space
-	else if (isWhite(tmpx,tmpy) == playWhite) end = (distance > 1)? 3:4; //ran into own color late vs early
-	else distance++;
-      }
-      if (end == 3) return true;
-    } 
-
-    return false;
-  }
-
-  bool Board::anyLegalMoves(bool playWhite) const {
-    for (int x = 0; x < 8; x++) {
-      for (int y = 0; y < 8; y++) {
-	if (isLegal(playWhite,x,y)) return true;
-      }
+      if (tmpx < 0 || tmpx > 7 || tmpy < 0 || tmpy > 7) end = 1; //ran off edge
+      else if (!isFilled(tmpx,tmpy)) end = 2; //ran into an empty space
+      else if (isWhite(tmpx,tmpy) == playWhite) end = (distance > 1)? 3:4; //ran into own color late vs early
+      else distance++;
     }
-    return false;
-  }
+    if (end == 3) return true;
+  } 
 
-  bool Board::operator==(const Board& b) const {
-    if (turnAndTile != b.turnAndTile) return false;
-    for (int i : {3,4,2,5,1,6,0,7}) {
-      if (!(filled[i] == b.filled[i] && coloredWhite[i] == b.coloredWhite[i])) return false;
+  return false;
+}
+
+bool Board::anyLegalMoves(bool playWhite) const {
+  for (int x = 0; x < 8; x++) {
+    for (int y = 0; y < 8; y++) {
+      if (isLegal(playWhite,x,y)) return true;
     }
-    return true;
   }
+  return false;
+}
 
+bool Board::operator==(const Board& b) const {
+  if (turnAndTile != b.turnAndTile) return false;
+  for (int i : {3,4,2,5,1,6,0,7}) {
+    if (!(filled[i] == b.filled[i] && coloredWhite[i] == b.coloredWhite[i])) return false;
+  }
+  return true;
+}
+
+operator Board::std::string() const {
+}
