@@ -44,12 +44,17 @@ int main() {
     auto curTileNum = absTreeRoot.board.tileNum();
     
     //start tree generation
+    auto minDepth = curTileNum + mind;
+    auto maxDepth = curTileNum + maxd;
+#if 0
     auto treeGenerator = std::thread( ( [&absTreeRoot] (int minDepth, int maxDepth) -> void
 				 {
 				   absTreeRoot.expand(minDepth, maxDepth);
 				 }),
-				 (curTileNum + mind),
-				 (curTileNum + maxd)); 
+				 minDepth,
+				 maxDepth); 
+#endif
+    absTreeRoot.expand(minDepth, maxDepth);
 
     //get player move, if there is one
     try {
@@ -62,6 +67,7 @@ int main() {
       auto board = std::get<2>(possiblePlayerMove);
       auto moves_black = board.moves(false);
       auto moves_white = board.moves(true);
+
       if ( moves_black.empty() && moves_white.empty()) {//no one has a move
         std::cout << "No possible moves for either player, ending game" << std::endl;
         if (board.score() > 0) std::cout << "White Wins";
@@ -72,6 +78,7 @@ int main() {
       }
     } catch(...) {
       //player can't move, check for possible cpu moves
+      auto moves_black = board.moves(false);
       if ( moves_black.empty() ) {//black has no moves, game ends
         std::cout << "No possible moves for either player, ending game" << std::endl;
         if (absTreeRoot.board.score() > 0) std::cout << "White Wins";
