@@ -168,7 +168,7 @@ std::ostream& Board::printSmall(std::ostream& s) const {
       auto bg   = (y%2 == x%2) ? "42":"43";
       auto fg   = isWhite(x,y) ? "37":"30";
       auto tile = isWhite(x,y) ? "W":"B";
-      if (!isFilled(x,y)) tile = " ";
+      if( !isFilled(x,y) ) tile = " ";
       //out += esc + "[" + fg + ";" + bg + "m" + tile;
       s << esc << '[' << fg << ';' << bg << 'm' << tile;
     }
