@@ -41,7 +41,6 @@ private:
   bool generatedChildren;
   unsigned char updateNumber;
   signed char value; //TDB, need to consider what counts as valuable
-
 };
 
 #endif
