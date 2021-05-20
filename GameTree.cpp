@@ -103,10 +103,12 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
 }
 
 //return tileNum=0 if no moves available
-Board* TreeNode::getPlayerMove() const {
+Board::move_type
+TreeNode::getPlayerMove() const {
   if (!board.anyLegalMoves(true)) { //moves for white
-    throw "No moves for white.";
+    throw std::runtime_error("No moves for white.");
   }
+
   int x,y;
 
   while(std::cin) {
@@ -119,19 +121,25 @@ Board* TreeNode::getPlayerMove() const {
   };
 
   if(std::cin.bad()) {
-    throw "Input stream bad during input of x and y.";
+    throw std::runtime_error("Input stream bad during input of x and y.");
   }
     
   if (x < 0 || x > 7 || y < 0 || y > 7) {
     std::cerr << "Input value x or y is invalid: " << x << ", " << y << "\n";
-    throw "Invalid input";
+    throw std::runtime_error("Invalid input");
   }
     
-  if (!board.isLegal(true, x , y)) {//no good
-    std::cerr << "Move is invalid: " << x << ", " << y << "\n";
-    throw "Invalid move";
+  auto move_bag = board.moves(true);
+
+  for( auto& m : move_bag) {
+    auto [x1, y1, board1] = m;
+    if( x1 == x && y1 == y) {
+      return m;
+    }
   }
-  return board.move(true, x, y);
+
+  std::cerr << "Move is invalid: " << x << ", " << y << "\n";
+  throw std::runtime_error("Invalid move");
 }
 
 /** 
@@ -145,11 +153,13 @@ Board* TreeNode::getPlayerMove() const {
  * 
  * @return 
  */
-TreeNode* TreeNode::bestMove(const Board& possiblePlayerMove) const {
+Board::move_type TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
   //return most desirable grandchild of player child
-  for (TreeNode* a : downlinks) {
-    if (*(a.board) == *possiblePlayerMove) { //branch of the players latest move
-      for (TreeNode* b : a->downlinks) {
+  auto& board = std::get<2>(possiblePlayerMove);
+  for (auto m : downlinks) {
+    auto& c = std::get<2>(m);
+    if (c == board) { //branch of the players latest move
+      for (auto b : a->downlinks) {
 	if (b->value == a->value) { //is the best of said options
 	  return b; 
 	}
