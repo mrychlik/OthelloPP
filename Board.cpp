@@ -38,16 +38,11 @@ void Board::flipToBlack(int x, int y) {
 };
 
 Board::Board() :
-  scoreInt(0)
-{
-  for (int i = 0; i < 8; i++) {
-    if (i < 5 && i > 2) {
-      filled[i] = 0b00011000;
-      coloredWhite[i] = (i==3)? 0b00001000:0b00010000;
-    }
-  }
-  turnAndTile = 0b10000100; //white's turn and 4 pieces on Board
-  scoreInt = 0;
+  scoreInt(0),
+  turnAndTile(0b10000100) //white's turn and 4 pieces on Board  
+  filled[3] = filled[4] = 0b00011000;
+  coloredWhite[3] = 0b00001000;
+  coloredWhite[4] = 0b00010000;
 }
 
 /** 
