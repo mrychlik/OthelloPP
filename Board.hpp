@@ -19,6 +19,21 @@
 #include <tuple>
 
 
+/** 
+ * Board class represents the board of the Othello game.
+ * This class is responsible for:
+ *
+ *    1. For every square of the board it knows
+ *       if the square is occupied (filled) and
+ *       what color is the piece
+ *    2. Generation of moves from any position
+ *    3. Keeping track whose turn it is (white or black)
+ *    4. Keeping track of score (the number of white
+ *       minus the number of black pieces)
+ *    5. Computing heuristic value of the board
+ *       position.
+ * 
+ */
 class Board {
 public:
   typedef std::tuple<int, int, Board> move_type;
