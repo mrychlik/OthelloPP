@@ -17,7 +17,11 @@
 static const char esc = '';
 static const std::string reset = "[0m";
 
-static const int order[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
+/**
+ * 8 directions  (vectors) on the board.
+ * 
+ */
+static const int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
 bool Board::isFilled(int x, int y) const {
   return (filled[y] & (0x80 >> x));
@@ -114,8 +118,8 @@ Board::moves(bool playWhite) const
 	auto distance = 1;
 	auto end = 0;
 	while (end == 0) {
-	  auto tmpx = x + distance * order[ray][0];
-	  auto tmpy = y + distance * order[ray][1];
+	  auto tmpx = x + distance * direction[ray][0];
+	  auto tmpy = y + distance * direction[ray][1];
 
 	  if ( tmpx < 0 || tmpx > 7 || tmpy < 0 || tmpy > 7 ) {
 	    end = 1;		//ran off edge
@@ -153,9 +157,9 @@ Board::moves(bool playWhite) const
 
 	  for (int d = 1; d < toFlip[r]; d++) { //above calced length
 	    if( playWhite ) {
-	      c.flipToWhite(x + d * order[r][0], y + d * order[r][1]); //update Board c according to color
+	      c.flipToWhite(x + d * direction[r][0], y + d * direction[r][1]); //update Board c according to color
 	    } else {
-	      c.flipToBlack(x + d * order[r][0], y + d * order[r][1]);
+	      c.flipToBlack(x + d * direction[r][0], y + d * direction[r][1]);
 	    }
 	  }
 	}
