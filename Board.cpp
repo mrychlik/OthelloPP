@@ -228,6 +228,14 @@ std::ostream& operator<<(std::ostream& s, const Board& b) {
 
 
 
+/** 
+ * Prints the board to an ostream.
+ * 
+ * @param s 
+ * @param big   If true, the board is printed in large size
+ * 
+ * @return 
+ */
 std::ostream& Board::print(std::ostream& s, bool big) const {
   if (big) {
     return printBig(s);
@@ -306,12 +314,10 @@ bool Board::isWhitesTurn() const {
 /** 
  * Predicate: Is there at least one legal move?
  * 
- * @param playWhite 
- * 
  * @return 
  */
-bool Board::hasLegalMove(bool playWhite) const {
-  return !moves(playWhite).empty();
+bool Board::hasLegalMove() const {
+  return !moves().empty();
 }
 
 /** 
