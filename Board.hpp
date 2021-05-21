@@ -66,12 +66,10 @@ private:
    */
   uint64_t white_;
 
-
-
-  bool isFilled(int, int) const; 
-  bool isWhite(int, int) const; 
-  void flipToWhite(int, int); 
-  void flipToBlack(int, int); 
+  bool isFilled(uint8_t x, uint8_t) const; 
+  bool isWhite(uint8_t x, uint8_t) const; 
+  void setWhite(uint8_t x, uint8_t); 
+  void flipToBlack(uint8_t x, uint8_t); 
 };
 
 
