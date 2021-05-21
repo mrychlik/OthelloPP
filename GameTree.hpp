@@ -20,9 +20,10 @@
  * TreeNode derives from class Board,
  * as exactly one instance of the Board
  * is associated with a TreeNode.
+ * This introduces a compile-time dependency
+ * on the Board class.
  * 
  */
-
 class TreeNode : public Board {
 public:
   /** 
