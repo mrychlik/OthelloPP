@@ -29,6 +29,20 @@ TreeNode::TreeNode(const Board& b)
 {      
 }
 
+/** 
+ * Add child nodes
+ * 
+ * 
+ * @return 
+ */
+TreeNode::expandOneLevel()
+{
+  auto move_bag = moves();
+  for (auto m : move_bag) {
+    
+
+  }
+}
 
 /** 
  * Finds the value of the tree according to Max-Min.
