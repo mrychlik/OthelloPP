@@ -137,6 +137,32 @@ int Board::numTiles () const {
 }
 
 /** 
+ * Returns the number of white tiles on the board.
+ * 
+ * 
+ * @return 
+ */
+int Board::numWhiteTiles () const {
+  // We use a non-portable, GCC specific function
+  // but there are many portable implementations
+  // which are quite efficient
+  return __builtin_popcountl(white_);
+}
+
+/** 
+ * Returns the number of black tiles on the board.
+ * 
+ * 
+ * @return 
+ */
+int Board::numBlackTiles () const {
+  // We use a non-portable, GCC specific function
+  // but there are many portable implementations
+  // which are quite efficient
+  return __builtin_popcountl(filled_^white_);
+}
+
+/** 
  * Generate all moves.
  * 
  * @param playWhite 
