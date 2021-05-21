@@ -43,13 +43,14 @@ void TreeNode::expandOneLevel()
   auto move_bag = moves();
   for (auto m : move_bag) {
     auto child = std::get<2>(m);
-    addChild(child);
+    addChild(new TreeNode(child));
   }
 }
 
 
-void GameTree::addChild(TreeNode *child)
+void TreeNode::addChild(TreeNode *child)
 {
+  downlinks.push_back(child);
 }
 
 /** 
@@ -85,6 +86,7 @@ int8_t TreeNode::evaluate(uint8_t depth) {
       }
     }
   }
+  value = bestVal;
   return bestVal;
 }
 
