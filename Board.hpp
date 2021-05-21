@@ -53,6 +53,8 @@ public:
   Board();
   int value() const;
   int numTiles() const;
+  int numWhiteTiles () const;
+  int numBlackTiles () const;  
   move_bag_type moves() const;
   int score() const;
   bool isWhitesTurn() const;
