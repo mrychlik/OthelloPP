@@ -189,6 +189,14 @@ Board::moves(bool playWhite) const
   return move_bag;
 }
 
+/** 
+ * 
+ * 
+ * @param s 
+ * @param b 
+ * 
+ * @return 
+ */
 std::ostream& operator<<(std::ostream& s, const Board& b) {
   return b.print(s, false);
 };
@@ -264,7 +272,7 @@ bool Board::isWhitesTurn() const {
 }
 
 
-bool Board::anyLegalMoves(bool playWhite) const {
+bool Board::hasLegalMove(bool playWhite) const {
   return !moves(playWhite).empty();
 }
 
