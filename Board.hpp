@@ -36,7 +36,17 @@
  */
 class Board {
 public:
+  /** 
+   * Type move_type is a triple (x, y, Board)
+   * where x, y are the coordinates of the new piece
+   * and Board is a resulting board from the move
+   */
   typedef std::tuple<int, int, Board> move_type;
+
+  /** 
+   * A collection of moves
+   * 
+   */
   typedef std::vector<move_type> move_bag_type;
 
 public:
