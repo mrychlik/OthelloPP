@@ -93,7 +93,7 @@ Board::Board() :
  * @return 
  */
 int Board::score () const { 
-  return score_;
+  return numWhiteTiles() - numBlackTiles();
 }
 
 /** 
