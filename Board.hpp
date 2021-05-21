@@ -68,7 +68,7 @@ private:
   friend std::ostream& operator<<(std::ostream& s, const Board& b);
 
 public:
-
+  
   /** 
    * Prints the board to an ostream.
    * 
