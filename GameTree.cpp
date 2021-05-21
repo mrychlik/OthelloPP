@@ -31,70 +31,6 @@ TreeNode::TreeNode(const Board& b)
 
 
 /** 
- * Expands nodes whose depth falls in the range
- * [minDepth, maxDepth).
- * 
- * @param minDepth 
- * @param maxDepth 
- */
-void TreeNode::expand(int minDepth, int maxDepth) {
-  std::cerr << "started exploration" << std::endl;
-
-  //return and make this a cleaner generational check, but this will work for now
-  std::deque<TreeNode*> genStack = std::deque<TreeNode*>();
-  std::deque<TreeNode*> queue    = std::deque<TreeNode*>();
-  
-  queue.push_back(this);
-
-  while (!queue.empty()) {
-    auto current = queue.front();
-    queue.pop_front(); //returns nothing, see previous line
-
-    if (current->isExpanded) {
-      for (TreeNode* a : current->downlinks) {
-        queue.push_back(a);
-      }
-    } else if (current->numTiles() < maxDepth){ 
-      auto move_bag = current->moves();
-      if( move_bag.empty() ) {
-	move_bag = current->moves(!current->isWhitesTurn()); //check for play agains
-      }
-      for (auto m: move_bag) {
-        TreeNode* matched = nullptr;
-        //check for existing nodes in generation
-	auto board = std::get<2>(m);
-        for (TreeNode* n : genStack) {// HELLA SLOW !!!!!!!!!!! FIX w/ custom PQ I guess
-          if( *n == board) {
-            matched = n;
-            break;
-          } else if( n->numTiles() <= current->numTiles() ) {
-	    break; //only old ones there
-	  }
-        }
-        if (matched == nullptr) {
-          TreeNode out(board);
-          current->downlinks.push_front(&out); //possibly change value()
-          queue.push_back(&out);
-        } else {
-          current->downlinks.push_front(matched);
-          queue.push_back(matched);
-        }
-      }
-      current->isExpanded = true; //must happen after actual gen
-    }
-    genStack.push_front(current);
-
-    if (current->numTiles() > minDepth) {
-      if (current->numTiles() >= minDepth){
-        std::cerr << "finished exploration early" << std::endl;
-        return; //main is waiting, drop the queue.
-      }
-    }
-  }
-  std::cerr << "finished exploration naturally" << std::endl;
-}
-
-/** 
  * Finds the value of the tree according to Max-Min.
  * Tree is expanded to specified depth.
  * If depth is reached, or if node has no children
@@ -102,7 +38,7 @@ void TreeNode::expand(int minDepth, int maxDepth) {
  * 
  * @param depth 
  */
-void TreeNode::evaluate(uint8_t depth) {
+int  TreeNode::evaluate(uint8_t depth) {
   if(depth == 0) {
     return this->Board::value();
   } else {
