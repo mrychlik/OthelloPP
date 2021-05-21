@@ -265,8 +265,8 @@ bool Board::anyLegalMoves(bool playWhite) const {
 
 bool Board::operator==(const Board& b) const {
   // NOTE: IntScore is omitted from the comparison
-  return  turn == b.turn
-    && numTiles == b.numTiles
+  return  turn_ == b.turn_
+    && numTiles_ == b.numTiles_
     && std::equal(filled, b.filled, filled + 8)
     && std::equal(coloredWhite, b.coloredWhite, coloredWhite + 8);
 }
