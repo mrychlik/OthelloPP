@@ -27,22 +27,8 @@
  */
 class TreeNode : public Board {
 public:
-  /** 
-   * Constructor of a node with a given board.
-   * 
-   * @param b 
-   * 
-   * @return 
-   */
   TreeNode(const Board& b = Board());
   
-  /** 
-   * Expands nodes whose depth falls in the range
-   * [minDepth, maxDepth).
-   * 
-   * @param minDepth 
-   * @param maxDepth 
-   */
   void expand(int minDepth, int maxDepth);
   void updateTreeDesireablility(unsigned char upNum);
 
