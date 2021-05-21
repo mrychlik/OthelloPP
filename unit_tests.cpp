@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(test_expand_one_level)
 
 BOOST_AUTO_TEST_CASE(test_tree_evaluate)
 {
-  for(auto depth = 0; depth < 6; ++depth) {
+  for(auto depth = 0; depth < 4; ++depth) {
     TreeNode root;
 
     auto val = root.evaluate(depth);
