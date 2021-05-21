@@ -18,13 +18,6 @@
 #include <boost/test/unit_test.hpp>
 //#include <boost/test/auto_unit_test.hpp>
 
-/** 
- * 
- * 
- * @param test_addition 
- * 
- * @return 
- */
 BOOST_AUTO_TEST_CASE(test_addition)
 {
   BOOST_CHECK( 2 + 2 == 4 );
