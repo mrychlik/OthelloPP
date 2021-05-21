@@ -91,5 +91,5 @@ BOOST_AUTO_TEST_CASE(test_tree_evaluate)
   TreeNode root;
   auto val = root.evaluate();
   std::cout << root << std::endl
-	    << "Value: " << val << st::endl;
+	    << "Value: " << val << std::endl;
 }
