@@ -31,7 +31,7 @@ void TreeNode::expand(int minDepth, int maxDepth) {
       for (TreeNode* a : current->downlinks) {
         queue.push_back(a);
       }
-    } else if (current->tileNum() < maxDepth){ 
+    } else if (current->numTiles() < maxDepth){ 
       auto move_bag = current->moves(current->whitesTurn());
       if( move_bag.empty() ) {
 	move_bag = current->moves(!current->whitesTurn()); //check for play agains
@@ -44,7 +44,7 @@ void TreeNode::expand(int minDepth, int maxDepth) {
           if( *n == board) {
             matched = n;
             break;
-          } else if( n->tileNum() <= current->tileNum() ) break; //only old ones there
+          } else if( n->numTiles() <= current->numTiles() ) break; //only old ones there
         }
         if (matched == nullptr) {
           TreeNode out(board);
@@ -59,8 +59,8 @@ void TreeNode::expand(int minDepth, int maxDepth) {
     }
     genStack.push_front(current);
 
-    if (current->tileNum() > minDepth) {
-      if (current->tileNum() >= minDepth){
+    if (current->numTiles() > minDepth) {
+      if (current->numTiles() >= minDepth){
         std::cerr << "finished exploration early" << std::endl;
         return; //main is waiting, drop the queue.
       }
@@ -86,7 +86,7 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
   if (isExpanded && !downlinks.empty()) {
     for (TreeNode* a : downlinks) {
       if (a->updateNumber != upNum) a->updateTreeDesireablility(upNum); //avoid recalcing when there are loops
-      if (whitesTurn()) {
+      if (isWhitesTurn()) {
         //since computer just played, the value of n should be the *greatest* of the downlinks, assume player is smart
         //(postive value is good for white, neg is good for black)
         //each is one possible player move
@@ -109,7 +109,7 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
   }
 }
 
-//return tileNum=0 if no moves available
+//return numTiles=0 if no moves available
 Board::move_type
 TreeNode::getPlayerMove() const {
   if (!anyLegalMoves(true)) { //moves for white
@@ -166,7 +166,7 @@ TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
   //return most desirable grandchild of player child
   auto& board = std::get<2>(possiblePlayerMove);
   for (auto a : downlinks) {
-    if (a->board == board) { //branch of the players latest move
+    if (*static_cast<Board *>(a) == board) { //branch of the players latest move
       for (auto b : a->downlinks) {
 	if (b->value == a->value) { //is the best of said options
 	  return b; 
