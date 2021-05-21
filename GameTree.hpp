@@ -34,13 +34,7 @@ public:
    * 
    * @return 
    */
-  TreeNode(const Board& b = Board())
-    : Board(b),
-      isExpanded(false),
-      updateNumber(0),
-      value(b.value())
-  {      
-  }
+  TreeNode(const Board& b = Board());
   
   /** 
    * Expands nodes whose depth falls in the range
