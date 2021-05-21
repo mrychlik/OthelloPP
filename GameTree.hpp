@@ -29,7 +29,7 @@ class TreeNode : public Board {
 public:
   TreeNode(const Board& b = Board());
   
-  int8_t evaluate(uint8_t depth = 0);
+  int evaluate(uint8_t depth = 0);
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
 
   void expandOneLevel(bool verbose = false);
