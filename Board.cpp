@@ -45,13 +45,13 @@ Board::Board() :
   score_(0),
   whitesTurn_(true),		
   numTiles_(4),			//4 pieces on Board  
-  filled(),			// Necessary for 0 initialization
-  coloredWhite()		// Ditto
+  filled_(),			// Necessary for 0 initialization
+  white_()			// Ditto
 {
   // Standard Othello board initialization
-  filled[3] = filled[4] = 0b00011000;
-  coloredWhite[3] = 0b00001000;
-  coloredWhite[4] = 0b00010000;
+  filled_[3] = filled_[4] = 0b00011000;
+  white_[3] = 0b00001000;
+  white_[4] = 0b00010000;
 }
   
 
@@ -271,8 +271,8 @@ bool Board::operator==(const Board& b) const {
   // NOTE: IntScore is omitted from the comparison
   return  whitesTurn_ == b.whitesTurn_
     && numTiles_ == b.numTiles_
-    && std::equal(filled, b.filled, filled + 8)
-    && std::equal(coloredWhite, b.coloredWhite, coloredWhite + 8);
+    && std::equal(filled_, b.filled_, filled_ + 8)
+    && std::equal(white_, b.white_, white_ + 8);
 }
 
 Board::operator std::string() const {
