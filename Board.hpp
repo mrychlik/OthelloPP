@@ -50,7 +50,17 @@ private:
   std::ostream& printBig(std::ostream& s) const;
 
   int scoreInt : 8;		/**< Score */
-  int8_t filled[8];
+
+  /**
+   * Packed bit array telling us which squares
+   * are occupied (by row).
+   */
+  int8_t filled[8];		
+
+  /**
+   * Packaged bit array telling us which squares
+   * have a white piece on them.
+   */
   int8_t coloredWhite[8];
 
   int turn     : 1;		/**< Is it White's turn? */
