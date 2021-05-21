@@ -38,6 +38,12 @@ struct ShiftTable
   }
   uint64_t values[8][8];
 
+  /** 
+   * 
+   * 
+   * 
+   * @return 
+   */
   constexpr uint64_t operator()(uint8_t x, uint8_t y) const {
     return values[x][y];
   }
