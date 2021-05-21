@@ -77,7 +77,6 @@ private:
 
   int score_         : 8;	/**< Score */
   int whitesTurn_    : 1;	/**< Is it White's turn? */
-  int numTiles_      : 7;	/**< Number of tiles on board */
 
   uint64_t filled_;		/**< Bit flags: is a square is occupied? */
   uint64_t white_;		/**< Bit flags: is a square occupied by white? */
@@ -88,6 +87,7 @@ private:
 
   void setWhite(uint8_t x, uint8_t y); 
   void setBlack(uint8_t x, uint8_t y); 
+  void setWhitesTurn(bool playWhite);
 };
 
 
