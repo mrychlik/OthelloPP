@@ -24,11 +24,11 @@ static const std::string reset = "[0m";
 static const int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
 bool Board::isFilled(int x, int y) const {
-  return (filled[y] & (0x80 >> x));
+  return (filled_[y] & (0x80 >> x));
 };
 
 bool Board::isWhite(int x, int y) const {
-  return (coloredWhite[y] & (0x80 >> x));
+  return (white_[y]  & (0x80 >> x));
 };
 
 void Board::flipToWhite(int x, int y) {
@@ -258,7 +258,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
   return s;
 }
 
-bool Board::whitesTurn() const {
+bool Board::isWhitesTurn() const {
   return whitesTurn_;
 }
 
