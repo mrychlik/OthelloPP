@@ -138,7 +138,7 @@ int Board::numTiles () const {
  *         is made.
  */
 Board::move_bag_type
-Board::moves(bool playWhite) const
+Board::moves() const
 {
   move_bag_type move_bag;
   for( auto x = 0; x < 8; ++x) {
@@ -156,7 +156,7 @@ Board::moves(bool playWhite) const
 	    end = 1;		//ran off edge
 	  } else if( !isFilled(tmpx,tmpy) ) {
 	    end = 2;		//ran into an empty space
-	  } else if( isWhite(tmpx,tmpy) == playWhite) {
+	  } else if( isWhite(tmpx,tmpy) == isWhitesTurn()) {
 	    end = (distance > 1)? 3 : 4; //ran into own color late vs early
 	  } else {
 	    distance++;
@@ -187,7 +187,7 @@ Board::moves(bool playWhite) const
 	  }
 
 	  for (int d = 1; d < toFlip[r]; d++) { //above calced length
-	    if( playWhite ) {
+	    if( isWhitesTurn() ) {
 	      c.setWhite(x + d * direction[r][0], y + d * direction[r][1]); //update Board c according to color
 	    } else {
 	      c.setBlack(x + d * direction[r][0], y + d * direction[r][1]);
@@ -195,7 +195,7 @@ Board::moves(bool playWhite) const
 	  }
 	}
 	
-	if( playWhite ) {
+	if( isWhitesTurn() ) {
 	  c.setWhite(x,y);	//place new tile
 	} else {
 	  c.setBlack(x,y);
@@ -205,8 +205,8 @@ Board::moves(bool playWhite) const
 
 	c.numTiles_ = numTiles_ + 1;
 	// change turn back. if just played white, then its B's turn and no change
-	c.whitesTurn_ = !playWhite; 
-	c.score_ = playWhite ? score_ + numFlipped : score_ + numFlipped; //play black, score decreases
+	c.setWhitesTurn(!isWhitesTurn()); 
+	c.score_ = isWhitesTurn() ? score_ + numFlipped : score_ + numFlipped; //play black, score decreases
 	move_bag.push_back(move_type(x, y, c));
       }
     }
@@ -308,6 +308,16 @@ std::ostream& Board::printBig(std::ostream& s) const {
  */
 bool Board::isWhitesTurn() const {
   return whitesTurn_;
+}
+
+/** 
+ * 
+ * 
+ * @param playWhite 
+ */
+void Board::setWhitesTurn(bool playWhite)
+{
+  whitesTurn_ = playWhite;
 }
 
 
