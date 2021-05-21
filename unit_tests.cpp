@@ -86,10 +86,17 @@ BOOST_AUTO_TEST_CASE(test_board_move_text)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_expand_one_level)
+{
+  TreeNode root;
+  root.expandOneLevel();
+}
+
 BOOST_AUTO_TEST_CASE(test_tree_evaluate)
 {
   for(auto depth = 0; depth < 6; ++depth) {
     TreeNode root;
+
     auto val = root.evaluate(2);
     std::cout << "Depth : " << depth
       << root << std::endl
