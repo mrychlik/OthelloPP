@@ -49,7 +49,9 @@ private:
   std::ostream& printSmall(std::ostream& s) const;
   std::ostream& printBig(std::ostream& s) const;
 
-  int scoreInt : 8;		/**< Score */
+  int scoreInt       : 8;	/**< Score */
+  bool whitesTurn    : 1;	/**< Is it White's turn? */
+  int numTiles       : 7;	/**< Number of tiles on board */
 
   /**
    * Packed bit array telling us which squares
@@ -63,8 +65,6 @@ private:
    */
   int8_t coloredWhite[8];
 
-  int turn     : 1;		/**< Is it White's turn? */
-  int numTiles : 7;		/**< Number of tiles on board */
 
 
   bool isFilled(int, int) const; 
