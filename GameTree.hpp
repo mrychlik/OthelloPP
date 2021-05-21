@@ -29,16 +29,20 @@ class TreeNode : public Board {
 public:
   TreeNode(const Board& b = Board());
   
-  uint8_t evaluate(uint8_t depth = 0);
+  int8_t evaluate(uint8_t depth = 0);
 
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
 
 private:
 
+  void expandOneLevel();
+
   std::deque<TreeNode*> downlinks;
   bool isExpanded;
-  unsigned char updateNumber;
+  uint8_t updateNumber;
   int8_t value; //TDB, need to consider what counts as valuable
+
+
 };
 
 #endif
