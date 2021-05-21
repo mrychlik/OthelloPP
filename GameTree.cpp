@@ -123,7 +123,7 @@ TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
 std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 {
   s << static_cast<const Board&>(tree)
-    << "Is expanded: " << tree.isExpanded
+    << "Is expanded: " << std::boolalpha << tree.isExpanded
     << "\nValue: " << static_cast<int>(tree.value)
     << "\nUpdate number: " << static_cast<int>(tree.updateNumber)
     << std::endl;
