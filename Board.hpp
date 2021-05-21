@@ -69,6 +69,14 @@ private:
 
 public:
 
+  /** 
+   * Prints the board to an ostream.
+   * 
+   * @param s 
+   * @param big   If true, the board is printed in large size
+   * 
+   * @return 
+   */
   std::ostream& print(std::ostream& s, bool big = false) const;
 
 private:
