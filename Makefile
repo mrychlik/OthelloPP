@@ -5,7 +5,7 @@ all: main test_suite
 
 main.o: Board.hpp
 Board.o: Board.hpp
-GameTree.o: GameTree.hpp
+GameTree.o: GameTree.hpp Board.hpp
 
 OBJS = main.o Board.o GameTree.o
 main: $(OBJS)
