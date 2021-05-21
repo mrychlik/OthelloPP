@@ -33,7 +33,6 @@ public:
 
 private:
 
-
   bool whitesTurn() const;
   bool isLegal(bool playWhite , int x, int y) const;
   bool anyLegalMoves(bool playWhite) const;
