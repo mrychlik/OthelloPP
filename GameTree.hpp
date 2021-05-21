@@ -33,6 +33,9 @@ public:
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
 
   void expandOneLevel(bool verbose = false);
+
+  friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
+
 private:
 
   void addChild(TreeNode *child);
