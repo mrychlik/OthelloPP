@@ -49,21 +49,21 @@ constexpr auto shiftTab = ShiftTable();
 
 
 bool Board::isFilled(uint8_t x, uint8_t y) const {
-  return filled_ & (1UL << shiftTab(x, y));
+  return filled_ & shiftTab(x, y);
 };
 
 bool Board::isWhite(uint8_t x, uint8_t y) const {
-  return white_  & (1UL << shiftTab(x, y));
+  return white_  & shiftTab(x, y);
 };
 
 void Board::setWhite(uint8_t x, uint8_t y) {
-  filled_ |= ( 1UL << shiftTab(x, y) );
-  white_  |= ( 1UL << shiftTab(x, y) );
+  filled_ |= shiftTab(x, y);
+  white_  |= shiftTab(x, y);
 };
 
 void Board::setBlack(uint8_t x, uint8_t y) {
-  filled_ |=    1UL <<  shiftTab(x, y);
-  white_  &= ~( 1UL <<  shiftTab(x, y));
+  filled_ |= shiftTab(x, y);
+  white_  &= shiftTab(x, y);
 };
 
 Board::Board() :
