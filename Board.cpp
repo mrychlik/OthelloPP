@@ -32,8 +32,8 @@ bool Board::isWhite(int x, int y) const {
 };
 
 void Board::flipToWhite(int x, int y) {
-  filled[y] = filled[y] | (0x80 >> x);
-  coloredWhite[y] = coloredWhite[y] | (0x80 >> x);
+  filled_[y] |= 0x80 >> x;
+  white_[y] |= 0x80 >> x;
 };
 
 void Board::flipToBlack(int x, int y) {
