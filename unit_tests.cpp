@@ -101,6 +101,6 @@ BOOST_AUTO_TEST_CASE(test_tree_evaluate)
     std::cout << "\nDepth : " << depth << "\n"
 	      << root
 	      << "\nValue: " << static_cast<int>(val) 
-      << std::endl;
+	      << std::endl;
   }
 }
