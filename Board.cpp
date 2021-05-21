@@ -24,7 +24,7 @@ static const std::string reset = "[0m";
 static const int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
 bool Board::isFilled(int x, int y) const {
-  return (filled_ >> (8 * y + x)) & 1U;
+  return (filled_ >> (8 * y + x) ) & 1U;
 };
 
 bool Board::isWhite(int x, int y) const {
