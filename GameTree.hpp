@@ -21,7 +21,8 @@
  * as exactly one instance of the Board
  * is associated with a TreeNode.
  * This introduces a compile-time dependency
- * on the Board class.
+ * on the Board class, which is undesirable
+ * but it seems harmless at this time.
  * 
  */
 class TreeNode : public Board {
