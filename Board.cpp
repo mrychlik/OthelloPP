@@ -62,7 +62,7 @@ void Board::setWhite(uint8_t x, uint8_t y) {
 
 void Board::setBlack(uint8_t x, uint8_t y) {
   filled_ |= shiftTab(x, y);
-  white_  &= shiftTab(x, y);
+  white_  &= ~shiftTab(x, y);
 };
 
 Board::Board() :
