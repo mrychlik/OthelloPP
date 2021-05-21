@@ -36,10 +36,7 @@ public:
 
 private:
 
-
   bool isLegal(bool playWhite , int x, int y) const;
-
-
 
   operator std::string() const;
   
