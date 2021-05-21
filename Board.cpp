@@ -31,12 +31,12 @@ bool Board::isWhite(uint8_t x, uint8_t y) const {
   return white_  & (1UL << (8 * y + x) );
 };
 
-void Board::flipToWhite(uint8_t x, uint8_t y) {
+void Board::setWhite(uint8_t x, uint8_t y) {
   filled_ |= ( 1UL << (8 * y + x) );
   white_  |= ( 1UL << (8 * y + x) );
 };
 
-void Board::flipToBlack(uint8_t x, uint8_t y) {
+void Board::setBlack(uint8_t x, uint8_t y) {
   filled_ |=    1UL <<  (8 * y + x);
   white_  &= ~( 1UL << (8 * y + x) );
 };
@@ -49,10 +49,10 @@ Board::Board() :
   white_(0)		
 {
   // Standard Othello board initialization
-  flipToWhite(3,4);
-  flipToWhite(4,3);
-  flipToBlack(3,3);
-  flipToBlack(4,4);  
+  setWhite(3,4);
+  setWhite(4,3);
+  setBlack(3,3);
+  setBlack(4,4);  
 }
   
 
@@ -158,17 +158,17 @@ Board::moves(bool playWhite) const
 
 	  for (int d = 1; d < toFlip[r]; d++) { //above calced length
 	    if( playWhite ) {
-	      c.flipToWhite(x + d * direction[r][0], y + d * direction[r][1]); //update Board c according to color
+	      c.setWhite(x + d * direction[r][0], y + d * direction[r][1]); //update Board c according to color
 	    } else {
-	      c.flipToBlack(x + d * direction[r][0], y + d * direction[r][1]);
+	      c.setBlack(x + d * direction[r][0], y + d * direction[r][1]);
 	    }
 	  }
 	}
 	
 	if( playWhite ) {
-	  c.flipToWhite(x,y);	//place new tile
+	  c.setWhite(x,y);	//place new tile
 	} else {
-	  c.flipToBlack(x,y);
+	  c.setBlack(x,y);
 	}
 
 	numFlipped = 2*numFlipped + 1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
