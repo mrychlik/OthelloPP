@@ -32,12 +32,13 @@ public:
   int score() const;
   bool whitesTurn() const;
   bool operator==(const Board&) const;
+  bool anyLegalMoves(bool playWhite) const;
 
 private:
 
 
   bool isLegal(bool playWhite , int x, int y) const;
-  bool anyLegalMoves(bool playWhite) const;
+
 
 
   operator std::string() const;
