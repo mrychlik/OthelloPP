@@ -25,7 +25,9 @@
  */
 int main() {
   //declare+initialize
-  TreeNode absTreeRoot; //0 value? idk, should not matter
+  TreeNode absTreeRoot;
+
+  bool playWHite = true;
 
   const int mind = 2, maxd = 4;
 
@@ -48,10 +50,9 @@ int main() {
     
     //check for early game end
     auto board = std::get<2>(possiblePlayerMove);
-    auto moves_black = board.moves(false);
-    auto moves_white = board.moves(true);
+    auto moves = board.moves();
 
-    if ( moves_black.empty() && moves_white.empty()) {//no one has a move
+    if ( moves.empty() && moves_white.empty()) {//no one has a move
       std::cout << "No possible moves for either player, ending game" << std::endl;
       if (board.score() > 0) std::cout << "White Wins";
       else if (board.score() < 0) std::cout << "Black Wins";
