@@ -98,8 +98,8 @@ BOOST_AUTO_TEST_CASE(test_tree_evaluate)
     TreeNode root;
 
     auto val = root.evaluate(depth);
-    std::cout << "Depth : " << depth
-      << root << std::endl
+    std::cout << "Depth : " << depth << "\n"
+      << root << "\n"
       << "Value: " << static_cast<int>(val)
       << std::endl;
   }
