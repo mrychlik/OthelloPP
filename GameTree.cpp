@@ -24,7 +24,7 @@ void TreeNode::expand(int minDepth, int maxDepth) {
   queue.push_back(this);
 
   while (!queue.empty()) {
-    auto& current = queue.front();
+    auto current = queue.front();
     queue.pop_front(); //returns nothing, see previous line
 
     if (current->isExpanded) {
