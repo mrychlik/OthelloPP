@@ -62,7 +62,7 @@ void TreeNode::addChild(TreeNode *child)
  * 
  * @param depth 
  */
-int TreeNode::evaluate(uint8_t depth) {
+int8_t TreeNode::evaluate(uint8_t depth) {
   auto bestVal = this->Board::value();
   //TreeNode *bestChild = nullptr;
   if(depth == 0) {
