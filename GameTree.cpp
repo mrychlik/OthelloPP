@@ -123,9 +123,9 @@ TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
 std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 {
   s << static_cast<const Board&>(tree)
-    << "Is expanded: " << tree.isExpanded
-    << "Value: " << tree.value
-    << "Update number: " << tree.updateNumber
+    << "\nIs expanded: " << tree.isExpanded
+    << "\nValue: " << static_cast<int>(tree.value)
+    << "\nUpdate number: " << static_cast<int>(tree.updateNumber)
     << std::endl;
   for(auto child : tree.downlinks) {
     s << *child << std::endl;
