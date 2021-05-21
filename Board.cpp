@@ -52,7 +52,7 @@ Board::Board() :
   flipToWhite(3,4);
   flipToWhite(4,3);
   flipToBlack(3,3);
-  flipToBlack(4,3);  
+  flipToBlack(4,4);  
 }
   
 
