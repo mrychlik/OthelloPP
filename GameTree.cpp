@@ -35,13 +35,21 @@ TreeNode::TreeNode(const Board& b)
  * 
  * @return 
  */
-TreeNode::expandOneLevel()
+void TreeNode::expandOneLevel()
 {
+  if(isExpanded) {
+    return;
+  }
   auto move_bag = moves();
   for (auto m : move_bag) {
-    
-
+    auto child = std::get<2>(m);
+    addChild(child);
   }
+}
+
+
+void GameTree::addChild(TreeNode *child)
+{
 }
 
 /** 
