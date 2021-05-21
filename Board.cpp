@@ -239,7 +239,6 @@ Board::moves() const
 
 	// change turn back. if just played white, then its B's turn and no change
 	c.setWhitesTurn(!isWhitesTurn()); 
-	c.score_ = isWhitesTurn() ? score_ + numFlipped : score_ + numFlipped; //play black, score decreases
 	move_bag.push_back(move_type(x, y, c));
       }
     }
