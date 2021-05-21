@@ -40,12 +40,12 @@ TreeNode::TreeNode(const Board& b)
  */
 int8_t TreeNode::evaluate(uint8_t depth) {
   auto bestVal = this->Board::value();
-  TreeNode *bestChild = nullptr;
+  //TreeNode *bestChild = nullptr;
   if(depth == 0) {
     return bestVal;
   } else {
     if(!isExpanded) {
-      //expandOneLevel();
+      expandOneLevel();
     }
     for (auto child : downlinks) {
       auto childVal = child->evaluate(depth - 1);
@@ -53,16 +53,17 @@ int8_t TreeNode::evaluate(uint8_t depth) {
       if (isWhitesTurn()) {
 	if(childVal > bestVal) {
 	  bestVal = childVal;
-	  bestChild = child;
+	  //bestChild = child;
 	}
       } else { 
 	if(childVal < bestVal) {
 	  bestVal = childVal;
-	  bestChild = child;	  
+	  //bestChild = child;	  
 	}
       }
     }
   }
+  return bestVal;
 }
 
 
