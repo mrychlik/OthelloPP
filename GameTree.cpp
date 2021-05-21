@@ -110,7 +110,9 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
 
   if (isExpanded && !downlinks.empty()) {
     for (TreeNode* a : downlinks) {
-      if (a->updateNumber != upNum) a->updateTreeDesireablility(upNum); //avoid recalcing when there are loops
+      if (a->updateNumber != upNum){
+	a->updateTreeDesireablility(upNum); //avoid recalcing when there are loops
+      }
       if (isWhitesTurn()) {
         //since computer just played, the value of n should be the *greatest* of the downlinks, assume player is smart
         //(postive value is good for white, neg is good for black)
