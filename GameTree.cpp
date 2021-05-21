@@ -87,7 +87,7 @@ int8_t TreeNode::evaluate(uint8_t depth) {
     }
   }
   value = bestVal;
-  return bestVal;
+  return value;
 }
 
 
