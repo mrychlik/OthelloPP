@@ -1,4 +1,5 @@
 #include "Board.hpp"
+#include "GameTree.hpp"
 
 #include <iostream>
 #include <cstring>
@@ -37,7 +38,7 @@ BOOST_AUTO_TEST_CASE(test_board_move)
   // move bag as test cases
 
   Board b;
-  auto move_bag = b.moves(true);
+  auto move_bag = b.moves();
   for( auto& m : move_bag) {
     std::cout << std::get<0>(m) << "\n"
 	      << std::get<1>(m) << "\n"
@@ -51,7 +52,7 @@ BOOST_AUTO_TEST_CASE(test_board_move_fancy)
   // move bag as test cases
 
   Board b;
-  auto move_bag = b.moves(true);
+  auto move_bag = b.moves();
   for( auto& m : move_bag) {
     auto [x, y, board] = m;
     std::cout << "x: " << x << ", "
@@ -66,7 +67,7 @@ BOOST_AUTO_TEST_CASE(test_board_move_text)
   // move bag as test cases
 
   Board b;
-  auto move_bag = b.moves(true);
+  auto move_bag = b.moves();
   for( auto& m : move_bag) {
     auto [x, y, board] = m;
     std::cout << "x: " << x << ", "
@@ -74,3 +75,11 @@ BOOST_AUTO_TEST_CASE(test_board_move_text)
   }
 }
 
+
+BOOST_AUTO_TEST_CASE(test_tree_evaluate)
+{
+  TreeNode root;
+  auto val = root.evaluate();
+  std::cout << root << std::endl
+	    << "Value: " << val << st::endl;
+}
