@@ -87,7 +87,7 @@ private:
   int whitesTurn_    : 1;	/**< Is it White's turn? */
   int numTiles_      : 7;	/**< Number of tiles on board */
 
-  uint64_t black_;		/**< Bits telling us if a square is occupied */
+  uint64_t filled_;		/**< Bits telling us if a square is occupied */
   uint64_t white_;		/**< Bits telling us if a square is occupied by a white piece  */
 
   bool isFilled(uint8_t x, uint8_t y) const; 
