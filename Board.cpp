@@ -94,6 +94,12 @@ int Board::value() const {
   return value;
 }
 
+/** 
+ * Returns the number of tiles on the board.
+ * 
+ * 
+ * @return 
+ */
 int Board::numTiles () const {
   return numTiles_;
 }
@@ -174,14 +180,9 @@ Board::moves(bool playWhite) const
 	numFlipped = 2*numFlipped + 1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
 
 	c.numTiles_ = numTiles_ + 1;
-	if (!playWhite) {
-	  // change turn back. if just played white, then its B's turn and no change
-	  c.whitesTurn_ = 1; 
-	  c.score_ = score_ - numFlipped; //play black, score decreases
-	} else {
-	  c.score_ = score_ + numFlipped; //play white, score increases
-	}
-	//c.numTiles = tn;
+	// change turn back. if just played white, then its B's turn and no change
+	c.whitesTurn_ = !playWhite; 
+	c.score_ = playWhite ? score_ + numFlipped : score_ + numFlipped; //play black, score decreases
 	move_bag.push_back(move_type(x, y, c));
       }
     }
@@ -267,17 +268,36 @@ std::ostream& Board::printBig(std::ostream& s) const {
   return s;
 }
 
+/** 
+ * Predicate: Is it the white's turn?
+ * 
+ * 
+ * @return 
+ */
 bool Board::isWhitesTurn() const {
   return whitesTurn_;
 }
 
 
+/** 
+ * Predicate: Is there at least one legal move?
+ * 
+ * @param playWhite 
+ * 
+ * @return 
+ */
 bool Board::hasLegalMove(bool playWhite) const {
   return !moves(playWhite).empty();
 }
 
+/** 
+ * Compare excluding score.
+ * 
+ * @param b 
+ * 
+ * @return 
+ */
 bool Board::operator==(const Board& b) const {
-  // NOTE: IntScore is omitted from the comparison
   return  whitesTurn_ == b.whitesTurn_
     && numTiles_ == b.numTiles_
     && filled_ == b.filled_
