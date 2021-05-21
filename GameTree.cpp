@@ -21,7 +21,7 @@
  * 
  * @return 
  */
-TreeNode(const Board& b = Board())
+TreeNode(const Board& b)
   : Board(b),
     isExpanded(false),
     updateNumber(0),
