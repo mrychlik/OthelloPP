@@ -24,8 +24,7 @@ static const std::string reset = "[0m";
 static const int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
 /** 
- * Constructs table that converts 
- * pairs (x, y) to offsets into a 64-entry 1D array.
+ * A table of powers of 2.
  */
 struct ShiftTable
 {
@@ -39,7 +38,7 @@ struct ShiftTable
   }
   uint64_t values[8][8];
 
-  uint64_t operator()(uint8_t x, uint8_t y) const {
+  constexpr uint64_t operator()(uint8_t x, uint8_t y) const {
     return values[x][y];
   }
 
@@ -53,7 +52,7 @@ bool Board::isFilled(uint8_t x, uint8_t y) const {
 };
 
 bool Board::isWhite(uint8_t x, uint8_t y) const {
-  return white_  & shiftTab(x, y);
+  return white_ & shiftTab(x, y);
 };
 
 void Board::setWhite(uint8_t x, uint8_t y) {
