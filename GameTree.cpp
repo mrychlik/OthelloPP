@@ -55,7 +55,7 @@ void TreeNode::expand(int minDepth, int maxDepth) {
         queue.push_back(a);
       }
     } else if (current->numTiles() < maxDepth){ 
-      auto move_bag = current->moves(current->isWhitesTurn());
+      auto move_bag = current->moves();
       if( move_bag.empty() ) {
 	move_bag = current->moves(!current->isWhitesTurn()); //check for play agains
       }
@@ -95,24 +95,23 @@ void TreeNode::expand(int minDepth, int maxDepth) {
 }
 
 /** 
- * Recursive update of the value of a the whole tree
- * hopefully safe to work on tree at same time as gen
- * (MR: We cannot hope for that) 
+ * Finds the value of the tree according to Max-Min.
+ * Tree is expanded to specified depth.
+ * If depth is reached, or if node has no children
+ * the static value of the board is returned.
  * 
- * 
- * @param upNum 
+ * @param depth 
  */
-
-void TreeNode::updateTreeDesireablility(unsigned char upNum) {
-  updateNumber = upNum;
-  signed char curVal;
-  bool initialized = false;
-
-  if (isExpanded && !downlinks.empty()) {
-    for (TreeNode* a : downlinks) {
-      if (a->updateNumber != upNum){
-	a->updateTreeDesireablility(upNum); //avoid recalcing when there are loops
-      }
+void TreeNode::evaluate(uint8_t depth) {
+  if(depth == 0) {
+    return this->Board::value();
+  } else {
+    if(!isExpanded) {
+      expandOne();
+    }
+    for (auto a : downlinks) {
+      aVal = a->evaluate(depth - 1);
+      // White is Max, Black is Min
       if (isWhitesTurn()) {
         //since computer just played, the value of n should be the *greatest* of the downlinks, assume player is smart
         //(postive value is good for white, neg is good for black)
@@ -132,7 +131,7 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
     }
     this->value = curVal;
   } else {			//no children
-    this->value = this->Board::value();
+
   }
 }
 
