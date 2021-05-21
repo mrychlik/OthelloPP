@@ -37,8 +37,8 @@ void Board::flipToWhite(int x, int y) {
 };
 
 void Board::flipToBlack(int x, int y) {
-  filled[y] |= 0x80 >> x;
-  coloredWhite[y] &= ~(0x80 >> x);
+  filled_[y] |= 0x80 >> x;
+  white_[y] &= ~(0x80 >> x);
 };
 
 Board::Board() :
