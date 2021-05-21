@@ -30,7 +30,7 @@ public:
   int score() const;
   int value() const;
   move_bag_type moves(bool playWhite) const;
-  int tileNum() const;
+  int numTiles () const;
 
   bool whitesTurn() const;
   bool isLegal(bool, int, int) const;
@@ -49,9 +49,9 @@ private:
   std::ostream& printSmall(std::ostream& s) const;
   std::ostream& printBig(std::ostream& s) const;
 
-  int scoreInt       : 8;	/**< Score */
-  bool whitesTurn    : 1;	/**< Is it White's turn? */
-  int numTiles       : 7;	/**< Number of tiles on board */
+  int score_         : 8;	/**< Score */
+  int whitesTurn_    : 1;	/**< Is it White's turn? */
+  int numTiles_      : 7;	/**< Number of tiles on board */
 
   /**
    * Packed bit array telling us which squares
