@@ -56,15 +56,15 @@ private:
 
   /**
    * Packed bit array telling us which squares
-   * are occupied (by row).
+   * are occupied (row is y).
    */
-  int8_t filled[8];		
+  uint64_t filled_;		
 
   /**
    * Packaged bit array telling us which squares
    * have a white piece on them.
    */
-  int8_t coloredWhite[8];
+  uint64_t white_;
 
 
 
