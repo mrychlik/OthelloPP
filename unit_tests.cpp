@@ -18,11 +18,25 @@
 #include <boost/test/unit_test.hpp>
 //#include <boost/test/auto_unit_test.hpp>
 
+/** 
+ * 
+ * 
+ * @param test_addition 
+ * 
+ * @return 
+ */
 BOOST_AUTO_TEST_CASE(test_addition)
 {
   BOOST_CHECK( 2 + 2 == 4 );
 }
 
+/** 
+ * 
+ * 
+ * @param test_board_print 
+ * 
+ * @return 
+ */
 BOOST_AUTO_TEST_CASE(test_board_print)
 {
   Board b;
@@ -30,18 +44,39 @@ BOOST_AUTO_TEST_CASE(test_board_print)
   
 }
 
+/** 
+ * 
+ * 
+ * @param test_board_print_big 
+ * 
+ * @return 
+ */
 BOOST_AUTO_TEST_CASE(test_board_print_big)
 {
   Board b;
   b.print(std::cout, true);
 }
 
+/** 
+ * 
+ * 
+ * @param test_board_print_small 
+ * 
+ * @return 
+ */
 BOOST_AUTO_TEST_CASE(test_board_print_small)
 {
   Board b;
   b.print(std::cout, false);
 }
 
+/** 
+ * 
+ * 
+ * @param test_board_move 
+ * 
+ * @return 
+ */
 BOOST_AUTO_TEST_CASE(test_board_move)
 {
   // TODO: Use several boards with known
@@ -56,6 +91,13 @@ BOOST_AUTO_TEST_CASE(test_board_move)
   }
 }
 
+/** 
+ * 
+ * 
+ * @param test_board_move_fancy 
+ * 
+ * @return 
+ */
 BOOST_AUTO_TEST_CASE(test_board_move_fancy)
 {
   // TODO: Use several boards with known
@@ -71,6 +113,13 @@ BOOST_AUTO_TEST_CASE(test_board_move_fancy)
   }
 }
 
+/** 
+ * 
+ * 
+ * @param test_board_move_text 
+ * 
+ * @return 
+ */
 BOOST_AUTO_TEST_CASE(test_board_move_text)
 {
   // TODO: Use several boards with known
@@ -85,6 +134,13 @@ BOOST_AUTO_TEST_CASE(test_board_move_text)
   }
 }
 
+/** 
+ * 
+ * 
+ * @param test_expand_one_level 
+ * 
+ * @return 
+ */
 BOOST_AUTO_TEST_CASE(test_expand_one_level)
 {
   TreeNode root;
@@ -92,6 +148,13 @@ BOOST_AUTO_TEST_CASE(test_expand_one_level)
   std::cout << root;
 }
 
+/** 
+ * 
+ * 
+ * @param test_tree_evaluate 
+ * 
+ * @return 
+ */
 BOOST_AUTO_TEST_CASE(test_tree_evaluate)
 {
   for(auto depth = 0; depth < 4; ++depth) {
