@@ -31,6 +31,8 @@ TreeNode::TreeNode(const Board& b)
 
 /** 
  * Add child nodes
+ *
+ * @param verbose If true print board, else '.'.
  * 
  * 
  * @return 
