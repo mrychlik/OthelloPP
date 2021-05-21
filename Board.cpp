@@ -23,22 +23,22 @@ static const std::string reset = "[0m";
  */
 static const int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
-bool Board::isFilled(int x, int y) const {
-  return (filled_ >> (8 * y + x) ) & 1U;
+bool Board::isFilled(uint8_t x, uint8_t y) const {
+  return filled_ & (1UL << ( 8 * y + x));
 };
 
-bool Board::isWhite(int x, int y) const {
-  return (white_ >> (8 * y + x) ) & 1UL;
+bool Board::isWhite(uint8_t x, uint8_t y) const {
+  return white_  & (1UL << (8 * y + x) );
 };
 
-void Board::flipToWhite(int x, int y) {
-  filled_ |= static_cast<uint64_t>(1) << (8 * y + x);
-  white_  |= static_cast<uint64_t>(1) << (8 * y + x);
+void Board::flipToWhite(uint8_t x, uint8_t y) {
+  filled_ |= ( 1UL << (8 * x + y) );
+  white_  |= ( 1UL << (8 * x + y) );
 };
 
 void Board::flipToBlack(int x, int y) {
-  filled_ |= static_cast<uint64_t>(1) << (8 * y + x);
-  white_  &= ~( static_cast<uint64_t>(1) << (8 * y + x) );
+  filled_ |=    1UL <<  (8 * x + y);
+  white_  &= ~( 1UL << (8 * x + y) );
 };
 
 Board::Board() :
