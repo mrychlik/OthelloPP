@@ -125,6 +125,14 @@ TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
   return nullptr; //dummy return, idk if that matters, should be fine, as long as passed board is legal
 }
 
+/** 
+ * Output a TreeNode. It descends and outputs the tree.
+ * 
+ * @param s 
+ * @param tree 
+ * 
+ * @return 
+ */
 std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 {
   s << static_cast<const Board&>(tree)
