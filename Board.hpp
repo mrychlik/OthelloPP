@@ -87,20 +87,13 @@ private:
   int whitesTurn_    : 1;	/**< Is it White's turn? */
   int numTiles_      : 7;	/**< Number of tiles on board */
 
-  /**
-   * Packed bit array telling us which squares
-   * are occupied (row is y).
-   */
-  uint64_t filled_;		
-
-  /**
-   * Packaged bit array telling us which squares
-   * have a white piece on them.
-   */
-  uint64_t white_;
+  uint64_t black_;		/**< Bits telling us if a square is occupied */
+  uint64_t white_;		/**< Bits telling us if a square is occupied by a white piece  */
 
   bool isFilled(uint8_t x, uint8_t y) const; 
-  bool isWhite(uint8_t x, uint8_t y) const; 
+  bool isWhite(uint8_t x, uint8_t y) const;
+  bool isBlack(uint8_t x, uint8_t y) const;   
+
   void setWhite(uint8_t x, uint8_t y); 
   void setBlack(uint8_t x, uint8_t y); 
 };
