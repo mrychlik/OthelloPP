@@ -50,6 +50,11 @@ struct ShiftTable
 
 };
 
+/**
+ * A table of powers of 2:
+ *       [x,y] -> 2^(8*y+x)
+ * where 0<=x,y,<=8
+ */
 static constexpr auto shiftTab = ShiftTable();
 
 
