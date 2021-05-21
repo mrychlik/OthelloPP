@@ -14,7 +14,15 @@
 #include <deque>
 #include "Board.hpp"
 
-//should I mark some/all as volatile? return to think about, update and gen work at same time I think
+/**
+ * Class TreeNode represents the node of
+ * the game tree. In this implementation
+ * TreeNode derives from class Board,
+ * as exactly one instance of the Board
+ * is associated with a TreeNode.
+ * 
+ */
+
 class TreeNode : public Board {
 public:
   /** 
