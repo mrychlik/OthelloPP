@@ -43,7 +43,11 @@ void TreeNode::expandOneLevel(bool verbose)
   auto move_bag = moves();
   for (auto m : move_bag) {
     auto child = std::get<2>(m);
-    if(verbose) std::clog << child;
+    if(verbose) {
+      std::clog << child;
+    } else {
+      std::clog << ".";
+    }
     addChild(new TreeNode(child));
   }
   isExpanded = true;
