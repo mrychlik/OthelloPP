@@ -44,7 +44,7 @@ void Board::flipToBlack(int x, int y) {
 Board::Board() :
   score_(0),
   whitesTurn_(true),		
-  numTiles_(0),			//4 pieces on Board  
+  numTiles_(4),			//4 pieces on Board  
   filled_(0),			
   white_(0)		
 {
