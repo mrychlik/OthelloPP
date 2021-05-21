@@ -32,13 +32,13 @@ bool Board::isWhite(int x, int y) const {
 };
 
 void Board::flipToWhite(int x, int y) {
-  filled_ |= 1UL << (8 * y + x);
-  white_  |= 1UL << (8 * y + x);
+  filled_ |= static_cast<uint64_t>(1) << (8 * y + x);
+  white_  |= static_cast<uint64_t>(1) << (8 * y + x);
 };
 
 void Board::flipToBlack(int x, int y) {
-  filled_ |= 1UL << (8 * y + x);
-  white_  &= ~ ( 1UL << (8 * y + x) );
+  filled_ |= static_cast<uint64_t>(1) << (8 * y + x);
+  white_  &= ~( static_cast<uint64_t>(1) << (8 * y + x) );
 };
 
 Board::Board() :
