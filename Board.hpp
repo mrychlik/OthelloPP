@@ -30,7 +30,7 @@ public:
   int numTiles () const;
   move_bag_type moves(bool playWhite) const;
   int score() const;
-  bool whitesTurn() const;
+  bool isWhitesTurn() const;
   bool operator==(const Board&) const;
   bool anyLegalMoves(bool playWhite) const;
 
