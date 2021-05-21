@@ -114,7 +114,7 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
 //return numTiles=0 if no moves available
 Board::move_type
 TreeNode::getPlayerMove() const {
-  if (!anyLegalMoves(true)) { //moves for white
+  if (!hasLegalMove(true)) { //moves for white
     throw std::runtime_error("No moves for white.");
   }
 
