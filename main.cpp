@@ -20,23 +20,14 @@
 #include <deque>
 #endif
 
-//need Priority Queue of some kind (for intergeneration comparisons)
-//#include <priority_queue>
-//internally uses heap vector, not sure if that is what I need, can overload internal type though
-#include <thread>
-#include <mutex>
-
-//must be a global variable, as mtx can't be passed as args. seems like bad practice but eh, I have no choice
-std::mutex treeLock; //starts unlocked
-
-
-
-
+/** 
+ * @return 
+ */
 int main() {
   //declare+initialize
   TreeNode absTreeRoot; //0 value? idk, should not matter
 
-  const int mind = 4, maxd = 6;
+  const int mind = 2, maxd = 4;
 
   std::cout << absTreeRoot << std::endl;
 
@@ -46,6 +37,7 @@ int main() {
     //start tree generation
     auto minDepth = curTileNum + mind;
     auto maxDepth = curTileNum + maxd;
+
     absTreeRoot.expand(minDepth, maxDepth);
 
     //get player move, if there is one
@@ -84,8 +76,6 @@ int main() {
     absTreeRoot = *bestResponse;
   }
   
-  //should be unessisary, the early game end should catch 64 tile game ends, just to be safe thoug
-  treeLock.lock();
   //if (treeGenerator.joinable()) treeGenerator.join(); //hopefully this catches it finishing between this and previous line
   std::cout << "No possible moves for either player, ending game" << std::endl;
   if (absTreeRoot.score() > 0) std::cout << "White Wins";
