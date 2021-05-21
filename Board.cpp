@@ -44,7 +44,7 @@ struct ShiftTable
 
 };
 
-constexpr auto shiftTab = ShiftTable();
+static constexpr auto shiftTab = ShiftTable();
 
 
 bool Board::isFilled(uint8_t x, uint8_t y) const {
