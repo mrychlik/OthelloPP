@@ -38,9 +38,9 @@ void Board::flipToBlack(int x, int y) {
 };
 
 Board::Board() :
-  scoreInt(0),
-  turn(1),			// white's turn and 
-  numTiles(4),			//4 pieces on Board  
+  score_(0),
+  whitesTurn_(true),		
+  numTiles_(4),			//4 pieces on Board  
   filled(),			// Necessary for 0 initialization
   coloredWhite()		// Ditto
 {
@@ -59,7 +59,7 @@ Board::Board() :
  * @return 
  */
 int Board::score () const { 
-  return this->scoreInt;
+  return score_;
 }
 
 /** 
@@ -69,7 +69,7 @@ int Board::score () const {
  * @return 
  */
 int Board::value() const {
-  int value = this->scoreInt;
+  int value = score();
 
   //maybe add linear change to value of score vs terriory?
 
@@ -89,8 +89,8 @@ int Board::value() const {
   return value;
 }
 
-int Board::tileNum () const {
-  return numTiles;
+int Board::numTiles () const {
+  return numTiles_;
 }
 
 /** 
@@ -168,7 +168,7 @@ Board::moves(bool playWhite) const
 
 	numFlipped = 2*numFlipped + 1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
 
-	c.numTiles = numTiles + 1;
+	c.numTiles() = numTiles() + 1;
 	if (!playWhite) {
 	  // change turn back. if just played white, then its B's turn and no change
 	  c.turn = 1; 
