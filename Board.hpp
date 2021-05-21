@@ -26,11 +26,13 @@ public:
 
 public:
   Board();
-
-  int score() const;
   int value() const;
-  move_bag_type moves(bool playWhite) const;
   int numTiles () const;
+  move_bag_type moves(bool playWhite) const;
+  int score() const;
+
+private:
+
 
   bool whitesTurn() const;
   bool isLegal(bool playWhite , int x, int y) const;
