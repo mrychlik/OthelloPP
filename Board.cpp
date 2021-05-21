@@ -32,13 +32,13 @@ bool Board::isWhite(uint8_t x, uint8_t y) const {
 };
 
 void Board::flipToWhite(uint8_t x, uint8_t y) {
-  filled_ |= ( 1UL << (8 * x + y) );
-  white_  |= ( 1UL << (8 * x + y) );
+  filled_ |= ( 1UL << (8 * y + x) );
+  white_  |= ( 1UL << (8 * y + x) );
 };
 
-void Board::flipToBlack(int x, int y) {
-  filled_ |=    1UL <<  (8 * x + y);
-  white_  &= ~( 1UL << (8 * x + y) );
+void Board::flipToBlack(uint8_t x, uint8_t y) {
+  filled_ |=    1UL <<  (8 * y + x);
+  white_  &= ~( 1UL << (8 * y + x) );
 };
 
 Board::Board() :
