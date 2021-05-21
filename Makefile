@@ -1,4 +1,4 @@
-CXXFLAGS = -std=c++20 -O0 -ggdb3 -pthread -Wall
+CXXFLAGS = -std=c++20 -O4 -ggdb3 -pthread -Wall
 LDFLAGS  = -lm -lboost_unit_test_framework
 
 all: main test_suite
