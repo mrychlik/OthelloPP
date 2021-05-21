@@ -66,9 +66,7 @@ void TreeNode::addChild(TreeNode *child)
 int8_t TreeNode::evaluate(uint8_t depth) {
   auto bestVal = this->Board::value();
   //TreeNode *bestChild = nullptr;
-  if(depth == 0) {
-    return bestVal;
-  } else {
+  if(depth > 0) {
     if(!isExpanded) {
       expandOneLevel();
     }
