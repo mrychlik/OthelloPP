@@ -130,7 +130,7 @@ int Board::value() const {
  * @return 
  */
 int Board::numTiles () const {
-  return numTiles_;
+  return __builtin_popcountl(filled_);
 }
 
 /** 
@@ -208,7 +208,6 @@ Board::moves() const
 
 	numFlipped = 2*numFlipped + 1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
 
-	c.numTiles_ = numTiles_ + 1;
 	// change turn back. if just played white, then its B's turn and no change
 	c.setWhitesTurn(!isWhitesTurn()); 
 	c.score_ = isWhitesTurn() ? score_ + numFlipped : score_ + numFlipped; //play black, score decreases
