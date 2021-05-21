@@ -85,14 +85,6 @@ BOOST_AUTO_TEST_CASE(test_board_move_text)
   }
 }
 
-
-BOOST_AUTO_TEST_CASE(test_tree_print)
-{
-  TreeNode root;
-  root.expandOneLevel();
-  std::cout << root;
-}
-
 BOOST_AUTO_TEST_CASE(test_expand_one_level)
 {
   TreeNode root;
