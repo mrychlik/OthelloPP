@@ -116,7 +116,7 @@ void TreeNode::updateTreeDesireablility(unsigned char upNum) {
  * Validates the move.
  * 
  * 
- * @return 
+ * @return Triple (x, y, Board)
  */
 Board::move_type TreeNode::getPlayerMove() const {
   if (!hasLegalMove(true)) { //moves for white
