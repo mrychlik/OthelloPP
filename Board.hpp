@@ -99,10 +99,10 @@ private:
    */
   uint64_t white_;
 
-  bool isFilled(uint8_t x, uint8_t) const; 
-  bool isWhite(uint8_t x, uint8_t) const; 
-  void setWhite(uint8_t x, uint8_t); 
-  void setBlack(uint8_t x, uint8_t); 
+  bool isFilled(uint8_t x, uint8_t y) const; 
+  bool isWhite(uint8_t x, uint8_t y) const; 
+  void setWhite(uint8_t x, uint8_t y); 
+  void setBlack(uint8_t x, uint8_t y); 
 };
 
 
