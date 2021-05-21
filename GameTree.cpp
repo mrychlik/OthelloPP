@@ -30,6 +30,13 @@ TreeNode(const Board& b)
 }
 
 
+/** 
+ * Expands nodes whose depth falls in the range
+ * [minDepth, maxDepth).
+ * 
+ * @param minDepth 
+ * @param maxDepth 
+ */
 void TreeNode::expand(int minDepth, int maxDepth) {
   std::cerr << "started exploration" << std::endl;
 
