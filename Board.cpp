@@ -130,6 +130,9 @@ int Board::value() const {
  * @return 
  */
 int Board::numTiles () const {
+  // We use a non-portable, GCC specific function
+  // but there are many portable implementations
+  // which are quite efficient
   return __builtin_popcountl(filled_);
 }
 
@@ -347,7 +350,6 @@ bool Board::hasLegalMove() const {
  */
 bool Board::operator==(const Board& b) const {
   return  whitesTurn_ == b.whitesTurn_
-    && numTiles_ == b.numTiles_
     && filled_ == b.filled_
     && white_ == b.white_;
 }
