@@ -57,7 +57,7 @@ public:
   int score() const;
   bool isWhitesTurn() const;
   bool operator==(const Board&) const;
-  bool hasLegalMove(bool playWhite) const;
+  bool hasLegalMove() const;
 
 private:
 
