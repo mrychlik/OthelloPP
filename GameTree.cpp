@@ -38,36 +38,30 @@ TreeNode::TreeNode(const Board& b)
  * 
  * @param depth 
  */
-int  TreeNode::evaluate(uint8_t depth) {
+int8_t TreeNode::evaluate(uint8_t depth) {
+  auto bestVal = this->Board::value();
+  TreeNode *bestChild = nullptr;
   if(depth == 0) {
-    return this->Board::value();
+    return bestVal;
   } else {
     if(!isExpanded) {
-      expandOne();
+      //expandOneLevel();
     }
-    for (auto a : downlinks) {
-      aVal = a->evaluate(depth - 1);
+    for (auto child : downlinks) {
+      auto childVal = child->evaluate(depth - 1);
       // White is Max, Black is Min
       if (isWhitesTurn()) {
-        //since computer just played, the value of n should be the *greatest* of the downlinks, assume player is smart
-        //(postive value is good for white, neg is good for black)
-        //each is one possible player move
-        if (!initialized || a->value > curVal){
-           curVal = a->value;
-           initialized = true;
-        }
+	if(childVal > bestVal) {
+	  bestVal = childVal;
+	  bestChild = child;
+	}
       } else { 
-        //player just moved. each dl is a CPU move, should choose min
-        //negative is good for black, so we want the lowest possible value of the DLs
-        if (!initialized || a->value < curVal) {
-          curVal = a->value;
-          initialized = true;
-        }
+	if(childVal < bestVal) {
+	  bestVal = childVal;
+	  bestChild = child;	  
+	}
       }
     }
-    this->value = curVal;
-  } else {			//no children
-
   }
 }
 
