@@ -62,7 +62,7 @@ void TreeNode::addChild(TreeNode *child)
  * 
  * @param depth 
  */
-int8_t TreeNode::evaluate(uint8_t depth) {
+int TreeNode::evaluate(uint8_t depth) {
   auto bestVal = this->Board::value();
   //TreeNode *bestChild = nullptr;
   if(depth == 0) {
@@ -120,3 +120,15 @@ TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
   return nullptr; //dummy return, idk if that matters, should be fine, as long as passed board is legal
 }
 
+std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
+{
+  s << static_cast<const Board&>(tree)
+    << "Is expanded: " << tree.isExpanded
+    << "Value: " << tree.value
+    << "Update number: " << tree.updateNumber
+    << std::endl;
+  for(auto child : tree.downlinks) {
+    s << *child << std::endl;
+  }
+  return s;
+}
