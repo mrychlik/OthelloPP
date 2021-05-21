@@ -33,8 +33,8 @@ public:
   int numTiles () const;
 
   bool whitesTurn() const;
-  bool isLegal(bool, int, int) const;
-  bool anyLegalMoves(bool) const;
+  bool isLegal(bool playWhite , int x, int y) const;
+  bool anyLegalMoves(bool playWhite) const;
   bool operator==(const Board&) const;
 
   operator std::string() const;
