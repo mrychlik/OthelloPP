@@ -24,8 +24,8 @@
  * @return 
  */
 int main() {
-  //declare+initialize
   TreeNode absTreeRoot;
+
   bool playWhite = true;
   const int mind = 2, maxd = 4;
 
