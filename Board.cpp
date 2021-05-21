@@ -168,13 +168,13 @@ Board::moves(bool playWhite) const
 
 	numFlipped = 2*numFlipped + 1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
 
-	c.numTiles() = numTiles() + 1;
+	c.numTiles_ = numTiles_ + 1;
 	if (!playWhite) {
 	  // change turn back. if just played white, then its B's turn and no change
-	  c.turn = 1; 
-	  c.scoreInt = scoreInt - numFlipped; //play black, score decreases
+	  c.whitesTurn_ = 1; 
+	  c.score_ = score_ - numFlipped; //play black, score decreases
 	} else {
-	  c.scoreInt = scoreInt + numFlipped; //play white, score increases
+	  c.score_ = score_ + numFlipped; //play white, score increases
 	}
 	//c.numTiles = tn;
 	move_bag.push_back(move_type(x, y, c));
@@ -255,7 +255,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
 }
 
 bool Board::whitesTurn() const {
-  return turn;
+  return whitesTurn_;
 }
 
 
