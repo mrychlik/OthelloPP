@@ -1,3 +1,13 @@
+/**
+ * @file   unit_tests.cpp
+ * @author Marek Rychlik <marek@cannonball.lan>
+ * @date   Fri May 21 10:11:39 2021
+ * 
+ * @brief  Unit tests according to the Boost unit testing framework
+ * 
+ * 
+ */
+
 #include "Board.hpp"
 #include "GameTree.hpp"
 
