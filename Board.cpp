@@ -74,7 +74,6 @@ void Board::setBlack(uint8_t x, uint8_t y) {
 Board::Board() :
   score_(0),
   whitesTurn_(true),		
-  numTiles_(4),			//4 pieces on Board  
   filled_(0),			
   white_(0)		
 {
