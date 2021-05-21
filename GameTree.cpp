@@ -14,6 +14,22 @@
 #include <iostream>
 
 
+/** 
+ * Constructor of a node with a given board.
+ * 
+ * @param b 
+ * 
+ * @return 
+ */
+TreeNode(const Board& b = Board())
+  : Board(b),
+    isExpanded(false),
+    updateNumber(0),
+    value(b.value())
+{      
+}
+
+
 void TreeNode::expand(int minDepth, int maxDepth) {
   std::cerr << "started exploration" << std::endl;
 
