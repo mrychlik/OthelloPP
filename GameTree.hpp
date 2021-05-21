@@ -32,9 +32,9 @@ public:
   int8_t evaluate(uint8_t depth = 0);
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
 
+  void expandOneLevel(bool verbose = false);
 private:
 
-  void expandOneLevel();
   void addChild(TreeNode *child);
 
   std::deque<TreeNode*> downlinks;
