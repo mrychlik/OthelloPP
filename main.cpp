@@ -26,13 +26,9 @@
 int main() {
   //declare+initialize
   TreeNode absTreeRoot;
-
   bool playWHite = true;
-
   const int mind = 2, maxd = 4;
-
   std::cout << absTreeRoot << std::endl;
-
   while(absTreeRoot.numTiles() != 64) {
     auto curTileNum = absTreeRoot.numTiles();
     
@@ -52,11 +48,18 @@ int main() {
     auto board = std::get<2>(possiblePlayerMove);
     auto moves = board.moves();
 
-    if ( moves.empty() && moves_white.empty()) {//no one has a move
-      std::cout << "No possible moves for either player, ending game" << std::endl;
-      if (board.score() > 0) std::cout << "White Wins";
-      else if (board.score() < 0) std::cout << "Black Wins";
-      else std::cout << "Tie";
+    if ( moves.empty() ) {
+      board.switchPlayer();
+      auto moves = board.moves();
+      if( moves.empty()) {
+	std::cout << "No possible moves for either player, ending game" << std::endl;
+	if (board.score() > 0) {
+	  std::cout << "White Wins";
+	} else if(board.score() < 0) {
+	  std::cout << "Black Wins";
+	} else {
+	  std::cout << "Tie";
+	}
       std::cout << std::endl;
       return 0;
     } else if ( moves_black.empty() ) {//black has no moves, game ends
