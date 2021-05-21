@@ -44,7 +44,9 @@ void TreeNode::expand(int minDepth, int maxDepth) {
           if( *n == board) {
             matched = n;
             break;
-          } else if( n->numTiles() <= current->numTiles() ) break; //only old ones there
+          } else if( n->numTiles() <= current->numTiles() ) {
+	    break; //only old ones there
+	  }
         }
         if (matched == nullptr) {
           TreeNode out(board);
