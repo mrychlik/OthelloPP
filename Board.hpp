@@ -30,13 +30,15 @@ public:
   int numTiles () const;
   move_bag_type moves(bool playWhite) const;
   int score() const;
+  bool whitesTurn() const;
+  bool operator==(const Board&) const;
 
 private:
 
-  bool whitesTurn() const;
+
   bool isLegal(bool playWhite , int x, int y) const;
   bool anyLegalMoves(bool playWhite) const;
-  bool operator==(const Board&) const;
+
 
   operator std::string() const;
   
