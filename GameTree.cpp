@@ -34,7 +34,7 @@ void TreeNode::expand(int minDepth, int maxDepth) {
     } else if (current->numTiles() < maxDepth){ 
       auto move_bag = current->moves(current->isWhitesTurn());
       if( move_bag.empty() ) {
-	move_bag = current->moves(!current->whitesTurn()); //check for play agains
+	move_bag = current->moves(!current->isWhitesTurn()); //check for play agains
       }
       for (auto m: move_bag) {
         TreeNode* matched = nullptr;
