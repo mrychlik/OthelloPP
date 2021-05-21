@@ -23,22 +23,47 @@ static const std::string reset = "[0m";
  */
 static const int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
+/** 
+ * Constructs table that converts 
+ * pairs (x, y) to offsets into a 64-entry 1D array.
+ */
+struct ShiftTable
+{
+  constexpr ShiftTable() : values()
+  {
+    for (auto x = 0; x < 8; ++x)
+      for (auto y = 0; y < 8; ++y)
+      {
+	values[x][y] = 1UL << (8 * y + x);
+      }
+  }
+  uint64_t values[8][8];
+
+  uint64_t operator()(uint8_t x, uint8_t y) const {
+    return values[x][y];
+  }
+
+};
+
+constexpr auto shiftTab = ShiftTable();
+
+
 bool Board::isFilled(uint8_t x, uint8_t y) const {
-  return filled_ & (1UL << ( 8 * y + x));
+  return filled_ & (1UL << shiftTab(x, y));
 };
 
 bool Board::isWhite(uint8_t x, uint8_t y) const {
-  return white_  & (1UL << (8 * y + x) );
+  return white_  & (1UL << shiftTab(x, y));
 };
 
 void Board::setWhite(uint8_t x, uint8_t y) {
-  filled_ |= ( 1UL << (8 * y + x) );
-  white_  |= ( 1UL << (8 * y + x) );
+  filled_ |= ( 1UL << shiftTab(x, y) );
+  white_  |= ( 1UL << shiftTab(x, y) );
 };
 
 void Board::setBlack(uint8_t x, uint8_t y) {
-  filled_ |=    1UL <<  (8 * y + x);
-  white_  &= ~( 1UL << (8 * y + x) );
+  filled_ |=    1UL <<  shiftTab(x, y);
+  white_  &= ~( 1UL <<  shiftTab(x, y));
 };
 
 Board::Board() :
