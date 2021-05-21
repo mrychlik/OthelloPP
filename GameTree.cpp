@@ -46,6 +46,7 @@ void TreeNode::expandOneLevel(bool verbose)
     if(verbose) std::clog << child;
     addChild(new TreeNode(child));
   }
+  isExpanded = true;
 }
 
 
