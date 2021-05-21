@@ -24,34 +24,35 @@ static const std::string reset = "[0m";
 static const int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
 bool Board::isFilled(int x, int y) const {
-  return (filled_[y] & (0x80 >> x));
+  return (filled_ >> (8 * y + x)) & 1U;
 };
 
 bool Board::isWhite(int x, int y) const {
-  return (white_[y]  & (0x80 >> x));
+  return (white_ >> (8 * y + x) ) & 1UL;
 };
 
 void Board::flipToWhite(int x, int y) {
-  filled_[y] |= 0x80 >> x;
-  white_[y] |= 0x80 >> x;
+  filled_ |= 1UL << (8 * y + x);
+  white_  |= 1UL << (8 * y + x);
 };
 
 void Board::flipToBlack(int x, int y) {
-  filled_[y] |= 0x80 >> x;
-  white_[y] &= ~(0x80 >> x);
+  filled_ |= 1UL << (8 * y + x);
+  white_  &= ~ ( 1UL << (8 * y + x) );
 };
 
 Board::Board() :
   score_(0),
   whitesTurn_(true),		
-  numTiles_(4),			//4 pieces on Board  
-  filled_(),			// Necessary for 0 initialization
-  white_()			// Ditto
+  numTiles_(0),			//4 pieces on Board  
+  filled_(0),			
+  white_(0)		
 {
   // Standard Othello board initialization
-  filled_[3] = filled_[4] = 0b00011000;
-  white_[3] = 0b00001000;
-  white_[4] = 0b00010000;
+  flipToWhite(3,4);
+  flipToWhite(4,3);
+  flipToBlack(3,3);
+  flipToBlack(4,3);  
 }
   
 
@@ -271,8 +272,8 @@ bool Board::operator==(const Board& b) const {
   // NOTE: IntScore is omitted from the comparison
   return  whitesTurn_ == b.whitesTurn_
     && numTiles_ == b.numTiles_
-    && std::equal(filled_, b.filled_, filled_ + 8)
-    && std::equal(white_, b.white_, white_ + 8);
+    && filled_ == b.filled_
+    && white_ == b.white_;
 }
 
 Board::operator std::string() const {
