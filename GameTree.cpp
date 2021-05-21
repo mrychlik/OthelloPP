@@ -126,7 +126,7 @@ TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
 }
 
 /** 
- * Output a TreeNode. It descends and outputs the tree.
+ * Output a TreeNode. It descends recursively into the tree.
  * 
  * @param s 
  * @param tree 
