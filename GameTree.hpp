@@ -36,6 +36,7 @@ public:
 private:
 
   void expandOneLevel();
+  void addChild(TreeNode *child);
 
   std::deque<TreeNode*> downlinks;
   bool isExpanded;
