@@ -26,9 +26,11 @@
 int main() {
   //declare+initialize
   TreeNode absTreeRoot;
-  bool playWHite = true;
+  bool playWhite = true;
   const int mind = 2, maxd = 4;
+
   std::cout << absTreeRoot << std::endl;
+
   while(absTreeRoot.numTiles() != 64) {
     auto curTileNum = absTreeRoot.numTiles();
     
