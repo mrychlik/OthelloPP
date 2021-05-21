@@ -35,7 +35,7 @@ TreeNode::TreeNode(const Board& b)
  * 
  * @return 
  */
-void TreeNode::expandOneLevel()
+void TreeNode::expandOneLevel(bool verbose)
 {
   if(isExpanded) {
     return;
@@ -43,6 +43,7 @@ void TreeNode::expandOneLevel()
   auto move_bag = moves();
   for (auto m : move_bag) {
     auto child = std::get<2>(m);
+    if(verbose) std::clog << child;
     addChild(new TreeNode(child));
   }
 }
