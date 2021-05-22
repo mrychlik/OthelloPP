@@ -30,6 +30,19 @@ TreeNode::TreeNode(const Board& b)
 }
 
 /** 
+ * Destructor. Deletes a tree node and its children
+ * 
+ */
+TreeNode::~TreeNode()
+{
+  if(isExpanded) {
+    for( auto child : downlinks) {
+      delete child;
+    }
+  }
+}
+
+/** 
  * Add child nodes
  *
  * @param verbose If true print board, else '.'.
