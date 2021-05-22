@@ -80,8 +80,8 @@ private:
   std::ostream& printSmall(std::ostream& s) const;
   std::ostream& printBig(std::ostream& s) const;
 
-  uint64_t filled;		/**< Bit flags: is a square is occupied? */
-  uint64_t white;		/**< Bit flags: is a square occupied by white? */
+  uint8_t filled[8];		/**< Is a square is occupied? */
+  uint8_t white[8];		/**< Is a square occupied by white? */
   bool whitesTurn;		/**< Is it White's turn? */
 
   bool isFilled(uint8_t x, uint8_t y) const; 
