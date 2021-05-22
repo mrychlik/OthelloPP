@@ -15,14 +15,11 @@
 #include "Board.hpp"
 
 /**
- * Class TreeNode represents the node of
- * the game tree. In this implementation
- * TreeNode derives from class Board,
- * as exactly one instance of the Board
- * is associated with a TreeNode.
- * This introduces a compile-time dependency
- * on the Board class, which is undesirable
- * but it seems harmless at this time.
+ * Class TreeNode represents the node of the game tree. In this
+ * implementation TreeNode derives from class Board, as exactly one
+ * instance of the Board is associated with a TreeNode.  This
+ * introduces a compile-time dependency on the Board class, which is
+ * undesirable but it seems harmless at this time.
  * 
  */
 class TreeNode : public Board {
