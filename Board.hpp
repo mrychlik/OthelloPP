@@ -17,15 +17,6 @@
 #include <forward_list>
 #include <tuple>
 
-enum Player {
-  BLACK =  0,
-  WHITE =  1,
-};
-
-inline Player operator~(Player player) {
-  return player == WHITE ? BLACK : WHITE;
-}
-
 
 /** 
  * Board class represents the board of the Othello game.
@@ -44,6 +35,11 @@ inline Player operator~(Player player) {
  */
 class Board {
 public:
+  enum Player {
+    BLACK =  0,
+    WHITE =  1,
+  };
+
   /** 
    * Type move_type is a triple (x, y, Board)
    * where x, y are the coordinates of the new piece
@@ -103,6 +99,10 @@ private:
   bool findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadius[8], bool shortCircuit = false) const;
   void toggleTurn();
 };
+
+inline Player operator~(Player player) {
+  return player == WHITE ? BLACK : WHITE;
+}
 
 
 
