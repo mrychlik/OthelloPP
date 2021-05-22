@@ -79,7 +79,7 @@ private:
 
   uint64_t filled_;		/**< Bit flags: is a square is occupied? */
   uint64_t white_;		/**< Bit flags: is a square occupied by white? */
-  int whitesTurn_    : 1;	/**< Is it White's turn? */
+  bool whitesTurn_;		/**< Is it White's turn? */
 
   bool isFilled(uint8_t x, uint8_t y) const; 
   bool isWhite(uint8_t x, uint8_t y) const;
