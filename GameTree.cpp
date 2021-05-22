@@ -32,7 +32,7 @@ TreeNode::TreeNode(const Board& board, bool whitesTurn)
     value(board.value()),
     isExpanded(false),
     whitesTurn(whitesTurn),
-    children()
+    children_()
 {      
 }
 
@@ -43,7 +43,7 @@ TreeNode::TreeNode(const Board& board, bool whitesTurn)
 TreeNode::~TreeNode()
 {
   if(isExpanded) {
-    for( auto child : children) {
+    for( auto child : children() ) {
       delete child;
     }
   }
@@ -96,7 +96,7 @@ void TreeNode::expandOneLevel(Player player, bool verbose)
 
 void TreeNode::addChild(TreeNode* child)
 {
-  children.push_front(child);
+  children_.push_front(child);
 }
 
 /** 
