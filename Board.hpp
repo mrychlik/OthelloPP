@@ -77,7 +77,6 @@ private:
   std::ostream& printSmall(std::ostream& s) const;
   std::ostream& printBig(std::ostream& s) const;
 
-  int score_         : 8;	/**< Score */
   int whitesTurn_    : 1;	/**< Is it White's turn? */
 
   uint64_t filled_;		/**< Bit flags: is a square is occupied? */
