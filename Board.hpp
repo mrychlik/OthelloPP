@@ -100,8 +100,15 @@ private:
   void toggleTurn();
 };
 
-inline Player operator~(Player player) {
-  return player == WHITE ? BLACK : WHITE;
+/** 
+ * Toggles player to the opponent.
+ * 
+ * @param player 
+ * 
+ * @return 
+ */
+inline Board::Player operator~(Board::Player player) {
+  return player == Board::WHITE ? Board::BLACK : Board::WHITE;
 }
 
 
