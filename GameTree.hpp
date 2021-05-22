@@ -26,35 +26,40 @@
  */
 class TreeNode : public Board {
 public:
+  typedef std::forward_list<TreeNode*> children_type;
+
   TreeNode(const Board& b = Board(), bool Player = WHITE);
   ~TreeNode();
   void deleteChildren();
+  const children_type& children() const;
+
   
   int8_t evaluate(Player player, uint8_t depth = 0, bool verbose = false);
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
+  int8_t minmax(Player player, uint8_t depth, int8_t alpha = +100, int8_t beta = -100);
 
-  void expandOneLevel(Player player, bool verbose = false);
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
 
 private:
 
+  void expandOneLevel(Player player, bool verbose = false) const;
+
   // Installs a new child node
   void addChild(TreeNode* child);
-  int8_t minmax(Player player, uint8_t depth, int8_t alpha, int8_t beta);
   bool isLeaf() const;
   bool isWhitesTurn() const;
 
 
   int8_t value;			/**< The value of the node */
   bool isExpanded;		/**< Have the children been added */
-  bool whitesTurn;		/**< Is the node reflecting white's move */
+  Player player;		/**< Is the node reflecting white's move */
 
 
   // NOTE: Using deque for this would use 80 bytes of memory
   // under GCC, vector uses only 24 bytes, forward_list 8 bytes.
   // As Board currently consumes 24 bytes, the TreeNode only 32
-  std::forward_list<TreeNode*> children;
+  children_type children_;
 
 };
 
