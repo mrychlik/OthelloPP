@@ -30,7 +30,6 @@
 TreeNode::TreeNode(const Board& board, bool whitesTurn)
   : Board(board),
     isExpanded(false),
-    player(WHITE),
     children_()
 {      
 }
