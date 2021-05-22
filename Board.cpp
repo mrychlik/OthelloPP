@@ -64,8 +64,8 @@ void Board::setBlack(uint8_t x, uint8_t y) {
 
 Board::Board() :
   filled_(0),			
-  white_(0)		
-  whitesTurn_(true),		
+  white_(0),
+  whitesTurn_(true)		
 {
   // Standard Othello board initialization
   setWhite(3,4);
