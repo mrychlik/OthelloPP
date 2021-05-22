@@ -15,6 +15,15 @@
 #include <cinttypes>
 #include <forward_list>
 
+enum Player {
+  BLACK =  0,
+  WHITE =  1,
+};
+
+inline Player operator~(Player player) {
+  return player == WHITE ? BLACK : WHITE;
+}
+
 /**
  * Class TreeNode represents the node of the game tree. In this
  * implementation TreeNode derives from class Board, as exactly one
@@ -25,14 +34,14 @@
  */
 class TreeNode : public Board {
 public:
-  TreeNode(const Board& b = Board(), bool whitesTurn = true);
+  TreeNode(const Board& b = Board(), bool Player = WHITE);
   ~TreeNode();
   void deleteChildren();
   
-  int8_t evaluate(bool playWhite, uint8_t depth = 0, bool verbose = false);
+  int8_t evaluate(Player player, uint8_t depth = 0, bool verbose = false);
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
 
-  void expandOneLevel(bool playWhite, bool verbose = false);
+  void expandOneLevel(Player player, bool verbose = false);
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
 
@@ -43,6 +52,7 @@ private:
   int8_t minmax(uint8_t depth, bool isMaximizingPlayer,
 		int8_t alpha, int8_t beta);
   bool isLeaf() const;
+  bool isWhitesTurn() const;
 
 
   int8_t value;			/**< The value of the node */
