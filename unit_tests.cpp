@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(tree_node_size)
 
 BOOST_AUTO_TEST_CASE(tree_evaluate)
 {
-  auto depth = 8;
+  auto depth = 10;
   TreeNode root;
 
   std::cout << static_cast<int>(root.evaluate(depth, true)) << std::endl;
