@@ -54,20 +54,20 @@ TreeNode::~TreeNode()
  *
  * @param verbose If true print board, else '.'.
  * 
- * @param playWhite
+ * @param player
  * 
  * @return 
  */
-void TreeNode::expandOneLevel(bool playWhite, bool verbose)
+void TreeNode::expandOneLevel(Player player, bool verbose)
 {
   if(isExpanded) {
-    if( playWhite == whitesTurn )  {    
+    if( player == WHITE )  {    
       return;
     } else {			// We expanded for the other player
       deleteChildren();
     }
   }
-  auto move_bag = moves(playWhite);
+  auto move_bag = moves(player);
 
   try {
     if( !move_bag.empty() ) {
@@ -76,12 +76,12 @@ void TreeNode::expandOneLevel(bool playWhite, bool verbose)
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(child, playWhite));
+	addChild(new TreeNode(child, player));
       }
     } else {
       // We don't change the board pieces,
       // just give turn to the opponent
-      addChild(new TreeNode(*this, !playWhite));
+      addChild(new TreeNode(*this, ~player));
     }
     isExpanded = true;
   } catch(std::bad_alloc& e) {
@@ -105,12 +105,13 @@ void TreeNode::addChild(TreeNode* child)
  * If depth is reached, or if node has no children
  * the static value of the board is returned.
  * 
+ * @param player
  * @param depth   Expand tree to this depth
  * @param verbose  Be verbose if true
 
  * @return The value of this node
  */
-int8_t TreeNode::evaluate(bool playWhite, uint8_t depth, bool verbose) {
+int8_t TreeNode::evaluate(Player player, uint8_t depth, bool verbose) {
   if(verbose) {
     std::clog << __func__ << ": Depth " << static_cast<int>(depth)
 	      << ", Number of tiles: " <<  static_cast<int>(numTiles())
@@ -120,15 +121,15 @@ int8_t TreeNode::evaluate(bool playWhite, uint8_t depth, bool verbose) {
   //TreeNode *bestChild = nullptr;
   if(depth > numTiles()) {
     if(!isExpanded) {
-      expandOneLevel(verbose);
+      expandOneLevel(player, verbose);
     }
     // Now the node may not have expanded
     // because of memory allocation failure
     if(isExpanded) {
       for (auto child : children) {
-	auto childVal = child->evaluate(!playWhite, depth, verbose);
+	auto childVal = child->evaluate(~player, depth, verbose);
 	// White is Max, Black is Min
-	if (playWhite) {
+	if (player == WHITE) {
 	  bestVal = std::max(bestVal, childVal);
 	} else { 
 	  bestVal = std::min(bestVal, childVal);
@@ -232,7 +233,7 @@ int8_t TreeNode::minmax(uint8_t depth, bool isMaximizingPlayer,
  */
 bool TreeNode::isLeaf() const
 {
-  return hasLegalMove(true) && !hasLegalMove(false);
+  return hasLegalMove(WHITE) && !hasLegalMove(BLACK);
 }
 
 
