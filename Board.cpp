@@ -18,12 +18,12 @@ static const char esc = '';
 static const std::string reset = "[0m";
 
 static inline
-uint32_t popcount(unsigned long x)
+uint32_t popcount(const uint8_t x[8])
 {
   // We use a non-portable, GCC specific function
   // but there are many portable implementations
   // which are quite efficient
-  return __builtin_popcountl(x);
+  return __builtin_popcountl(reinterpret_cast<unsigned long>(x));
 }
 
 /**
@@ -32,48 +32,27 @@ uint32_t popcount(unsigned long x)
  */
 static constexpr int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
-
-/**
- * A table of powers of 2:
- *       [x,y] -> 2^(8*y+x)
- * where 0<=x,y,<=8
- */
-struct PowerTable
-{
-  constexpr PowerTable() 
-  {
-    for (auto x = 0; x < 8; ++x)
-      for (auto y = 0; y < 8; ++y)
-      {
-	values[x][y] = 1UL << (8 * y + x);
-      }
-  }
-  uint64_t values[8][8];	/**< Table of powers of 2 */
-};
-
-static constexpr PowerTable lut;
-
 bool Board::isFilled(uint8_t x, uint8_t y) const {
-  return filled & lut.values[x][y];
+  return filled[y] & (0x01 << x);
 };
 
 bool Board::isWhite(uint8_t x, uint8_t y) const {
-  return white & lut.values[x][y];
+  return white[y] & (0x01 << x);
 };
 
 void Board::setWhite(uint8_t x, uint8_t y) {
-  filled |= lut.values[x][y];
-  white  |= lut.values[x][y];
+  filled[y] |= (0x01 << x);
+  white[y]  |= (0x01 << x);
 };
 
 void Board::setBlack(uint8_t x, uint8_t y) {
-  filled |= lut.values[x][y];
-  white  &= ~lut.values[x][y];
+  filled[y] |= (0x01 << x);
+  white[y]  &= ~(0x01 << x);
 };
 
 Board::Board() :
-  filled(0),			
-  white(0),
+  filled{0},			
+  white{0},
   whitesTurn(true)		
 {
   // Standard Othello board initialization
@@ -149,7 +128,7 @@ int Board::numWhiteTiles () const {
  * @return 
  */
 int Board::numBlackTiles () const {
-  return popcount( filled^white );
+  return numTiles() - numWhiteTiles();
 }
 
 /** 
