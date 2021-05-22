@@ -85,14 +85,6 @@ BOOST_AUTO_TEST_CASE(board_move_text)
   }
 }
 
-BOOST_AUTO_TEST_CASE(expand_one_level)
-{
-  TreeNode root;
-  root.expandOneLevel(Board::WHITE);
-  std::cout << root;
-}
-
-
 BOOST_AUTO_TEST_CASE(board_size)
 {
   Board b;
