@@ -41,8 +41,7 @@ private:
 
   // Installs a new child node
   void addChild(TreeNode* child);
-  int8_t minmax(Player player, uint8_t depth,
-		int8_t alpha, int8_t beta);
+  int8_t minmax(Player player, uint8_t depth, int8_t alpha, int8_t beta);
   bool isLeaf() const;
   bool isWhitesTurn() const;
 
