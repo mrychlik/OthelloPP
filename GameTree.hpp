@@ -11,7 +11,7 @@
 #ifndef GAME_TREE_HPP
 #define GAME_TREE_HPP 1
 
-#include <deque>
+#include <vector>
 #include "Board.hpp"
 
 /**
