@@ -58,7 +58,7 @@ void TreeNode::expandOneLevel(bool verbose)
 
 void TreeNode::addChild(TreeNode *child)
 {
-  downlinks.push_back(child);
+  downlinks.push_front(child);
 }
 
 /** 
