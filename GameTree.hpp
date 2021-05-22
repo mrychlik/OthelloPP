@@ -42,6 +42,8 @@ public:
 
 private:
 
+  //// NOTE: const methods that operate on mutable fields
+
   // Installs a new child node
   void addChild(TreeNode* child) const;
 
@@ -50,6 +52,8 @@ private:
 
   // Delete all children
   void deleteChildren() const;
+
+  //// END: const methods that operate on mutable fields
 
 
   bool isLeaf() const;
