@@ -15,14 +15,6 @@
 #include <cinttypes>
 #include <forward_list>
 
-enum Player {
-  BLACK =  0,
-  WHITE =  1,
-};
-
-inline Player operator~(Player player) {
-  return player == WHITE ? BLACK : WHITE;
-}
 
 /**
  * Class TreeNode represents the node of the game tree. In this
@@ -49,7 +41,7 @@ private:
 
   // Installs a new child node
   void addChild(TreeNode* child);
-  int8_t minmax(uint8_t depth, bool isMaximizingPlayer,
+  int8_t minmax(Player player, uint8_t depth,
 		int8_t alpha, int8_t beta);
   bool isLeaf() const;
   bool isWhitesTurn() const;
