@@ -77,9 +77,14 @@ void TreeNode::expandOneLevel(bool verbose)
     isExpanded = true;
   } catch(std::bad_alloc& e) {
     std::cerr << e.what() << "\n";
-    
+    // Now we have only some children, so not
+    // we cannot determine accurate value
+    for(auto child : downlinks) {
+      delete child;
+      child = nullptr;
+    }
+    isExpanded = false;
   }
-
 }
 
 
