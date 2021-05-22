@@ -90,6 +90,7 @@ private:
   void setColor(uint8_t x, uint8_t y); 
 
   void findFlipRadius(uint8_t x, uint8_t y, uint8_t flipRadius[8]) const;
+  void toggleTurn();
 };
 
 
