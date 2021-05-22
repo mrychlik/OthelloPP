@@ -87,7 +87,6 @@ void TreeNode::expandOneLevel(bool verbose)
     // Empty the list
     downlinks.clear();
     isExpanded = false;
-    throw e;
   }
 }
 
