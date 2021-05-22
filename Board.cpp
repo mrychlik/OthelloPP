@@ -146,15 +146,20 @@ int Board::numBlackTiles () const {
 
 /** 
  * For a given board square and each of the 8 rays from that square
- * compute number of tiles to flip along that ray.
+ * compute number of tiles to flip along that ray. As a side
+ * efect, determine whether whe move is legal, in the sense that
+ * it would result in flipping some tiles to the player's color.
  * 
- * @param playWhite
+ * @param player
  * @param x 
  * @param y 
  * @param toFlip 
+ * 
+ * @return True if the move is legal
  */
-void Board::findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadius[8]) const
+bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadius[8]) const
 {
+  bool legal = false;
   for (int ray = 0; ray < 8; ++ray) { //iter over cardinal + diagonals
     int8_t distance = 1;
     int8_t end = 0;
@@ -174,6 +179,7 @@ void Board::findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadi
     }
     if (end == 3) {
       flipRadius[ray] = distance;
+      legal = true;
     } else {
       flipRadius[ray] = 0;
     }
@@ -199,9 +205,7 @@ Board::moves(Player player) const
     for( auto y = 0; y < 8; ++y) {
       if( isFilled(x,y) ) continue;
       uint8_t flipRadius[8];
-      findFlipRadius(player, x, y, flipRadius);
-      
-      bool legal = popcount(flipRadius);
+      auto legal = findFlipRadius(player, x, y, flipRadius);
       if (legal) {
 	Board c(*this);
 	for (int r = 0; r < 8; r++) { 
