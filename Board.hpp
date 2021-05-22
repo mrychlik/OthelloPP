@@ -14,7 +14,7 @@
 #include <string>
 #include <iosfwd>
 #include <cinttypes>
-#include <list>
+#include <forward_list>
 #include <tuple>
 
 
@@ -46,7 +46,7 @@ public:
    * A collection of moves
    * 
    */
-  typedef std::list<move_type> move_bag_type;
+  typedef std::forward_list<move_type> move_bag_type;
 
 public:
   Board();
