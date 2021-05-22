@@ -39,7 +39,7 @@ struct PowerTable
 	values[x][y] = 1UL << (8 * y + x);
       }
   }
-  uint64_t values[8][8];
+  uint64_t values[8][8];	/**< Table of powers of 2 */
 };
 
 static constexpr PowerTable lut;
