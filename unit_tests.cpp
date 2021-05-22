@@ -104,3 +104,15 @@ BOOST_AUTO_TEST_CASE(test_tree_evaluate)
 	      << std::endl;
   }
 }
+
+BOOST_AUTO_TEST_CASE(test_board_size)
+{
+  Board b;
+  std::cout << "Board size: " << sizeof(b);
+}
+
+BOOST_AUTO_TEST_CASE(test_tree_node_size)
+{
+  TreeNode tree;
+  std::cout << "TreeNode size: " << sizeof(tree);
+}
