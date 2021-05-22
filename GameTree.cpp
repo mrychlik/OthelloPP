@@ -252,7 +252,7 @@ void TreeNode::deleteChildren()
   isExpanded = false;
 }
 
-bool TreeNote::isWhitesTurn() const
+bool TreeNode::isWhitesTurn() const
 {
   return whitesTurn;
 }
