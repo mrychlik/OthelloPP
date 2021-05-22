@@ -12,7 +12,6 @@
 #define BOARD_HPP 1
 
 #include <string>
-#include <deque>
 #include <iosfwd>
 #include <cinttypes>
 #include <vector>
