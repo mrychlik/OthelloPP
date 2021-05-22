@@ -97,7 +97,7 @@ int8_t TreeNode::evaluate(uint8_t depth, bool verbose) {
   }
   auto bestVal = this->Board::value();
   //TreeNode *bestChild = nullptr;
-  if(depth > 0) {
+  if(depth > numTiles()) {
     if(!isExpanded) {
       expandOneLevel(verbose);
     }
