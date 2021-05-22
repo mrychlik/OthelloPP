@@ -23,9 +23,9 @@
  */
 TreeNode::TreeNode(const Board& b)
   : Board(b),
+    value(b.value()),
     isExpanded(false),
-    updateNumber(0),
-    value(b.value())
+    downlinks(8)
 {      
 }
 
