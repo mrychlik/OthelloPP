@@ -92,18 +92,6 @@ BOOST_AUTO_TEST_CASE(expand_one_level)
   std::cout << root;
 }
 
-BOOST_AUTO_TEST_CASE(tree_evaluate)
-{
-  for(auto depth = 0; depth < 4; ++depth) {
-    TreeNode root;
-
-    auto val = root.evaluate(depth);
-    std::cout << "\nDepth : " << depth << "\n"
-	      << root
-	      << "\nValue: " << static_cast<int>(val) 
-	      << std::endl;
-  }
-}
 
 BOOST_AUTO_TEST_CASE(board_size)
 {
@@ -115,4 +103,17 @@ BOOST_AUTO_TEST_CASE(tree_node_size)
 {
   TreeNode tree;
   std::cout << "TreeNode size: " << sizeof(tree);
+}
+
+BOOST_AUTO_TEST_CASE(tree_evaluate)
+{
+  for(auto depth = 0; depth < 4; ++depth) {
+    TreeNode root;
+
+    auto val = root.evaluate(depth);
+    std::cout << "\nDepth : " << depth << "\n"
+	      << root
+	      << "\nValue: " << static_cast<int>(val) 
+	      << std::endl;
+  }
 }
