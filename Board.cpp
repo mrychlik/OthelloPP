@@ -306,7 +306,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
       auto bg = (y%2 == x%2) ? "42" : "43";
       auto fg = isWhite(x,y) ? "37" : "30";
       auto tile = " "; // consider revising
-      if (isFilled(x,y)){
+      if( isFilled(x,y) ) {
 	tile = isWhite(x,y) ? "W" : "B"; 
       } else tile = " ";
       s << esc << '[' << fg << ';' << bg
