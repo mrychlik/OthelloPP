@@ -95,7 +95,7 @@ void TreeNode::expandOneLevel(bool verbose)
 }
 
 
-void TreeNode::addChild(Board& child)
+void TreeNode::addChild(const Board& child)
 {
   downlinks.push_front(child);
 }
