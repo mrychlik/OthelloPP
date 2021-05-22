@@ -88,8 +88,8 @@ void TreeNode::expandOneLevel(Player player, bool verbose)
   } catch(std::bad_alloc& e) {
     std::cerr << e.what() << "\n";
     // Now we have only some children, so not
-    // we cannot determine accurate value
-
+    // we cannot determine accurate value.
+    // NOTE: sets isExpanded to false.
     deleteChildren();
   }
 }
