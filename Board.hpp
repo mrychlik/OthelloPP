@@ -86,6 +86,8 @@ private:
 
   void setWhite(uint8_t x, uint8_t y); 
   void setBlack(uint8_t x, uint8_t y); 
+
+protected:
   void setWhitesTurn(bool playWhite);
 };
 
