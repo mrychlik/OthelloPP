@@ -154,7 +154,7 @@ int Board::numBlackTiles () const {
  * If shortCircuit is true, however, the calculation
  * is abandoned upon discovering that squares will be flipped
  * and true is returned immediately. In this case, the
- * values in flipRadius array are not valid except for one.
+ * values in flipRadius array may not valid except for one.
  * 
  * @param player
  * @param x 
