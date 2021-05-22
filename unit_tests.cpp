@@ -132,3 +132,15 @@ BOOST_AUTO_TEST_CASE(tree_evaluate_and_print)
 	    << "\nValue: " << static_cast<int>(val) 
 	    << std::endl;
 }
+
+BOOST_AUTO_TEST_CASE(tree_minmax)
+{
+  auto depth = 6;
+  TreeNode root;
+
+  auto val = root.minmax(Board::WHITE, depth);
+  std::cout << "\nDepth : " << depth << "\n"
+	    << root
+	    << "\nValue: " << static_cast<int>(val) 
+	    << std::endl;
+}
