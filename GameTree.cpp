@@ -79,9 +79,13 @@ void TreeNode::expandOneLevel(bool verbose)
     std::cerr << e.what() << "\n";
     // Now we have only some children, so not
     // we cannot determine accurate value
+
+    // Delete all children
     for(auto child : downlinks) {
       delete child;
     }
+    // Empty the list
+    downlinks.remove();
     isExpanded = false;
   }
 }
