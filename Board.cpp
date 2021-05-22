@@ -55,6 +55,14 @@ void Board::setBlack(uint8_t x, uint8_t y) {
   white[y]  &= ~(0x80 >> x);
 };
 
+void Board::setColor(uint8_t x, uint8_t y) {
+  if( isWhitesTurn() ) {
+    setWhite(x,y);
+  } else {
+    setBlack(x,y);
+  }
+}
+
 Board::Board() :
   filled{0},			
   white{0},
@@ -145,7 +153,7 @@ int Board::numBlackTiles () const {
  * @param y 
  * @param toFlip 
  */
-void Board::flipDistance(uint8_t x, uint8_t y, uint8_t toFlip[8]) const
+void Board::findFlipRadius(uint8_t x, uint8_t y, uint8_t flipRadius[8]) const
 {
   for (int ray = 0; ray < 8; ++ray) { //iter over cardinal + diagonals
     int8_t distance = 1;
@@ -165,9 +173,9 @@ void Board::flipDistance(uint8_t x, uint8_t y, uint8_t toFlip[8]) const
       }
     }
     if (end == 3) {
-      toFlip[ray] = distance;
+      flipRadius[ray] = distance;
     } else {
-      toFlip[ray] = 0;
+      flipRadius[ray] = 0;
     }
   } 
 }
@@ -191,24 +199,19 @@ Board::moves() const
   for( auto x = 0; x < 8; ++x) {
     for( auto y = 0; y < 8; ++y) {
       if( isFilled(x,y) ) continue;
-      uint8_t toFlip[8];
-      flipDistance(x, y, toFlip);
+      uint8_t flipRadius[8];
+      findFlipRadius(x, y, flipRadius);
       
-      bool legal = popcount(toFlip);
-
+      bool legal = popcount(flipRadius);
       if (legal) {
 	Board c(*this);
 	for (int r = 0; r < 8; r++) { 
-	  for (int d = 1; d < toFlip[r]; d++) { 
-	    c.setColor(x + d * direction[r][0], y + d * direction[r][1], isWhitesTurn()); 
+	  for (int d = 1; d < flipRadius[r]; d++) { 
+	    c.setColor(x + d * direction[r][0], y + d * direction[r][1]); 
 	  }
 	}
 	
-	if( isWhitesTurn() ) {
-	  c.setWhite(x,y);	//place new tile
-	} else {
-	  c.setBlack(x,y);
-	}
+	c.setColor(x,y);	//place new tile
 
 	// change turn back. if just played white, then its B's turn and no change
 	c.setWhitesTurn(!isWhitesTurn()); 
