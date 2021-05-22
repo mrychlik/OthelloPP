@@ -303,8 +303,8 @@ std::ostream& Board::printBig(std::ostream& s) const {
     }  
     s << reset << "\n" << y;
     for (int x = 0; x < 8; x++) {
-      auto bg = (y%2 == x%2)? "42":"43";
-      auto fg = (isWhite(x,y))? "37":"30";
+      auto bg = (y%2 == x%2)? "42" : "43";
+      auto fg = isWhite(x,y)? "37" : "30";
       auto tile = " "; // consider revising
       if (isFilled(x,y)){
 	tile = (isWhite(x,y))? "W":"B"; 
