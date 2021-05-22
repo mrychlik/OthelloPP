@@ -64,7 +64,7 @@ void TreeNode::expandOneLevel(bool verbose)
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(child);
+	addChild(new TreeNode(child));
       }
     } else {
       // We don't change the board pieces,
@@ -75,7 +75,7 @@ void TreeNode::expandOneLevel(bool verbose)
       // Add ony such a child if it has a legal move
       // else the game ended, as no-one has a legal move
       if(child.hasLegalMove()) {
-	addChild(child);
+	addChild(new TreeNode(child));
       } 
     }
     isExpanded = true;
