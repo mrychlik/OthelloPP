@@ -138,7 +138,6 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
   s << static_cast<const Board&>(tree)
     << "Is expanded: " << std::boolalpha << tree.isExpanded
     << "\nValue: " << static_cast<int>(tree.value)
-    << "\nUpdate number: " << static_cast<int>(tree.updateNumber)
     << std::endl;
   for(auto child : tree.downlinks) {
     s << *child << std::endl;
