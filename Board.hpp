@@ -100,7 +100,7 @@ private:
   void setBlack(uint8_t x, uint8_t y); 
   void setColor(uint8_t x, uint8_t y, bool colorWhite); 
 
-  void findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadius[8]) const;
+  bool findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadius[8]) const;
   void toggleTurn();
 };
 
