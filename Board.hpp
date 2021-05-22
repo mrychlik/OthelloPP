@@ -75,6 +75,7 @@ public:
   std::ostream& print(std::ostream& s, bool big = false) const;
 
 private:
+
   std::ostream& printSmall(std::ostream& s) const;
   std::ostream& printBig(std::ostream& s) const;
 
