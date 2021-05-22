@@ -77,7 +77,7 @@ int8_t TreeNode::evaluate(uint8_t depth, bool verbose) {
   //TreeNode *bestChild = nullptr;
   if(depth > 0) {
     if(!isExpanded) {
-      expandOneLevel();
+      expandOneLevel(verbose);
     }
     for (auto child : downlinks) {
       auto childVal = child->evaluate(depth - 1);
