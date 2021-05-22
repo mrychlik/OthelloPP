@@ -36,6 +36,8 @@ public:
 private:
 
   void addChild(TreeNode *child);
+  // NOTE: Using deque for this would use 80 bytes of memory
+  // under GCC, vector uses only 24.
   std::vector<TreeNode*> downlinks;
 
   bool isExpanded;
