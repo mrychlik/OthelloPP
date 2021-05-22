@@ -26,6 +26,7 @@
 class TreeNode : public Board {
 public:
   TreeNode(const Board& b = Board());
+  ~TreeNode();
   
   int8_t evaluate(uint8_t depth = 0, bool verbose = false);
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
