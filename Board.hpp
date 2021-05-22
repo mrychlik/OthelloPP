@@ -57,7 +57,7 @@ public:
   move_bag_type moves() const;
   int score() const;
   bool isWhitesTurn() const;
-  //bool operator==(const Board&) const;
+  friend bool operator==(const Board&, const Board&) = default;
   bool hasLegalMove() const;
 
 private:
