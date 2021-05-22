@@ -67,9 +67,12 @@ void TreeNode::expandOneLevel(bool verbose)
   } else {
     // We don't change the board pieces,
     // just give turn to the opponent
-    TreeNode *child = new TreeNode(*this);
-    child->setWhitesTurn(!child->isWhitesTurn());
-    addChild(child);
+    try {
+      TreeNode *child = new TreeNode(*this);
+      child->setWhitesTurn(!child->isWhitesTurn());
+      addChild(child);
+    } catch(std::bad_alloc e) {
+    }
   }
   isExpanded = true;
 }
