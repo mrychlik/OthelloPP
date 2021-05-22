@@ -344,7 +344,7 @@ bool Board::isWhitesTurn() const {
  */
 void Board::setWhitesTurn(bool whitesTurn)
 {
-  whitesTurn_ = whitesTurn;
+  this->whitesTurn = whitesTurn;
 }
 
 
