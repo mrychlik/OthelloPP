@@ -70,11 +70,11 @@ void TreeNode::expandOneLevel(bool verbose)
       // We don't change the board pieces,
       // just give turn to the opponent
       Board child(*this);
-      child->setWhitesTurn(!child->isWhitesTurn());
+      child.setWhitesTurn(!child.isWhitesTurn());
 
       // Add ony such a child if it has a legal move
       // else the game ended, as no-one has a legal move
-      if(child->hasLegalMove()) {
+      if(child.hasLegalMove()) {
 	addChild(child);
       } 
     }
