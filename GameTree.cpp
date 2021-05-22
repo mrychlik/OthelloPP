@@ -119,18 +119,22 @@ int8_t TreeNode::evaluate(uint8_t depth, bool verbose) {
     if(!isExpanded) {
       expandOneLevel(verbose);
     }
-    for (auto child : downlinks) {
-      auto childVal = child->evaluate(depth, verbose);
-      // White is Max, Black is Min
-      if (isWhitesTurn()) {
-	if(childVal > bestVal) {
-	  bestVal = childVal;
-	  //bestChild = child;
-	}
-      } else { 
-	if(childVal < bestVal) {
-	  bestVal = childVal;
-	  //bestChild = child;	  
+    // Now the node may not have expanded
+    // because of memory allocation failure
+    if(isExpanded) {
+      for (auto child : downlinks) {
+	auto childVal = child->evaluate(depth, verbose);
+	// White is Max, Black is Min
+	if (isWhitesTurn()) {
+	  if(childVal > bestVal) {
+	    bestVal = childVal;
+	    //bestChild = child;
+	  }
+	} else { 
+	  if(childVal < bestVal) {
+	    bestVal = childVal;
+	    //bestChild = child;	  
+	  }
 	}
       }
     }
