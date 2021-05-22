@@ -60,7 +60,7 @@ private:
   // NOTE: Using deque for this would use 80 bytes of memory
   // under GCC, vector uses only 24 bytes, forward_list 8 bytes.
   // As Board currently consumes 24 bytes, the TreeNode only 32
-  children_type children_;
+  mutable children_type children_;
 
 };
 
