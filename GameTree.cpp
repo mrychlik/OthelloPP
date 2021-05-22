@@ -85,7 +85,7 @@ void TreeNode::expandOneLevel(bool verbose)
       delete child;
     }
     // Empty the list
-    downlinks.remove();
+    downlinks.clear();
     isExpanded = false;
   }
 }
