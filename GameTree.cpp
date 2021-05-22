@@ -31,7 +31,7 @@ TreeNode::TreeNode(const Board& board, bool whitesTurn)
   : Board(board),
     value(board.value()),
     isExpanded(false),
-    whitesTurn(whitesTurn),
+    player(WHITE),
     children_()
 {      
 }
@@ -126,7 +126,7 @@ int8_t TreeNode::evaluate(Player player, uint8_t depth, bool verbose) {
     // Now the node may not have expanded
     // because of memory allocation failure
     if(isExpanded) {
-      for (auto child : children) {
+      for (auto child : children() ) {
 	auto childVal = child->evaluate(~player, depth, verbose);
 	// White is Max, Black is Min
 	if (player == WHITE) {
@@ -158,9 +158,9 @@ TreeNode*
 TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
   //return most desirable grandchild of player child
   auto& board = std::get<2>(possiblePlayerMove);
-  for (auto a : children) {
+  for (auto a : children ()) {
     if (static_cast<const Board& >(*a) == board) { //branch of the players latest move
-      for (auto b : a->children) {
+      for (auto b : a->children() ) {
 	if (b->value == a->value) { //is the best of said options
 	  return b; 
 	}
@@ -185,7 +185,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << "\nIs white's turn: " << std::boolalpha << tree.isWhitesTurn()
     << "\nValue: " << static_cast<int>(tree.value)
     << std::endl;
-  for(auto child : tree.children) {
+  for(auto child : tree.children() ) {
     s << *child << std::endl;
   }
   return s;
@@ -199,7 +199,7 @@ int8_t TreeNode::minmax(Player player, uint8_t depth, int8_t alpha, int8_t beta)
   // similar
   if( player == WHITE ) {	// maximizing player
     int8_t bestVal = -100;
-    for( auto child : children) {
+    for( auto child : children() ) {
       auto val = child->minmax(BLACK, depth + 1, alpha, beta);
       bestVal = std::max(bestVal, val);
       alpha = std::max(alpha, bestVal);
@@ -210,7 +210,7 @@ int8_t TreeNode::minmax(Player player, uint8_t depth, int8_t alpha, int8_t beta)
     return bestVal;
   } else {			// minimizing player
     int8_t bestVal = +100;
-    for( auto child : children) {
+    for( auto child : children() ) {
       auto val = child->minmax(WHITE, depth + 1, alpha, beta);
       bestVal = std::min(bestVal, val);
       alpha = std::min(alpha, bestVal);
@@ -244,15 +244,23 @@ bool TreeNode::isLeaf() const
  */
 void TreeNode::deleteChildren()
 {
-  for(auto child : children) {
+  for(auto child : children_ ) {
     delete child;
   }
   // Empty the list
-  children.clear();
+  children_.clear();
   isExpanded = false;
 }
 
 bool TreeNode::isWhitesTurn() const
 {
-  return whitesTurn;
+  return player == WHITE;
+}
+
+const TreeNode::children_type& TreeNode::children() const
+{
+  if(!isExpanded) {
+    expandOneLevel(player);
+  }
+  return children_;
 }
