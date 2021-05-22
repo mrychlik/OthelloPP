@@ -27,9 +27,7 @@
  *       what color is the piece
  *    2. Generation of moves from any position
  *    3. Keeping track whose turn it is (white or black)
- *    4. Keeping track of score (the number of white
- *       minus the number of black pieces)
- *    5. Computing heuristic value of the board
+ *    4. Computing heuristic value of the board
  *       position.
  * 
  */
