@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(tree_node_size)
 
 BOOST_AUTO_TEST_CASE(tree_evaluate)
 {
-  auto depth = 3;
+  auto depth = 6;
   TreeNode root;
 
   auto val = root.evaluate(depth, true);
