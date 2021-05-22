@@ -59,6 +59,8 @@ private:
 
   //// END: const methods that operate on mutable fields
 
+  //// NOTE: Mutable fields
+
   mutable bool isExpanded;	/**< Have the children been added */
 
   // NOTE: Using deque for this would use 80 bytes of memory
@@ -66,6 +68,7 @@ private:
   // As Board currently consumes 24 bytes, the TreeNode only 32
   mutable children_type children_;
 
+  //// END: Mutable fields
 };
 
 #endif
