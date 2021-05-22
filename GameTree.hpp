@@ -35,15 +35,18 @@ public:
 
 private:
 
+  // Installs a new child node
   void addChild(TreeNode *child);
+
   // NOTE: Using deque for this would use 80 bytes of memory
   // under GCC, vector uses only 24.
   // As Board currently consumes 24 bytes, the 
   std::vector<TreeNode*> downlinks;
 
-  bool isExpanded;
-  int8_t value; //TDB, need to consider what counts as valuable
+  // The value of this node
+  int8_t value;
 
+  bool isExpanded;
 
 };
 
