@@ -46,7 +46,7 @@ public:
    * A collection of moves
    * 
    */
-  typedef std::vector<move_type> move_bag_type;
+  typedef std::list<move_type> move_bag_type;
 
 public:
   Board();
