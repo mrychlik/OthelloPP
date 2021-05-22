@@ -19,6 +19,7 @@ static const std::string reset = "[0m";
 
 static inline
 uint32_t popcount(unsigned long x)
+{
   // We use a non-portable, GCC specific function
   // but there are many portable implementations
   // which are quite efficient
