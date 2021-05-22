@@ -93,7 +93,9 @@ void TreeNode::addChild(TreeNode *child)
  */
 int8_t TreeNode::evaluate(uint8_t depth, bool verbose) {
   if(verbose) {
-    std::clog << __func__ << ": Reached depth " << static_cast<int>(depth) << "\n";
+    std::clog << __func__ << ": Depth " << static_cast<int>(depth)
+	      << ", Number of tiles: " <<  static_cast<int>(numTiles())
+	      << std::endl;
   }
   auto bestVal = this->Board::value();
   //TreeNode *bestChild = nullptr;
