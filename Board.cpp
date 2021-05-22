@@ -45,27 +45,27 @@ struct PowerTable
 static constexpr PowerTable lut;
 
 bool Board::isFilled(uint8_t x, uint8_t y) const {
-  return filled_ & lut.values[x][y];
+  return filled & lut.values[x][y];
 };
 
 bool Board::isWhite(uint8_t x, uint8_t y) const {
-  return white_ & lut.values[x][y];
+  return white & lut.values[x][y];
 };
 
 void Board::setWhite(uint8_t x, uint8_t y) {
-  filled_ |= lut.values[x][y];
-  white_  |= lut.values[x][y];
+  filled |= lut.values[x][y];
+  white  |= lut.values[x][y];
 };
 
 void Board::setBlack(uint8_t x, uint8_t y) {
-  filled_ |= lut.values[x][y];
-  white_  &= ~lut.values[x][y];
+  filled |= lut.values[x][y];
+  white  &= ~lut.values[x][y];
 };
 
 Board::Board() :
-  filled_(0),			
-  white_(0),
-  whitesTurn_(true)		
+  filled(0),			
+  white(0),
+  whitesTurn(true)		
 {
   // Standard Othello board initialization
   setWhite(3,4);
@@ -123,7 +123,7 @@ int Board::numTiles () const {
   // We use a non-portable, GCC specific function
   // but there are many portable implementations
   // which are quite efficient
-  return __builtin_popcountl(filled_);
+  return __builtin_popcountl(filled);
 }
 
 /** 
@@ -136,7 +136,7 @@ int Board::numWhiteTiles () const {
   // We use a non-portable, GCC specific function
   // but there are many portable implementations
   // which are quite efficient
-  return __builtin_popcountl(white_);
+  return __builtin_popcountl(white);
 }
 
 /** 
