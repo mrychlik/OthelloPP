@@ -30,7 +30,6 @@ public:
 
   TreeNode(const Board& b = Board(), bool Player = WHITE);
   ~TreeNode();
-  void deleteChildren();
   const children_type& children() const;
 
   
@@ -44,6 +43,8 @@ public:
 private:
 
   void expandOneLevel(Player player, bool verbose = false) const;
+  void deleteChildren() const;
+
 
   // Installs a new child node
   void addChild(TreeNode* child);
