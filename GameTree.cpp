@@ -56,26 +56,30 @@ void TreeNode::expandOneLevel(bool verbose)
     return;
   }
   auto move_bag = moves();
-  if( !move_bag.empty() ) {
-    for (auto m : move_bag) {
-      auto child = std::get<2>(m);
-      if(verbose) {
-	std::clog << ".";
+
+  try {
+    if( !move_bag.empty() ) {
+      for (auto m : move_bag) {
+	auto child = std::get<2>(m);
+	if(verbose) {
+	  std::clog << ".";
+	}
+	addChild(new TreeNode(child));
       }
-      addChild(new TreeNode(child));
-    }
-  } else {
-    // We don't change the board pieces,
-    // just give turn to the opponent
-    try {
+    } else {
+      // We don't change the board pieces,
+      // just give turn to the opponent
+
       TreeNode *child = new TreeNode(*this);
       child->setWhitesTurn(!child->isWhitesTurn());
       addChild(child);
-    } catch(std::bad_alloc& e) {
-      std::cerr << e.what() << "\n";
     }
+    isExpanded = true;
+  } catch(std::bad_alloc& e) {
+    std::cerr << e.what() << "\n";
+    
   }
-  isExpanded = true;
+
 }
 
 
