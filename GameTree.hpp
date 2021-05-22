@@ -25,10 +25,11 @@
  */
 class TreeNode : public Board {
 public:
-  TreeNode(const Board& b = Board());
+  TreeNode(const Board& b = Board(), bool whitesTurn = true);
   ~TreeNode();
+  void deleteChildren();
   
-  int8_t evaluate(uint8_t depth = 0, bool verbose = false);
+  int8_t evaluate(bool playWhite, uint8_t depth = 0, bool verbose = false);
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
 
   void expandOneLevel(bool playWhite, bool verbose = false);
@@ -46,6 +47,8 @@ private:
 
   int8_t value;			/**< The value of the node */
   bool isExpanded;		/**< Have the children been added */
+  bool whitesTurn;		/**< Is the node reflecting white's move */
+
 
   // NOTE: Using deque for this would use 80 bytes of memory
   // under GCC, vector uses only 24 bytes, forward_list 8 bytes.
