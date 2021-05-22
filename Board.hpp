@@ -65,10 +65,7 @@ public:
 
 private:
 
-  bool isLegal(bool playWhite , int x, int y) const;
-
   operator std::string() const;
-  
   friend std::ostream& operator<<(std::ostream& s, const Board& b);
 
 public:
