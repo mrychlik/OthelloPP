@@ -42,6 +42,10 @@ public:
 
 private:
 
+  bool isLeaf() const;
+  bool isWhitesTurn() const;
+
+
   //// NOTE: const methods that operate on mutable fields
 
   // Installs a new child node
@@ -54,11 +58,6 @@ private:
   void deleteChildren() const;
 
   //// END: const methods that operate on mutable fields
-
-
-  bool isLeaf() const;
-  bool isWhitesTurn() const;
-
 
   mutable bool isExpanded;	/**< Have the children been added */
 
