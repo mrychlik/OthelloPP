@@ -334,7 +334,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
  * @return 
  */
 bool Board::isWhitesTurn() const {
-  return whitesTurn_;
+  return whitesTurn;
 }
 
 /** 
