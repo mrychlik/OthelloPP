@@ -23,10 +23,11 @@ uint32_t popcount(const uint8_t x[8])
   // We use a non-portable, GCC specific function
   // but there are many portable implementations
   // which are quite efficient
-  unsigned long u = 0UL;
-  for(int j = 0; j < 8; ++j) {
-    u |= x[j] << (8 * j);
-  }
+  unsigned long u0, u1;
+  u0 = (x[0] << 0) | (x[1] << 8) | (x[2] << 16) | (x[3] << 24);
+  u1 = (x[4] << 0) | (x[5] << 8) | (x[6] << 16) | (x[7] << 24);  
+  unsigned long u = u0 | (u1 << 32);
+
   return __builtin_popcountl(u);
 }
 
@@ -135,6 +136,43 @@ int Board::numBlackTiles () const {
   return numTiles() - numWhiteTiles();
 }
 
+
+/** 
+ * For a given board square and each of the 8 rays from that square
+ * compute number of tiles to flip along that ray.
+ * 
+ * @param x 
+ * @param y 
+ * @param toFlip 
+ */
+void Board::flipDistance(int x, int y, int toFlip[8]) const
+{
+  for (int ray = 0; ray < 8; ray++) { //iter over cardinal + diagonals
+    auto distance = 1;
+    auto end = 0;
+    while (end == 0) {
+      auto tmpx = x + distance * direction[ray][0];
+      auto tmpy = y + distance * direction[ray][1];
+
+      if ( tmpx < 0 || tmpx > 7 || tmpy < 0 || tmpy > 7 ) {
+	end = 1;		//ran off edge
+      } else if( !isFilled(tmpx,tmpy) ) {
+	end = 2;		//ran into an empty space
+      } else if( isWhite(tmpx,tmpy) == isWhitesTurn()) {
+	end = (distance > 1)? 3 : 4; //ran into own color late vs early
+      } else {
+	distance++;
+      }
+    }
+    if (end == 3) {
+      toFlip[ray] = distance;
+    } else {
+      toFlip[ray] = 0;
+    }
+  } 
+}
+
+
 /** 
  * Generate all moves.
  * 
@@ -154,29 +192,7 @@ Board::moves() const
     for( auto y = 0; y < 8; ++y) {
       if( isFilled(x,y) ) continue;
       int toFlip[8];
-      for (int ray = 0; ray < 8; ray++) { //iter over cardinal + diagonals
-	auto distance = 1;
-	auto end = 0;
-	while (end == 0) {
-	  auto tmpx = x + distance * direction[ray][0];
-	  auto tmpy = y + distance * direction[ray][1];
-
-	  if ( tmpx < 0 || tmpx > 7 || tmpy < 0 || tmpy > 7 ) {
-	    end = 1;		//ran off edge
-	  } else if( !isFilled(tmpx,tmpy) ) {
-	    end = 2;		//ran into an empty space
-	  } else if( isWhite(tmpx,tmpy) == isWhitesTurn()) {
-	    end = (distance > 1)? 3 : 4; //ran into own color late vs early
-	  } else {
-	    distance++;
-	  }
-	}
-	if (end == 3) {
-	  toFlip[ray] = distance;
-	} else {
-	  toFlip[ray] = 0;
-	}
-      } //checked all rays and populated toFlip
+      flipDistance(x, y, toFlip);
 
       bool legal = false;
       for (int i : toFlip) { //any legal flips from playing here?
