@@ -119,8 +119,7 @@ int8_t TreeNode::evaluate(Player player, uint8_t depth, bool verbose) {
 	      << std::endl;
   }
   auto bestVal = this->Board::value();
-  //TreeNode *bestChild = nullptr;
-  if(depth > numTiles()) {
+  if(!isLeaf() && (depth > numTiles()) {
     if(!isExpanded) {
       expandOneLevel(player, verbose);
     }
