@@ -25,7 +25,7 @@ TreeNode::TreeNode(const Board& b)
   : Board(b),
     value(b.value()),
     isExpanded(false),
-    downlinks(8)		// Default capacity: 8
+    downlinks(8)		// Default capacity guess: 8
 {      
 }
 
