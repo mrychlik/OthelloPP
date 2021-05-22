@@ -11,7 +11,7 @@
 #ifndef GAME_TREE_HPP
 #define GAME_TREE_HPP 1
 
-#include <list>
+#include <forward_list>
 #include "Board.hpp"
 
 /**
