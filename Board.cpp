@@ -181,7 +181,7 @@ bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y,
 	end = 1;		//ran off edge
       } else if( !isFilled(tmpx,tmpy) ) {
 	end = 2;		//ran into an empty space
-      } else if( isWhite(tmpx,tmpy) == (player == WHITE) ) {
+      } else if( isWhite(tmpx, tmpy) == (player == WHITE) ) {
 	end = ( distance > 1 ) ? 3 : 4; //ran into own color late vs early
       } else {
 	++distance;
