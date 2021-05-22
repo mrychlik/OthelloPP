@@ -139,35 +139,6 @@ int8_t TreeNode::evaluate(Player player, uint8_t depth, bool verbose) {
   return bestVal;
 }
 
-
-/** 
- * TODO: Something should go here.
- *
- * ... must be called after update and after getPlayerMove
- * imporart that root be the Node *before* the player's move. Enables catching no player moves
- * should work as long as there are *any* legal moves, for white or black
- * 
- * 
- * @param possiblePlayerMove 
- * 
- * @return 
- */
-TreeNode*
-TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
-  //return most desirable grandchild of player child
-  auto& board = std::get<2>(possiblePlayerMove);
-  for (auto a : children ()) {
-    if (static_cast<const Board& >(*a) == board) { //branch of the players latest move
-      for (auto b : a->children() ) {
-	if (b->value == a->value) { //is the best of said options
-	  return b; 
-	}
-      }
-    }
-  }
-  return nullptr; //dummy return, idk if that matters, should be fine, as long as passed board is legal
-}
-
 /** 
  * Output a TreeNode. It descends recursively into the tree.
  * 
