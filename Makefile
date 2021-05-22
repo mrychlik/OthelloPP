@@ -1,7 +1,9 @@
 CXXFLAGS = -std=c++20 -O0 -ggdb3 -pthread -Wall
 LDFLAGS  = -lm -lboost_unit_test_framework
 
-all: main test_suite
+PROGRAMS =  main test_suite
+
+all: $(PROGRAMS)
 
 main.o: Board.hpp
 Board.o: Board.hpp
