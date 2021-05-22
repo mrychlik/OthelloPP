@@ -58,7 +58,7 @@ TreeNode::~TreeNode()
  * 
  * @return 
  */
-void TreeNode::expandOneLevel(Player player, bool verbose)
+void TreeNode::expandOneLevel(Player player, bool verbose) const
 {
   if(isExpanded) {
     if( player == WHITE )  {    
@@ -94,7 +94,7 @@ void TreeNode::expandOneLevel(Player player, bool verbose)
 }
 
 
-void TreeNode::addChild(TreeNode* child)
+void TreeNode::addChild(TreeNode* child) const
 {
   children_.push_front(child);
 }
