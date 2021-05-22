@@ -160,6 +160,8 @@ int Board::numBlackTiles () const {
  * @return A list of triples (x, y, board) such
  *         that board is the board after a valid move (x, y)
  *         is made.
+ *
+ * @throw std::bad_alloc
  */
 Board::move_bag_type
 Board::moves() const
