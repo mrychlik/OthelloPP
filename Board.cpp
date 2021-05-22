@@ -42,7 +42,7 @@ struct PowerTable
   uint64_t values[8][8];
 };
 
-constexpr PowerTable lut;
+static constexpr PowerTable lut;
 
 bool Board::isFilled(uint8_t x, uint8_t y) const {
   return filled_ & lut.values[x][y];
