@@ -48,7 +48,8 @@ BOOST_AUTO_TEST_CASE(board_move)
   // move bag as test cases
 
   Board b;
-  auto move_bag = b.moves();
+  bool playWhite = true;
+  auto move_bag = b.moves(playWhite);
   for( auto& m : move_bag) {
     std::cout << std::get<0>(m) << "\n"
 	      << std::get<1>(m) << "\n"
@@ -62,7 +63,8 @@ BOOST_AUTO_TEST_CASE(board_move_fancy)
   // move bag as test cases
 
   Board b;
-  auto move_bag = b.moves();
+  bool playWhite = true;
+  auto move_bag = b.moves(playWhite);
   for( auto& m : move_bag) {
     auto [x, y, board] = m;
     std::cout << "x: " << x << ", "
@@ -77,7 +79,8 @@ BOOST_AUTO_TEST_CASE(board_move_text)
   // move bag as test cases
 
   Board b;
-  auto move_bag = b.moves();
+  bool playWhite = true;
+  auto move_bag = b.moves(playWhite);
   for( auto& m : move_bag) {
     auto [x, y, board] = m;
     std::cout << "x: " << x << ", "
@@ -88,7 +91,7 @@ BOOST_AUTO_TEST_CASE(board_move_text)
 BOOST_AUTO_TEST_CASE(expand_one_level)
 {
   TreeNode root;
-  root.expandOneLevel();
+  root.expandOneLevel(WHITE);
   std::cout << root;
 }
 
@@ -110,7 +113,7 @@ BOOST_AUTO_TEST_CASE(tree_evaluate_depth_10)
   auto depth = 10;
   TreeNode root;
 
-  std::cout << static_cast<int>(root.evaluate(depth, true)) << std::endl;
+  std::cout << static_cast<int>(root.evaluate(WHITE, depth, true)) << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(tree_evaluate_depth_16)
@@ -118,7 +121,7 @@ BOOST_AUTO_TEST_CASE(tree_evaluate_depth_16)
   auto depth = 16;
   TreeNode root;
 
-  std::cout << static_cast<int>(root.evaluate(depth, false)) << std::endl;
+  std::cout << static_cast<int>(root.evaluate(WHITE, depth, false)) << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(tree_evaluate_and_print)
@@ -126,7 +129,7 @@ BOOST_AUTO_TEST_CASE(tree_evaluate_and_print)
   auto depth = 6;
   TreeNode root;
 
-  auto val = root.evaluate(depth, true);
+  auto val = root.evaluate(WHITE, depth, true);
   std::cout << "\nDepth : " << depth << "\n"
 	    << root
 	    << "\nValue: " << static_cast<int>(val) 
