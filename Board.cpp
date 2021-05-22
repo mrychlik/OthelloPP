@@ -23,7 +23,11 @@ uint32_t popcount(const uint8_t x[8])
   // We use a non-portable, GCC specific function
   // but there are many portable implementations
   // which are quite efficient
-  return __builtin_popcountl(reinterpret_cast<unsigned long>(x));
+  unsigned long u = 0UL;
+  for(int j = 0; j < 8; ++j) {
+    u |= x[j] << (8 * j);
+  }
+  return __builtin_popcountl(u);
 }
 
 /**
