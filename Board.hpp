@@ -87,8 +87,9 @@ private:
 
   void setWhite(uint8_t x, uint8_t y); 
   void setBlack(uint8_t x, uint8_t y); 
+  void setColor(uint8_t x, uint8_t y); 
 
-  void flipDistance(uint8_t x, uint_8 y, uint8_t toFlip[8]) const;
+  void flipDistance(uint8_t x, uint8_t y, uint8_t toFlip[8]) const;
 };
 
 
