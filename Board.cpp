@@ -229,7 +229,7 @@ Board::moves() const
 
 	// change turn back. if just played white, then its B's turn and no change
 	c.setWhitesTurn(!isWhitesTurn()); 
-	move_bag.emplace_front(x, y, c);
+	move_bag.emplace_front(x, y, c); // Here is where std::bad_alloc would be thrown
       }
     }
   }
