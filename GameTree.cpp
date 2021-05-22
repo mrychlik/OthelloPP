@@ -67,9 +67,12 @@ void TreeNode::addChild(TreeNode *child)
  * If depth is reached, or if node has no children
  * the static value of the board is returned.
  * 
- * @param depth 
+ * @param depth   Expand tree to this depth
+ * @param verbose  Be verbose if true
+
+ * @return The value of this node
  */
-int8_t TreeNode::evaluate(uint8_t depth) {
+int8_t TreeNode::evaluate(uint8_t depth, bool verbose) {
   auto bestVal = this->Board::value();
   //TreeNode *bestChild = nullptr;
   if(depth > 0) {
