@@ -71,7 +71,14 @@ void TreeNode::expandOneLevel(bool verbose)
       // just give turn to the opponent
       TreeNode *child = new TreeNode(static_cast<const Board&>(*this));
       child->setWhitesTurn(!child->isWhitesTurn());
-      addChild(child);
+
+      // Add ony such a child if it has a legal move
+      // else the game ended, as no-one has a legal move
+      if(child->hasLegalMove()) {
+	addChild(child);
+      } else {
+	delete child;
+      }
     }
     isExpanded = true;
   } catch(std::bad_alloc& e) {
