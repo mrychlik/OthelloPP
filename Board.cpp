@@ -63,7 +63,6 @@ void Board::setBlack(uint8_t x, uint8_t y) {
 };
 
 Board::Board() :
-  score_(0),
   whitesTurn_(true),		
   filled_(0),			
   white_(0)		
