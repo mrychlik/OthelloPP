@@ -21,14 +21,17 @@ static const std::string reset = "[0m";
  * 8 directions  (vectors) on the board.
  * 
  */
-static const int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
+static constexpr int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
-/** 
- * A table of powers of 2.
+
+/**
+ * A table of powers of 2:
+ *       [x,y] -> 2^(8*y+x)
+ * where 0<=x,y,<=8
  */
-struct ShiftTable
+struct PowerTable
 {
-  constexpr ShiftTable() : values()
+  constexpr PowerTable() 
   {
     for (auto x = 0; x < 8; ++x)
       for (auto y = 0; y < 8; ++y)
@@ -37,43 +40,26 @@ struct ShiftTable
       }
   }
   uint64_t values[8][8];
-
-  /** 
-   * 
-   * 
-   * 
-   * @return 
-   */
-  constexpr uint64_t operator()(uint8_t x, uint8_t y) const {
-    return values[x][y];
-  }
-
 };
 
-/**
- * A table of powers of 2:
- *       [x,y] -> 2^(8*y+x)
- * where 0<=x,y,<=8
- */
-static constexpr auto shiftTab = ShiftTable();
-
+constexpr PowerTable lut;
 
 bool Board::isFilled(uint8_t x, uint8_t y) const {
-  return filled_ & shiftTab(x, y);
+  return filled_ & lut.values[x][y];
 };
 
 bool Board::isWhite(uint8_t x, uint8_t y) const {
-  return white_ & shiftTab(x, y);
+  return white_ & lut.values[x][y];
 };
 
 void Board::setWhite(uint8_t x, uint8_t y) {
-  filled_ |= shiftTab(x, y);
-  white_  |= shiftTab(x, y);
+  filled_ |= lut.values[x][y];
+  white_  |= lut.values[x][y];
 };
 
 void Board::setBlack(uint8_t x, uint8_t y) {
-  filled_ |= shiftTab(x, y);
-  white_  &= ~shiftTab(x, y);
+  filled_ |= lut.values[x][y];
+  white_  &= ~lut.values[x][y];
 };
 
 Board::Board() :
