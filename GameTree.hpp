@@ -39,8 +39,8 @@ public:
 private:
 
   void addChild(TreeNode *child);
-
   std::vector<TreeNode*> downlinks;
+
   bool isExpanded;
   uint8_t updateNumber;
   int8_t value; //TDB, need to consider what counts as valuable
