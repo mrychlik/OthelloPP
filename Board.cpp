@@ -365,9 +365,9 @@ bool Board::hasLegalMove() const {
  * @return 
  */
 bool Board::operator==(const Board& b) const {
-  return  whitesTurn_ == b.whitesTurn_
-    && filled_ == b.filled_
-    && white_ == b.white_;
+  return  whitesTurn == b.whitesTurn
+    && filled == b.filled
+    && white == b.white;
 }
 
 Board::operator std::string() const {
