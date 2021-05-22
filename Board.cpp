@@ -210,7 +210,6 @@ Board::moves() const
 	    c.setColor(x + d * direction[r][0], y + d * direction[r][1]); 
 	  }
 	}
-	
 	c.setColor(x,y);	//place new tile
 
 	// change turn back. if just played white, then its B's turn and no change
