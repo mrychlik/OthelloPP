@@ -358,7 +358,9 @@ bool Board::hasLegalMove() const {
 }
 
 /** 
- * Compare excluding score.
+ * Compare.
+ * NOTE: At this point redundant, as
+ * componentwise comparison is exactly what we need
  * 
  * @param b 
  * 
