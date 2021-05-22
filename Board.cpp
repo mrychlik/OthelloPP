@@ -358,7 +358,7 @@ bool Board::hasLegalMove() const {
 }
 
 /** 
- * Convert Board to a string
+ * Convert Board to a string.
  * 
  * 
  * @return 
