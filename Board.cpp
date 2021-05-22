@@ -33,21 +33,21 @@ uint32_t popcount(const uint8_t x[8])
 static constexpr int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
 bool Board::isFilled(uint8_t x, uint8_t y) const {
-  return filled[y] & (0x01 << x);
+  return filled[y] & (0x80 >> x);
 };
 
 bool Board::isWhite(uint8_t x, uint8_t y) const {
-  return white[y] & (0x01 << x);
+  return white[y] & (0x80 >> x);
 };
 
 void Board::setWhite(uint8_t x, uint8_t y) {
-  filled[y] |= (0x01 << x);
-  white[y]  |= (0x01 << x);
+  filled[y] |= (0x80 >> x);
+  white[y]  |= (0x80 >> x);
 };
 
 void Board::setBlack(uint8_t x, uint8_t y) {
-  filled[y] |= (0x01 << x);
-  white[y]  &= ~(0x01 << x);
+  filled[y] |= (0x80 >> x);
+  white[y]  &= ~(0x80 >> x);
 };
 
 Board::Board() :
