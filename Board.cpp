@@ -149,7 +149,7 @@ int Board::numWhiteTiles () const {
  * @return 
  */
 int Board::numBlackTiles () const {
-  return popcount(filled_^white_);
+  return popcount( filled^white );
 }
 
 /** 
