@@ -25,7 +25,7 @@ TreeNode::TreeNode(const Board& b)
   : Board(b),
     value(b.value()),
     isExpanded(false),
-    downlinks()
+    children()
 {      
 }
 
@@ -36,7 +36,7 @@ TreeNode::TreeNode(const Board& b)
 TreeNode::~TreeNode()
 {
   if(isExpanded) {
-    for( auto child : downlinks) {
+    for( auto child : children) {
       delete child;
     }
   }
@@ -85,11 +85,11 @@ void TreeNode::expandOneLevel(bool verbose)
     // we cannot determine accurate value
 
     // Delete all children
-    for(auto child : downlinks) {
+    for(auto child : children) {
       delete child;
     }
     // Empty the list
-    downlinks.clear();
+    children.clear();
     isExpanded = false;
   }
 }
@@ -97,7 +97,7 @@ void TreeNode::expandOneLevel(bool verbose)
 
 void TreeNode::addChild(TreeNode* child)
 {
-  downlinks.push_front(child);
+  children.push_front(child);
 }
 
 /** 
@@ -126,7 +126,7 @@ int8_t TreeNode::evaluate(uint8_t depth, bool verbose) {
     // Now the node may not have expanded
     // because of memory allocation failure
     if(isExpanded) {
-      for (auto child : downlinks) {
+      for (auto child : children) {
 	auto childVal = child->evaluate(depth, verbose);
 	// White is Max, Black is Min
 	if (isWhitesTurn()) {
@@ -164,9 +164,9 @@ TreeNode*
 TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
   //return most desirable grandchild of player child
   auto& board = std::get<2>(possiblePlayerMove);
-  for (auto a : downlinks) {
+  for (auto a : children) {
     if (static_cast<const Board& >(*a) == board) { //branch of the players latest move
-      for (auto b : a->downlinks) {
+      for (auto b : a->children) {
 	if (b->value == a->value) { //is the best of said options
 	  return b; 
 	}
@@ -190,7 +190,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << "Is expanded: " << std::boolalpha << tree.isExpanded
     << "\nValue: " << static_cast<int>(tree.value)
     << std::endl;
-  for(auto child : tree.downlinks) {
+  for(auto child : tree.children) {
     s << *child << std::endl;
   }
   return s;
