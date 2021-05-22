@@ -357,6 +357,12 @@ bool Board::hasLegalMove() const {
   return !moves().empty();
 }
 
+/** 
+ * Convert Board to a string
+ * 
+ * 
+ * @return 
+ */
 Board::operator std::string() const {
   std::stringstream buf;
   buf << *this;
