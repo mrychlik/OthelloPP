@@ -362,7 +362,7 @@ bool Board::hasLegalMove() const {
  * 
  * 
  * @return A string with terminal control characters
- *         resulting in a printed board.
+ *         resulting in a printed board with pieces.
  */
 Board::operator std::string() const {
   std::stringstream buf;
