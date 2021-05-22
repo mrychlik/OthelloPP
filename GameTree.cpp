@@ -79,10 +79,9 @@ void TreeNode::expandOneLevel(Player player, bool verbose)
 	addChild(new TreeNode(child, player));
       }
     } else if( !isLeaf() ){
-	// We don't change the board pieces,
-	// just give turn to the opponent
-	addChild(new TreeNode(*this, ~player));
-      }
+      // We don't change the board pieces,
+      // just give turn to the opponent
+      addChild(new TreeNode(*this, ~player));
     }
     isExpanded = true;
   } catch(std::bad_alloc& e) {
