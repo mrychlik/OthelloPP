@@ -145,7 +145,7 @@ int Board::numBlackTiles () const {
  * @param y 
  * @param toFlip 
  */
-void Board::flipDistance(int x, int y, int toFlip[8]) const
+void Board::flipDistance(uint8_t x, uint8_t y, uint8_t toFlip[8]) const
 {
   for (int ray = 0; ray < 8; ray++) { //iter over cardinal + diagonals
     auto distance = 1;
@@ -191,7 +191,7 @@ Board::moves() const
   for( auto x = 0; x < 8; ++x) {
     for( auto y = 0; y < 8; ++y) {
       if( isFilled(x,y) ) continue;
-      int toFlip[8];
+      uint8_t toFlip[8];
       flipDistance(x, y, toFlip);
 
       bool legal = false;
