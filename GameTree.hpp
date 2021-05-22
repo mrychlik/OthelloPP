@@ -56,7 +56,7 @@ private:
 
   int8_t value;			/**< The value of the node */
   mutable bool isExpanded;	/**< Have the children been added */
-  Player player;		/**< Is the node reflecting white's move */
+  const Player player;		/**< Is the node reflecting white's move */
 
 
   // NOTE: Using deque for this would use 80 bytes of memory
