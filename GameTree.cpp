@@ -78,7 +78,7 @@ void TreeNode::expandOneLevel(Player player, bool verbose)
 	}
 	addChild(new TreeNode(child, player));
       }
-    } else if(!Leaf(){
+    } else if(!isLeaf(){
 	// We don't change the board pieces,
 	// just give turn to the opponent
 	addChild(new TreeNode(*this, ~player));
