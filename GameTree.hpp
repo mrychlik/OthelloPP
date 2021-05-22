@@ -55,8 +55,6 @@ private:
 
 
   mutable bool isExpanded;	/**< Have the children been added */
-  const Player player;		/**< Is the node reflecting white's move */
-
 
   // NOTE: Using deque for this would use 80 bytes of memory
   // under GCC, vector uses only 24 bytes, forward_list 8 bytes.
