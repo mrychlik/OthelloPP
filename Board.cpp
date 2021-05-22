@@ -149,11 +149,18 @@ int Board::numBlackTiles () const {
  * compute number of tiles to flip along that ray. As a side
  * efect, determine whether whe move is legal, in the sense that
  * it would result in flipping some tiles to the player's color.
+ * The value returned is true if the move is legal.
+ *
+ * If shortCircuit is true, however, the calculation
+ * is abandoned upon discovering that squares will be flipped
+ * and true is returned immediately. In this case, the
+ * values in flipRadius array are not valid except for one.
  * 
  * @param player
  * @param x 
  * @param y 
- * @param toFlip 
+ * @param flipRadius
+ * @param shortCircuit
  * 
  * @return True if the move is legal
  */
@@ -182,6 +189,11 @@ bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y,
     if (end == 3) {
       flipRadius[ray] = distance;
       legal = true;
+      if(shortCircuit) {
+	// We determined that move is legal
+	// and abandon further calculatons
+	break;
+      }
     } else {
       flipRadius[ray] = 0;
     }
