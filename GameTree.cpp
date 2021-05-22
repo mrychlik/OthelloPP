@@ -69,7 +69,6 @@ void TreeNode::expandOneLevel(bool verbose)
     } else {
       // We don't change the board pieces,
       // just give turn to the opponent
-
       TreeNode *child = new TreeNode(static_cast<const Board&>(*this));
       child->setWhitesTurn(!child->isWhitesTurn());
       addChild(child);
