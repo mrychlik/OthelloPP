@@ -7,24 +7,31 @@
  * 
  * The game Othello is nicely discribed in this YouTube video:
  *     https://www.youtube.com/watch?v=xDnYEOsjZnM
+ *
+ * This pseudocode is adapted from below 
+ * source:
+ *
  */
 
 #include "GameTree.hpp"
 #include "Board.hpp"
 #include <iostream>
+#include <algorithm>
 
 
 /** 
  * Constructor of a node with a given board.
  * 
- * @param b 
+ * @param board
+ *
  * 
  * @return 
  */
-TreeNode::TreeNode(const Board& b)
-  : Board(b),
-    value(b.value()),
+TreeNode::TreeNode(const Board& board, bool whitesTurn)
+  : Board(board),
+    value(board.value()),
     isExpanded(false),
+    whitesTurn(whitesTurn),
     children()
 {      
 }
@@ -47,15 +54,20 @@ TreeNode::~TreeNode()
  *
  * @param verbose If true print board, else '.'.
  * 
+ * @param playWhite
  * 
  * @return 
  */
-void TreeNode::expandOneLevel(bool verbose)
+void TreeNode::expandOneLevel(bool playWhite, bool verbose)
 {
   if(isExpanded) {
-    return;
+    if( playWhite == whitesTurn )  {    
+      return;
+    } else {			// We expanded for the other player
+      deleteChildren();
+    }
   }
-  auto move_bag = moves();
+  auto move_bag = moves(playWhite);
 
   try {
     if( !move_bag.empty() ) {
@@ -64,19 +76,12 @@ void TreeNode::expandOneLevel(bool verbose)
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(child));
+	addChild(new TreeNode(child, playWhite));
       }
     } else {
       // We don't change the board pieces,
       // just give turn to the opponent
-      Board child(*this);
-      child.setWhitesTurn(!child.isWhitesTurn());
-
-      // Add ony such a child if it has a legal move
-      // else the game ended, as no-one has a legal move
-      if(child.hasLegalMove()) {
-	addChild(new TreeNode(child));
-      } 
+      addChild(new TreeNode(*this, !playWhite));
     }
     isExpanded = true;
   } catch(std::bad_alloc& e) {
@@ -84,13 +89,7 @@ void TreeNode::expandOneLevel(bool verbose)
     // Now we have only some children, so not
     // we cannot determine accurate value
 
-    // Delete all children
-    for(auto child : children) {
-      delete child;
-    }
-    // Empty the list
-    children.clear();
-    isExpanded = false;
+    deleteChildren();
   }
 }
 
@@ -111,7 +110,7 @@ void TreeNode::addChild(TreeNode* child)
 
  * @return The value of this node
  */
-int8_t TreeNode::evaluate(uint8_t depth, bool verbose) {
+int8_t TreeNode::evaluate(bool playWhite, uint8_t depth, bool verbose) {
   if(verbose) {
     std::clog << __func__ << ": Depth " << static_cast<int>(depth)
 	      << ", Number of tiles: " <<  static_cast<int>(numTiles())
@@ -127,18 +126,12 @@ int8_t TreeNode::evaluate(uint8_t depth, bool verbose) {
     // because of memory allocation failure
     if(isExpanded) {
       for (auto child : children) {
-	auto childVal = child->evaluate(depth, verbose);
+	auto childVal = child->evaluate(!playWhite, depth, verbose);
 	// White is Max, Black is Min
-	if (isWhitesTurn()) {
-	  if(childVal > bestVal) {
-	    bestVal = childVal;
-	    //bestChild = child;
-	  }
+	if (playWhite) {
+	  bestVal = std::max(bestVal, childVal);
 	} else { 
-	  if(childVal < bestVal) {
-	    bestVal = childVal;
-	    //bestChild = child;	  
-	  }
+	  bestVal = std::min(bestVal, childVal);
 	}
       }
     }
@@ -188,10 +181,77 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 {
   s << static_cast<const Board&>(tree)
     << "Is expanded: " << std::boolalpha << tree.isExpanded
+    << "Is white's turn: " << std::boolalpha << tree.isWhitesTurn()
     << "\nValue: " << static_cast<int>(tree.value)
     << std::endl;
   for(auto child : tree.children) {
     s << *child << std::endl;
   }
   return s;
+}
+
+int8_t TreeNode::minmax(uint8_t depth, bool isMaximizingPlayer,
+			int8_t alpha, int8_t beta)
+{
+  if( isLeaf() ) return value;
+
+  // The code could be refactored because Min and Max code is so
+  // similar
+  if( isMaximizingPlayer ) {	// maximizing player
+    int8_t bestVal = -100;
+    for( auto child : children) {
+      auto val = child->minmax(depth + 1, false, alpha, beta);
+      bestVal = std::max(bestVal, val);
+      alpha = std::max(alpha, bestVal);
+      if( beta <= alpha) {
+	break;
+      }
+    }
+    return bestVal;
+  } else {			// minimizing player
+    int8_t bestVal = +100;
+    for( auto child : children) {
+      auto val = child->minmax(depth + 1, false, alpha, beta);
+      bestVal = std::min(bestVal, val);
+      alpha = std::min(alpha, bestVal);
+      if( beta <= alpha) {
+	break;
+      }
+    }
+    return bestVal;
+  }
+}
+
+/** 
+ * A leaf node is the final node
+ * of the game, i.e. neither player has
+ * a valid move.
+ * 
+ * 
+ * @return 
+ */
+bool TreeNode::isLeaf() const
+{
+  return hasLegalMove(true) && !hasLegalMove(false);
+}
+
+
+
+/** 
+ * Deletes all children and marks
+ * the node unexpanded
+ * 
+ */
+void TreeNode::deleteChildren()
+{
+  for(auto child : children) {
+    delete child;
+  }
+  // Empty the list
+  children.clear();
+  isExpanded = false;
+}
+
+bool TreeNote::isWhitesTurn() const {
+  return whitesTurn;
 }
