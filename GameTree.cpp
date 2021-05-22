@@ -115,6 +115,7 @@ int8_t TreeNode::evaluate(Player player, uint8_t depth, bool verbose) {
   if(verbose) {
     std::clog << __func__ << ": Depth " << static_cast<int>(depth)
 	      << ", Number of tiles: " <<  static_cast<int>(numTiles())
+	      << ", Is leaf: " << std::boolalpha << isLeaf()
 	      << std::endl;
   }
   auto bestVal = this->Board::value();
