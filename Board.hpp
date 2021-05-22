@@ -107,7 +107,7 @@ private:
  * @return The opponent.
  */
 inline Board::Player operator~(Board::Player player) {
-  return player == WHITE ? BLACK : WHITE;
+  return player == Board::WHITE ? Board::BLACK : Board::WHITE;
 }
 
 
