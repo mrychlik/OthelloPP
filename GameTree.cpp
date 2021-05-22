@@ -71,7 +71,8 @@ void TreeNode::expandOneLevel(bool verbose)
       TreeNode *child = new TreeNode(*this);
       child->setWhitesTurn(!child->isWhitesTurn());
       addChild(child);
-    } catch(std::bad_alloc e) {
+    } catch(std::bad_alloc& e) {
+      std::cerr << e.what() << "\n";
     }
   }
   isExpanded = true;
