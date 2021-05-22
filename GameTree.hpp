@@ -42,18 +42,20 @@ public:
 
 private:
 
+  // Installs a new child node
+  void addChild(TreeNode* child) const;
+  // Add children of a node
   void expandOneLevel(Player player, bool verbose = false) const;
+  // Delete all children
   void deleteChildren() const;
 
 
-  // Installs a new child node
-  void addChild(TreeNode* child);
   bool isLeaf() const;
   bool isWhitesTurn() const;
 
 
   int8_t value;			/**< The value of the node */
-  bool isExpanded;		/**< Have the children been added */
+  mutable bool isExpanded;	/**< Have the children been added */
   Player player;		/**< Is the node reflecting white's move */
 
 
