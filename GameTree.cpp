@@ -232,7 +232,7 @@ int8_t TreeNode::minmax(Player player, uint8_t depth, int8_t alpha, int8_t beta)
  */
 bool TreeNode::isLeaf() const
 {
-  return hasLegalMove(WHITE) && !hasLegalMove(BLACK);
+  return !hasLegalMove(WHITE) && !hasLegalMove(BLACK);
 }
 
 
