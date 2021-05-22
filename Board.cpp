@@ -263,7 +263,6 @@ std::ostream& Board::printSmall(std::ostream& s) const {
 
   s << " 01234567\n";
   s << "Score: " << score()
-    << "\nWhite's turn: " << std::boolalpha << isWhitesTurn()
     << "\nNumber of tiles: " << numTiles()
     << "\nNumber of white tiles: " << numWhiteTiles()    
     << "\nNumber of black tiles: " << numBlackTiles()    
