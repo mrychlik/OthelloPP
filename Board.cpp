@@ -184,6 +184,7 @@ bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadi
       flipRadius[ray] = 0;
     }
   } 
+  return legal;
 }
 
 /** 
