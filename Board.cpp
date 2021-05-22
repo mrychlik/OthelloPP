@@ -55,8 +55,8 @@ void Board::setBlack(uint8_t x, uint8_t y) {
   white[y]  &= ~(0x80 >> x);
 };
 
-void Board::setColor(uint8_t x, uint8_t y) {
-  if( isWhitesTurn() ) {
+void Board::setColor(uint8_t x, uint8_t y, bool colorWhite) {
+  if( colorWhite ) {
     setWhite(x,y);
   } else {
     setBlack(x,y);
@@ -65,8 +65,7 @@ void Board::setColor(uint8_t x, uint8_t y) {
 
 Board::Board() :
   filled{0},			
-  white{0},
-  whitesTurn(true)		
+  white{0}
 {
   // Standard Othello board initialization
   setWhite(3,4);
@@ -149,11 +148,12 @@ int Board::numBlackTiles () const {
  * For a given board square and each of the 8 rays from that square
  * compute number of tiles to flip along that ray.
  * 
+ * @param playWhite
  * @param x 
  * @param y 
  * @param toFlip 
  */
-void Board::findFlipRadius(uint8_t x, uint8_t y, uint8_t flipRadius[8]) const
+void Board::findFlipRadius(bool playWhite, uint8_t x, uint8_t y, uint8_t flipRadius[8]) const
 {
   for (int ray = 0; ray < 8; ++ray) { //iter over cardinal + diagonals
     int8_t distance = 1;
@@ -166,7 +166,7 @@ void Board::findFlipRadius(uint8_t x, uint8_t y, uint8_t flipRadius[8]) const
 	end = 1;		//ran off edge
       } else if( !isFilled(tmpx,tmpy) ) {
 	end = 2;		//ran into an empty space
-      } else if( isWhite(tmpx,tmpy) == isWhitesTurn()) {
+      } else if( isWhite(tmpx,tmpy) == playWhite ) {
 	end = (distance > 1)? 3 : 4; //ran into own color late vs early
       } else {
 	++distance;
@@ -180,7 +180,6 @@ void Board::findFlipRadius(uint8_t x, uint8_t y, uint8_t flipRadius[8]) const
   } 
 }
 
-
 /** 
  * Generate all moves.
  * 
@@ -193,27 +192,24 @@ void Board::findFlipRadius(uint8_t x, uint8_t y, uint8_t flipRadius[8]) const
  * @throw std::bad_alloc
  */
 Board::move_bag_type
-Board::moves() const
+Board::moves(bool playWhite) const
 {
   move_bag_type move_bag;
   for( auto x = 0; x < 8; ++x) {
     for( auto y = 0; y < 8; ++y) {
       if( isFilled(x,y) ) continue;
       uint8_t flipRadius[8];
-      findFlipRadius(x, y, flipRadius);
+      findFlipRadius(playWhite, x, y, flipRadius);
       
       bool legal = popcount(flipRadius);
       if (legal) {
 	Board c(*this);
 	for (int r = 0; r < 8; r++) { 
 	  for (int d = 1; d < flipRadius[r]; d++) { 
-	    c.setColor(x + d * direction[r][0], y + d * direction[r][1]); 
+	    c.setColor(x + d * direction[r][0], y + d * direction[r][1], playWhite); 
 	  }
 	}
-	c.setColor(x,y);	//place new tile
-
-	// change turn back. if just played white, then its B's turn and no change
-	c.setWhitesTurn(!isWhitesTurn()); 
+	c.setColor(x,y, playWhite);	//place new tile
 	move_bag.emplace_front(x, y, c); // Here is where std::bad_alloc would be thrown
       }
     }
@@ -313,33 +309,14 @@ std::ostream& Board::printBig(std::ostream& s) const {
 }
 
 /** 
- * Predicate: Is it the white's turn?
- * 
- * 
- * @return 
- */
-bool Board::isWhitesTurn() const {
-  return whitesTurn;
-}
-
-/** 
- * 
- * 
- * @param playWhite 
- */
-void Board::setWhitesTurn(bool whitesTurn)
-{
-  this->whitesTurn = whitesTurn;
-}
-
-
-/** 
  * Predicate: Is there at least one legal move?
+ *
+ * @param playWhite
  * 
  * @return 
  */
-bool Board::hasLegalMove() const {
-  return !moves().empty();
+bool Board::hasLegalMove(bool playWhite) const {
+  return !moves(playWhite).empty();
 }
 
 /** 
