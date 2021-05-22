@@ -76,9 +76,7 @@ void TreeNode::expandOneLevel(bool verbose)
       // else the game ended, as no-one has a legal move
       if(child->hasLegalMove()) {
 	addChild(child);
-      } else {
-	delete child;
-      }
+      } 
     }
     isExpanded = true;
   } catch(std::bad_alloc& e) {
