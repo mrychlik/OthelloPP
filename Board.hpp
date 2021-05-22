@@ -54,7 +54,7 @@ public:
   int numTiles() const;
   int numWhiteTiles () const;
   int numBlackTiles () const;  
-  move_bag_type moves() const;
+  move_bag_type moves() const throw(std::bad_alloc);
   int score() const;
   bool isWhitesTurn() const;
   bool hasLegalMove() const;
