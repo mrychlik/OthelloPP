@@ -104,7 +104,7 @@ int8_t TreeNode::evaluate(uint8_t depth, bool verbose) {
       expandOneLevel(verbose);
     }
     for (auto child : downlinks) {
-      auto childVal = child->evaluate(depth);
+      auto childVal = child->evaluate(depth, verbose);
       // White is Max, Black is Min
       if (isWhitesTurn()) {
 	if(childVal > bestVal) {
