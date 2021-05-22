@@ -57,7 +57,7 @@ public:
   move_bag_type moves() const;
   int score() const;
   bool isWhitesTurn() const;
-  bool operator==(const Board&) const;
+  //bool operator==(const Board&) const;
   bool hasLegalMove() const;
 
 private:
@@ -76,9 +76,9 @@ private:
   std::ostream& printSmall(std::ostream& s) const;
   std::ostream& printBig(std::ostream& s) const;
 
-  uint64_t filled_;		/**< Bit flags: is a square is occupied? */
-  uint64_t white_;		/**< Bit flags: is a square occupied by white? */
-  bool whitesTurn_;		/**< Is it White's turn? */
+  uint64_t filled;		/**< Bit flags: is a square is occupied? */
+  uint64_t white;		/**< Bit flags: is a square occupied by white? */
+  bool whitesTurn;		/**< Is it White's turn? */
 
   bool isFilled(uint8_t x, uint8_t y) const; 
   bool isWhite(uint8_t x, uint8_t y) const;
