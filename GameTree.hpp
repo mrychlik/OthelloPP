@@ -31,7 +31,7 @@ public:
   int8_t evaluate(uint8_t depth = 0, bool verbose = false);
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
 
-  void expandOneLevel(bool verbose = false);
+  void expandOneLevel(bool playWhite, bool verbose = false);
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
 
@@ -39,6 +39,10 @@ private:
 
   // Installs a new child node
   void addChild(TreeNode* child);
+  int8_t minmax(uint8_t depth, bool isMaximizingPlayer,
+		int8_t alpha, int8_t beta);
+  bool isLeaf() const;
+
 
   int8_t value;			/**< The value of the node */
   bool isExpanded;		/**< Have the children been added */
