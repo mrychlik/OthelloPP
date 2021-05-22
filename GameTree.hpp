@@ -43,7 +43,7 @@ private:
   bool isExpanded;		/**< Have the children been added */
 
   // NOTE: Using deque for this would use 80 bytes of memory
-  // under GCC, vector uses only 24 bytes, list 8 bytes.
+  // under GCC, vector uses only 24 bytes, forward_list 8 bytes.
   // As Board currently consumes 24 bytes, the TreeNode only 32
   std::forward_list<TreeNode*> downlinks;
 
