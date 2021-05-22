@@ -357,21 +357,6 @@ bool Board::hasLegalMove() const {
   return !moves().empty();
 }
 
-/** 
- * Compare.
- * NOTE: At this point redundant, as
- * componentwise comparison is exactly what we need
- * 
- * @param b 
- * 
- * @return 
- */
-bool Board::operator==(const Board& b) const {
-  return  whitesTurn == b.whitesTurn
-    && filled == b.filled
-    && white == b.white;
-}
-
 Board::operator std::string() const {
   std::stringstream buf;
   buf << *this;
