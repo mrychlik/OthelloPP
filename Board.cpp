@@ -193,18 +193,14 @@ Board::moves() const
       if( isFilled(x,y) ) continue;
       uint8_t toFlip[8];
       flipDistance(x, y, toFlip);
-
+      
       bool legal = popcount(toFlip);
 
       if (legal) {
 	Board c(*this);
-	for (int r = 0; r < 8; r++) { //rays, must be at least 1 that is > 0
-	  for (int d = 1; d < toFlip[r]; d++) { //above calced length
-	    if( isWhitesTurn() ) {
-	      c.setWhite(x + d * direction[r][0], y + d * direction[r][1]); //update Board c according to color
-	    } else {
-	      c.setBlack(x + d * direction[r][0], y + d * direction[r][1]);
-	    }
+	for (int r = 0; r < 8; r++) { 
+	  for (int d = 1; d < toFlip[r]; d++) { 
+	    c.setColor(x + d * direction[r][0], y + d * direction[r][1], isWhitesTurn()); 
 	  }
 	}
 	
