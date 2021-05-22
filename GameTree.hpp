@@ -11,8 +11,8 @@
 #ifndef GAME_TREE_HPP
 #define GAME_TREE_HPP 1
 
-#include <forward_list>
 #include "Board.hpp"
+#include <forward_list>
 
 /**
  * Class TreeNode represents the node of the game tree. In this
@@ -44,7 +44,7 @@ private:
   // NOTE: Using deque for this would use 80 bytes of memory
   // under GCC, vector uses only 24.
   // As Board currently consumes 24 bytes, the 
-  std::list<TreeNode*> downlinks;
+  std::forward_list<TreeNode*> downlinks;
 
 };
 
