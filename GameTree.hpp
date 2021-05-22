@@ -12,6 +12,7 @@
 #define GAME_TREE_HPP 1
 
 #include "Board.hpp"
+#include <cinttypes>
 #include <forward_list>
 
 /**
