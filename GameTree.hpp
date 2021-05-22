@@ -11,7 +11,7 @@
 #ifndef GAME_TREE_HPP
 #define GAME_TREE_HPP 1
 
-#include <vector>
+#include <list>
 #include "Board.hpp"
 
 /**
@@ -38,12 +38,13 @@ private:
   // Installs a new child node
   void addChild(TreeNode *child);
 
+  int8_t value;			/**< The value of the node */
+  bool isExpanded;		/**< Have the children been added */
+
   // NOTE: Using deque for this would use 80 bytes of memory
   // under GCC, vector uses only 24.
   // As Board currently consumes 24 bytes, the 
-  std::vector<TreeNode*> downlinks;
-  int8_t value;			/**< The value of the node */
-  bool isExpanded;		/**< Have the children been added */
+  std::list<TreeNode*> downlinks;
 
 };
 

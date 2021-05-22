@@ -18,31 +18,31 @@
 #include <boost/test/unit_test.hpp>
 //#include <boost/test/auto_unit_test.hpp>
 
-BOOST_AUTO_TEST_CASE(test_addition)
+BOOST_AUTO_TEST_CASE(addition)
 {
   BOOST_CHECK( 2 + 2 == 4 );
 }
 
-BOOST_AUTO_TEST_CASE(test_board_print)
+BOOST_AUTO_TEST_CASE(board_print)
 {
   Board b;
   std::cout << b;
   
 }
 
-BOOST_AUTO_TEST_CASE(test_board_print_big)
+BOOST_AUTO_TEST_CASE(board_print_big)
 {
   Board b;
   b.print(std::cout, true);
 }
 
-BOOST_AUTO_TEST_CASE(test_board_print_small)
+BOOST_AUTO_TEST_CASE(board_print_small)
 {
   Board b;
   b.print(std::cout, false);
 }
 
-BOOST_AUTO_TEST_CASE(test_board_move)
+BOOST_AUTO_TEST_CASE(board_move)
 {
   // TODO: Use several boards with known
   // move bag as test cases
@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_CASE(test_board_move)
   }
 }
 
-BOOST_AUTO_TEST_CASE(test_board_move_fancy)
+BOOST_AUTO_TEST_CASE(board_move_fancy)
 {
   // TODO: Use several boards with known
   // move bag as test cases
@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(test_board_move_fancy)
   }
 }
 
-BOOST_AUTO_TEST_CASE(test_board_move_text)
+BOOST_AUTO_TEST_CASE(board_move_text)
 {
   // TODO: Use several boards with known
   // move bag as test cases
@@ -85,14 +85,14 @@ BOOST_AUTO_TEST_CASE(test_board_move_text)
   }
 }
 
-BOOST_AUTO_TEST_CASE(test_expand_one_level)
+BOOST_AUTO_TEST_CASE(expand_one_level)
 {
   TreeNode root;
   root.expandOneLevel();
   std::cout << root;
 }
 
-BOOST_AUTO_TEST_CASE(test_tree_evaluate)
+BOOST_AUTO_TEST_CASE(tree_evaluate)
 {
   for(auto depth = 0; depth < 4; ++depth) {
     TreeNode root;
@@ -105,13 +105,13 @@ BOOST_AUTO_TEST_CASE(test_tree_evaluate)
   }
 }
 
-BOOST_AUTO_TEST_CASE(test_board_size)
+BOOST_AUTO_TEST_CASE(board_size)
 {
   Board b;
   std::cout << "Board size: " << sizeof(b);
 }
 
-BOOST_AUTO_TEST_CASE(test_tree_node_size)
+BOOST_AUTO_TEST_CASE(tree_node_size)
 {
   TreeNode tree;
   std::cout << "TreeNode size: " << sizeof(tree);

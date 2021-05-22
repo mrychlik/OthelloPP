@@ -21,8 +21,8 @@ check: test_suite
 	./test_suite
 
 clean: 
-	@-rm *.o
-	@-rm $(PROGRAMS)
+	-@rm *.o
+	-@rm $(PROGRAMS)
 
 doc: Doxyfile
 	doxygen $<
