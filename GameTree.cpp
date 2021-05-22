@@ -78,10 +78,11 @@ void TreeNode::expandOneLevel(Player player, bool verbose)
 	}
 	addChild(new TreeNode(child, player));
       }
-    } else {
-      // We don't change the board pieces,
-      // just give turn to the opponent
-      addChild(new TreeNode(*this, ~player));
+    } else if(!Leaf(){
+	// We don't change the board pieces,
+	// just give turn to the opponent
+	addChild(new TreeNode(*this, ~player));
+      }
     }
     isExpanded = true;
   } catch(std::bad_alloc& e) {
@@ -119,7 +120,7 @@ int8_t TreeNode::evaluate(Player player, uint8_t depth, bool verbose) {
 	      << std::endl;
   }
   auto bestVal = this->Board::value();
-  if(!isLeaf() && (depth > numTiles()) {
+  if( !isLeaf() && (depth > numTiles()) ) {
     if(!isExpanded) {
       expandOneLevel(player, verbose);
     }
