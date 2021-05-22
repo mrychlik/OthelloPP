@@ -242,7 +242,7 @@ bool TreeNode::isLeaf() const
  * the node unexpanded
  * 
  */
-void TreeNode::deleteChildren()
+void TreeNode::deleteChildren() const
 {
   for(auto child : children_ ) {
     delete child;
