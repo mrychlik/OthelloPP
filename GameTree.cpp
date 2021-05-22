@@ -81,7 +81,6 @@ void TreeNode::expandOneLevel(bool verbose)
     // we cannot determine accurate value
     for(auto child : downlinks) {
       delete child;
-      child = nullptr;
     }
     isExpanded = false;
   }
