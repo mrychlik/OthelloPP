@@ -147,7 +147,7 @@ int Board::numBlackTiles () const {
  */
 void Board::flipDistance(uint8_t x, uint8_t y, uint8_t toFlip[8]) const
 {
-  for (int ray = 0; ray < 8; ray++) { //iter over cardinal + diagonals
+  for (int ray = 0; ray < 8; ++ray) { //iter over cardinal + diagonals
     int8_t distance = 1;
     int8_t end = 0;
     while (end == 0) {
@@ -194,23 +194,11 @@ Board::moves() const
       uint8_t toFlip[8];
       flipDistance(x, y, toFlip);
 
-      bool legal = false;
-      for (int i : toFlip) { //any legal flips from playing here?
-	if (i != 0) {
-	  legal = true;
-	  break;
-	}
-      }
+      bool legal = popcount(toFlip);
 
       if (legal) {
-	int numFlipped = 0;
 	Board c(*this);
-
 	for (int r = 0; r < 8; r++) { //rays, must be at least 1 that is > 0
-	  if ( toFlip[r] != 0 ) {
-	    numFlipped += toFlip[r]-1;
-	  }
-
 	  for (int d = 1; d < toFlip[r]; d++) { //above calced length
 	    if( isWhitesTurn() ) {
 	      c.setWhite(x + d * direction[r][0], y + d * direction[r][1]); //update Board c according to color
@@ -225,8 +213,6 @@ Board::moves() const
 	} else {
 	  c.setBlack(x,y);
 	}
-
-	numFlipped = 2*numFlipped + 1; //account for placed tile and that score -1 for lost white and -1 from new black of each flip. thus 2*flip + 1
 
 	// change turn back. if just played white, then its B's turn and no change
 	c.setWhitesTurn(!isWhitesTurn()); 
