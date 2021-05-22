@@ -17,6 +17,14 @@
 static const char esc = '';
 static const std::string reset = "[0m";
 
+static inline
+uint32_t popcount(unsigned long x)
+  // We use a non-portable, GCC specific function
+  // but there are many portable implementations
+  // which are quite efficient
+  return __builtin_popcountl(x);
+}
+
 /**
  * 8 directions  (vectors) on the board.
  * 
@@ -120,10 +128,7 @@ int Board::value() const {
  * @return 
  */
 int Board::numTiles () const {
-  // We use a non-portable, GCC specific function
-  // but there are many portable implementations
-  // which are quite efficient
-  return __builtin_popcountl(filled);
+  return popcount(filled);
 }
 
 /** 
@@ -133,10 +138,7 @@ int Board::numTiles () const {
  * @return 
  */
 int Board::numWhiteTiles () const {
-  // We use a non-portable, GCC specific function
-  // but there are many portable implementations
-  // which are quite efficient
-  return __builtin_popcountl(white);
+  return popcount(white);
 }
 
 /** 
@@ -146,10 +148,7 @@ int Board::numWhiteTiles () const {
  * @return 
  */
 int Board::numBlackTiles () const {
-  // We use a non-portable, GCC specific function
-  // but there are many portable implementations
-  // which are quite efficient
-  return __builtin_popcountl(filled_^white_);
+  return popcount(filled_^white_);
 }
 
 /** 
