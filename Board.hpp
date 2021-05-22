@@ -87,6 +87,7 @@ private:
 
   uint8_t filled[8];		/**< Is a square is occupied? */
   uint8_t white[8];		/**< Is a square occupied by white? */
+  const Player player;		/**< Is the node reflecting white's move */
 
   bool isFilled(uint8_t x, uint8_t y) const; 
   bool isWhite(uint8_t x, uint8_t y) const;
