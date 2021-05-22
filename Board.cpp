@@ -229,7 +229,7 @@ Board::moves() const
 
 	// change turn back. if just played white, then its B's turn and no change
 	c.setWhitesTurn(!isWhitesTurn()); 
-	move_bag.push_back(move_type(x, y, c));
+	move_bag.push_front(move_type(x, y, c));
       }
     }
   }
