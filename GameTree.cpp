@@ -47,8 +47,6 @@ void TreeNode::expandOneLevel(bool verbose)
     for (auto m : move_bag) {
       auto child = std::get<2>(m);
       if(verbose) {
-	std::clog << child;
-      } else {
 	std::clog << ".";
       }
       addChild(new TreeNode(child));
@@ -81,6 +79,9 @@ void TreeNode::addChild(TreeNode *child)
  * @return The value of this node
  */
 int8_t TreeNode::evaluate(uint8_t depth, bool verbose) {
+  if(verbose) {
+    std::clog << __func__ << ": Reached depth " << static_cast<int>(depth) << "\n";
+  }
   auto bestVal = this->Board::value();
   //TreeNode *bestChild = nullptr;
   if(depth > 0) {
@@ -125,7 +126,7 @@ TreeNode::bestMove(const Board::move_type& possiblePlayerMove) const {
   //return most desirable grandchild of player child
   auto& board = std::get<2>(possiblePlayerMove);
   for (auto a : downlinks) {
-    if (*static_cast<Board *>(a) == board) { //branch of the players latest move
+    if (static_cast<const Board& >(*a) == board) { //branch of the players latest move
       for (auto b : a->downlinks) {
 	if (b->value == a->value) { //is the best of said options
 	  return b; 
