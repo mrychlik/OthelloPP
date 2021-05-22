@@ -305,7 +305,9 @@ std::ostream& Board::printBig(std::ostream& s) const {
     for (int x = 0; x < 8; x++) {
       auto bg = (y%2 == x%2) ? "42" : "43";
       auto fg = isWhite(x,y) ? "37" : "30";
-      auto tile = isFilled(x,y) ? ( isWhite(x,y) ? "W" : "B") : " "; 
+      auto tile = isFilled(x,y)
+	? ( isWhite(x,y) ? "W" : "B")
+	: " "; 
       s << esc << '[' << fg << ';' << bg
 	<< "m " << tile << " ";
     }
