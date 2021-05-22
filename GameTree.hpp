@@ -44,8 +44,10 @@ private:
 
   // Installs a new child node
   void addChild(TreeNode* child) const;
+
   // Add children of a node
   void expandOneLevel(Player player, bool verbose = false) const;
+
   // Delete all children
   void deleteChildren() const;
 
