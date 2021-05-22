@@ -38,7 +38,7 @@ public:
 private:
 
   // Installs a new child node
-  void addChild(const Board& child);
+  void addChild(TreeNode* child);
 
   int8_t value;			/**< The value of the node */
   bool isExpanded;		/**< Have the children been added */
