@@ -64,12 +64,12 @@ void TreeNode::expandOneLevel(bool verbose)
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(child));
+	addChild(child);
       }
     } else {
       // We don't change the board pieces,
       // just give turn to the opponent
-      TreeNode *child = new TreeNode(static_cast<const Board&>(*this));
+      Board child(*this);
       child->setWhitesTurn(!child->isWhitesTurn());
 
       // Add ony such a child if it has a legal move
