@@ -42,11 +42,8 @@ private:
   // under GCC, vector uses only 24.
   // As Board currently consumes 24 bytes, the 
   std::vector<TreeNode*> downlinks;
-
-  // The value of this node
-  int8_t value;
-
-  bool isExpanded;
+  int8_t value;			/**< The value of the node */
+  bool isExpanded;		/**< Have the children been added */
 
 };
 
