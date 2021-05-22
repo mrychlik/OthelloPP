@@ -342,9 +342,9 @@ bool Board::isWhitesTurn() const {
  * 
  * @param playWhite 
  */
-void Board::setWhitesTurn(bool playWhite)
+void Board::setWhitesTurn(bool whitesTurn)
 {
-  whitesTurn_ = playWhite;
+  whitesTurn_ = whitesTurn;
 }
 
 
