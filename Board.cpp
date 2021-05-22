@@ -92,7 +92,7 @@ int Board::score () const {
  * 
  * @return 
  */
-int Board::value() const {
+Board::value_type Board::value() const {
   int value = score();
 
   //maybe add linear change to value of score vs terriory?
@@ -153,7 +153,7 @@ int Board::numBlackTiles () const {
  * @param y 
  * @param toFlip 
  */
-void Board::findFlipRadius(bool playWhite, uint8_t x, uint8_t y, uint8_t flipRadius[8]) const
+void Board::findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadius[8]) const
 {
   for (int ray = 0; ray < 8; ++ray) { //iter over cardinal + diagonals
     int8_t distance = 1;
@@ -166,7 +166,7 @@ void Board::findFlipRadius(bool playWhite, uint8_t x, uint8_t y, uint8_t flipRad
 	end = 1;		//ran off edge
       } else if( !isFilled(tmpx,tmpy) ) {
 	end = 2;		//ran into an empty space
-      } else if( isWhite(tmpx,tmpy) == playWhite ) {
+      } else if( isWhite(tmpx,tmpy) == (player == WHITE) ) {
 	end = (distance > 1)? 3 : 4; //ran into own color late vs early
       } else {
 	++distance;
@@ -192,24 +192,24 @@ void Board::findFlipRadius(bool playWhite, uint8_t x, uint8_t y, uint8_t flipRad
  * @throw std::bad_alloc
  */
 Board::move_bag_type
-Board::moves(bool playWhite) const
+Board::moves(Player player) const
 {
   move_bag_type move_bag;
   for( auto x = 0; x < 8; ++x) {
     for( auto y = 0; y < 8; ++y) {
       if( isFilled(x,y) ) continue;
       uint8_t flipRadius[8];
-      findFlipRadius(playWhite, x, y, flipRadius);
+      findFlipRadius(player, x, y, flipRadius);
       
       bool legal = popcount(flipRadius);
       if (legal) {
 	Board c(*this);
 	for (int r = 0; r < 8; r++) { 
 	  for (int d = 1; d < flipRadius[r]; d++) { 
-	    c.setColor(x + d * direction[r][0], y + d * direction[r][1], playWhite); 
+	    c.setColor(x + d * direction[r][0], y + d * direction[r][1], player); 
 	  }
 	}
-	c.setColor(x,y, playWhite);	//place new tile
+	c.setColor(x,y, player);	//place new tile
 	move_bag.emplace_front(x, y, c); // Here is where std::bad_alloc would be thrown
       }
     }
@@ -314,8 +314,8 @@ std::ostream& Board::printBig(std::ostream& s) const {
  * 
  * @return 
  */
-bool Board::hasLegalMove(bool playWhite) const {
-  return !moves(playWhite).empty();
+bool Board::hasLegalMove(Player player) const {
+  return !moves(player).empty();
 }
 
 /** 
