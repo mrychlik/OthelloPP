@@ -157,7 +157,9 @@ int Board::numBlackTiles () const {
  * 
  * @return True if the move is legal
  */
-bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadius[8]) const
+bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y,
+			   uint8_t flipRadius[8],
+			   bool shortCircuit) const
 {
   bool legal = false;
   for (int ray = 0; ray < 8; ++ray) { //iter over cardinal + diagonals
