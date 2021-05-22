@@ -54,7 +54,6 @@ private:
   bool isWhitesTurn() const;
 
 
-  int8_t value;			/**< The value of the node */
   mutable bool isExpanded;	/**< Have the children been added */
   const Player player;		/**< Is the node reflecting white's move */
 
