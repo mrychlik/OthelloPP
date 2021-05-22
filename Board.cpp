@@ -148,11 +148,11 @@ int Board::numBlackTiles () const {
 void Board::flipDistance(uint8_t x, uint8_t y, uint8_t toFlip[8]) const
 {
   for (int ray = 0; ray < 8; ray++) { //iter over cardinal + diagonals
-    auto distance = 1;
-    auto end = 0;
+    int8_t distance = 1;
+    int8_t end = 0;
     while (end == 0) {
-      auto tmpx = x + distance * direction[ray][0];
-      auto tmpy = y + distance * direction[ray][1];
+      int8_t tmpx = x + distance * direction[ray][0];
+      int8_t tmpy = y + distance * direction[ray][1];
 
       if ( tmpx < 0 || tmpx > 7 || tmpy < 0 || tmpy > 7 ) {
 	end = 1;		//ran off edge
@@ -161,7 +161,7 @@ void Board::flipDistance(uint8_t x, uint8_t y, uint8_t toFlip[8]) const
       } else if( isWhite(tmpx,tmpy) == isWhitesTurn()) {
 	end = (distance > 1)? 3 : 4; //ran into own color late vs early
       } else {
-	distance++;
+	++distance;
       }
     }
     if (end == 3) {
