@@ -136,7 +136,7 @@ int8_t TreeNode::evaluate(Player player, uint8_t depth, bool verbose) {
       }
     }
   }
-  return value;
+  return bestVal;
 }
 
 
