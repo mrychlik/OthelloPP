@@ -203,12 +203,3 @@ const TreeNode::children_type& TreeNode::children() const
   }
   return children_;
 }
-
-TreeNode *TreeNode::swapPlayer()
-{
-  deleteChildren();
-  minmaxValue = value();
-  minmaxDepth = 0;
-  player = ~player;
-  return this;
-}
