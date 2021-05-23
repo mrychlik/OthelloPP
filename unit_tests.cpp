@@ -105,6 +105,6 @@ BOOST_AUTO_TEST_CASE(tree_minmax)
   auto val = root.minmax(Board::WHITE, depth);
   std::cout << "\nDepth : " << depth << "\n"
 	    << root
-	    << "\nStatic Value: " << static_cast<int>(val) 
+	    << "\nMinmax Value: " << static_cast<int>(val) 
 	    << std::endl;
 }
