@@ -112,9 +112,9 @@ int TreeNode::minmax(Player player, uint8_t depth, value_type alpha, value_type 
   // The code could be refactored because Min and Max code is so
   // similar
   if( player == WHITE ) {	// maximizing player
-    int8_t bestVal = MIN_VAL;
+    value_type bestVal = MIN_VAL;
     for( auto child : children() ) {
-      auto val = child->minmax(BLACK, depth + 1, alpha, beta);
+      value_type val = child->minmax(BLACK, depth + 1, alpha, beta);
       bestVal = std::max(bestVal, val);
       alpha = std::max(alpha, bestVal);
       if( beta <= alpha) {
@@ -123,9 +123,9 @@ int TreeNode::minmax(Player player, uint8_t depth, value_type alpha, value_type 
     }
     return bestVal;
   } else {			// minimizing player
-    int8_t bestVal = MAX_VAL;
+    value_type bestVal = MAX_VAL;
     for( auto child : children() ) {
-      auto val = child->minmax(WHITE, depth + 1, alpha, beta);
+      value_type val = child->minmax(WHITE, depth + 1, alpha, beta);
       bestVal = std::min(bestVal, val);
       alpha = std::min(alpha, bestVal);
       if( beta <= alpha) {
@@ -174,7 +174,7 @@ bool TreeNode::isWhitesTurn() const
 const TreeNode::children_type& TreeNode::children() const
 {
   if(!isExpanded) {
-    expandOneLevel(player);
+    expandOneLevel();
   }
   return children_;
 }
