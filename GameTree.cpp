@@ -217,10 +217,11 @@ const TreeNode::children_type& TreeNode::children() const
  * 
  * @return Triple (x, y, Board)
  */
-std::pair<uint8_t, uint8_t>
-TreeNode::getHumanMove(std::istream& s)
+Board::move_type TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
+
+  auto move_bag = moves(player);
 
   while(std::cin) {
     std::cout << "Player Move x and y" << std::endl;
