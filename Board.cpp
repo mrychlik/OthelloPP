@@ -65,8 +65,7 @@ void Board::setColor(uint8_t x, uint8_t y, bool colorWhite) {
 
 Board::Board(Player player) :
   filled{0},			
-  white{0},
-  player(player)
+  white{0}
 {
   // Standard Othello board initialization
   setWhite(3,4);
