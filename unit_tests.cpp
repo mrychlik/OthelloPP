@@ -125,7 +125,8 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
   for(auto depth = 0; depth < max_depth; ++depth) {
     try {
       auto count = root.nodeCount(depth);
-      std::cout << boost::format("%5d %10d %10g\n") % depth % count % (::log(count)/depth/log(2));
+      auto fanout = (::log(count)/depth/log(2));
+      std::cout << boost::format("%5d %10d %10g %*s\n") % depth % count % fanout % ::round(10*fanout) % " ";
     } catch(std::bad_alloc& e) {
       std::cerr << e.what();
     } catch(...) {
