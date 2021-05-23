@@ -95,7 +95,7 @@ Board::Board(Player player) :
  * 
  * @return 
  */
-int Board::score () const { 
+value_type Board::score () const { 
   return numWhiteTiles() - numBlackTiles();
 }
 
@@ -106,7 +106,7 @@ int Board::score () const {
  * @return 
  */
 int Board::value() const {
-  int value = score();
+  auto value = score();
 
   //maybe add linear change to value of score vs terriory?
 
