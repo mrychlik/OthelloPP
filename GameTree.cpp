@@ -114,7 +114,7 @@ int TreeNode::minmax(Player player, int8_t depth, value_type alpha, value_type b
   if( player == WHITE ) {	// maximizing player
     value_type bestVal = MIN_VAL;
     for( auto child : children() ) {
-      value_type val = child->minmax(BLACK, depth + 1, alpha, beta);
+      value_type val = child->minmax(BLACK, depth - 1, alpha, beta);
       bestVal = std::max(bestVal, val);
       alpha = std::max(alpha, bestVal);
       if( beta <= alpha) {
@@ -125,7 +125,7 @@ int TreeNode::minmax(Player player, int8_t depth, value_type alpha, value_type b
   } else {			// minimizing player
     value_type bestVal = MAX_VAL;
     for( auto child : children() ) {
-      value_type val = child->minmax(WHITE, depth + 1, alpha, beta);
+      value_type val = child->minmax(WHITE, depth - 1, alpha, beta);
       bestVal = std::min(bestVal, val);
       alpha = std::min(alpha, bestVal);
       if( beta <= alpha) {
