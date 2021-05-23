@@ -77,7 +77,7 @@ void TreeNode::expandOneLevel(bool verbose) const
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(childBoard, ~player));
+	addChild(new TreeNode(~player, childBoard));
       }
     }
     isExpanded = true;
@@ -107,7 +107,8 @@ void TreeNode::addChild(TreeNode* child) const
 std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 {
   s << static_cast<const Board&>(tree)
-    << "Is expanded: " << std::boolalpha << tree.isExpanded
+    << "Player to move: " << ( tree.Player == Board::WHITE ) ? "W" : "B"
+    << "\Is expanded: " << std::boolalpha << tree.isExpanded
     << "\nIs white's turn: " << std::boolalpha << tree.isWhitesTurn()
     << "\nValue: " << static_cast<int>(tree.value())
     << "\nMinMax value: " << static_cast<int>(tree.minmaxValue)
