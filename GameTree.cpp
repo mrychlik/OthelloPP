@@ -108,10 +108,10 @@ void TreeNode::addChild(TreeNode* child) const
  */
 std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 {
-  s << static_cast<const Board&>(tree)
-    << "Player to move: " << ( ( tree.player == Board::WHITE ) ? 'W' : 'B' )
+  s << "Player to move: " << ( ( tree.player == Board::WHITE ) ? 'W' : 'B' )
     << "\nLast filled x: " << static_cast<int>(tree.x)
     << "\nLast filled y: " << static_cast<int>(tree.y)
+    << static_cast<const Board&>(tree)
     << "\nIs expanded: " << std::boolalpha << tree.isExpanded
     << "\nIs white's turn: " << std::boolalpha << tree.isWhitesTurn()
     << "\nValue: " << static_cast<int>(tree.value())
