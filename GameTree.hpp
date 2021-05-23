@@ -32,10 +32,10 @@ public:
 
   typedef std::forward_list<TreeNode*> children_type;
 
-  TreeNode(Player player = WHITE, const Board& board = Board());
+  TreeNode(Player player = WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
   //TreeNode(const TreeNode& other) = delete;
   ~TreeNode();
-
+  
   bool isLeaf() const;
   const children_type& children() const;
 
