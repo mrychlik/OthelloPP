@@ -97,34 +97,6 @@ BOOST_AUTO_TEST_CASE(tree_node_size)
   std::cout << "TreeNode size: " << sizeof(tree) << std::endl;
 }
 
-BOOST_AUTO_TEST_CASE(tree_evaluate_depth_10)
-{
-  auto depth = 10;
-  TreeNode root;
-
-  std::cout << static_cast<int>(root.evaluate(Board::WHITE, depth, false)) << std::endl;
-}
-
-BOOST_AUTO_TEST_CASE(tree_evaluate_depth_16)
-{
-  auto depth = 16;
-  TreeNode root;
-
-  std::cout << static_cast<int>(root.evaluate(Board::WHITE, depth, false)) << std::endl;
-}
-
-BOOST_AUTO_TEST_CASE(tree_evaluate_and_print)
-{
-  auto depth = 6;
-  TreeNode root;
-
-  auto val = root.evaluate(Board::WHITE, depth, true);
-  std::cout << "\nDepth : " << depth << "\n"
-	    << root
-	    << "\nValue: " << static_cast<int>(val) 
-	    << std::endl;
-}
-
 BOOST_AUTO_TEST_CASE(tree_minmax)
 {
   auto depth = 6;
@@ -133,6 +105,6 @@ BOOST_AUTO_TEST_CASE(tree_minmax)
   auto val = root.minmax(Board::WHITE, depth);
   std::cout << "\nDepth : " << depth << "\n"
 	    << root
-	    << "\nValue: " << static_cast<int>(val) 
+	    << "\nStatic Value: " << static_cast<int>(val) 
 	    << std::endl;
 }
