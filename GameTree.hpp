@@ -71,8 +71,8 @@ private:
   //// END: Mutable fields
 
   const Player player;		/**< Player to move  */
-  value_type minMaxValue;	/**< Value found with minmax algorithm */
-  uint8_t depth;		/**< Depth of the minmax search that got the value */
+  value_type minmaxValue;	/**< minmax value  */
+  uint8_t minmaxDepth;		/**< minmax depth */
 };
 
 #endif
