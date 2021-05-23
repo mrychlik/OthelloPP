@@ -70,11 +70,11 @@ void TreeNode::expandOneLevel(bool verbose) const
   try {
     if( !move_bag.empty() ) {
       for (auto m : move_bag) {
-	auto child = std::get<2>(m);
+	auto childBoard = std::get<2>(m);
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(child, ~player));
+	addChild(new TreeNode(childBoard, ~player));
       }
     } else if( !isLeaf() ){
       // We don't change the board pieces,
