@@ -20,7 +20,8 @@
 
 
 /** 
- * Constructor of a node with a given board.
+ * Constructor of a node with a given player
+ * and default Board.
  * 
  * @param player
  *
@@ -28,6 +29,20 @@
  */
 TreeNode::TreeNode(Player player)
   : Board(player),
+    isExpanded(false),
+    children_()
+{      
+}
+
+/** 
+ * Constructor of a node with a board.
+ * 
+ * @param board
+ *
+ * 
+ */
+TreeNode::TreeNode(const Board& board)
+  : Board(board),
     isExpanded(false),
     children_()
 {      
