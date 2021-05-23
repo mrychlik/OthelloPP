@@ -140,7 +140,7 @@ int TreeNode::minmax(Player player, int8_t depth, value_type alpha, value_type b
     for( auto child : children() ) {
       value_type val = child->minmax(WHITE, depth - 1, alpha, beta);
       bestVal = std::min(bestVal, val);
-      alpha = std::min(alpha, bestVal);
+      beta = std::min(alpha, bestVal);
       if( beta <= alpha) {
 	break;
       }
@@ -196,6 +196,8 @@ const TreeNode::children_type& TreeNode::children() const
 TreeNode *TreeNode::swapPlayer()
 {
   deleteChildren();
+  minmaxValue = value();
+  minmaxDepth = 0;
   player = ~player;
   return this;
 }
