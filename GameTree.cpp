@@ -217,8 +217,8 @@ const TreeNode::children_type& TreeNode::children() const
  * 
  * @return Triple (x, y, Board)
  */
-Board::move_type
-GameTree::getHumanMove(std::istream& s)
+std::pair<uint8_t, uint8_t>
+TreeNode::getHumanMove(std::istream& s)
 {
   int x,y;
 
