@@ -25,8 +25,7 @@
  *    1. For every square of the board it knows
  *       if the square is occupied (filled) and
  *       what color is the piece
- *    2. Generation of moves from any position
- *    3. Keeping track whose turn it is (white or black)
+ *    2. Generation of moves from any board position for each player
  *    4. Computint the score (the number of white
  *       minus the number of black pieces)
  *    5. Computing heuristic value of the board
@@ -87,7 +86,6 @@ private:
 
   uint8_t filled[8];		/**< Is a square is occupied? */
   uint8_t white[8];		/**< Is a square occupied by white? */
-  const Player player;		/**< Is the node reflecting white's move */
 
   bool isFilled(uint8_t x, uint8_t y) const; 
   bool isWhite(uint8_t x, uint8_t y) const;
@@ -98,6 +96,8 @@ private:
   void setColor(uint8_t x, uint8_t y, bool colorWhite); 
 
   bool findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadius[8], bool shortCircuit = false) const;
+
+protected:
 };
 
 /** 
