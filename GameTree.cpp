@@ -118,7 +118,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
   return s;
 }
 
-int8_t TreeNode::minmax(Player player, uint8_t depth, int8_t alpha, int8_t beta)
+Board::value_type TreeNode::minmax(Player player, uint8_t depth, value_type alpha, value_type beta)
 {
   if( isLeaf() ) return value();
 
