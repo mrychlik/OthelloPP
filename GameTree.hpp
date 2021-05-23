@@ -72,6 +72,7 @@ private:
 
   const Player player;		/**< Player to move  */
   value_type minMaxValue;	/**< Value found with minmax algorithm */
+  uint8_t depth;		/**< Depth of the minmax search that got the value */
 };
 
 #endif
