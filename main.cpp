@@ -16,54 +16,19 @@
 #include "Board.hpp"
 
 
-#ifndef deque
-#include <deque>
-#endif
-
-/** 
- * Reads player move from a stream.
- * Validates the move against moves.
- * 
- * @param s 
- * @param move_bag
- * 
- * @return Triple (x, y, Board)
- */
-Board::move_type
-getPlayerMove(std::istream& s, const Board::move_bag_type& move_bag)
-{
-  int x,y;
-
-  while(std::cin) {
-    std::cout << "Player Move x and y" << std::endl;
-    std::cin >> x >> y ; 
-    if(std::cin.fail()) {
-      std::cerr << "Bad x\n"; 
-      continue;
-    }
-  };
-
-  if(std::cin.bad()) {
-    throw std::runtime_error("Input stream bad during input of x and y.");
-  }
-    
-  if (x < 0 || x > 7 || y < 0 || y > 7) {
-    std::cerr << "Input value x or y is invalid: " << x << ", " << y << "\n";
-    throw std::runtime_error("Invalid input");
-  }
-
-  for( auto& m : move_bag) {
-    auto [x1, y1, board1] = m;
-    if( x1 == x && y1 == y) {
-      return m;
-    }
-  }
-
-  std::cerr << "Move is invalid: " << x << ", " << y << "\n";
-  throw std::runtime_error("Invalid move");
-}
-
+const   bool humanPlaysWhite = true;
+const   bool humanPlaysBlack = false;
 const int MAX_DEPTH =  5;
+
+static bool isHuman(Board::Player player) {
+  if(player == Board::WHITE && humanPlaysWhite) {
+    return true;
+  } else if(player == Board::WHITE && humanPlaysWhite) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 /** 
  * @return 
@@ -74,8 +39,15 @@ int main() {
   TreeNode& currentNode(absTreeRoot);
 
   if(!currentNode.isLeaf()) {
-    currentNode.minmax(player, MAX_DEPTH);
     std::cout << currentNode << std::endl;
+    if( isHuman(player) ) {
+      auto move = currentNode.getHumanMove();
+      currentNode = findChildByMove(move);
+    } else {
+      currentNode.minmax(MAX_DEPTH);
+    }
+  } else {
+    std::cerr << "The game ended";
   }
   return 0;
 
