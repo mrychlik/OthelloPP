@@ -74,7 +74,7 @@ void TreeNode::expandOneLevel(Player player, bool verbose) const
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(child, player));
+	addChild(new TreeNode(child, ~player));
       }
     } else if( !isLeaf() ){
       // We don't change the board pieces,
