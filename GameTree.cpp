@@ -56,7 +56,7 @@ TreeNode::~TreeNode()
  * 
  * @return 
  */
-void TreeNode::expandOneLevel(Player player, bool verbose) const
+void TreeNode::expandOneLevel(bool verbose) const
 {
   if(isExpanded) {
     if( player == WHITE )  {    
