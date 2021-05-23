@@ -252,7 +252,7 @@ Board::move_type TreeNode::getHumanMove(std::istream& s) const
   throw std::runtime_error("Invalid move");
 }
 
-int TreeNode::nodeCount(int depth)
+int TreeNode::nodeCount(int depth) const
 {
   int count = 1;		// Count this node
   if(depth >= 1) {
