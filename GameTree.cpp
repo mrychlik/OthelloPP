@@ -27,7 +27,7 @@
  * 
  * @return 
  */
-TreeNode::TreeNode(const Board& board, bool whitesTurn)
+TreeNode::TreeNode(const Board& board)
   : Board(board),
     isExpanded(false),
     children_()
