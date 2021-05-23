@@ -73,6 +73,9 @@ private:
   mutable children_type children_;
 
   //// END: Mutable fields
+
+  const Player player;		/**< Is the node reflecting white's move */
+
 };
 
 #endif
