@@ -181,7 +181,7 @@ bool TreeNode::isLeaf() const
   // TODO: The code below should work but it does not
   //return !hasLegalMove(WHITE) && !hasLegalMove(BLACK);
   // Below is a slow replacement
-  return moves(WHITE).empty() && moves(BLACK).empty
+  return moves(WHITE).empty() && moves(BLACK).empty();
 }
 
 /** 
