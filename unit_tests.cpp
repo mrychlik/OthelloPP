@@ -120,7 +120,9 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
 {
   TreeNode root;
   int depth = 10;
+  auto count = root.nodeCount(depth);
   std::cout << "\nDepth: " << depth
-	    << "\nNode count: " << root.nodeCount(depth)
+	    << "\nNode count: " << count
+	    << "Fanout: " << ::log(count)/depth/log(2)
 	    << std::endl;
 }
