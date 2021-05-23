@@ -58,13 +58,7 @@ TreeNode::~TreeNode()
  */
 void TreeNode::expandOneLevel(bool verbose) const
 {
-  if(isExpanded) {
-    if( player == WHITE )  {    
-      return;
-    } else {			// We expanded for the other player
-      deleteChildren();
-    }
-  }
+  if(isExpanded) return;
   auto move_bag = moves(player);
 
   try {
@@ -76,10 +70,6 @@ void TreeNode::expandOneLevel(bool verbose) const
 	}
 	addChild(new TreeNode(childBoard, ~player));
       }
-    } else if( !isLeaf() ){
-      // We don't change the board pieces,
-      // just give turn to the opponent
-      addChild(new TreeNode(*this, ~player));
     }
     isExpanded = true;
   } catch(std::bad_alloc& e) {
