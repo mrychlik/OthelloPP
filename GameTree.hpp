@@ -38,7 +38,7 @@ public:
   
   int8_t evaluate(Player player, uint8_t depth = 0, bool verbose = false);
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
-  int8_t minmax(Player player, uint8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL);
+  int minmax(Player player, uint8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL);
 
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
