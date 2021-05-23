@@ -210,7 +210,7 @@ const TreeNode::children_type& TreeNode::children() const
 
 /** 
  * Reads player move from a stream.
- * Validates the move against moves.
+ * Validates the move.
  * 
  * @param s 
  * @param move_bag
