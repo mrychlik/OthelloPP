@@ -26,7 +26,7 @@
  *
  * 
  */
-TreeNode::TreeNode(const Board& board, Player player)
+TreeNode::TreeNode(Player player, const Board& board)
   : Board(board),
     isExpanded(false),
     children_(),
