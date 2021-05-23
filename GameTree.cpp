@@ -115,7 +115,8 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << "\nValue: " << static_cast<int>(tree.value())
     << "\nMinMax value: " << static_cast<int>(tree.minmaxValue)
     << "\nMinMax depth: " << static_cast<int>(tree.minmaxDepth)
-    << "\nLast piece x and y: << " << tree.x << ", " << tree.y
+    << "\nLast piece x: << " << static_cast<int>(tree.x)
+    << "\nLast piece y: << " << static_cast<int>(tree.y)
     << std::endl;
   return s;
 }
