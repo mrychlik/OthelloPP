@@ -370,3 +370,4 @@ Board::operator std::string() const {
   buf << *this;
   return buf.str();
 }
+
