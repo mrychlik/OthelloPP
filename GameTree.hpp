@@ -31,7 +31,7 @@ public:
 
   typedef std::forward_list<TreeNode*> children_type;
 
-  TreeNode(const Board& board, Player player);
+  TreeNode(const Board& board = Board(), Player player = WHITE);
   ~TreeNode();
   const children_type& children() const;
 
@@ -55,7 +55,7 @@ private:
   void addChild(TreeNode* child) const;
 
   // Add children of a node
-  void expandOneLevel(Player player, bool verbose = false) const;
+  void expandOneLevel(bool verbose = false) const;
 
   // Delete all children
   void deleteChildren() const;
