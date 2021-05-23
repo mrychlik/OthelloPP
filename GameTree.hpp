@@ -35,6 +35,7 @@ public:
   //TreeNode(const TreeNode& other) = delete;
   ~TreeNode();
 
+  bool isLeaf() const;
   const children_type& children() const;
 
   int minmax(Player player, int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL);
@@ -44,7 +45,6 @@ public:
 
 private:
 
-  bool isLeaf() const;
   bool isWhitesTurn() const;
 
 
