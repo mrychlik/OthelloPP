@@ -121,6 +121,6 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
   TreeNode root;
   int depth = 8;
   std::cout << "\nDepth: " << depth
-	    << "\nMinMax value: " << root.nodeCount(depth)
+	    << "\nNode count: " << root.nodeCount(depth)
 	    << std::endl;
 }
