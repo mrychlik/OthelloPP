@@ -282,7 +282,7 @@ std::ostream& Board::printSmall(std::ostream& s) const {
 
   s << " 01234567\n";
   s << "Score: " << score()
-    << "\Static value: " << value()    
+    << "\nStatic value: " << value()    
     << "\nNumber of tiles: " << numTiles()
     << "\nNumber of white tiles: " << numWhiteTiles()    
     << "\nNumber of black tiles: " << numBlackTiles()    
