@@ -71,7 +71,7 @@ void TreeNode::expandOneLevel(bool verbose) const
       // If the other player has a move
       // make it his turn
       if( hasLegalMove(~player) ) {
-	addChild((new TreeNode(*this))->swapPlayer());
+	addChild(new TreeNode(~player, *this));
       }
     } else {			// There are moves, we must make one
       for (auto m : move_bag) {
