@@ -30,7 +30,7 @@ TreeNode::TreeNode(const Board& board, Player player)
   : Board(board),
     isExpanded(false),
     children_(),
-    player(player),
+    player(player)
 {      
 }
 
