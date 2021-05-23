@@ -74,8 +74,8 @@ int main() {
   TreeNode& currentNode(absTreeRoot);
 
   if(!currentNode.isLeaf()) {
-    std::cout << currentNode << std::endl;
     currentNode.minmax(player, MAX_DEPTH);
+    std::cout << currentNode << std::endl;
   }
   return 0;
 
