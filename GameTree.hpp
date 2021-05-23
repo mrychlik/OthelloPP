@@ -26,8 +26,8 @@
  */
 class TreeNode : public Board {
 public:
-  static const value_type MAX_VAL = 100;
-  static const value_type MIN_VAL = -100;
+  static const value_type MAX_VAL =  100000;
+  static const value_type MIN_VAL = -100000;
 
   typedef std::forward_list<TreeNode*> children_type;
 
