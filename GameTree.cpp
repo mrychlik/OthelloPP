@@ -33,7 +33,9 @@ TreeNode::TreeNode(Player player, const Board& board, int8_t x, int8_t y)
     children_(),
     player(player),
     minmaxValue(board.value()),
-    minmaxDepth(0)
+    minmaxDepth(0),
+    x(x),
+    y(y)
 {      
 }
 
@@ -113,6 +115,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << "\nValue: " << static_cast<int>(tree.value())
     << "\nMinMax value: " << static_cast<int>(tree.minmaxValue)
     << "\nMinMax depth: " << static_cast<int>(tree.minmaxDepth)
+    << "\Last piece (x, y): << " << tree.x << ", " << tree.y;
     << std::endl;
   return s;
 }
