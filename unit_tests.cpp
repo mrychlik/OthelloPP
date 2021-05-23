@@ -121,11 +121,11 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
 {
   TreeNode root;
   int max_depth = 14;
-  std::cout << "Depth" << "Node Count" << "Fanout" << "\n";
+  std::cout << boost::format("%5s %10s %10s$\n") % "Depth" % "Node Count" % "Fanout";
   for(auto depth = 0; depth < max_depth; ++depth) {
     try {
       auto count = root.nodeCount(depth);
-      std::cout << depth << count << ::log(count)/depth/log(2) << "\n";
+      std::cout << boost::format("%5d %10d %10g\n") % depth % count % (::log(count)/depth/log(2));
     } catch(std::bad_alloc& e) {
       std::cerr << e.what();
     } catch(...) {
