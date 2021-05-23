@@ -118,6 +118,11 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << "\nLast filled x: << " << static_cast<int>(tree.x)
     << "\nLast filled y: << " << static_cast<int>(tree.y)
     << std::endl;
+  if(isExpanded) {
+    for(auto child : tree.children()) {
+      s << child;
+    }
+  }
   return s;
 }
 
