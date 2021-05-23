@@ -108,7 +108,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 {
   s << static_cast<const Board&>(tree)
     << "Player to move: " << ( tree.player == Board::WHITE ) ? "W" : "B"
-    << "\Is expanded: " << std::boolalpha << tree.isExpanded
+    << "\nIs expanded: " << std::boolalpha << tree.isExpanded
     << "\nIs white's turn: " << std::boolalpha << tree.isWhitesTurn()
     << "\nValue: " << static_cast<int>(tree.value())
     << "\nMinMax value: " << static_cast<int>(tree.minmaxValue)
