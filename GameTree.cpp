@@ -109,8 +109,8 @@ int TreeNode::minmax(Player player, int8_t depth, value_type alpha, value_type b
 {
   if( depth < 0 || isLeaf() ) {
     minMaxValue = value();
-    return;
-  }
+    return minMaxValue;
+  } 
 
   // The code could be refactored because Min and Max code is so
   // similar
@@ -137,6 +137,8 @@ int TreeNode::minmax(Player player, int8_t depth, value_type alpha, value_type b
     }
     minMaxValue = bestVal;
   }
+
+  return minMaxValue;
 }
 
 /** 
