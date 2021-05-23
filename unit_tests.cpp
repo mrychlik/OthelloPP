@@ -132,7 +132,6 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
     std::cerr << e.what();
   } catch(...) {
     std::cerr << "Something bad happened at depth " << depth << "\n";
-    break;
   }
   
 
