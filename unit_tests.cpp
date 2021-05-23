@@ -101,9 +101,8 @@ BOOST_AUTO_TEST_CASE(tree_minmax)
 {
   TreeNode root;
   int8_t depth = 10;
-  auto val = root.minmax(Board::WHITE, depth);
+  root.minmax(Board::WHITE, depth);
   std::cout << "\nDepth : " << depth << "\n"
 	    << root
-	    << "\nMinmax Value: " << static_cast<int>(val) 
 	    << std::endl;
 }
