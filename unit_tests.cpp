@@ -17,6 +17,7 @@
 
 #include <boost/test/unit_test.hpp>
 //#include <boost/test/auto_unit_test.hpp>
+#include <boost/format.hpp>
 
 BOOST_AUTO_TEST_CASE(addition)
 {
@@ -120,20 +121,15 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
 {
   TreeNode root;
   int max_depth = 14;
-  std::cout << Depth
-    for(auto depth = 0; depth < max_depth; ++depth) {
-      try {
-
-	auto count = root.nodeCount(depth);
-	std::cout << "\nDepth: " << depth
-		  << "\nNode count: " << count
-		  << "\nFanout: " << ::log(count)/depth/log(2)
-		  << std::endl;
-
-      } catch(std::bad_alloc& e) {
-	std::cerr << e.what();
-      } catch(...) {
-	std::cerr << "Something bad happened at depth: " << depth << "\n";
-      }
+  std::cout << "Depth" << "Node Count" << "Fanout" << "\n";
+  for(auto depth = 0; depth < max_depth; ++depth) {
+    try {
+      auto count = root.nodeCount(depth);
+      std::cout << depth << count << ::log(count)/depth/log(2) << "\n";
+    } catch(std::bad_alloc& e) {
+      std::cerr << e.what();
+    } catch(...) {
+      std::cerr << "Something bad happened at depth: " << depth << "\n";
     }
+  }
 }
