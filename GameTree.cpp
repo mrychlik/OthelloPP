@@ -88,7 +88,7 @@ void TreeNode::addChild(TreeNode* child) const
 }
 
 /** 
- * Output a TreeNode. It descends recursively into the tree.
+ * Output a TreeNode.
  * 
  * @param s 
  * @param tree 
@@ -102,9 +102,6 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << "\nIs white's turn: " << std::boolalpha << tree.isWhitesTurn()
     << "\nValue: " << static_cast<int>(tree.value())
     << std::endl;
-  for(auto child : tree.children() ) {
-    s << *child << std::endl;
-  }
   return s;
 }
 
