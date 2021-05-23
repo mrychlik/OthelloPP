@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_CASE(tree_minmax)
 BOOST_AUTO_TEST_CASE(tree_node_count)
 {
   TreeNode root;
-  int max_depth = 11;
+  int max_depth = 14;
   try {
     for(auto depth = 0; depth < max_depth; ++depth) {
       auto count = root.nodeCount(depth);
@@ -129,6 +129,11 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
 		<< std::endl;
     }
   } catch(std::bad_alloc& e) {
-    std::cout << e.what();
+    std::cerr << e.what();
+  } catch(...) {
+    std::cerr << "Something bad happened\n";
   }
+  
+
+      
 }
