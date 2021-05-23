@@ -61,8 +61,6 @@ public:
   Board(Player player = WHITE);
   int value() const;
   int numTiles() const;
-  int numWhiteTiles () const;
-  int numBlackTiles () const;  
   move_bag_type moves(Player player) const;
   int score() const;
   bool hasLegalMove(Player player) const;
@@ -74,6 +72,9 @@ private:
 
   operator std::string() const;
   friend std::ostream& operator<<(std::ostream& s, const Board& b);
+  int numWhiteTiles () const;
+  int numBlackTiles () const;  
+
 
 public:
   
@@ -96,8 +97,8 @@ private:
 
 private:
 
-  uint64_t filled[2];		/**< Is a square is occupied? */
-  uint64_t white[2];		/**< Is a square occupied by white? */
+  uint64_t filled;		/**< Is a square is occupied? */
+  uint64_t white;		/**< Is a square occupied by white? */
 
 };
 
@@ -112,7 +113,15 @@ inline Board::Player operator~(Board::Player player) {
   return player == Board::WHITE ? Board::BLACK : Board::WHITE;
 }
 
-
+/**
+ * We use int as return value of functions that in principle should
+ * return values in the range [Board::MIN_VAL,Board::MAX_VAL]. If this
+ * changed, things would break. The rationale for small
+ * Board::value_type is that we may want to cache it in Board
+ * instances at some point.
+ * 
+ */
+static_assert(sizeof(Board::value_type) <= sizeof(int));
 
 
 #endif // BOARD_HPP
