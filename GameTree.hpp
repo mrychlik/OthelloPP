@@ -26,16 +26,19 @@
  */
 class TreeNode : public Board {
 public:
+  static const value_type MAX_VAL = 100;
+  static const value_type MIN_VAL = -100;
+
   typedef std::forward_list<TreeNode*> children_type;
 
-  TreeNode(const Board& b = Board(), bool Player = WHITE);
+  TreeNode(const Board& b = Board());
   ~TreeNode();
   const children_type& children() const;
 
   
   int8_t evaluate(Player player, uint8_t depth = 0, bool verbose = false);
   TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
-  int8_t minmax(Player player, uint8_t depth, int8_t alpha = +100, int8_t beta = -100);
+  int8_t minmax(Player player, uint8_t depth, value_type alpha = MAX_VAL, value_type beta = MIN_VAL);
 
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
