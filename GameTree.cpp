@@ -20,8 +20,9 @@
 
 
 /** 
- * Constructor of a node with a board.
+ * Constructor of a node with a given player and board.
  * 
+ * @param player
  * @param board
  *
  * 
