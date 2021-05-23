@@ -46,8 +46,6 @@ public:
 
 private:
 
-  bool isWhitesTurn() const;
-
 
   //// NOTE: const methods that operate on mutable fields
 
