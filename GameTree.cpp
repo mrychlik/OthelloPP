@@ -155,8 +155,6 @@ bool TreeNode::isLeaf() const
   return !hasLegalMove(WHITE) && !hasLegalMove(BLACK);
 }
 
-
-
 /** 
  * Deletes all children and marks
  * the node unexpanded
