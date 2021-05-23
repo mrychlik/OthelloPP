@@ -27,7 +27,7 @@
  *
  * 
  */
-TreeNode::TreeNode(Player player, const Board& board)
+TreeNode::TreeNode(Player player, const Board& board, int8_t x, int8_t y)
   : Board(board),
     isExpanded(false),
     children_(),
@@ -73,11 +73,11 @@ void TreeNode::expandOneLevel(bool verbose) const
       }
     } else {			// There are moves
       for (auto m : move_bag) {
-	auto childBoard = std::get<2>(m);
+	auto [x, y, childBoard ] = m;
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(~player, childBoard));
+	addChild(new TreeNode(~player, childBoard, x, y));
       }
     }
     isExpanded = true;
