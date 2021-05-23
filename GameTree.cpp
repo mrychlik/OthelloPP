@@ -120,7 +120,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << std::endl;
   if(tree.isExpanded) {
     for(auto child : tree.children()) {
-      s << child;
+      s << *child;
     }
   }
   return s;
