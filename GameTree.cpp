@@ -113,7 +113,6 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << "\nLast filled y: " << static_cast<int>(tree.y)
     << static_cast<const Board&>(tree)
     << "\nIs expanded: " << std::boolalpha << tree.isExpanded
-    << "\nIs white's turn: " << std::boolalpha << tree.isWhitesTurn()
     << "\nValue: " << static_cast<int>(tree.value())
     << "\nMinMax value: " << static_cast<int>(tree.minmaxValue)
     << "\nMinMax depth: " << static_cast<int>(tree.minmaxDepth)
