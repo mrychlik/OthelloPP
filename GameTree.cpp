@@ -135,7 +135,7 @@ int TreeNode::minmax(Player player, int8_t depth, value_type alpha, value_type b
 	break;
       }
     }
-    return bestVal;
+    minmaxValue = bestVal;
   } else {			// minimizing player
     value_type bestVal = MAX_VAL;
     for( auto child : children() ) {
