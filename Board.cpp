@@ -92,7 +92,7 @@ int Board::score () const {
  * 
  * @return 
  */
-Board::value_type Board::value() const {
+int Board::value() const {
   int value = score();
 
   //maybe add linear change to value of score vs terriory?
