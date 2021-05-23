@@ -96,8 +96,8 @@ private:
 
 private:
 
-  uint32_t filled[2];		/**< Is a square is occupied? */
-  uint32_t white[2];		/**< Is a square occupied by white? */
+  uint64_t filled[2];		/**< Is a square is occupied? */
+  uint64_t white[2];		/**< Is a square occupied by white? */
 
 };
 
