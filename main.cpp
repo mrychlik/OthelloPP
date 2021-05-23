@@ -71,11 +71,11 @@ const int MAX_DEPTH =  7;
 int main() {
   Board::Player player = Board::WHITE;
   TreeNode absTreeRoot(player);
+
   TreeNode& currentNode(absTreeRoot);
 
-  std::cout << absTreeRoot << std::endl;
-
   if(!currentNode.isLeaf()) {
+    std::cout << currentNode << std::endl;
     currentNode.minmax(player, MAX_DEPTH);
   }
   return 0;
