@@ -31,8 +31,7 @@ public:
 
   typedef std::forward_list<TreeNode*> children_type;
 
-  TreeNode(Player player);
-  TreeNode(const Board& board);
+  TreeNode(const Board& board, Player player);
   ~TreeNode();
   const children_type& children() const;
 
@@ -74,7 +73,7 @@ private:
 
   //// END: Mutable fields
 
-  const Player player;		/**< Is the node reflecting white's move */
+  const Player player;		/**< Player to move  */
 
 };
 
