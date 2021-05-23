@@ -22,13 +22,12 @@
 /** 
  * Constructor of a node with a given board.
  * 
- * @param board
+ * @param player
  *
  * 
- * @return 
  */
-TreeNode::TreeNode(const Board& board)
-  : Board(board),
+TreeNode::TreeNode(Player player)
+  : Board(player),
     isExpanded(false),
     children_()
 {      
@@ -74,12 +73,12 @@ void TreeNode::expandOneLevel(Player player, bool verbose) const
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(child, ~player));
+	addChild(new TreeNode(child));
       }
     } else if( !isLeaf() ){
       // We don't change the board pieces,
       // just give turn to the opponent
-      addChild(new TreeNode(*this, ~player));
+      addChild(new TreeNode(*this));
     }
     isExpanded = true;
   } catch(std::bad_alloc& e) {
