@@ -78,6 +78,9 @@ private:
   value_type minmaxValue;	/**< minmax value  */
   uint8_t minmaxDepth;		/**< minmax depth */
 
+  int8_t x;			/**< x of last placed piece, or -1 */
+  int8_t y;			/**< y of last placed piece, or -1 */
+
   TreeNode *swapPlayer();
 };
 
