@@ -18,6 +18,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cassert>
+#include <utility>
 
 /** 
  * Constructor of a node with a given player and board.
