@@ -18,17 +18,30 @@ static const char esc = '';
 static const std::string reset = "[0m";
 
 static inline
-uint32_t popcount(const uint8_t x[8])
+uint32_t popcount(const uint64_t x)
 {
   // We use a non-portable, GCC specific function
   // but there are many portable implementations
   // which are quite efficient
-  unsigned long u0, u1;
-  u0 = (x[0] << 0) | (x[1] << 8) | (x[2] << 16) | (x[3] << 24);
-  u1 = (x[4] << 0) | (x[5] << 8) | (x[6] << 16) | (x[7] << 24);  
-  unsigned long u = u0 | (u1 << 32);
+  return __builtin_popcountl(x);
+}
 
-  return __builtin_popcountl(u);
+static inline
+bool getbit(const uint64_t& u, uint8_t x, uint8_t y)
+{
+  return ( u >> ( (y << 3) | x ) ) & 1U;
+}
+
+static inline
+void setbit(uint64_t& u, uint8_t x, uint8_t y)
+{
+  u |= 1UL << ( (y << 3) | x );
+}
+
+static inline
+void unsetbit(uint64_t& u, uint8_t x, uint8_t y)
+{
+  u &= ~( 1UL << ( (y << 3) | x ) );
 }
 
 /**
@@ -38,21 +51,21 @@ uint32_t popcount(const uint8_t x[8])
 static constexpr int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
 bool Board::isFilled(uint8_t x, uint8_t y) const {
-  return filled[y] & (0x80 >> x);
+  return getbit(filled, x, y);
 };
 
 bool Board::isWhite(uint8_t x, uint8_t y) const {
-  return white[y] & (0x80 >> x);
+  return getbit(white, x, y);
 };
 
 void Board::setWhite(uint8_t x, uint8_t y) {
-  filled[y] |= (0x80 >> x);
-  white[y]  |= (0x80 >> x);
+  setbit(filled, x, y);
+  setbit(white, x, y);
 };
 
 void Board::setBlack(uint8_t x, uint8_t y) {
-  filled[y] |= (0x80 >> x);
-  white[y]  &= ~(0x80 >> x);
+  setbit(filled, x, y);
+  unsetbit(white, x, y);
 };
 
 void Board::setColor(uint8_t x, uint8_t y, bool colorWhite) {
@@ -97,6 +110,7 @@ int Board::value() const {
 
   //maybe add linear change to value of score vs terriory?
 
+#if 0
   const int cornerVal = 8; //how much more valuable is a corner than any other flip
   if( isFilled(0,0) ) {
     value += isWhite(0,0) ? cornerVal : -cornerVal;
@@ -110,6 +124,7 @@ int Board::value() const {
   if( isFilled(7,7) ) {
     value +=  isWhite(7,7) ? cornerVal : -cornerVal;
   }
+#endif
   return value;
 }
 
