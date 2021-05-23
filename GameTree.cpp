@@ -73,7 +73,7 @@ void TreeNode::expandOneLevel(bool verbose) const
       if( hasLegalMove(~player) ) {
 	addChild((new TreeNode(*this))->swapPlayer());
       }
-    } else {			// There are moves
+    } else {			// There are moves, we must make one
       for (auto m : move_bag) {
 	auto [x, y, childBoard ] = m;
 	if(verbose) {
