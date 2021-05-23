@@ -31,7 +31,8 @@ public:
 
   typedef std::forward_list<TreeNode*> children_type;
 
-  TreeNode(const Board& b = Board());
+  TreeNode(Player player);
+  TreeNode(const Board& board);
   ~TreeNode();
   const children_type& children() const;
 
