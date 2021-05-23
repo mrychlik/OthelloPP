@@ -98,47 +98,6 @@ void TreeNode::addChild(TreeNode* child) const
 }
 
 /** 
- * Finds the value of the tree according to Max-Min.
- * Tree is expanded to specified depth.
- * If depth is reached, or if node has no children
- * the static value of the board is returned.
- * 
- * @param player
- * @param depth   Expand tree to this depth
- * @param verbose  Be verbose if true
-
- * @return The value of this node
- */
-int8_t TreeNode::evaluate(Player player, uint8_t depth, bool verbose) {
-  if(verbose) {
-    std::clog << __func__ << ": Depth " << static_cast<int>(depth)
-	      << ", Number of tiles: " <<  static_cast<int>(numTiles())
-	      << ", Is leaf: " << std::boolalpha << isLeaf()
-	      << std::endl;
-  }
-  auto bestVal = this->Board::value();
-  if( !isLeaf() && (depth > numTiles()) ) {
-    if(!isExpanded) {
-      expandOneLevel(player, verbose);
-    }
-    // Now the node may not have expanded
-    // because of memory allocation failure
-    if(isExpanded) {
-      for (auto child : children() ) {
-	auto childVal = child->evaluate(~player, depth, verbose);
-	// White is Max, Black is Min
-	if (player == WHITE) {
-	  bestVal = std::max(bestVal, childVal);
-	} else { 
-	  bestVal = std::min(bestVal, childVal);
-	}
-      }
-    }
-  }
-  return bestVal;
-}
-
-/** 
  * Output a TreeNode. It descends recursively into the tree.
  * 
  * @param s 
