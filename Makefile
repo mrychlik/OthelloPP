@@ -5,7 +5,7 @@ PROGRAMS =  main test_suite
 
 all: $(PROGRAMS)
 
-main.o: Board.hpp
+main.o: Board.hpp GameTree.o
 Board.o: Board.hpp
 GameTree.o: GameTree.hpp Board.hpp
 
