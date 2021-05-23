@@ -71,7 +71,6 @@ const int MAX_DEPTH =  7;
 int main() {
   Board::Player player = Board::WHITE;
   TreeNode absTreeRoot(player);
-
   TreeNode& currentNode(absTreeRoot);
 
   if(!currentNode.isLeaf()) {
