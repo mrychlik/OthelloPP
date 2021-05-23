@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_CASE(tree_minmax_and_print)
 {
   TreeNode root;
   int depth = 5;
-  root.minmax(Board::WHITE, depth);
+  root.minmax(depth);
   std::cout << "\nDepth : " << depth << "\n"
 	    << root
 	    << std::endl;
@@ -112,5 +112,5 @@ BOOST_AUTO_TEST_CASE(tree_minmax)
   TreeNode root;
   int depth = 16;
   std::cout << "\nDepth: " << depth
-	    << "\nMinMax value: " << root.minmax(Board::WHITE, depth);
+	    << "\nMinMax value: " << root.minmax(depth);
 }
