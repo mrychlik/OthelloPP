@@ -59,7 +59,7 @@ public:
   typedef int8_t value_type;
 public:
   Board(Player player = WHITE);
-  value_type value() const;
+  int value() const;
   int numTiles() const;
   int numWhiteTiles () const;
   int numBlackTiles () const;  
