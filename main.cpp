@@ -42,7 +42,6 @@ int main() {
     std::cout << currentNode << std::endl;
     if( isHuman(player) ) {
       auto move = currentNode.getHumanMove();
-      currentNode = findChildByMove(move);
     } else {
       currentNode.minmax(MAX_DEPTH);
     }
