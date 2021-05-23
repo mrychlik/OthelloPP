@@ -28,9 +28,9 @@
  */
 TreeNode::TreeNode(const Board& board, Player player)
   : Board(board),
-    player(player),
     isExpanded(false),
-    children_()
+    children_(),
+    player(player),
 {      
 }
 
