@@ -39,7 +39,7 @@ public:
   bool isLeaf() const;
   const children_type& children() const;
 
-  int minmax(Player player, int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL);
+  int minmax(int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL);
 
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
