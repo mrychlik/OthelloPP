@@ -166,7 +166,7 @@ int8_t TreeNode::minmax(Player player, uint8_t depth, int8_t alpha, int8_t beta)
   // The code could be refactored because Min and Max code is so
   // similar
   if( player == WHITE ) {	// maximizing player
-    int8_t bestVal = -100;
+    int8_t bestVal = MIN_VAL;
     for( auto child : children() ) {
       auto val = child->minmax(BLACK, depth + 1, alpha, beta);
       bestVal = std::max(bestVal, val);
@@ -177,7 +177,7 @@ int8_t TreeNode::minmax(Player player, uint8_t depth, int8_t alpha, int8_t beta)
     }
     return bestVal;
   } else {			// minimizing player
-    int8_t bestVal = +100;
+    int8_t bestVal = MAX_VAL;
     for( auto child : children() ) {
       auto val = child->minmax(WHITE, depth + 1, alpha, beta);
       bestVal = std::min(bestVal, val);
