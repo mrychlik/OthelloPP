@@ -63,7 +63,7 @@ getPlayerMove(std::istream& s, const Board::move_bag_type& move_bag)
   throw std::runtime_error("Invalid move");
 }
 
-const int MAX_DEPTH =  16;
+const int MAX_DEPTH =  8;
 
 /** 
  * @return 
