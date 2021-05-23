@@ -56,7 +56,7 @@ public:
    * Board value type
    * 
    */
-  typedef int8_t value_type;
+  typedef int value_type;
 public:
   Board(Player player = WHITE);
   int value() const;
@@ -80,7 +80,7 @@ public:
   std::ostream& print(std::ostream& s, bool big = false) const;
 
 private:
-
+  
   std::ostream& printSmall(std::ostream& s) const;
   std::ostream& printBig(std::ostream& s) const;
 
