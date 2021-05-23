@@ -28,7 +28,7 @@
  *    2. Generation of moves from any board position for each player
  *    4. Computint the score (the number of white
  *       minus the number of black pieces)
- *    5. Computing heuristic value of the board
+ *    5. Computing heuristic (static) value of the board
  *       position.
  * 
  */
