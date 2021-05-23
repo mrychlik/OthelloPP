@@ -31,8 +31,8 @@ public:
 
   typedef std::forward_list<TreeNode*> children_type;
 
-  TreeNode(const Board& board = Board(), Player player = WHITE);
-  TreeNode(const TreeNode& other);
+  TreeNode(Player player = WHITE, const Board& board = Board());
+  //TreeNode(const TreeNode& other) = delete;
   ~TreeNode();
 
   const children_type& children() const;
@@ -72,10 +72,12 @@ private:
 
   //// END: Mutable fields
 
-  const Player player;		/**< Player to move  */
+  Player player;		/**< Player to move  */
 
   value_type minmaxValue;	/**< minmax value  */
   uint8_t minmaxDepth;		/**< minmax depth */
+
+  TreeNode *swapPlayer();
 };
 
 #endif
