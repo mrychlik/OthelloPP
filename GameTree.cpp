@@ -67,7 +67,7 @@ void TreeNode::expandOneLevel(bool verbose) const
   auto move_bag = moves(player);
 
   try {
-    if( move_bag.empty() ) {
+    if( move_bag.empty() ) {	// We have no moves
       // If the other player has a move
       // make it his turn
       if( hasLegalMove(~player) ) {
