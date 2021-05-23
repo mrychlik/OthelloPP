@@ -257,7 +257,7 @@ int TreeNode::nodeCount(int depth) const
   int count = 1;		// Count this node
   if(depth >= 1) {
     for(auto  child : children() ) {
-      count += child->nodeCout(depth - 1);
+      count += child->nodeCount(depth - 1);
     }
   }
   return count;
