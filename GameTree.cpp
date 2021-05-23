@@ -37,6 +37,25 @@ TreeNode::TreeNode(const Board& board, Player player)
 }
 
 /** 
+ * Copy constructor
+ * 
+ * @param other 
+ * 
+ * @return 
+ */
+TreeNode(const TreeNode& other)
+  : Board(other),
+    isExpanded(false),
+    children_(),
+    player(~player),
+    minmaxValue(board.value()),
+    minmaxDepth(0)
+{
+
+}
+
+
+/** 
  * Destructor. Deletes a tree node and its children
  * 
  */
