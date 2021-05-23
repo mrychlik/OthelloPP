@@ -95,7 +95,7 @@ Board::Board(Player player) :
  * 
  * @return 
  */
-value_type Board::score () const { 
+int Board::score () const { 
   return numWhiteTiles() - numBlackTiles();
 }
 
