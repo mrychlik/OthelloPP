@@ -32,7 +32,9 @@ public:
   typedef std::forward_list<TreeNode*> children_type;
 
   TreeNode(const Board& board = Board(), Player player = WHITE);
+  TreeNode(const TreeNode& other);
   ~TreeNode();
+
   const children_type& children() const;
 
   int minmax(Player player, int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL);
