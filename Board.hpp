@@ -84,9 +84,6 @@ private:
   std::ostream& printSmall(std::ostream& s) const;
   std::ostream& printBig(std::ostream& s) const;
 
-  uint8_t filled[8];		/**< Is a square is occupied? */
-  uint8_t white[8];		/**< Is a square occupied by white? */
-
   bool isFilled(uint8_t x, uint8_t y) const; 
   bool isWhite(uint8_t x, uint8_t y) const;
   bool isBlack(uint8_t x, uint8_t y) const;   
@@ -96,6 +93,12 @@ private:
   void setColor(uint8_t x, uint8_t y, bool colorWhite); 
 
   bool findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadius[8], bool shortCircuit = false) const;
+
+private:
+
+  uint8_t filled[8];		/**< Is a square is occupied? */
+  uint8_t white[8];		/**< Is a square occupied by white? */
+
 };
 
 /** 
