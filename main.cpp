@@ -69,20 +69,12 @@ getPlayerMove(std::istream& s, const Board::move_bag_type& move_bag)
  */
 int main() {
   TreeNode absTreeRoot;
-
-  //bool playWhite = true;
-  const int mind = 2, maxd = 4;
+  Player player = Board::WHITE;
 
   std::cout << absTreeRoot << std::endl;
 
-  while(absTreeRoot.numTiles() != 64) {
-    auto curTileNum = absTreeRoot.numTiles();
-    
-    //start tree generation
-    auto minDepth = curTileNum + mind;
-    auto maxDepth = curTileNum + maxd;
-
-    absTreeRoot.expand(minDepth, maxDepth);
+  while(!absTreeRoot.isLeaf()) {
+    absTreeRoot.minmax(player);
 
     //get player move, if there is one
     auto possiblePlayerMove = getPlayerMove(std::cin, absTreeRoot.moves());
