@@ -39,8 +39,8 @@ public:
   
   bool isLeaf() const;
   const children_type& children() const;
-  std::pair<uint8_t, uint8_t> getHumanMove(std::istream& s) const;
-
+  Board::move_type getHumanMove(std::istream& s) const;
+  int nodeCount(int depth);
 
   int minmax(int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL);
 
