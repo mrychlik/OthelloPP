@@ -64,7 +64,13 @@ void TreeNode::expandOneLevel(bool verbose) const
   auto move_bag = moves(player);
 
   try {
-    if( !move_bag.empty() ) {
+    if( move_bag.empty() ) {
+      // If the other player has a move
+      // make it his turn
+      if( hasLegalMove(~player) ) {
+	addChild((new TreeNode(*this))->swapPlayer());
+      }
+    } else {			// There are moves
       for (auto m : move_bag) {
 	auto childBoard = std::get<2>(m);
 	if(verbose) {
@@ -185,4 +191,11 @@ const TreeNode::children_type& TreeNode::children() const
     expandOneLevel();
   }
   return children_;
+}
+
+TreeNode *TreeNode::swapPlayer()
+{
+  deleteChildren();
+  player = ~player;
+  return this;
 }
