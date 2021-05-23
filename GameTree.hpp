@@ -35,9 +35,6 @@ public:
   ~TreeNode();
   const children_type& children() const;
 
-  
-  int8_t evaluate(Player player, uint8_t depth = 0, bool verbose = false);
-  TreeNode* bestMove(const Board::move_type& possiblePlayerMove) const;
   int minmax(Player player, uint8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL);
 
 
