@@ -74,12 +74,12 @@ void TreeNode::expandOneLevel(bool verbose) const
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(child));
+	addChild(new TreeNode(child, ~player));
       }
     } else if( !isLeaf() ){
       // We don't change the board pieces,
       // just give turn to the opponent
-      addChild(new TreeNode(*this));
+      addChild(new TreeNode(*this, ~player));
     }
     isExpanded = true;
   } catch(std::bad_alloc& e) {
