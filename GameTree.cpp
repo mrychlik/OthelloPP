@@ -17,7 +17,7 @@
 #include "Board.hpp"
 #include <iostream>
 #include <algorithm>
-
+#include <cassert>
 
 /** 
  * Constructor of a node with a given player and board.
@@ -125,12 +125,13 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
   return s;
 }
 
-int TreeNode::minmax(Player player, int8_t depth, value_type alpha, value_type beta)
+int TreeNode::minmax(int8_t depth, value_type alpha, value_type beta)
 {
   if( depth <= 0 || isLeaf() ) {
     minmaxValue = value();
     minmaxDepth = 0;
-  } else {
+    goto end;
+  }
 
   // The code could be refactored because Min and Max code is so
   // similar
@@ -145,7 +146,6 @@ int TreeNode::minmax(Player player, int8_t depth, value_type alpha, value_type b
       }
     }
     minmaxValue = bestVal;
-    minmaxDepth = depth;
   } else {			// minimizing player
     value_type bestVal = MAX_VAL;
     for( auto child : children() ) {
@@ -157,9 +157,13 @@ int TreeNode::minmax(Player player, int8_t depth, value_type alpha, value_type b
       }
     }
     minmaxValue = bestVal;
-    minmaxDepth = depth;
   }
+  minmaxDepth = depth;
 
+end:
+
+  assert( minmaxValue != MAX_VAL);
+  assert( minmaxValue != MIN_VAL);
 
   return minmaxValue;
 }
@@ -190,11 +194,6 @@ void TreeNode::deleteChildren() const
   // Empty the list
   children_.clear();
   isExpanded = false;
-}
-
-bool TreeNode::isWhitesTurn() const
-{
-  return player == WHITE;
 }
 
 const TreeNode::children_type& TreeNode::children() const
