@@ -334,7 +334,7 @@ TreeNode& TreeNode::getComputerMove(int depth) const
     throw std::logic_error("Asked for computer move when there is none");
   } else {
     std::random_shuffle(bestChildren.begin(), bestChildren.end());    
-    return bestChildren.front();
+    return **bestChildren.begin();
   }
 }
 
