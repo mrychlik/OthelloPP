@@ -61,8 +61,69 @@ void play()
 
 #include <unistd.h>		// For sleep
 
-int main()
+#include <stdio.h>     /* for printf */
+#include <stdlib.h>    /* for exit */
+#include <getopt.h>
+
+int main(int argc, char **argv)
 {
+  int c;
+  int digit_optind = 0;
+
+  while (1) {
+    int this_option_optind = optind ? optind : 1;
+    int option_index = 0;
+    static struct option long_options[] = {
+      {"max_depth",     required_argument, 0,  0 },
+      {"human_plays_white",   no_argument,       0,  'w' },
+      {"human_player_black",  no_argument,       0,  'b' },
+      {0,         0,                 0,  0 }
+    };
+    c = getopt_long(argc, argv, "dw:b:",
+		    long_options, &option_index);
+    if (c == -1)
+      break;
+
+    switch (c) {
+    case 0:
+      printf("option %s", long_options[option_index].name);
+      if (optarg)
+	printf(" with arg %s", optarg);
+      printf("\n");
+      break;
+
+    case 'd':
+      max_depth = atoi(optarg);
+      printf("max_depth: %d\n", max_depth);      
+      break;
+
+    case 'w':
+      human_player[Board::WHITE] = true;
+      printf("WHITE played by Human.\n");
+      break;
+
+    case 'b':
+      human_player[Board::BLACK] = true;
+      printf("BLACK played by Human.\n");
+      break;
+
+    case '?':
+      break;
+
+    default:
+      printf("?? getopt returned character code 0%o ??\n", c);
+    }
+  }
+
+  if (optind < argc) {
+    printf("non-option ARGV-elements: ");
+    while (optind < argc)
+      printf("%s ", argv[optind++]);
+    printf("\n");
+  }
+
+  // Main loop
+
   while(true)
     try {
       play();
