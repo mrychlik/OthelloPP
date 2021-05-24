@@ -172,8 +172,6 @@ int TreeNode::minmax(int8_t depth, value_type alpha, value_type beta) const
   }
   minmaxDepth = depth;
 
- end:
-
   assert( minmaxValue != MAX_VAL);
   assert( minmaxValue != MIN_VAL);
 
