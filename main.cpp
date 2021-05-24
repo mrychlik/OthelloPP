@@ -63,9 +63,9 @@ void play()
 
 int main_loop()
 {
-  while(true)
+  for(int game = 0; game < num_games; ++game);
     try {
-      play();
+      play(game);
     } catch(std::runtime_error& e) {
       std::cout << e.what() << std::endl;
       return 0;
