@@ -59,6 +59,18 @@ void play()
   }
 }
 
+int main_loop()
+{
+  while(true)
+    try {
+      play();
+    } catch(std::runtime_error& e) {
+      std::cout << e.what() << std::endl;
+      return 0;
+    }
+}
+
+
 /* From this point on this is good old-fashioned C */
 
 #include <unistd.h>    /* For sleep */
@@ -121,14 +133,6 @@ int main(int argc, char **argv)
     printf("\n");
   }
 
-  /*  Main loop */
-
-  while(true)
-    try {
-      play();
-    } catch(std::runtime_error& e) {
-      std::cout << e.what() << std::endl;
-      return 0;
-    }
+  return main_loop();
 }
 
