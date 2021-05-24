@@ -240,14 +240,17 @@ const TreeNode::children_type& TreeNode::children() const
  * 
  * @return Triple (x, y, Board)
  */
-Board::move_type TreeNode::getHumanMove(std::istream& s) const
+TreeNode& TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
 
   auto move_bag = moves(player);
 
   while(std::cin) {
-    std::cout << "Human, enter your move!! (like this: x  y <ENTER>)" << std::endl;
+    std::cout << "Human, make your move!!\n"
+	      << "(Like this: x  y <ENTER>)"
+	      << "(... or -1 -1 <ENTER>, if you want me, the Computer, to move.)"
+      << std::endl;
     std::cin >> x >> y ; 
     if(std::cin.fail()) {
       std::cout << "Invalid format of x or y (should be a number 0-7)" << std::endl;
@@ -332,4 +335,5 @@ Board::move_type TreeNode::getComputerMove(int depth) const
       return Board::move_type(static_cast<int>(child->x), static_cast<int>(child->y), *child);
     }
   }
+  throw std::logic_error("Could not find best move for computer.");
 }
