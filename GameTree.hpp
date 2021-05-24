@@ -45,7 +45,7 @@ public:
    * The type of children container
    * 
    */
-  typedef std::forward_list<const TreeNode*> children_type;
+  typedef std::forward_list<TreeNode*> children_type;
 
   TreeNode(Player player = WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
   TreeNode(const TreeNode& other) = delete;
