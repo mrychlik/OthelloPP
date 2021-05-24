@@ -159,7 +159,7 @@ FILE_PATTERNS          = *.c \
                          *.ucf \
                          *.qsf
 RECURSIVE              = NO
-EXCLUDE                = unit_test.cpp
+EXCLUDE                = unit_tests.cpp
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       =
 EXCLUDE_SYMBOLS        =
