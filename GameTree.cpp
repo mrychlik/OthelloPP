@@ -352,7 +352,7 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
 
   children.clear();
   isExpanded = false;
-
+  
   if(other.isExpanded) {
     children_ = other.children_;
     // Now that we took other's children,
