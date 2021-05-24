@@ -1,7 +1,7 @@
 CXXFLAGS = -std=c++20 -Ofast -ggdb3 -pthread -Wall
 LDFLAGS  = -lm -lboost_unit_test_framework
 
-PROGRAMS =  main test_suite
+PROGRAMS =  othello test_suite
 
 all: $(PROGRAMS)
 
