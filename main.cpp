@@ -43,13 +43,12 @@ int main() {
     std::cout << currentNode << std::endl;
     if( isHuman(player) ) {
       auto selectedChild = currentNode.getHumanMove(std::cin);
-      std::cout << "Human played: " << selectedChild->x << " " << selectedChild->y << "\n"
+      std::cout << "Human played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
 		<< selectedChild << std::endl;
       currentNode = selectedChild;
     } else {			// not human
       auto selectedChild = currentNode.getComputerMove(MAX_DEPTH);
-      auto [x, y, board] = move;
-      std::cout << "Computer played: " << selectedChild->x << " " << selectedChild->y << "\n"
+      std::cout << "Computer played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
 		<< board << std::endl;
       currentNode = selectedChild;
     }
