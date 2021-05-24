@@ -117,14 +117,23 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << "\nMinMax value: " << static_cast<int>(tree.minmaxValue)
     << "\nMinMax depth: " << static_cast<int>(tree.minmaxDepth)
     << "\n----------------" << std::endl;
-  if(tree.isExpanded) {
-    for(auto child : tree.children()) {
-      s << *child;
-    }
-  }
-  return s;
+	       if(tree.isExpanded) {
+		 for(auto child : tree.children()) {
+		   s << *child;
+		 }
+	       }
+	       return s;
 }
 
+/** 
+ * 
+ * 
+ * @param depth 
+ * @param alpha 
+ * @param beta 
+ * 
+ * @return 
+ */
 int TreeNode::minmax(int8_t depth, value_type alpha, value_type beta)
 {
   if( depth <= 0 || isLeaf() ) {
@@ -160,7 +169,7 @@ int TreeNode::minmax(int8_t depth, value_type alpha, value_type beta)
   }
   minmaxDepth = depth;
 
-end:
+ end:
 
   assert( minmaxValue != MAX_VAL);
   assert( minmaxValue != MIN_VAL);
