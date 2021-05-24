@@ -50,6 +50,13 @@ void unsetbit(uint64_t& u, uint8_t x, uint8_t y)
  */
 static constexpr int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
+/**
+ * Controls the size of the printed board.
+ * 
+ */
+bool Board::print_size_big = true;
+
+
 bool Board::isFilled(uint8_t x, uint8_t y) const {
   return getbit(filled, x, y);
 };
