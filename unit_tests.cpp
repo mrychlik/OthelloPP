@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
 {
   TreeNode root;
   int max_depth = 11;
-  std::cout << boost::format("%5s %10s %10s\n") % "Depth" % "Node Count" % "Fanout";
+  std::cout << boost::format("%5s %10s %10s %10s\n") % "Depth" % "Node Count" % "Fanout" % "Bar plot";
 
   for(auto depth = 0; depth < max_depth; ++depth) {
     try {
