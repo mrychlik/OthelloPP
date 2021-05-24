@@ -46,8 +46,11 @@ int main() {
       auto [x, y, board] = move;
       std::cout << "Human played: " << x << " " << y << "\n"
 		<< board << std::endl;
-    } else {
-      currentNode.minmax(MAX_DEPTH);
+    } else {			// not human
+      auto move = currentNode.getComputerMove();
+      auto [x, y, board] = move;
+      std::cout << "Computer played: " << x << " " << y << "\n"
+		<< board << std::endl;
     }
   } else {
     std::cerr << "The game ended";
