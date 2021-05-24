@@ -33,7 +33,7 @@ TreeNode::TreeNode(Player player, const Board& board, int8_t x, int8_t y)
   : Board(board),
     isExpanded(false),
     children_(),
-    player(player),
+    player_(player),
     minmaxValue(board.value()),
     minmaxDepth(0),
     x_(x),
@@ -66,14 +66,14 @@ TreeNode::~TreeNode()
 void TreeNode::expandOneLevel(bool verbose) const
 {
   if(isExpanded) return;
-  auto move_bag = moves(player);
+  auto move_bag = moves(player_);
 
   try {
     if( move_bag.empty() ) {	// We have no moves
       // If the other player has a move
       // make it his turn
-      if( hasLegalMove(~player) ) {
-	addChild(new TreeNode(~player, *this));
+      if( hasLegalMove(~player_) ) {
+	addChild(new TreeNode(~player_, *this));
       }
     } else {			// There are moves, we must make one
       for (auto m : move_bag) {
@@ -81,7 +81,7 @@ void TreeNode::expandOneLevel(bool verbose) const
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(~player, childBoard, x, y));
+	addChild(new TreeNode(~player_, childBoard, x, y));
       }
     }
     isExpanded = true;
@@ -110,7 +110,7 @@ void TreeNode::addChild(TreeNode* child) const
  */
 std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 {
-  s << "Player to move: " << ( ( tree.player == Board::WHITE ) ? 'W' : 'B' )
+  s << "Player to move: " << ( ( tree.player() == Board::WHITE ) ? 'W' : 'B' )
     << "\nLast filled x: " << tree.x()
     << "\nLast filled y: " << tree.y()
     << "\n" << static_cast<const Board&>(tree)
@@ -254,7 +254,9 @@ const TreeNode& TreeNode::getHumanMove(std::istream& s) const
       continue;
     } else if(std::cin.bad()) {
       throw std::runtime_error("Input stream bad during input of x and y.");
-    } else if (x < 0 || x > 7 || y < 0 || y > 7 || !(x == -1 && y == -1)) {
+    }
+    std::cout << "You, Human, entered: " << x << " " << y << std::endl;
+    if( !(x >= 0 && x <= 7 && y >= 0 && y <= 7) && !(x == -1 && y == -1) ) {
       std::cout << "Input value x or y out of range 0-7: " << x << " " << y << std::endl;
       continue;
     } else {
