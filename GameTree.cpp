@@ -263,7 +263,7 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
 	for( auto child : children()) {
 	  std::cout << child->x() << " " << child->y() << std::endl; 
 	}
-	std::cout << "Would you like to try again? (Y/N/Q)" << std::endl;
+	std::cout << "Would you like to try again? (say: Y/N/Q)" << std::endl;
 	char c;
 	std::cin >> c;
 	if(std::cin.bad() || std::cin.fail()) {
