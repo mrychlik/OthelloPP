@@ -56,6 +56,7 @@ static constexpr int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{
  */
 bool Board::print_size_big = true;
 
+bool Board::clear_screen_before_printing = true;
 
 bool Board::isFilled(uint8_t x, uint8_t y) const {
   return getbit(filled, x, y);
@@ -269,6 +270,9 @@ Board::moves(Player player) const
  * @return 
  */
 std::ostream& operator<<(std::ostream& s, const Board& b) {
+  if( Board::clear_screen_before_printing) {
+    s << "[2J";
+  }
   return b.print(s, Board::print_size_big);
 };
 
