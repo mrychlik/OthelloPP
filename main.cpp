@@ -16,7 +16,10 @@
 #include "Board.hpp"
 
 
-const int DEFAULT_MAX_DEPTH =  13;	/**< Depth to which examine the tree to compute the best move */
+const int DEFAULT_MAX_DEPTH =  13; /**< Depth to which examine the tree to compute the best move */
+static bool humanPlaysWhite = true; /**< Is WHITE a human player? */
+static bool humanPlaysBlack = true, /**< Is BKACK a human player? */
+
 
 static bool isHuman(Board::Player player,
 		    bool humanPlaysWhite,
@@ -31,8 +34,7 @@ static bool isHuman(Board::Player player,
   }
 };
 
-void play(bool humanPlaysWhite = true,
-	  bool humanPlaysBlack = true,
+void play(
 	  int max_depth = DEFAULT_MAX_DEPTH)
 {
   TreeNode root;
