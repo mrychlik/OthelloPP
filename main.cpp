@@ -47,13 +47,13 @@ int main() {
       std::cout << "Human played: " << x << " " << y << "\n"
 		<< board << std::endl;
     } else {			// not human
-      auto move = currentNode.getComputerMove();
+      auto move = currentNode.getComputerMove(MAX_DEPTH);
       auto [x, y, board] = move;
       std::cout << "Computer played: " << x << " " << y << "\n"
 		<< board << std::endl;
     }
   } else {
-    std::cerr << "The game ended";
+    std::cerr << "The game ended!!!\n" << currentNode;
   }
   return 0;
 
