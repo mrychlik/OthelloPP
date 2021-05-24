@@ -28,9 +28,23 @@
  */
 class TreeNode : public Board {
 public:
+  /**
+   * The top of the node value range.
+   * 
+   */
   static const value_type MAX_VAL = std::numeric_limits<value_type>::max();
+
+  /**
+   * The bottom of the node value range.
+   * 
+   */
+
   static const value_type MIN_VAL = std::numeric_limits<value_type>::min();
 
+  /**
+   * The type of children container
+   * 
+   */
   typedef std::forward_list<TreeNode*> children_type;
 
   TreeNode(Player player = WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
