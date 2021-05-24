@@ -112,7 +112,7 @@ void TreeNode::addChild(TreeNode* child) const
  */
 std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 {
-  s << "==== PLAYER TO MOVE === : " << ( ( tree.player() == Board::WHITE ) ? 'WHITE' : 'BLACK' )
+  s << "Player to move: " << ( ( tree.player() == Board::WHITE ) ? 'WHITE' : 'BLACK' )
     << "\nLast filled x: " << tree.x()
     << "\nLast filled y: " << tree.y()
     << "\n" << static_cast<const Board&>(tree)
