@@ -72,7 +72,7 @@ void TreeNode::expandOneLevel(bool verbose) const
     if( move_bag.empty() ) {	// We have no moves
       // If the other player has a move
       // make it his turn
-      if( hasLegalMove(~player_) ) {
+      if( hasLegalMove(~player()) ) {
 	addChild(new TreeNode(~player_, *this));
       }
     } else {			// There are moves, we must make one
@@ -239,7 +239,7 @@ const TreeNode::children_type& TreeNode::children() const
  * 
  * @return Child node after the move
  */
-const TreeNode& TreeNode::getHumanMove(std::istream& s) const
+TreeNode& TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
   TreeNode *selectedChild = nullptr;
