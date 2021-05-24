@@ -120,7 +120,7 @@ int main(int argc, char **argv)
     printf("\n");
   }
 
-  // Main loop
+  /*  Main loop */
 
   while(true)
     try {
