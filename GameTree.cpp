@@ -350,7 +350,7 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
     }
   }
 
-  children.clear();
+  children_.clear();
   isExpanded = false;
   
   if(other.isExpanded) {
