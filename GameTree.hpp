@@ -29,7 +29,7 @@
 class TreeNode : public Board {
 public:
   /**
-   * The top of the node value range.
+   * The top of the node value range. 
    * 
    */
   static const value_type MAX_VAL = std::numeric_limits<value_type>::max();
