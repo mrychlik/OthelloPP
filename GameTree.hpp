@@ -67,19 +67,22 @@ public:
   int minmax(int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL) const;
 
   TreeNode& operator=(const TreeNode& other) = delete;
-  TreeNode& operator=(TreeNode& other) = delete;
 
-  TreeNode& operator=(const TreeNode&& other) {
+  TreeNode& operator=(TreeNode& other) {
     if(this == &other) return *this;
-
+    bool isOtherChild = false;
     // Delete children
-    for(auto child : children_) {
-      if(child != &other) {
-	delete child;
-      }
-    }
-    //std::swap(*this, other);
-  }
+     for(auto child : children_) {
+       if(child != &other) {
+   	delete child;
+       } else {
+	 isOtherChild = true;
+       }
+     }
+     children_ = other.children_;
+     other.children_.clear();
+     other.isExpanded = false;
+   }
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
 
