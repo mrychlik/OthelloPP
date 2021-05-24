@@ -264,8 +264,8 @@ const TreeNode& TreeNode::getHumanMove(std::istream& s) const
 	}
       }
       if(selectedChild == nullptr) {
-	std::cerr << "Move is invalid: " << x << " " << y << std::endl;
-	std::cerr << "Valid moves:\n";
+	std::cout << "Move is invalid: " << x << " " << y << std::endl;
+	std::cout << "Valid moves:\n";
 	for( auto child : children()) {
 	  std::cout << child->x() << " " << child->y() << std::endl; 
 	}
