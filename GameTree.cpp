@@ -318,7 +318,7 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return 
  */
-const TreeNode& TreeNode::getComputerMove(int depth) const
+TreeNode& TreeNode::getComputerMove(int depth) const
 {
   assert(!isLeaf());
 
