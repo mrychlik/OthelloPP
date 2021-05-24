@@ -279,7 +279,7 @@ Board::move_type TreeNode::getHumanMove(std::istream& s) const
  * 
  * @param depth 
  * 
- * @return 
+ * @return The node count
  */
 int TreeNode::nodeCount(int depth) const
 {
