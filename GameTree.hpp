@@ -66,22 +66,25 @@ public:
 
   int minmax(int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL) const;
 
-  TreeNode& operator=(const TreeNode& other) = delete;
-
-  TreeNode& operator=(TreeNode& other) {
+  TreeNode& operator=(const TreeNode& other) {
     if(this == &other) return *this;
-    bool isOtherChild = false;
-    // Delete children
+    // Delete children other than other;
+    // Since children_ is mutable, nothing
+    // bad should happen
      for(auto child : children_) {
        if(child != &other) {
    	delete child;
-       } else {
-	 isOtherChild = true;
        }
      }
      children_ = other.children_;
      other.children_.clear();
      other.isExpanded = false;
+     player_ = other.player_;
+     x_ = other.x_;
+     x_ = other.y_;
+     minmaxValue = other.minmaxValue;
+     minmaxDepth = other.minmaxDepth;
+     return *this;
    }
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
@@ -120,8 +123,6 @@ private:
 
   int x_ : 4;			/**< x of last placed piece, or -1 */
   int y_ : 4;			/**< y of last placed piece, or -1 */
-
-  TreeNode *swapPlayer();
 };
 
 #endif
