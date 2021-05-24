@@ -88,7 +88,7 @@ private:
 
   //// END: Mutable fields
 
-  const Player player;		/**< Player to move  */
+  const Player player : 1;	/**< Player to move  */
 
   value_type minmaxValue;	/**< minmax value  */
   uint8_t minmaxDepth;		/**< minmax depth */
