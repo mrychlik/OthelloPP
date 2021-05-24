@@ -16,7 +16,7 @@
 #include "Board.hpp"
 
 
-const int MAX_DEPTH =  13;	/**< Depth to which examine the tree to compute the best move */
+const int DEFAULT_MAX_DEPTH =  13;	/**< Depth to which examine the tree to compute the best move */
 
 static bool isHuman(Board::Player player) {
   if(player == Board::WHITE && humanPlaysWhite) {
@@ -28,7 +28,10 @@ static bool isHuman(Board::Player player) {
   }
 };
 
-void play(bool humanPlaysWhite = true, bool humanPlaysBlack = true) {
+void play(bool humanPlaysWhite = true,
+	  bool humanPlaysBlack = true,
+	  int max_depth = DEFAULT_MAX_DEPTH)
+{
   TreeNode root;
   Board::print_size_big = false;
   Board::clear_screen_before_printing = false;
