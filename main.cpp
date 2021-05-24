@@ -39,16 +39,16 @@ int main() {
   TreeNode root(player);
 
   while(!root.isLeaf()) {
-    std::cout << root << std::endl;
+    std::cout << static_cast<Board>(root) << std::endl;
     if( isHuman(player) ) {
       const TreeNode& selectedChild = root.getHumanMove(std::cin);
       std::cout << "Human played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
-		<< selectedChild << std::endl;
+		<< static_cast<Board>(selectedChild) << std::endl;
       root = selectedChild;
     } else {			// not human
       const TreeNode& selectedChild = root.getComputerMove(MAX_DEPTH);
       std::cout << "Computer played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
-		<< selectedChild << std::endl;
+		<< static_cast<Board>selectedChild << std::endl;
       root = selectedChild;
     }
   }
