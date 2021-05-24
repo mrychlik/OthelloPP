@@ -346,7 +346,8 @@ int TreeNode::y() const {
  * a child of the current node. In this case,
  * we delete all children but the one from which
  * we copy. We take ownership of all child's
- * successors and set childs status to unexpanded.
+ * successors, empty its children container
+ * and set child's status to unexpanded.
  * 
  * @param other 
  * 
