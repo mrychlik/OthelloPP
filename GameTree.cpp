@@ -244,7 +244,7 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
 
-  auto move_bag = moves(player);
+  TreeNode *selectedChild = nullptr;
 
   while(std::cin) {
     std::cout << "Human, make your move!!\n"
@@ -257,25 +257,22 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
       continue;
     } else if(std::cin.bad()) {
       throw std::runtime_error("Input stream bad during input of x and y.");
-    } else if (x < 0 || x > 7 || y < 0 || y > 7) {
+    } else if (x < 0 || x > 7 || y < 0 || y > 7 || !(x == -1 && y == -1)) {
       std::cout << "Input value x or y out of range 0-7: " << x << " " << y << std::endl;
       continue;
     } else {
       bool found = false;
       Board::move_type playerMove;
-      for( auto& m : move_bag) {
-	auto [x1, y1, board1] = m;
-	if( x1 == x && y1 == y) {
-	  found = true;
-	  playerMove = m;
+      for( auto child : children() ) {
+	if( child->x == x && child->y == y) {
+	  selectedChild = child;
 	}
       }
-      if(!found) {
+      if(selectedChild == nullptr) {
 	std::cerr << "Move is invalid: " << x << " " << y << std::endl;
 	std::cerr << "Valid moves:\n";
-	for( auto& m : move_bag) {
-	  auto [x1, y1, board1] = m;
-	  std::cout << x1 << " " << y1 << std::endl; 
+	for( auto child : children()) {
+	  std::cout << child->x << " " << child->y << std::endl; 
 	}
 	std::cout << "Would you like to try again? (Y/N)" << std::endl;
 	char c;
@@ -292,7 +289,7 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
 	  continue;
 	}
       } else {			// Found valid move
-	return playerMove;
+	return *selectedChild;
       }
     }
   }
