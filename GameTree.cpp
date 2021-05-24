@@ -341,6 +341,17 @@ int TreeNode::y() const {
   return y_;
 }
 
+/** 
+ * This copy assignment notably allows a copy from
+ * a child of the current node. In this case,
+ * we delete all children but the one from which
+ * we copy. We take ownership of all child's
+ * successors and set childs status to unexpanded.
+ * 
+ * @param other 
+ * 
+ * @return 
+ */
 TreeNode& TreeNode::operator=(const TreeNode& other)
 {
   if(this == &other) return *this;
