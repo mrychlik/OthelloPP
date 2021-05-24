@@ -68,10 +68,8 @@ void play()
 int main(int argc, char **argv)
 {
   int c;
-  int digit_optind = 0;
 
   while (1) {
-    int this_option_optind = optind ? optind : 1;
     int option_index = 0;
     static struct option long_options[] = {
       {"max_depth",     required_argument, 0,  0 },
@@ -98,12 +96,12 @@ int main(int argc, char **argv)
       break;
 
     case 'w':
-      human_player[Board::WHITE] = true;
+      humanPlayer[Board::WHITE] = true;
       printf("WHITE played by Human.\n");
       break;
 
     case 'b':
-      human_player[Board::BLACK] = true;
+      humanPlayer[Board::BLACK] = true;
       printf("BLACK played by Human.\n");
       break;
 
