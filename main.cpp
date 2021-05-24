@@ -16,6 +16,7 @@
 #include "Board.hpp"
 
 
+
 const   bool humanPlaysWhite = true; /**< Is human playing white? */
 const   bool humanPlaysBlack = false; /**< Is human playing black? */
 
@@ -33,6 +34,7 @@ static bool isHuman(Board::Player player) {
 
 void play() {
   TreeNode root;
+  Board::print_size_big = false;
   
   while(!root.isLeaf()) {
     if( isHuman(root.player()) ) {
