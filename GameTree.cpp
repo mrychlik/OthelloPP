@@ -36,8 +36,8 @@ TreeNode::TreeNode(Player player, const Board& board, int8_t x, int8_t y)
     player(player),
     minmaxValue(board.value()),
     minmaxDepth(0),
-    x(x),
-    y(y)
+    x_(x),
+    y_(y)
 {      
 }
 
@@ -111,8 +111,8 @@ void TreeNode::addChild(TreeNode* child) const
 std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 {
   s << "Player to move: " << ( ( tree.player == Board::WHITE ) ? 'W' : 'B' )
-    << "\nLast filled x: " << static_cast<int>(tree.x)
-    << "\nLast filled y: " << static_cast<int>(tree.y) 
+    << "\nLast filled x: " << tree.x()
+    << "\nLast filled y: " << tree.y()
     << "\n" << static_cast<const Board&>(tree)
     << "Is expanded: " << std::boolalpha << tree.isExpanded
     << "\nValue: " << static_cast<int>(tree.value())
@@ -240,12 +240,10 @@ const TreeNode::children_type& TreeNode::children() const
  * 
  * @return Triple (x, y, Board)
  */
-TreeNode& TreeNode::getHumanMove(std::istream& s) const
+const TreeNode& TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
-
   TreeNode *selectedChild = nullptr;
-
   while(std::cin) {
     std::cout << "Human, make your move!!\n"
 	      << "(Like this: x  y <ENTER>)"
@@ -261,10 +259,8 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
       std::cout << "Input value x or y out of range 0-7: " << x << " " << y << std::endl;
       continue;
     } else {
-      bool found = false;
-      Board::move_type playerMove;
       for( auto child : children() ) {
-	if( child->x == x && child->y == y) {
+	if( child->x() == x && child->y() == y) {
 	  selectedChild = child;
 	}
       }
@@ -272,7 +268,7 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
 	std::cerr << "Move is invalid: " << x << " " << y << std::endl;
 	std::cerr << "Valid moves:\n";
 	for( auto child : children()) {
-	  std::cout << child->x << " " << child->y << std::endl; 
+	  std::cout << child->x() << " " << child->y() << std::endl; 
 	}
 	std::cout << "Would you like to try again? (Y/N)" << std::endl;
 	char c;
@@ -322,14 +318,14 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return 
  */
-Board::move_type TreeNode::getComputerMove(int depth) const
+const TreeNode& TreeNode::getComputerMove(int depth) const
 {
   assert(!isLeaf());
 
   auto bestVal = minmax(depth);
   for(auto child : children()) {
     if(child->minmaxValue == bestVal) {
-      return Board::move_type(static_cast<int>(child->x), static_cast<int>(child->y), *child);
+      return *child;
     }
   }
   throw std::logic_error("Could not find best move for computer.");
