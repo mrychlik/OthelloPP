@@ -57,7 +57,7 @@ public:
   Board::move_type getComputerMove(int depth) const;
   int nodeCount(int depth) const;
 
-  int minmax(int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL);
+  int minmax(int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL) const;
 
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
