@@ -127,7 +127,6 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
       s << *child;
     }
   }
-}
   return s;
 }
 
