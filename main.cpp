@@ -44,7 +44,7 @@ int main() {
     if( isHuman(player) ) {
       auto move = currentNode.getHumanMove(std::cin);
       auto [x, y, board] = move;
-      std::cout << "Human played: " << x << " " << y
+      std::cout << "Human played: " << x << " " << y << "\n"
 		<< board << std::endl;
     } else {
       currentNode.minmax(MAX_DEPTH);
