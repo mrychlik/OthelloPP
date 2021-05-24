@@ -269,9 +269,8 @@ Board::moves(Player player) const
  * @return 
  */
 std::ostream& operator<<(std::ostream& s, const Board& b) {
-  return b.print(s, false);
+  return b.print(s, print_size_big);
 };
-
 
 
 /** 
