@@ -34,6 +34,8 @@
  */
 class Board {
 public:
+  static bool print_big = true;
+
   /**
    * A player, definitely not bool.
    * 
