@@ -329,7 +329,7 @@ Board::move_type TreeNode::getComputerMove(int depth) const
   auto bestVal = minmax(depth);
   for(auto child : children()) {
     if(child->minmaxValue == bestVal) {
-      return Board::move_type(child->x, child->y, *child);
+      return Board::move_type(static_cast<int>(child->x), static_cast<int>(child->y), *child);
     }
   }
 }
