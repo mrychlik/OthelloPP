@@ -318,15 +318,15 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return 
  */
-const TreeNode& TreeNode::getComputerMove(int depth) const
+TreeNode* TreeNode::getComputerMove(int depth) const
 {
   assert(!isLeaf());
 
   auto bestVal = minmax(depth);
   for(auto child : children()) {
     if(child->minmaxValue == bestVal) {
-      return *child;
+      return child;
     }
   }
-  throw std::logic_error("Could not find best move for computer.");
+  return nullptr;
 }
