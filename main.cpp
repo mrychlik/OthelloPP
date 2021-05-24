@@ -134,7 +134,6 @@ int main(int argc, char **argv)
 
     case 'W':
       max_depth[Board::WHITE] = atoi(optarg);
-      printf("max_depth[WHITE]: %d\n", max_depth[Board::WHITE]);      
       break;
     case 'B':
       max_depth[Board::BLACK] = atoi(optarg);
@@ -144,12 +143,10 @@ int main(int argc, char **argv)
     case 'D':
       max_depth[Board::WHITE] = atoi(optarg);
       max_depth[Board::BLACK] = max_depth[Board::WHITE];
-      printf("max_depth[COMPUTER]: %d\n", max_depth[0]);      
       break;
 
     case 'n':
       num_games = atoi(optarg);
-      printf("num_games: %d\n", num_games);      
       break;
 
     case 'w':
@@ -159,7 +156,6 @@ int main(int argc, char **argv)
 
     case 'b':
       humanPlayer[Board::BLACK] = true;
-      printf("BLACK played by Human.\n");
       break;
 
     case '?':
@@ -176,6 +172,15 @@ int main(int argc, char **argv)
       printf("%s ", argv[optind++]);
     printf("\n");
   }
+
+  // Report on the values of parameters
+  printf("max_depth[WHITE]: %d\n", max_depth[Board::WHITE]);      
+  if(humanPlayer[Board::BLACK]) printf("BLACK played by Human.\n");
+  if(humanPlayer[Board::WHITE]) printf("WHITE played by Human.\n");
+  printf("Number of games to play: %d\n", num_games);      
+  printf("max_depth[WHITE]: %d\n", max_depth[Board::WHITE]);      
+  printf("max_depth[BLACK]: %d\n", max_depth[Board::BLACK]);      
+
 
   return main_loop();
 }
