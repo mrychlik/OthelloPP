@@ -40,8 +40,9 @@ void play() {
   std::cout << root << std::endl;
   while(!root.isLeaf()) {
     std::cout << "----------------------------------------------------------------\n" 
-	      << "Player " << ( root.player() == Board::WHITE ? "WHITE" : "BLACK") << std::endl;
-    std::cout << "----------------------------------------------------------------\n" 
+	      << "Player " << ( root.player() == Board::WHITE ? "WHITE" : "BLACK") << "\n"
+	      << "----------------------------------------------------------------\n"
+	      << std::endl;
     if( isHuman(root.player()) ) {
       root = root.getHumanMove(std::cin);
       std::cout << "Human played: " << root.x() << " " << root.y() << "\n"
