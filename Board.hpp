@@ -34,6 +34,10 @@
  */
 class Board {
 public:
+  /**
+   * A player, definitely not bool.
+   * 
+   */
   enum Player {
     BLACK =  0,
     WHITE =  1,
