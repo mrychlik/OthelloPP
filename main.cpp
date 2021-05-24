@@ -42,11 +42,11 @@ void play() {
       std::cout << static_cast<Board>(root) << std::endl;
       root = root.getHumanMove(std::cin);
       std::cout << "Human played: " << root.x() << " " << root.y() << "\n"
-		<< static_cast<Board>(root) << std::endl;
+		<< root << std::endl;
     } else {			// not human
       root = root.getComputerMove(MAX_DEPTH);
       std::cout << "Computer played: " << root.x() << " " << root.y() << "\n"
-		<< static_cast<Board>(root) << std::endl;
+		<< root << std::endl;
     }
   }
   std::cout << "The game ended!!!\n" << root << std::endl;
