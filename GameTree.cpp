@@ -127,7 +127,9 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 
 /** 
  * Runs the minmax algorithm with alpha-beta pruning on the
- * tree starting from this node.
+ * tree starting from this node. However, if the minmax
+ * value of the node is known based on higher depth
+ * then requested, accept that value as minmax value.
  * 
  * @param depth Traverse descendents up to this depth
  * @param alpha Most max can hope for
