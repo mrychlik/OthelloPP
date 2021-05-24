@@ -35,6 +35,7 @@ static bool isHuman(Board::Player player) {
 void play() {
   TreeNode root;
   Board::print_size_big = false;
+  Board::clear_screen_before_printing = false;
   
   while(!root.isLeaf()) {
     if( isHuman(root.player()) ) {
