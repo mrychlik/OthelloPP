@@ -51,7 +51,7 @@ void play(
       std::cout << "Human played: " << root.x() << " " << root.y() << "\n"
 		<< root << std::endl;
     } else {			// not human
-      root = root.getComputerMove(MAX_DEPTH);
+      root = root.getComputerMove(max_depth);
       std::cout << "----------------------------------------------------------------\n"
 		<< "Computer played: " << root.x() << " " << root.y() << "\n"
 		<< "----------------------------------------------------------------\n" 
