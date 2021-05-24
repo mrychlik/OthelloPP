@@ -26,9 +26,9 @@ static int num_games = DEFAULT_NUM_GAMES;
 /** 
  * Play a game, return the score.
  * 
- * @param game 
+ * @param game Game number, 0, 1, ...
  * 
- * @return 
+ * @return Score
  */
 int play(int game)
 {
