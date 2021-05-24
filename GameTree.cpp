@@ -338,7 +338,8 @@ int TreeNode::y() const {
   return y_;
 }
 
-TreeNode& TreeNode::operator=(const TreeNode& other) {
+TreeNode& TreeNode::operator=(const TreeNode& other)
+{
   if(this == &other) return *this;
   // Delete children other than other;
   // Since children_ is mutable, nothing
