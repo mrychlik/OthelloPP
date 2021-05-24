@@ -12,9 +12,8 @@
 #include "GameTree.hpp"
 
 #include <iostream>
-#include <cstring>
-#include <cstdio>
 #include <cmath>
+#include <iomanip>
 
 #include <boost/test/unit_test.hpp>
 //#include <boost/test/auto_unit_test.hpp>
@@ -123,12 +122,13 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
   TreeNode root;
   int max_depth = 11;
   std::cout << boost::format("%5s %10s %10s\n") % "Depth" % "Node Count" % "Fanout";
+
   for(auto depth = 0; depth < max_depth; ++depth) {
     try {
       auto count = root.nodeCount(depth);
       auto fanout = (::log(count)/depth/log(2));
       int bar_len = ::round(10*fanout);
-      printf("%5d %10d %10g %s", depth, count, fanout, bar(bar_len), 0);
+      std::cout << boost::format("%5d %10d %10g") % depth % count % fanout;
     } catch(std::bad_alloc& e) {
       std::cerr << e.what();
     } catch(...) {
