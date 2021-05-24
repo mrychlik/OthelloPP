@@ -36,7 +36,7 @@ static bool isHuman(Board::Player player) {
  */
 int main() {
   TreeNode root;
-
+  
   while(!root.isLeaf()) {
     if( isHuman(root.player()) ) {
       std::cout << static_cast<Board>(root) << std::endl;
