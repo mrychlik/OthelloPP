@@ -116,7 +116,8 @@ int main(int argc, char **argv)
       max_depth = atoi(optarg);
       printf("max_depth: %d\n", max_depth);      
       break;
-    case 'd':
+
+    case 'n':
       num_games = atoi(optarg);
       printf("num_games: %d\n", max_depth);      
       break;
