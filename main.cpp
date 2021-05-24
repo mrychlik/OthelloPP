@@ -36,21 +36,20 @@ static bool isHuman(Board::Player player) {
  */
 int main() {
   Board::Player player = Board::WHITE;
-  TreeNode absTreeRoot(player);
-  TreeNode* currentNode = &absTreeRoot;
+  TreeNode root(player);
 
-  while(!currentNode->isLeaf()) {
-    std::cout << *currentNode << std::endl;
+  while(!root.isLeaf()) {
+    std::cout << root << std::endl;
     if( isHuman(player) ) {
-      auto selectedChild = currentNode->getHumanMove(std::cin);
-      std::cout << "Human played: " << selectedChild->x() << " " << selectedChild->y() << "\n"
+      const TreeNode& selectedChild = root.getHumanMove(std::cin);
+      std::cout << "Human played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
 		<< selectedChild << std::endl;
-      currentNode = selectedChild;
+      root.makeMove(selectedChild);
     } else {			// not human
-      auto selectedChild = currentNode->getComputerMove(MAX_DEPTH);
-      std::cout << "Computer played: " << selectedChild->x() << " " << selectedChild->y() << "\n"
-		<< board << std::endl;
-      currentNode = selectedChild;
+      const TreeNode& selectedChild = root.getComputerMove(MAX_DEPTH);
+      std::cout << "Computer played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
+		<< selectedChild << std::endl;
+      root.makeMove(selectedChild);
     }
   } else {
     std::cerr << "The game ended!!!\n" << currentNode;
