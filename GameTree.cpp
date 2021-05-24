@@ -337,3 +337,34 @@ int TreeNode::x() const {
 int TreeNode::y() const {
   return y_;
 }
+
+TreeNode& TreeNode::operator=(const TreeNode& other) {
+  if(this == &other) return *this;
+  // Delete children other than other;
+  // Since children_ is mutable, nothing
+  // bad should happen
+  for(auto child : children_) {
+    if(child != &other) {
+      delete child;
+    }
+  }
+  children_ = other.children_;
+  // Now that we took other's children,
+  // we need to inform other
+  // that he has none
+  other.children_.clear();
+  other.isExpanded = false;
+
+  // Copy base class object
+  *static_cast<Board*>(this) = *static_cast<const Board*>(&other);
+  // Copy normal fields
+  player_ = other.player_;
+
+  x_ = other.x_;
+  y_ = other.y_;
+
+  minmaxValue = other.minmaxValue;
+  minmaxDepth = other.minmaxDepth;
+
+  return *this;
+}
