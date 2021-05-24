@@ -83,11 +83,13 @@ public:
      other.children_.clear();
      other.isExpanded = false;
 
+     // Copy base class object
+     *static_cast<Board*>(this) = *static_cast<const Board*>(&other);
      // Copy normal fields
      player_ = other.player_;
 
      x_ = other.x_;
-     x_ = other.y_;
+     y_ = other.y_;
 
      minmaxValue = other.minmaxValue;
      minmaxDepth = other.minmaxDepth;
