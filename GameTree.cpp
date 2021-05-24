@@ -139,7 +139,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
  * 
  * @return Minmax value of this node
  */
-int TreeNode::minmax(int8_t depth, value_type alpha, value_type beta)
+int TreeNode::minmax(int8_t depth, value_type alpha, value_type beta) const
 {
   // Avoid re-computation if we already know the value up
   // to higher depth.
@@ -313,4 +313,23 @@ int TreeNode::nodeCount(int depth) const
     }
   }
   return count;
+}
+
+
+/** 
+ * Find best move for the computer
+ * 
+ * 
+ * @return 
+ */
+Board::move_type TreeNode::getComputerMove(int depth) const
+{
+  assert(!isLeaf());
+
+  auto bestVal = minmax(depth);
+  for(auto child : children()) {
+    if(child->minmaxValue == bestVal) {
+      return Board::move_type(child->x, child->y, *child);
+    }
+  }
 }
