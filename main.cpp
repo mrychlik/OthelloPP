@@ -21,6 +21,7 @@ const int DEFAULT_MAX_DEPTH = 12; /**< Depth to which examine the tree to comput
 
 static int  max_depth = DEFAULT_MAX_DEPTH; /**< Max. depth for minmax play */
 static bool humanPlayer[2] = {false, false}; /**< Which player is human? */
+static int num_games = DEFAULT_NUM_GAMES;
 
 void play()
 {
