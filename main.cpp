@@ -31,10 +31,7 @@ static bool isHuman(Board::Player player) {
   }
 };
 
-/** 
- * @return 
- */
-int main() {
+void play() {
   TreeNode root;
   
   while(!root.isLeaf()) {
@@ -57,6 +54,14 @@ int main() {
   } else {
     std::cout << "IT'S A DRAW!.\n" << root << std::endl;    
   }
-  return 0;
+}
 
+#include <unistd.h>		// For sleep
+
+int main()
+{
+  while(true) {
+    play();
+    ::sleep(3);
+  }
 }
