@@ -39,18 +39,19 @@ int main() {
   TreeNode absTreeRoot(player);
   TreeNode& currentNode(absTreeRoot);
 
-  if(!currentNode.isLeaf()) {
+  while(!currentNode.isLeaf()) {
     std::cout << currentNode << std::endl;
     if( isHuman(player) ) {
-      auto move = currentNode.getHumanMove(std::cin);
-      auto [x, y, board] = move;
-      std::cout << "Human played: " << x << " " << y << "\n"
-		<< board << std::endl;
+      auto selectedChild = currentNode.getHumanMove(std::cin);
+      std::cout << "Human played: " << selectedChild->x << " " << selectedChild->y << "\n"
+		<< selectedChild << std::endl;
+      currentNode = selectedChild;
     } else {			// not human
-      auto move = currentNode.getComputerMove(MAX_DEPTH);
+      auto selectedChild = currentNode.getComputerMove(MAX_DEPTH);
       auto [x, y, board] = move;
-      std::cout << "Computer played: " << x << " " << y << "\n"
+      std::cout << "Computer played: " << selectedChild->x << " " << selectedChild->y << "\n"
 		<< board << std::endl;
+      currentNode = selectedChild;
     }
   } else {
     std::cerr << "The game ended!!!\n" << currentNode;
