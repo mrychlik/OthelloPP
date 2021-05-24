@@ -24,7 +24,7 @@ const int DEFAULT_MAX_DEPTH = 0; /**< Amount of delay in sec. after computer mov
 static int  max_depth[2] = { DEFAULT_MAX_DEPTH, DEFAULT_MAX_DEPTH } ; /**< Max. depth for minmax play for each player*/
 static bool humanPlayer[2] = {false, false}; /**< Which player is human? */
 static int num_games = DEFAULT_NUM_GAMES; /**< Number of games to play */
-static int computer_delay = DEFAULT_COMPUTER_DELAY;
+static int computer_delay = DEFAULT_COMPUTER_DELAY; /**< Number of seconds to wait after computer move */
 
 /** 
  * Play a game, return the score.
