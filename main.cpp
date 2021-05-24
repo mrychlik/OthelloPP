@@ -51,9 +51,8 @@ int main() {
 		<< selectedChild << std::endl;
       root = selectedChild;
     }
-  } else {
-    std::cerr << "The game ended!!!\n" << currentNode;
   }
+  std::cerr << "The game ended!!!\n" << root;
   return 0;
 
 }
