@@ -79,7 +79,7 @@ private:
 
   //// NOTE: Mutable fields
 
-  mutable bool isExpanded;	/**< Have the children been added */
+  mutable bool isExpanded : 1;	/**< Have the children been added */
 
   // NOTE: Using deque for this would use 80 bytes of memory
   // under GCC, vector uses only 24 bytes, forward_list 8 bytes.
