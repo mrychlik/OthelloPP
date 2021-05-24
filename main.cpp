@@ -74,6 +74,7 @@ int main_loop()
       return 0;
     }
   }
+  return 0;
 }
 
 
