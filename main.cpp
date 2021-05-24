@@ -48,7 +48,7 @@ int play(int game)
       std::cout << "Human played: " << root.x() << " " << root.y() << "\n"
 		<< root << std::endl;
     } else {			// not human
-      root = root.getComputerMove(max_depth);
+      root = root.getComputerMove(max_depth[root.player()]);
       std::cout << "----------------------------------------------------------------\n"
 		<< "Game #" << game << ": Computer played: " << root.x() << " " << root.y() << "\n"
 		<< "----------------------------------------------------------------\n" 
@@ -107,13 +107,15 @@ int main(int argc, char **argv)
     //int this_option_optind = optind ? optind : 1;
     int option_index = 0;
     static struct option long_options[] = {
-      {"max_depth",           required_argument, 0,  0 },
+      {"max_depth",           required_argument, 0,  'D' },
+      {"max_depth_white",     required_argument, 0,  'W' },
+      {"max_depth_black",     required_argument, 0,  'B' },
       {"num_games",           required_argument, 0,  'n' },      
       {"human_plays_white",   no_argument,       0,  'w' },
       {"human_player_black",  no_argument,       0,  'b' },
       {0,         0,                 0,  0 }
     };
-    c = getopt_long(argc, argv, "d:g:wb",
+    c = getopt_long(argc, argv, "D:W:B:g:wb",
 		    long_options, &option_index);
     if (c == -1)
       break;
@@ -126,8 +128,16 @@ int main(int argc, char **argv)
       printf("\n");
       break;
 
-    case 'd':
-      max_depth = atoi(optarg);
+    case 'W':
+      max_depth[Board::WHITE] = atoi(optarg);
+      printf("max_depth[WHITE]: %d\n", max_depth[Board::WHITE]);      
+      break;
+    case 'B':
+      max_depth[Board::BLACK] = atoi(optarg);
+      printf("max_depth[BLACK]: %d\n", max_depth[Board::WHITE]);      
+      break;
+    case 'D':
+      max_depth[1] = atoi(optarg);
       printf("max_depth: %d\n", max_depth);      
       break;
 
