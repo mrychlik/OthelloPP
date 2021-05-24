@@ -275,7 +275,7 @@ std::ostream& operator<<(std::ostream& s, const Board& b) {
     s << "[2J";
   }
   b.print(s, Board::print_size_big);
-  s << std::flush();
+  s << std::flush;
   return s;
 };
 
