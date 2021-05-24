@@ -56,7 +56,8 @@ void play(int game)
     std::cout << "WHITE won!!! Score " << root.score() << "\n"
 	      << root << std::endl;    
   } else if( root.score() < 0) {
-    std::cout << "BLACK won!!!.\n" << root << std::endl;
+    std::cout << "BLACK won!!! Score " << root.score() << "\n"
+	      << root << std::endl;    
   } else {
     std::cout << "It's a DRAW!!!\n" << root << std::endl;    
   }
