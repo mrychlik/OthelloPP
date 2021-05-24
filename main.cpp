@@ -59,8 +59,9 @@ void play()
   }
 }
 
-#include <unistd.h>		// For sleep
+/* From this point on this is good old-fashioned C */
 
+#include <unistd.h>    /* For sleep */
 #include <stdio.h>     /* for printf */
 #include <stdlib.h>    /* for exit */
 #include <getopt.h>
