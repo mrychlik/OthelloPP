@@ -44,12 +44,12 @@ int main() {
       const TreeNode& selectedChild = root.getHumanMove(std::cin);
       std::cout << "Human played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
 		<< selectedChild << std::endl;
-      root.makeMove(selectedChild);
+      root = selectedChild;
     } else {			// not human
       const TreeNode& selectedChild = root.getComputerMove(MAX_DEPTH);
       std::cout << "Computer played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
 		<< selectedChild << std::endl;
-      root.makeMove(selectedChild);
+      root = selectedChild;
     }
   } else {
     std::cerr << "The game ended!!!\n" << currentNode;
