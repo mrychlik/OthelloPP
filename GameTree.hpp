@@ -91,8 +91,8 @@ private:
 
   const Player player : 1;	/**< Player to move  */
 
-  value_type minmaxValue;	/**< minmax value  */
-  uint8_t minmaxDepth;		/**< minmax depth */
+  mutable value_type minmaxValue; /**< minmax value  */
+  mutable uint8_t minmaxDepth;	  /**< minmax depth */
 
   int x : 4;			/**< x of last placed piece, or -1 */
   int y : 4;			/**< y of last placed piece, or -1 */
