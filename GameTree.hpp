@@ -58,6 +58,7 @@ public:
   const TreeNode* getComputerMove(int depth) const;
 
   int nodeCount(int depth) const;
+
   int x() const;
   int y() const;
 
