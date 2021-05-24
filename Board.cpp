@@ -76,7 +76,10 @@ void Board::setColor(uint8_t x, uint8_t y, bool colorWhite) {
   }
 }
 
-Board::Board(Player player) :
+/** 
+ * Constructs default board 
+ */
+Board::Board() :
   filled{0},			
   white{0}
 {
