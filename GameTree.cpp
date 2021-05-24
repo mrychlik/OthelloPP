@@ -247,11 +247,13 @@ Board::move_type TreeNode::getHumanMove(std::istream& s) const
   auto move_bag = moves(player);
 
   while(std::cin) {
-    std::cout << "Player Move x and y" << std::endl;
+    std::cout << "Human, enter your move!! (like this: x  y <ENTER>)" << std::endl;
     std::cin >> x >> y ; 
     if(std::cin.fail()) {
       std::cerr << "Bad x\n"; 
       continue;
+    } else {
+      break;
     }
   };
 
