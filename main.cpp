@@ -18,8 +18,9 @@
 
 const int DEFAULT_MAX_DEPTH =  13; /**< Depth to which examine the tree to compute the best move */
 
-static bool humanPlaysWhite = true; /**< Is WHITE a human player? */
-static bool humanPlaysBlack = true; /**< Is BKACK a human player? */
+static int  max_depth] = DEFAULT_MAX_DEPTH;
+static bool humanPlayer[2] = {true, true}; 
+
 
 
 static bool isHuman(Board::Player player)
@@ -33,8 +34,7 @@ static bool isHuman(Board::Player player)
   }
 };
 
-void play(
-	  int max_depth = DEFAULT_MAX_DEPTH)
+void play()
 {
   TreeNode root;
   Board::print_size_big = false;
