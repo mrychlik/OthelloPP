@@ -40,18 +40,23 @@ int main() {
   while(!root.isLeaf()) {
     if( isHuman(root.player()) ) {
       std::cout << static_cast<Board>(root) << std::endl;
-      TreeNode& selectedChild = root.getHumanMove(std::cin);
-      std::cout << "Human played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
-		<< static_cast<Board>(selectedChild) << std::endl;
-      root = selectedChild;
+      root = root.getHumanMove(std::cin);
+      std::cout << "Human played: " << root.x() << " " << root.y() << "\n"
+		<< static_cast<Board>(root) << std::endl;
     } else {			// not human
-      TreeNode& selectedChild = root.getComputerMove(MAX_DEPTH);
-      std::cout << "Computer played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
-		<< static_cast<Board>(selectedChild) << std::endl;
-      root = selectedChild;
+      root = root.getComputerMove(MAX_DEPTH);
+      std::cout << "Computer played: " << root.x() << " " << root.y() << "\n"
+		<< static_cast<Board>(root) << std::endl;
     }
   }
-  std::cerr << "The game ended!!!\n" << root;
+  std::cout << "The game ended!!!\n" << root << std::endl;
+  if( root.score() > 0) {
+    std::cout << "WHITE won.\n" << root << std::endl;    
+  } else if( root.score() < 0) {
+    std::cout << "BLACK won.\n" << root << std::endl;
+  } else {
+    std::cout << "IT'S A DRAW!.\n" << root << std::endl;    
+  }
   return 0;
 
 }
