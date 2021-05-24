@@ -60,7 +60,7 @@ void play() {
 
 int main()
 {
-  while(true) {
+  for(int i = 0; i < 5; ++i) {
     play();
     ::sleep(3);
   }
