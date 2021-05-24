@@ -65,14 +65,19 @@ void play(int game)
 
 int main_loop()
 {
+  int score[num_games] = {0};
   for(int game = 0; game < num_games; ++game) {
     try {
-      play(game);
+      score[game] = play(game);
     } catch(std::runtime_error& e) {
       std::cout << "Game # " << game << ": "
 		<< e.what() << std::endl;
       return 1;
     }
+  }
+  stc::cout << setw(5) << "Game" << setw(10) << "Score" << std::endl;
+  for(int game = 0; game < num_games; ++game) {
+    stc::cout << setw(5) <<  game << setw(10) << score[game] << std::endl;
   }
   return 0;
 }
