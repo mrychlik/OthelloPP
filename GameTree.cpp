@@ -288,6 +288,7 @@ const TreeNode& TreeNode::getHumanMove(std::istream& s) const
       }
     }
   }
+  throw std::runtime_error("Failed to get a valid move from human.");
 }
 
 /** 
