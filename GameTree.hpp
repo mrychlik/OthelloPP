@@ -48,7 +48,7 @@ public:
   typedef std::forward_list<TreeNode*> children_type;
 
   TreeNode(Player player = WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
-  //TreeNode(const TreeNode& other) = delete;
+  TreeNode(const TreeNode& other) = delete;
   ~TreeNode();
   
   bool isLeaf() const;
@@ -61,8 +61,20 @@ public:
 
   int x() const;
   int y() const;
+  Player player() const { return player_; };
 
   int minmax(int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL) const;
+
+  TreeNode& operator=(const TreeNode& other) {
+    for(auto child : children_) {
+      if(child != &other) {
+	delete child;
+      }
+    }
+    chilren_.clear();
+    addChild(&other);
+  }
+
 
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
