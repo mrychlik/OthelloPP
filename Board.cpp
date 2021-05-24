@@ -18,7 +18,7 @@
 static const char esc = '';
 static const std::string reset = "[0m";
 
-static_assert(sizeof(uint32_t) == sizeof(unsigned long));
+static_assert(sizeof(uint64_t) == sizeof(unsigned long));
 
 static inline
 uint32_t popcount(const uint64_t x)
