@@ -221,7 +221,7 @@ bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y,
 /** 
  * Generate all moves.
  * 
- * @param playWhite 
+ * @param player
  * 
  * @return A list of triples (x, y, board) such
  *         that board is the board after a valid move (x, y)
@@ -347,7 +347,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
 /** 
  * Predicate: Is there at least one legal move?
  *
- * @param playWhite
+ * @param player The player
  * 
  * @return 
  */
