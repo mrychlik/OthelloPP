@@ -16,7 +16,7 @@
 #include "Board.hpp"
 
 
-const   bool humanPlaysWhite = true; /**< Is human playing white? */
+const   bool humanPlaysWhite = false; /**< Is human playing white? */
 const   bool humanPlaysBlack = false; /**< Is human playing black? */
 
 const int MAX_DEPTH =  5;	/**< Depth to which examine the tree to compute the best move */
