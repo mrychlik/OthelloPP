@@ -77,11 +77,18 @@ public:
        }
      }
      children_ = other.children_;
+     // Now that we took other's children,
+     // we need to inform other
+     // that he has none
      other.children_.clear();
      other.isExpanded = false;
+
+     // Copy normal fields
      player_ = other.player_;
+
      x_ = other.x_;
      x_ = other.y_;
+
      minmaxValue = other.minmaxValue;
      minmaxDepth = other.minmaxDepth;
      return *this;
