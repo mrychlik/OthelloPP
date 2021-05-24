@@ -274,7 +274,9 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
 	} else if(c == 'N') {
 	  std::cout << "Good bye!" << std::endl;
 	  throw std::runtime_error("Human said 'No' to Y/N query.");
-	} else {
+	} else if(c == 'Q') {
+	  throw std::runtime_error("Human quit");
+	}else {
 	  continue;
 	}
       } else {			// Found valid move
