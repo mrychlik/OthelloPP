@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <cassert>
 
-bool Tree::Node print_recursively = false;
+bool TreeNode::print_recursively = false;
 
 /** 
  * Constructor of a node with a given player and board.
