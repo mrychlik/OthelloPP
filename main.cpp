@@ -16,7 +16,8 @@
 #include "Board.hpp"
 
 
-const int DEFAULT_MAX_DEPTH =  13; /**< Depth to which examine the tree to compute the best move */
+const int DEFAULT_NUM_GAMES = 10; /**< Number of games to play by default */
+const int DEFAULT_MAX_DEPTH = 12; /**< Depth to which examine the tree to compute the best move */
 
 static int  max_depth = DEFAULT_MAX_DEPTH; /**< Max. depth for minmax play */
 static bool humanPlayer[2] = {false, false}; /**< Which player is human? */
@@ -83,7 +84,7 @@ int main(int argc, char **argv)
   int c;
 
   while (1) {
-    int this_option_optind = optind ? optind : 1;
+    //int this_option_optind = optind ? optind : 1;
     int option_index = 0;
     static struct option long_options[] = {
       {"max_depth",           required_argument, 0,  0 },
