@@ -94,11 +94,12 @@ int main(int argc, char **argv)
     int option_index = 0;
     static struct option long_options[] = {
       {"max_depth",           required_argument, 0,  0 },
+      {"num_games",           required_argument, 0,  'n' },      
       {"human_plays_white",   no_argument,       0,  'w' },
       {"human_player_black",  no_argument,       0,  'b' },
       {0,         0,                 0,  0 }
     };
-    c = getopt_long(argc, argv, "d:wb",
+    c = getopt_long(argc, argv, "d:g:wb",
 		    long_options, &option_index);
     if (c == -1)
       break;
@@ -114,6 +115,10 @@ int main(int argc, char **argv)
     case 'd':
       max_depth = atoi(optarg);
       printf("max_depth: %d\n", max_depth);      
+      break;
+    case 'd':
+      num_games = atoi(optarg);
+      printf("num_games: %d\n", max_depth);      
       break;
 
     case 'w':
