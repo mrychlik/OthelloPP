@@ -245,8 +245,8 @@ const TreeNode& TreeNode::getHumanMove(std::istream& s) const
   TreeNode *selectedChild = nullptr;
   while(std::cin) {
     std::cout << "Human, make your move!!\n"
-	      << "(Like this: x  y <ENTER>)"
-	      << "(... or -1 -1 <ENTER>, if you want me, the Computer, to move.)"
+	      << "(Like this: x  y <ENTER>)\n"
+	      << "(... or -1 -1 <ENTER>, if you want me, the Computer, to move...)"
       << std::endl;
     std::cin >> x >> y ; 
     if(std::cin.fail()) {
