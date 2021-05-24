@@ -19,6 +19,8 @@
 #include <algorithm>
 #include <cassert>
 
+bool Tree::Node print_recursively = false;
+
 /** 
  * Constructor of a node with a given player and board.
  * 
@@ -119,12 +121,12 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << "\nMinMax value: " << static_cast<int>(tree.minmaxValue)
     << "\nMinMax depth: " << static_cast<int>(tree.minmaxDepth)
     << "\n----------------" << std::endl;
-	       if(tree.isExpanded) {
-		 for(auto child : tree.children()) {
-		   s << *child;
-		 }
-	       }
-	       return s;
+  if(tree.isExpanded && TreeNode::print_recursively) {
+    for(auto child : tree.children()) {
+      s << *child;
+    }
+  }
+  return s;
 }
 
 /** 
