@@ -19,10 +19,12 @@
 
 const int DEFAULT_NUM_GAMES = 10; /**< Number of games to play by default */
 const int DEFAULT_MAX_DEPTH = 12; /**< Depth to which examine the tree to compute the best move */
+const int DEFAULT_MAX_DEPTH = 0; /**< Amount of delay in sec. after computer move */
 
 static int  max_depth[2] = { DEFAULT_MAX_DEPTH, DEFAULT_MAX_DEPTH } ; /**< Max. depth for minmax play for each player*/
 static bool humanPlayer[2] = {false, false}; /**< Which player is human? */
-static int num_games = DEFAULT_NUM_GAMES;
+static int num_games = DEFAULT_NUM_GAMES; /**< Number of games to play */
+static int computer_delay = DEFAULT_COMPUTER_DELAY;
 
 /** 
  * Play a game, return the score.
