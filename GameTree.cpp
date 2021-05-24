@@ -66,7 +66,7 @@ TreeNode::~TreeNode()
 void TreeNode::expandOneLevel(bool verbose) const
 {
   if(isExpanded) return;
-  auto move_bag = moves(player_);
+  auto move_bag = moves(player());
 
   try {
     if( move_bag.empty() ) {	// We have no moves
@@ -153,7 +153,7 @@ int TreeNode::minmax(int8_t depth, value_type alpha, value_type beta) const
 
   // The code could be refactored because Min and Max code is so
   // similar
-  if( player == WHITE ) {	// maximizing player
+  if( player() == WHITE ) {	// maximizing player
     value_type bestVal = MIN_VAL;
     for( auto child : children() ) {
       value_type val = child->minmax(depth - 1, alpha, beta);
