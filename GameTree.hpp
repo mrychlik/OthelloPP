@@ -72,7 +72,7 @@ public:
       }
     }
     children_.clear();
-    addChild(&other);
+    addChild(static_cast<Tree *>(&other));
     return *this;
   }
 
