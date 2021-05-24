@@ -49,8 +49,11 @@ void play() {
 		<< root << std::endl;
     } else {			// not human
       root = root.getComputerMove(MAX_DEPTH);
-      std::cout << "Computer played: " << root.x() << " " << root.y() << "\n"
-		<< root << std::endl;
+      std::cout << "----------------------------------------------------------------\n"
+		<< "Computer played: " << root.x() << " " << root.y() << "\n"
+		<< "----------------------------------------------------------------\n" 
+		<< root
+		<< std::endl;
     }
   }
   std::cout << "The game ended!!!\n" << root << std::endl;
