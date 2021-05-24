@@ -21,19 +21,6 @@ const int DEFAULT_MAX_DEPTH =  13; /**< Depth to which examine the tree to compu
 static int  max_depth = DEFAULT_MAX_DEPTH; /**< Max. depth for minmax play */
 static bool humanPlayer[2] = {true, true}; /**< Which player is human? */
 
-
-
-static bool isHuman(Board::Player player)
-{
-  if(player == Board::WHITE && humanPlaysWhite) {
-    return true;
-  } else if(player == Board::BLACK && humanPlaysBlack) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 void play()
 {
   TreeNode root;
@@ -46,7 +33,7 @@ void play()
 	      << "Player " << ( root.player() == Board::WHITE ? "WHITE" : "BLACK") << "\n"
 	      << "----------------------------------------------------------------\n"
 	      << std::endl;
-    if( isHuman(root.player()) ) {
+    if( humanPlayer[root.player()] ) {
       root = root.getHumanMove(std::cin);
       std::cout << "Human played: " << root.x() << " " << root.y() << "\n"
 		<< root << std::endl;
