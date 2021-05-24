@@ -349,12 +349,18 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
       delete child;
     }
   }
-  children_ = other.children_;
-  // Now that we took other's children,
-  // we need to inform other
-  // that he has none
-  other.children_.clear();
-  other.isExpanded = false;
+
+  if(other.isExpanded) {
+    children_ = other.children_;
+    // Now that we took other's children,
+    // we need to inform other
+    // that he has none
+    other.children_.clear();
+    other.isExpanded = false;
+    isExpanded = true;
+  } else {
+    isExpanded = false;
+  }
 
   // Copy base class object
   *static_cast<Board*>(this) = *static_cast<const Board*>(&other);
