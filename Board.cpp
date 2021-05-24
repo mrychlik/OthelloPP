@@ -32,18 +32,21 @@ uint32_t popcount(const uint64_t x)
 static inline
 bool getbit(const uint64_t& u, uint8_t x, uint8_t y)
 {
+  assert(x < 8);  assert(y < 8);  
   return ( u >> ( (y << 3) | x ) ) & 1U;
 }
 
 static inline
 void setbit(uint64_t& u, uint8_t x, uint8_t y)
 {
+  assert(x < 8);  assert(y < 8);  
   u |= 1UL << ( (y << 3) | x );
 }
 
 static inline
 void unsetbit(uint64_t& u, uint8_t x, uint8_t y)
 {
+  assert(x < 8);  assert(y < 8);  
   u &= ~( 1UL << ( (y << 3) | x ) );
 }
 
