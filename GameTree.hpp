@@ -71,7 +71,7 @@ public:
 	delete child;
       }
     }
-    chilren_.clear();
+    children_.clear();
     addChild(&other);
   }
 
