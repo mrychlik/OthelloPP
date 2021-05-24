@@ -55,8 +55,8 @@ public:
 
   const children_type& children() const;
 
-  const TreeNode& getHumanMove(std::istream& s) const;
-  const TreeNode& getComputerMove(int depth) const;
+  TreeNode& getHumanMove(std::istream& s) const;
+  TreeNode& getComputerMove(int depth) const;
 
   int nodeCount(int depth) const;
 
@@ -66,6 +66,7 @@ public:
 
   int minmax(int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL) const;
 
+  TreeNode& operator=(const TreeNode& other) = delete;
   TreeNode& operator=(TreeNode& other) = delete;
 
   TreeNode& operator=(const TreeNode&& other) {
