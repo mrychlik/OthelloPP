@@ -35,11 +35,10 @@ static bool isHuman(Board::Player player) {
  * @return 
  */
 int main() {
-  Board::Player player = Board::WHITE;
-  TreeNode root(player);
+  TreeNode root;
 
   while(!root.isLeaf()) {
-    if( isHuman(player) ) {
+    if( isHuman(root.player()) ) {
       std::cout << static_cast<Board>(root) << std::endl;
       const TreeNode& selectedChild = root.getHumanMove(std::cin);
       std::cout << "Human played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
