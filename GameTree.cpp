@@ -239,7 +239,7 @@ const TreeNode::children_type& TreeNode::children() const
  * 
  * @return Child node after the move
  */
-const TreeNode* TreeNode::getHumanMove(std::istream& s) const
+const TreeNode& TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
   TreeNode *selectedChild = nullptr;
@@ -284,11 +284,10 @@ const TreeNode* TreeNode::getHumanMove(std::istream& s) const
 	  continue;
 	}
       } else {			// Found valid move
-	return selectedChild;
+	return *selectedChild;
       }
     }
   }
-  return nullptr;
 }
 
 /** 
@@ -316,17 +315,17 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return 
  */
-const TreeNode* TreeNode::getComputerMove(int depth) const
+const TreeNode& TreeNode::getComputerMove(int depth) const
 {
   assert(!isLeaf());
 
   auto bestVal = minmax(depth);
   for(auto child : children()) {
     if(child->minmaxValue == bestVal) {
-      return child;
+      return *child;
     }
   }
-  return nullptr;
+  throw std::logic_error("Asked for computer move when there is none");
 }
 
 int TreeNode::x() const {
