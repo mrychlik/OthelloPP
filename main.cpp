@@ -71,7 +71,7 @@ int main_loop()
     } catch(std::runtime_error& e) {
       std::cout << "Game # " << game << ": "
 		<< e.what() << std::endl;
-      return 0;
+      return 1;
     }
   }
   return 0;
