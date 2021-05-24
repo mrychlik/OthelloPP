@@ -19,12 +19,10 @@
 const int DEFAULT_MAX_DEPTH =  13; /**< Depth to which examine the tree to compute the best move */
 
 static bool humanPlaysWhite = true; /**< Is WHITE a human player? */
-static bool humanPlaysBlack = true, /**< Is BKACK a human player? */
+static bool humanPlaysBlack = true; /**< Is BKACK a human player? */
 
 
-static bool isHuman(Board::Player player,
-		    bool humanPlaysWhite,
-		    bool humanPlaysBlack)
+static bool isHuman(Board::Player player)
 {
   if(player == Board::WHITE && humanPlaysWhite) {
     return true;
