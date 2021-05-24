@@ -14,6 +14,7 @@
 #include <sstream>
 #include <algorithm>
 #include <iomanip>
+#include <cassert>
 
 static const char esc = '';
 static const std::string reset = "[0m";
