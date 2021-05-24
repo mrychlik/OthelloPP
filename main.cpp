@@ -37,9 +37,9 @@ void play() {
   Board::print_size_big = false;
   Board::clear_screen_before_printing = false;
   
+  std::cout << root << std::endl;
   while(!root.isLeaf()) {
     if( isHuman(root.player()) ) {
-      std::cout << static_cast<Board>(root) << std::endl;
       root = root.getHumanMove(std::cin);
       std::cout << "Human played: " << root.x() << " " << root.y() << "\n"
 		<< root << std::endl;
