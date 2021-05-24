@@ -62,7 +62,7 @@ public:
    */
   typedef int value_type;
 public:
-  Board(Player player = WHITE);
+  Board();
   int value() const;
   int numTiles() const;
   move_bag_type moves(Player player) const;
