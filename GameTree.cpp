@@ -310,7 +310,6 @@ int TreeNode::nodeCount(int depth) const
   return count;
 }
 
-
 /** 
  * Find best move for the computer
  * 
