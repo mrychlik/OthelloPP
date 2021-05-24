@@ -94,8 +94,8 @@ private:
   mutable value_type minmaxValue; /**< minmax value  */
   mutable uint8_t minmaxDepth;	  /**< minmax depth */
 
-  int x : 4;			/**< x of last placed piece, or -1 */
-  int y : 4;			/**< y of last placed piece, or -1 */
+  int x_ : 4;			/**< x of last placed piece, or -1 */
+  int y_ : 4;			/**< y of last placed piece, or -1 */
 
   TreeNode *swapPlayer();
 };
