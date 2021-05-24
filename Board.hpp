@@ -135,7 +135,4 @@ inline Board::Player operator~(Board::Player player) {
  */
 static_assert(sizeof(Board::value_type) <= sizeof(int));
 
-
-bool Board::print_size_big = true;
-
 #endif // BOARD_HPP
