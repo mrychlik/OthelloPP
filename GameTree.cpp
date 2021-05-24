@@ -215,6 +215,11 @@ void TreeNode::deleteChildren() const
   isExpanded = false;
 }
 
+/** 
+ * Returns a reference to the children (container).
+ * 
+ * @return 
+ */
 const TreeNode::children_type& TreeNode::children() const
 {
   if(!isExpanded) {
@@ -268,6 +273,14 @@ Board::move_type TreeNode::getHumanMove(std::istream& s) const
   throw std::runtime_error("Invalid move");
 }
 
+/** 
+ * Returns the node count of the nodes below and including
+ * this node, up to given depth.
+ * 
+ * @param depth 
+ * 
+ * @return 
+ */
 int TreeNode::nodeCount(int depth) const
 {
   int count = 1;		// Count this node
