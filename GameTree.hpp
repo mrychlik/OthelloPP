@@ -52,9 +52,11 @@ public:
   ~TreeNode();
   
   bool isLeaf() const;
+
   const children_type& children() const;
-  TreeNode& getHumanMove(std::istream& s) const;
-  TreeNode& getComputerMove(int depth) const;
+  const TreeNode* getHumanMove(std::istream& s) const;
+  const TreeNode* getComputerMove(int depth) const;
+
   int nodeCount(int depth) const;
   int x() const;
   int y() const;
