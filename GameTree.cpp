@@ -24,6 +24,8 @@
  * 
  * @param player
  * @param board
+ * @param x       x-coordinate of the last placed piece or -1
+ * @param y       y-coordinate of the last placed piece or -1
  *
  * 
  */
