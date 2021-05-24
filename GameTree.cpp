@@ -239,7 +239,7 @@ const TreeNode::children_type& TreeNode::children() const
  * 
  * @return Child node after the move
  */
-TreeNode& TreeNode::getHumanMove(std::istream& s) const
+const TreeNode& TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
   TreeNode *selectedChild = nullptr;
@@ -318,7 +318,7 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return 
  */
-TreeNode& TreeNode::getComputerMove(int depth) const
+const TreeNode& TreeNode::getComputerMove(int depth) const
 {
   assert(!isLeaf());
 
