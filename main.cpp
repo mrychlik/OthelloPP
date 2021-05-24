@@ -19,7 +19,7 @@
 const int DEFAULT_MAX_DEPTH =  13; /**< Depth to which examine the tree to compute the best move */
 
 static int  max_depth = DEFAULT_MAX_DEPTH; /**< Max. depth for minmax play */
-static bool humanPlayer[2] = {true, true}; /**< Which player is human? */
+static bool humanPlayer[2] = {false, false}; /**< Which player is human? */
 
 void play()
 {
