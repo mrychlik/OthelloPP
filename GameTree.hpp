@@ -91,6 +91,7 @@ public:
 
      minmaxValue = other.minmaxValue;
      minmaxDepth = other.minmaxDepth;
+
      return *this;
    }
 
