@@ -10,7 +10,7 @@ Board.o: Board.hpp
 GameTree.o: GameTree.hpp Board.hpp
 
 OBJS = main.o Board.o GameTree.o
-main: $(OBJS)
+otherllo: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
 UNIT_OBJS = unit_tests.o testlib.o Board.o GameTree.o
