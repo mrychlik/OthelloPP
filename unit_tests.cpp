@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
       auto fanout = (::log(count)/depth/log(2));
       int bar_len = ::round(10*fanout);
       std::cout << boost::format("%5d %10d %10g") % depth % count % fanout
-		<< std::setfill ('x') << std::setw (bar_len) << 1
+		<< '|' << std::setfill ('x') << std::setw (bar_len) << '>'
 		<< std::endl;
 
     } catch(std::bad_alloc& e) {
