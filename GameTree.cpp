@@ -250,31 +250,50 @@ Board::move_type TreeNode::getHumanMove(std::istream& s) const
     std::cout << "Human, enter your move!! (like this: x  y <ENTER>)" << std::endl;
     std::cin >> x >> y ; 
     if(std::cin.fail()) {
-      std::cerr << "Bad x\n"; 
+      std::cout << "Invalid format of x or y (should be a number 0-7)" << std::endl;
+      continue;
+    } else if(std::cin.bad()) {
+      throw std::runtime_error("Input stream bad during input of x and y.");
+    } else if (x < 0 || x > 7 || y < 0 || y > 7) {
+      std::cout << "Input value x or y out of range 0-7: " << x << " " << y << std::endl;
       continue;
     } else {
-      break;
+      bool found = false;
+      Board::move_type playerMove;
+      for( auto& m : move_bag) {
+	auto [x1, y1, board1] = m;
+	if( x1 == x && y1 == y) {
+	  found = true;
+	  playerMove = m;
+	}
+      }
+      if(!found) {
+	std::cerr << "Move is invalid: " << x << " " << y << std::endl;
+	std::cerr << "Valid moves:\n";
+	for( auto& m : move_bag) {
+	  auto [x1, y1, board1] = m;
+	  std::cout << x1 << " " << y1 << std::endl; 
+	}
+	std::cout << "Would you like to try again? (Y/N)" << std::endl;
+	char c;
+	std::cin >> c;
+	if(std::cin.bad() || std::cin.fail()) {
+	  throw std::runtime_error("Invalid human response to Y/N query.");
+	}
+	if(c == 'Y') {
+	  continue;
+	} else if(c == 'N') {
+	  std::cout << "Good bye!" << std::endl;
+	  throw std::runtime_error("Human said 'No' to Y/N query.");
+	} else {
+	  continue;
+	}
+      } else {			// Found valid move
+	return playerMove;
+      }
     }
-  };
-
-  if(std::cin.bad()) {
-    throw std::runtime_error("Input stream bad during input of x and y.");
   }
-    
-  if (x < 0 || x > 7 || y < 0 || y > 7) {
-    std::cerr << "Input value x or y is invalid: " << x << ", " << y << "\n";
-    throw std::runtime_error("Invalid input");
-  }
-
-  for( auto& m : move_bag) {
-    auto [x1, y1, board1] = m;
-    if( x1 == x && y1 == y) {
-      return m;
-    }
-  }
-
-  std::cerr << "Move is invalid: " << x << ", " << y << "\n";
-  throw std::runtime_error("Invalid move");
+  throw std::runtime_error("Failed to elicit proper respose from human.");
 }
 
 /** 
