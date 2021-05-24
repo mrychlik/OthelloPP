@@ -39,8 +39,8 @@ int main() {
   TreeNode root(player);
 
   while(!root.isLeaf()) {
-    std::cout << static_cast<Board>(root) << std::endl;
     if( isHuman(player) ) {
+      std::cout << static_cast<Board>(root) << std::endl;
       const TreeNode& selectedChild = root.getHumanMove(std::cin);
       std::cout << "Human played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
 		<< static_cast<Board>(selectedChild) << std::endl;
@@ -48,7 +48,7 @@ int main() {
     } else {			// not human
       const TreeNode& selectedChild = root.getComputerMove(MAX_DEPTH);
       std::cout << "Computer played: " << selectedChild.x() << " " << selectedChild.y() << "\n"
-		<< static_cast<Board>selectedChild << std::endl;
+		<< static_cast<Board>(selectedChild) << std::endl;
       root = selectedChild;
     }
   }
