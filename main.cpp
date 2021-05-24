@@ -91,7 +91,7 @@ int main(int argc, char **argv)
       {"human_player_black",  no_argument,       0,  'b' },
       {0,         0,                 0,  0 }
     };
-    c = getopt_long(argc, argv, "dw:b:",
+    c = getopt_long(argc, argv, "d:wb",
 		    long_options, &option_index);
     if (c == -1)
       break;
