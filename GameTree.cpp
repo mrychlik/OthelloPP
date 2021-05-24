@@ -204,9 +204,6 @@ void TreeNode::deleteChildren() const
   for(auto child : children_ ) {
     delete child;
   }
-  // Empty the list
-  children_.clear();
-  isExpanded = false;
 }
 
 /** 
