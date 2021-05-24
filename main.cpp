@@ -23,7 +23,7 @@ static int  max_depth = DEFAULT_MAX_DEPTH; /**< Max. depth for minmax play */
 static bool humanPlayer[2] = {false, false}; /**< Which player is human? */
 static int num_games = DEFAULT_NUM_GAMES;
 
-void play()
+void play(int game)
 {
   TreeNode root;
   Board::print_size_big = false;
@@ -32,7 +32,7 @@ void play()
   std::cout << root << std::endl;
   while(!root.isLeaf()) {
     std::cout << "----------------------------------------------------------------\n" 
-	      << "Player " << ( root.player() == Board::WHITE ? "WHITE" : "BLACK") << "\n"
+	      << "Game #" << game <<": Player " << ( root.player() == Board::WHITE ? "WHITE" : "BLACK") << "\n"
 	      << "----------------------------------------------------------------\n"
 	      << std::endl;
     if( humanPlayer[root.player()] ) {
