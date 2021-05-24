@@ -34,7 +34,7 @@
  */
 class Board {
 public:
-  static bool print_big = true;
+  static bool print_size_big;
 
   /**
    * A player, definitely not bool.
@@ -135,5 +135,7 @@ inline Board::Player operator~(Board::Player player) {
  */
 static_assert(sizeof(Board::value_type) <= sizeof(int));
 
+
+bool Board::print_size_big = true;
 
 #endif // BOARD_HPP
