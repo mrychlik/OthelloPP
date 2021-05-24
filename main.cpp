@@ -74,7 +74,7 @@ int main()
     try {
       play();
     } catch(std::runtime_error& e) {
-      std::cout << w.what();
+      std::cout << e.what();
       return 0;
     }
   }
