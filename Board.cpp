@@ -13,6 +13,7 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <iomanip>
 
 static const char esc = '';
 static const std::string reset = "[0m";
@@ -273,7 +274,9 @@ std::ostream& operator<<(std::ostream& s, const Board& b) {
   if( Board::clear_screen_before_printing) {
     s << "[2J";
   }
-  return b.print(s, Board::print_size_big);
+  b.print(s, Board::print_size_big);
+  s << std::flush();
+  return s;
 };
 
 
