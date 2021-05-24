@@ -16,8 +16,8 @@
 #include "Board.hpp"
 
 
-const   bool humanPlaysWhite = true;
-const   bool humanPlaysBlack = false;
+const   bool humanPlaysWhite = true; /**< Is human playing white? */
+const   bool humanPlaysBlack = false; /**< Is human playing black? */
 const int MAX_DEPTH =  5;
 
 static bool isHuman(Board::Player player) {
@@ -41,7 +41,10 @@ int main() {
   if(!currentNode.isLeaf()) {
     std::cout << currentNode << std::endl;
     if( isHuman(player) ) {
-      auto move = currentNode.getHumanMove();
+      auto move = currentNode.getHumanMove(std::cin);
+      auto [x, y, board] = move;
+      std::cout << "Human played: " << x << " " << y
+		<< board << std::endl;
     } else {
       currentNode.minmax(MAX_DEPTH);
     }
