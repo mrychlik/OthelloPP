@@ -72,11 +72,11 @@ public:
       }
     }
     children_.clear();
-    addChild(static_cast<Tree *>(&other));
+    isExpanded = false;
+    children_ = other.children;
+    
     return *this;
   }
-
-
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
 
