@@ -50,6 +50,9 @@ public:
   TreeNode(Player player = WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
   TreeNode(const TreeNode& other) = delete;
   ~TreeNode();
+
+  TreeNode& operator=(const TreeNode& other); 
+
   
   bool isLeaf() const;
 
@@ -65,37 +68,6 @@ public:
   Player player() const { return player_; };
 
   int minmax(int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL) const;
-
-  TreeNode& operator=(const TreeNode& other) {
-    if(this == &other) return *this;
-    // Delete children other than other;
-    // Since children_ is mutable, nothing
-    // bad should happen
-     for(auto child : children_) {
-       if(child != &other) {
-   	delete child;
-       }
-     }
-     children_ = other.children_;
-     // Now that we took other's children,
-     // we need to inform other
-     // that he has none
-     other.children_.clear();
-     other.isExpanded = false;
-
-     // Copy base class object
-     *static_cast<Board*>(this) = *static_cast<const Board*>(&other);
-     // Copy normal fields
-     player_ = other.player_;
-
-     x_ = other.x_;
-     y_ = other.y_;
-
-     minmaxValue = other.minmaxValue;
-     minmaxDepth = other.minmaxDepth;
-
-     return *this;
-   }
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
 
