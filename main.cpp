@@ -13,13 +13,15 @@
 #include <cstring>
 #include <iomanip>
 
+#include <unistd.h>    /* For sleep */
+
 #include "GameTree.hpp"
 #include "Board.hpp"
 
 
 const int DEFAULT_NUM_GAMES = 10; /**< Number of games to play by default */
 const int DEFAULT_MAX_DEPTH = 12; /**< Depth to which examine the tree to compute the best move */
-const int DEFAULT_MAX_DEPTH = 0; /**< Amount of delay in sec. after computer move */
+const int DEFAULT_COMPUTER_DELAY = 0; /**< Amount of delay in sec. after computer move */
 
 static int  max_depth[2] = { DEFAULT_MAX_DEPTH, DEFAULT_MAX_DEPTH } ; /**< Max. depth for minmax play for each player*/
 static bool humanPlayer[2] = {false, false}; /**< Which player is human? */
@@ -96,7 +98,7 @@ int main_loop()
 
 /* From this point on this is good old-fashioned C */
 
-#include <unistd.h>    /* For sleep */
+
 #include <stdio.h>     /* for printf */
 #include <stdlib.h>    /* for exit */
 #include <getopt.h>
