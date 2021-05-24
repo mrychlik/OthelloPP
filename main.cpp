@@ -136,15 +136,16 @@ int main(int argc, char **argv)
       max_depth[Board::BLACK] = atoi(optarg);
       printf("max_depth[BLACK]: %d\n", max_depth[Board::WHITE]);      
       break;
+
     case 'D':
       max_depth[Board::WHITE] = atoi(optarg);
-      max_depth[Board::BLACK] = atoi(optarg);
-      printf("max_depth[COMPUTER]: %d\n", max_depth);      
+      max_depth[Board::BLACK] = max_depth[Board::WHITE];
+      printf("max_depth[COMPUTER]: %d\n", max_depth[0]);      
       break;
 
     case 'n':
       num_games = atoi(optarg);
-      printf("num_games: %d\n", max_depth);      
+      printf("num_games: %d\n", num_games);      
       break;
 
     case 'w':
