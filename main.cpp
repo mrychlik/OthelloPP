@@ -18,6 +18,7 @@
 
 const   bool humanPlaysWhite = true; /**< Is human playing white? */
 const   bool humanPlaysBlack = false; /**< Is human playing black? */
+
 const int MAX_DEPTH =  5;
 
 static bool isHuman(Board::Player player) {
