@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <iomanip>
 
 #include "GameTree.hpp"
 #include "Board.hpp"
@@ -68,6 +69,7 @@ int play(int game)
   } else {
     std::cout << "It's a DRAW!!!\n" << root << std::endl;    
   }
+  return root.score();
 }
 
 int main_loop()
@@ -84,7 +86,7 @@ int main_loop()
   }
   std::cout << std::setw(5) << "Game" << std::setw(10) << "Score" << std::endl;
   for(int game = 0; game < num_games; ++game) {
-    stc::cout << setw(5) <<  game << setw(10) << score[game] << std::endl;
+    std::cout << std::setw(5) <<  game << std::setw(10) << score[game] << std::endl;
   }
   return 0;
 }
