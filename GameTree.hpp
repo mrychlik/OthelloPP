@@ -54,7 +54,7 @@ public:
   bool isLeaf() const;
   const children_type& children() const;
   Board::move_type getHumanMove(std::istream& s) const;
-  Board::move_type getComputerMove() const;
+  Board::move_type getComputerMove(int depth) const;
   int nodeCount(int depth) const;
 
   int minmax(int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL);
