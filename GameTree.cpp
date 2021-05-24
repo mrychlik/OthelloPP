@@ -247,7 +247,7 @@ const TreeNode& TreeNode::getHumanMove(std::istream& s) const
     std::cout << "Human, make your move!!\n"
 	      << "(Like this: x  y <ENTER>)\n"
 	      << "(... or -1 -1 <ENTER>, if you want me, the Computer, to move...)"
-      << std::endl;
+	      << std::endl;
     std::cin >> x >> y ; 
     if(std::cin.fail()) {
       std::cout << "Invalid format of x or y (should be a number 0-7)" << std::endl;
