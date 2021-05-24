@@ -70,8 +70,12 @@ void play() {
 
 int main()
 {
-  for(int i = 0; i < 5; ++i) {
-    play();
-    ::sleep(3);
+  while(true)
+    try {
+      play();
+    } catch(std::runtime_error& e) {
+      std::cout << w.what();
+      return 0;
+    }
   }
 }
