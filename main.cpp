@@ -23,7 +23,14 @@ static int  max_depth = DEFAULT_MAX_DEPTH; /**< Max. depth for minmax play */
 static bool humanPlayer[2] = {false, false}; /**< Which player is human? */
 static int num_games = DEFAULT_NUM_GAMES;
 
-void play(int game)
+/** 
+ * Play a game, return the score.
+ * 
+ * @param game 
+ * 
+ * @return 
+ */
+int play(int game)
 {
   TreeNode root;
   Board::print_size_big = false;
@@ -75,7 +82,7 @@ int main_loop()
       return 1;
     }
   }
-  stc::cout << setw(5) << "Game" << setw(10) << "Score" << std::endl;
+  std::cout << std::setw(5) << "Game" << std::setw(10) << "Score" << std::endl;
   for(int game = 0; game < num_games; ++game) {
     stc::cout << setw(5) <<  game << setw(10) << score[game] << std::endl;
   }
