@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <cstdio>
 #include <cmath>
 
 #include <boost/test/unit_test.hpp>
@@ -126,7 +127,8 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
     try {
       auto count = root.nodeCount(depth);
       auto fanout = (::log(count)/depth/log(2));
-      std::cout << boost::format("%5d %10d %10g %*s\n") % depth % count % fanout % ::round(10*fanout) % " ";
+      int bar_len = ::round(10*fanout);
+      printf("%5d %10d %10g %s", depth, count, fanout, bar(bar_len), 0);
     } catch(std::bad_alloc& e) {
       std::cerr << e.what();
     } catch(...) {
