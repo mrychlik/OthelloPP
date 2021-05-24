@@ -46,7 +46,10 @@ void play()
 		<< std::endl;
     }
   }
-  std::cout << "The game ended!!!\n" << root << std::endl;
+  std::cout << "----------------------------------------------------------------\n"
+	    << "THE GAME ENDED.\n"
+	    << "----------------------------------------------------------------\n"
+	    << root << std::endl;
   if( root.score() > 0) {
     std::cout << "WHITE won!!!\n" << root << std::endl;    
   } else if( root.score() < 0) {
