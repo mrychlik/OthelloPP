@@ -83,9 +83,10 @@ int main(int argc, char **argv)
   int c;
 
   while (1) {
+    int this_option_optind = optind ? optind : 1;
     int option_index = 0;
     static struct option long_options[] = {
-      {"max_depth",     required_argument, 0,  0 },
+      {"max_depth",           required_argument, 0,  0 },
       {"human_plays_white",   no_argument,       0,  'w' },
       {"human_player_black",  no_argument,       0,  'b' },
       {0,         0,                 0,  0 }
