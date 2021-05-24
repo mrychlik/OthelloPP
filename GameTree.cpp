@@ -236,11 +236,10 @@ const TreeNode::children_type& TreeNode::children() const
  * Validates the move.
  * 
  * @param s 
- * @param move_bag
  * 
- * @return Triple (x, y, Board)
+ * @return Child node after the move
  */
-const TreeNode& TreeNode::getHumanMove(std::istream& s) const
+const TreeNode* TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
   TreeNode *selectedChild = nullptr;
@@ -285,11 +284,11 @@ const TreeNode& TreeNode::getHumanMove(std::istream& s) const
 	  continue;
 	}
       } else {			// Found valid move
-	return *selectedChild;
+	return selectedChild;
       }
     }
   }
-  throw std::runtime_error("Failed to elicit proper respose from human.");
+  return nullptr;
 }
 
 /** 
