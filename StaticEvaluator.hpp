@@ -10,6 +10,8 @@
 #ifndef STATIC_EVALUATOR_HPP
 #define STATIC_EVALUATOR_HPP
 
+#include "AbstractStaticEvaluator.hpp"
+
 /**
  * Virtual base class of all static evaluators
  * 
