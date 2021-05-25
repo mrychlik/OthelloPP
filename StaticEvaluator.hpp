@@ -11,11 +11,10 @@
 #ifndef STATIC_EVALUATOR_HPP
 #define STATIC_EVALUATOR_HPP
 
-/**
- * Abstract base class of all static evaluators
- * 
- */
-struct StaticEvaluator {
+
+#include <limits>
+
+struct StaticEvaluatorTraits {
   /** 
    * Board value type
    * 
@@ -33,7 +32,15 @@ struct StaticEvaluator {
    * 
    */
   static const value_type MIN_VAL = std::numeric_limits<value_type>::min();
+};
 
+
+
+/**
+ * Abstract base class of all static evaluators
+ * 
+ */
+struct StaticEvaluator {
 
   /** 
    * @param b
