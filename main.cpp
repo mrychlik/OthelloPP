@@ -59,6 +59,7 @@ int play(int game)
 		<< root
 		<< std::endl;
       if(computer_delay > 0) {
+	std::cout << "Waiting " << computer_delay << " seconds..." << std::endl;
 	::sleep(computer_delay);
       }
     }
