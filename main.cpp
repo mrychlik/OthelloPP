@@ -135,23 +135,28 @@ int main(int argc, char **argv)
 
     case 'W':
       max_depth[Board::WHITE] = atoi(optarg);
+      printf("User set max_depth[WHITE] to %d.\n", max_depth[Board::WHITE]);      
       break;
 
     case 'B':
       max_depth[Board::BLACK] = atoi(optarg);
+      printf("User set max_depth[BLACK] to %d.\n", max_depth[Board::BLACK]);      
       break;
 
     case 'D':
       max_depth[Board::WHITE] = atoi(optarg);
       max_depth[Board::BLACK] = max_depth[Board::WHITE];
+      printf("User set max_depth[(both players)] to %d.\n", max_depth[Board::WHITE]);
       break;
 
     case 'd':
       computer_delay = atoi(optarg);
+      printf("User set computer delay to %d seconds.\n", max_depth[Board::WHITE]);
       break;
 
     case 'n':
       num_games = atoi(optarg);
+      printf("User set num_games to %d.\n",num_games);
       break;
 
     case 'w':
