@@ -1,5 +1,5 @@
 CXXFLAGS = -std=c++20 -Og -O0 -ggdb3 -Wall
-#CXXFLAGS = -std=c++20 -Ofast -ggdb3 -pthread -Wall
+CXXFLAGS = -std=c++20 -Ofast -ggdb3 -Wall
 LDFLAGS  = -lm -lboost_unit_test_framework
 
 PROGRAMS =  othello test_suite
