@@ -126,26 +126,25 @@ int Board::score () const {
 int Board::value() const {
   auto val = score();
 
-#if 0
+  if( numTiles() > 20) {
+    // NOTE: (M.R.) This handicap seems to disproportionately award WHITE.
+    //maybe add linear change to value of score vs terriory?
 
-  // NOTE: (M.R.) This handicap seems to disproportionately award WHITE.
-  //maybe add linear change to value of score vs terriory?
+    static const int cornerVal = ::ceil(0.3 * ( numTiles() - 20)); //how much more valuable is a corner than any other flip
+    if( isFilled(0,0) ) {
+      val += isWhite(0,0) ? cornerVal : -cornerVal;
+    }
+    if( isFilled(0,7) ) {
+      val += isWhite(0,7) ? cornerVal : -cornerVal;
+    }
+    if( isFilled(7,0) ) {
+      val += isWhite(7,0) ? cornerVal :  -cornerVal;
+    }
+    if( isFilled(7,7) ) {
+      val +=  isWhite(7,7) ? cornerVal : -cornerVal;
+    }
 
-  static const int cornerVal = 8; //how much more valuable is a corner than any other flip
-  if( isFilled(0,0) ) {
-    val += isWhite(0,0) ? cornerVal : -cornerVal;
   }
-  if( isFilled(0,7) ) {
-    val += isWhite(0,7) ? cornerVal : -cornerVal;
-  }
-  if( isFilled(7,0) ) {
-    val += isWhite(7,0) ? cornerVal :  -cornerVal;
-  }
-  if( isFilled(7,7) ) {
-    val +=  isWhite(7,7) ? cornerVal : -cornerVal;
-  }
-
-#endif
 
   return val;
 }
