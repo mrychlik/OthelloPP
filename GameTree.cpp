@@ -140,7 +140,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 int TreeNode::minmax(StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
-    return evaluator(*this, player, depth);
+    return evaluator(*this, player(), depth);
   }
 
   // The code could be refactored because Min and Max code is so
@@ -305,13 +305,13 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return 
  */
-TreeNode& TreeNode::getComputerMove(int depth) const
+TreeNode& TreeNode::getComputerMove(StaticEvaluator& evaluator, int depth) const
 {
   assert(!isLeaf());
   if(depth >= 1) {
     std::vector<TreeNode *> bestChildren;
 
-    auto bestVal = minmax(depth);
+    auto bestVal = minmax(evaluator, depth);
     for(auto child : children()) {
       if(child->minmaxValue == bestVal) {
 	bestChildren.push_back(child);
