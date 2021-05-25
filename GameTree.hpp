@@ -43,7 +43,7 @@ public:
 
   static const value_type MIN_VAL = std::numeric_limits<value_type>::min();
 
-  static bool print_recursively;
+  static bool print_recursively; /**< Print childen of the node */
 
   /**
    * The type of children container
@@ -80,6 +80,9 @@ public:
     return y_;
   }
 
+  /** 
+   * @return The player to move.
+   */
   Player player() const { return player_; };
 
   int minmax(const StaticEvaluator& evaluator,
