@@ -160,8 +160,10 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
     TreeNode* bestChild = nullptr;
     for( auto child : children() ) {
       value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
-      bestVal = std::max(bestVal, val);
-      bestChild = child;
+      if(val > bestVal) {
+	bestVal = val;
+	bestChild = child;
+      }
       alpha = std::max(alpha, bestVal);
       if( beta <= alpha) {
 	break;
@@ -328,7 +330,7 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluator& evaluator, int depth)
 
     auto bestVal = minmax(evaluator, depth);
     for(auto child : children()) {
-      if(child->minmax(evaluator, depth-1) == bestVal) {
+      if(child->minMaxVal == bestVal) {
 	bestChildren.push_back(child);
       }
     }
