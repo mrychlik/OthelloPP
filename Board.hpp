@@ -107,7 +107,8 @@ private:
 
   void setWhite(uint8_t x, uint8_t y); 
   void setBlack(uint8_t x, uint8_t y); 
-  void setColor(uint8_t x, uint8_t y, bool colorWhite); 
+  void Board::setColor(uint8_t x, uint8_t y, Player player);
+
 
   bool findFlipRadius(Player player, uint8_t x, uint8_t y, uint8_t flipRadius[8], bool shortCircuit = false) const;
 
