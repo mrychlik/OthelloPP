@@ -327,11 +327,14 @@ TreeNode& TreeNode::getComputerMove(int depth) const
     assert(!bestChildren.empty());
     std::random_shuffle(bestChildren.begin(), bestChildren.end());    
     return **bestChildren.begin();
-  } else {			// depth <= 1
-    // Choose a random move
+  } else {			// depth <= 0
+    // We are very misinformed here because we don't
+    // know which child is promising. We choose a random move
     // Reshufle children first
-    std::random_shuffle(children_.begin(), children_.end());        
-    return children_.begin();    
+    std::vector<TreeNode *> bestChildren;
+    std::copy(children().begin(), children().end(), bestChildren.begin());
+    std::random_shuffle(bestChildren.begin(), bestChildren.end());    
+    return **bestChildren.begin();
   }
 }
 
