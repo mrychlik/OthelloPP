@@ -17,8 +17,6 @@
 #include <cinttypes>
 #include <forward_list>
 #include <utility>
-#include <limits>
-
 
 /**
  * Class TreeNode represents the node of the game tree. In this
@@ -28,20 +26,8 @@
  * undesirable but it seems harmless at this time.
  * 
  */
-class TreeNode : public Board {
+class TreeNode : public Board, private StaticEvaluatorTraits {
 public:
-  /**
-   * The top of the node value range. 
-   * 
-   */
-  static const value_type MAX_VAL = std::numeric_limits<value_type>::max();
-
-  /**
-   * The bottom of the node value range.
-   * 
-   */
-  static const value_type MIN_VAL = std::numeric_limits<value_type>::min();
-
   static bool print_recursively; /**< Print childen of the node */
 
   /**
