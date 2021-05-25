@@ -38,7 +38,7 @@ TreeNode::TreeNode(Player player, const Board& board, int8_t x, int8_t y)
     children_(),
     minMaxVal(0),
     minMaxDepth(0),
-    minMaxChild(nullptr),
+    minMaxChild(this),
     player_(player),
     x_(x),
     y_(y)
@@ -147,7 +147,8 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
 {
   if(depth <= 0 || isLeaf() ) {
     return evaluator(*this, player(), depth);
-  } 
+  } else if(minMaxDepth == depth) {
+  }
 
   // The code could be refactored because Min and Max code is so
   // similar
