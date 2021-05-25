@@ -7,6 +7,8 @@
  * 
  * 
  */
+#ifndef STATIC_EVALUATOR_HPP
+#define STATIC_EVALUATOR_HPP
 
 struct StaticEvaluator {
   int operator()(const Board& b)  const = delete; 
@@ -35,14 +37,16 @@ struct StaticEvaluatorWithCorners : StaticEvaluator
       val += b.isWhite(0,0) ? cornerVal : -cornerVal;
     }
     if( b.isFilled(0,7) ) {
-      val += isWhite(0,7) ? cornerVal : -cornerVal;
+      val += b.isWhite(0,7) ? cornerVal : -cornerVal;
     }
     if( b.isFilled(7,0) ) {
       val += b.isWhite(7,0) ? cornerVal :  -cornerVal;
     }
     if( b.isFilled(7,7) ) {
-      val +=  isWhite(7,7) ? cornerVal : -cornerVal;
+      val +=  b.isWhite(7,7) ? cornerVal : -cornerVal;
     }
     return val;
   }
 };
+
+#endif
