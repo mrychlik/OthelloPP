@@ -11,6 +11,7 @@ all: $(PROGRAMS)
 main.o: Board.hpp MainLoop.hpp
 Board.o: Board.hpp
 GameTree.o: GameTree.hpp Board.hpp
+MainLoop.o: GameTree.hpp StaticEvaluator.hpp
 
 OBJS = main.o Board.o GameTree.o MainLoop.o
 othello: $(OBJS)
