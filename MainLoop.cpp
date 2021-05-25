@@ -27,7 +27,8 @@ int num_games = DEFAULT_NUM_GAMES; /**< Number of games to play */
 int computer_delay = DEFAULT_COMPUTER_DELAY; /**< Number of seconds to wait after computer move */
 
 // Static evaluator we will be using
-static const SimpleStaticEvaluator staticEvaluator;
+//static const SimpleStaticEvaluator staticEvaluator;
+static const CornerStaticEvaluator staticEvaluator;
 
 /** 
  * Play a game, return the score.
