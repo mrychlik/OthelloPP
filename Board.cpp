@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <cassert>
+#include <cmath>
 
 static const char esc = '';
 static const std::string reset = "[0m";
@@ -396,3 +397,52 @@ Board::operator std::string() const {
   return buf.str();
 }
 
+
+int Board::staticEvaluatorBasic() const {
+  auto val = score();
+
+  if( numTiles() > 20) {
+    // NOTE: (M.R.) This handicap seems to disproportionately award WHITE.
+    //maybe add linear change to value of score vs terriory?
+
+    static const int cornerVal = ::ceil(0.3 * ( numTiles() - 20)); //how much more valuable is a corner than any other flip
+    if( isFilled(0,0) ) {
+      val += isWhite(0,0) ? cornerVal : -cornerVal;
+    }
+    if( isFilled(0,7) ) {
+      val += isWhite(0,7) ? cornerVal : -cornerVal;
+    }
+    if( isFilled(7,0) ) {
+      val += isWhite(7,0) ? cornerVal :  -cornerVal;
+    }
+    if( isFilled(7,7) ) {
+      val +=  isWhite(7,7) ? cornerVal : -cornerVal;
+    }
+
+  }
+
+  return val;
+}
+
+int Board::staticEvaluatorWithCorners() const {
+  auto val = score();
+
+  // NOTE: (M.R.) This handicap seems to disproportionately award WHITE.
+  //maybe add linear change to value of score vs terriory?
+
+  static const int cornerVal = ::ceil(0.3 * ( numTiles() - 20)); //how much more valuable is a corner than any other flip
+  if( isFilled(0,0) ) {
+    val += isWhite(0,0) ? cornerVal : -cornerVal;
+  }
+  if( isFilled(0,7) ) {
+    val += isWhite(0,7) ? cornerVal : -cornerVal;
+  }
+  if( isFilled(7,0) ) {
+    val += isWhite(7,0) ? cornerVal :  -cornerVal;
+  }
+  if( isFilled(7,7) ) {
+    val +=  isWhite(7,7) ? cornerVal : -cornerVal;
+  }
+
+  return val;
+}
