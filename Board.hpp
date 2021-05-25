@@ -86,7 +86,11 @@ public:
   std::ostream& print(std::ostream& s, bool big = false) const;
   
 protected:
+
   int (Board::*staticEvaluator)() const;
+
+  int staticEvaluatorBasic() const;
+  int staticEvaluatorWithCorners() const;
 
 private:
 
