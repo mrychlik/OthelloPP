@@ -315,6 +315,7 @@ int TreeNode::nodeCount(int depth) const
 TreeNode& TreeNode::getComputerMove(int depth) const
 {
   assert(!isLeaf());
+  assert(depth >= 1);
 
   std::vector<TreeNode *> bestChildren;
 
