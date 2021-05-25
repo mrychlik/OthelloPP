@@ -112,10 +112,10 @@ void TreeNode::addChild(TreeNode* child) const
  */
 std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 {
-  s << "Player to move: " << ( ( tree.player() == Board::WHITE ) ? "WHITE" : "BLACK" )
+  s << static_cast<const Board&>(tree)
+    << "Player to move: " << ( ( tree.player() == Board::WHITE ) ? "WHITE" : "BLACK" )
     << "\nLast filled x: " << tree.x()
     << "\nLast filled y: " << tree.y()
-    << "\n" << static_cast<const Board&>(tree)
     << "\nStatic value: " << static_cast<int>(tree.value())
     << "\nMinmax value: " << static_cast<int>(tree.minmaxValue)
     << "\nMinmax depth: " << static_cast<int>(tree.minmaxDepth)
@@ -331,7 +331,8 @@ TreeNode& TreeNode::getComputerMove(int depth) const
     // We are very misinformed here because we don't
     // know which child is promising. We choose a random move
 
-    std::vector<TreeNode *> bestChildren;
+    auto sz = std::distance(children().begin(), children().end());
+    std::vector<TreeNode *> bestChildren(sz);
     // Every child is best
     std::copy(children().begin(), children().end(), bestChildren.begin());
 
