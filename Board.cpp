@@ -117,10 +117,10 @@ void Board::setBlack(uint8_t x, uint8_t y) {
  * 
  * @param x 
  * @param y 
- * @param colorWhite 
+ * @param player
  */
-void Board::setColor(uint8_t x, uint8_t y, bool colorWhite) {
-  if( colorWhite ) {
+void Board::setColor(uint8_t x, uint8_t y, Player player) {
+  if(player == WHITE ) {
     setWhite(x,y);
   } else {
     setBlack(x,y);
