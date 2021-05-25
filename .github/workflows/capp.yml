@@ -1,0 +1,23 @@
+name: Make C project
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    name: Make C++ project
+    runs-on: ubuntu-latest
+    env:
+      working-directory: .
+
+    steps:
+    - uses: actions/checkout@main
+    - name: Compile
+      run: |
+        pwd
+        make --debug=v
+    - name: Execute
+      run: |
+        ./test_suite
