@@ -194,6 +194,6 @@ int main(int argc, char **argv)
   printf("max_depth[BLACK]: %d\n", max_depth[Board::BLACK]);      
 
 
-  return main_loop();
+  exit(main_loop());
 }
 
