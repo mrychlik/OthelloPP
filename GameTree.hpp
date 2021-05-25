@@ -40,7 +40,6 @@ public:
    * The bottom of the node value range.
    * 
    */
-
   static const value_type MIN_VAL = std::numeric_limits<value_type>::min();
 
   static bool print_recursively; /**< Print childen of the node */
