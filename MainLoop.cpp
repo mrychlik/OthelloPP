@@ -35,7 +35,6 @@ int computer_delay = DEFAULT_COMPUTER_DELAY; /**< Number of seconds to wait afte
 int play(int game)
 {
   TreeNode root;
-  Board::clear_screen_before_printing = false;
   
   std::cout << root << std::endl;
   while(!root.isLeaf()) {
