@@ -8,8 +8,6 @@
  * 
  */
 
-#include <iostream>
-
 #include "GameTree.hpp"
 #include "Board.hpp"
 #include "MainLoop.hpp"
