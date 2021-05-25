@@ -91,13 +91,6 @@ public:
 
   friend std::ostream& operator<<(std::ostream& s, const Board& b);  
   std::ostream& print(std::ostream& s, bool big = false) const;
-  
-protected:
-
-
-
-  int staticEvaluatorBasic() const;
-  int staticEvaluatorWithCorners() const;
 
 private:
 
