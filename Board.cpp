@@ -128,7 +128,6 @@ int Board::value() const {
 
   //maybe add linear change to value of score vs terriory?
 
-#if 0
   const int cornerVal = 8; //how much more valuable is a corner than any other flip
   if( isFilled(0,0) ) {
     val += isWhite(0,0) ? cornerVal : -cornerVal;
@@ -142,7 +141,6 @@ int Board::value() const {
   if( isFilled(7,7) ) {
     val +=  isWhite(7,7) ? cornerVal : -cornerVal;
   }
-#endif
 
   return val;
 }
