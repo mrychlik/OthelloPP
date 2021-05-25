@@ -41,6 +41,8 @@ public:
 
   static const value_type MIN_VAL = std::numeric_limits<value_type>::min();
 
+  static bool print_recursively;
+
   /**
    * The type of children container
    * 
@@ -67,7 +69,7 @@ public:
   int y() const;
   Player player() const { return player_; };
 
-  int minmax(int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL) const;
+  int minmax(StaticEvaluator& evaluator, int8_t depth, value_type alpha = MIN_VAL, value_type beta = MAX_VAL) const;
 
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
 
