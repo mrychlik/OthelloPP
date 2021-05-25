@@ -70,9 +70,10 @@ public:
     }
     return val;
   }
+
 private:
 
-  int cornerVal = 8;  /**<  how much more valuable is a corner than any other flip */
+  int cornerVal; /**<  how much more valuable is a corner than any other flip */
 
 };
 
