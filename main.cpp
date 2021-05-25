@@ -15,7 +15,6 @@
 
 /* From this point on this is good old-fashioned C */
 
-
 #include <getopt.h>
 
 /** 
