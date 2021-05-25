@@ -117,7 +117,7 @@ int main(int argc, char **argv)
   printf("Number of games to play: %d\n", num_games);      
   printf("max_depth[WHITE]: %d\n", max_depth[Board::WHITE]);      
   printf("max_depth[BLACK]: %d\n", max_depth[Board::BLACK]);      
-
+  printf("Board print size: %s\n", Board::print_size_big ? "BIG" : "SMALL");
 
   exit(main_loop());
 }
