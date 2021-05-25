@@ -139,9 +139,9 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
  * @param alpha Most max can hope for
  * @param beta  Least min can hope for
  * 
- * @return Minmax value of this node
+ * @return The best child of this node
  */
-int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, bool useCachedValue, value_type alpha, value_type beta) const
+TreeNode* TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, bool useCachedValue, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
     return evaluator(*this, player(), depth);
