@@ -15,6 +15,7 @@
 
 #include "GameTree.hpp"
 #include "Board.hpp"
+#include "StaticEvaluator.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -37,7 +38,6 @@ TreeNode::TreeNode(Player player, const Board& board, int8_t x, int8_t y)
     isExpanded(false),
     children_(),
     minMaxVal(0),
-    minMaxChild(this),
     player_(player),
     x_(x),
     y_(y)
