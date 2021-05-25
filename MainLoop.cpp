@@ -48,10 +48,10 @@ int play(int game)
 		<< root << std::endl;
     } else {			// not human
       root = root.getComputerMove(max_depth[root.player()]);
-      std::cout << "----------------------------------------------------------------\n"
+      std::cout << root
+		<< "----------------------------------------------------------------\n"
 		<< "Game #" << game << ": Computer played: " << root.x() << " " << root.y() << "\n"
 		<< "----------------------------------------------------------------\n" 
-		<< root
 		<< std::endl;
       if(computer_delay > 0) {
 	std::cout << "Waiting " << computer_delay << " seconds..." << std::endl;
