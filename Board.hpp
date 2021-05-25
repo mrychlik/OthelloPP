@@ -5,7 +5,7 @@
  * 
  * @brief  Othello game board
  * 
- * Uses 64-bit integer as an array of bits
+ * Uses 64-bit unsigned integers to store board state
  */
 
 #ifndef BOARD_HPP
