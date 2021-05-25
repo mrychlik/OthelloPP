@@ -85,7 +85,7 @@ int main(int argc, char **argv)
       break;
 
     case 'C':
-      Board::clear_screen_before_printing = false;
+      Board::clear_screen_before_printing = true;
       printf("User set clearing screen before printing on.\n");      
       break;
 
