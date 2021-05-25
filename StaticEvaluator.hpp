@@ -16,6 +16,7 @@
  * 
  */
 struct StaticEvaluator {
+
   /** 
    * @param b
    * @param player
@@ -25,6 +26,16 @@ struct StaticEvaluator {
    */
   virtual int operator()(const Board& b, Board::Player player, int depth) const = 0;
 };
+
+/**
+ * We use int as return value of functions that in principle should
+ * return values in the range [Board::MIN_VAL,Board::MAX_VAL]. If this
+ * changed, things would break. The rationale for small
+ * Board::value_type is that we may want to cache it in Board
+ * instances at some point.
+ * 
+ */
+static_assert(sizeof(StaticEvaluator::value_type) <= sizeof(int));
 
 
 #endif
