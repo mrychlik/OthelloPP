@@ -13,6 +13,7 @@
 
 #include "Board.hpp"
 #include "StaticEvaluator.hpp"
+
 #include <cinttypes>
 #include <forward_list>
 #include <utility>
