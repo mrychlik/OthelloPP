@@ -68,16 +68,12 @@ public:
   /** 
    * @return x-coord of last move
    */
-  int TreeNode::x() const {
-    return x_;
-  }
+  int x() const { return x_; }
 
   /**
    * @return y-coord of last move
    */
-  int TreeNode::y() const {
-    return y_;
-  }
+  int y() const { return y_; }
 
   /** 
    * @return The player to move.
