@@ -182,6 +182,7 @@ int main(int argc, char **argv)
     while (optind < argc)
       printf("%s ", argv[optind++]);
     printf("\n");
+    return 1;
   }
 
   // Report on the values of parameters
