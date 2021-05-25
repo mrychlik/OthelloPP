@@ -66,24 +66,59 @@ bool Board::print_size_big = true;
 
 bool Board::clear_screen_before_printing = true;
 
+/** 
+ * Is there a tile at (x,y)?
+ * 
+ * @param x 
+ * @param y 
+ * 
+ * @return 
+ */
 bool Board::isFilled(uint8_t x, uint8_t y) const {
   return getbit(filled, x, y);
 };
 
+/** 
+ * Is the tile at (x,y) white?
+ * 
+ * @param x 
+ * @param y 
+ * 
+ * @return 
+ */
 bool Board::isWhite(uint8_t x, uint8_t y) const {
   return getbit(white, x, y);
 };
 
+/** 
+ * Set the tile at (x,y) to white.
+ * 
+ * @param x 
+ * @param y 
+ */
 void Board::setWhite(uint8_t x, uint8_t y) {
   setbit(filled, x, y);
   setbit(white, x, y);
 };
 
+/** 
+ * Set the tile at (x,y) to black
+ * 
+ * @param x 
+ * @param y 
+ */
 void Board::setBlack(uint8_t x, uint8_t y) {
   setbit(filled, x, y);
   unsetbit(white, x, y);
 };
 
+/** 
+ * Set tile at (x,y) to a particular color
+ * 
+ * @param x 
+ * @param y 
+ * @param colorWhite 
+ */
 void Board::setColor(uint8_t x, uint8_t y, bool colorWhite) {
   if( colorWhite ) {
     setWhite(x,y);
