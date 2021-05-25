@@ -91,6 +91,18 @@ bool Board::isWhite(uint8_t x, uint8_t y) const {
 };
 
 /** 
+ * Is the tile at (x,y) black?
+ * 
+ * @param x 
+ * @param y 
+ * 
+ * @return 
+ */
+bool Board::isWhite(uint8_t x, uint8_t y) const {
+  return getbit(filled^white, x, y);
+};
+
+/** 
  * Set the tile at (x,y) to white.
  * 
  * @param x 
