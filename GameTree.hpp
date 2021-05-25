@@ -66,8 +66,13 @@ public:
 
   int nodeCount(int depth) const;
 
-  int x() const;
-  int y() const;
+  int TreeNode::x() const {
+    return x_;
+  }
+
+  int TreeNode::y() const {
+    return y_;
+  }
 
   Player player() const { return player_; };
 
