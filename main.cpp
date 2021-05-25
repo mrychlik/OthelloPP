@@ -11,12 +11,10 @@
 #include "GameTree.hpp"
 #include "Board.hpp"
 #include "MainLoop.hpp"
-
+#include <cstdio>     /* for printf */
 
 /* From this point on this is good old-fashioned C */
 
-
-#include <cstdio>     /* for printf */
 #include <stdlib.h>    /* for exit */
 #include <getopt.h>
 
