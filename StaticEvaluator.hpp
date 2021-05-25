@@ -41,7 +41,7 @@ struct StaticEvaluatorTraits {
  * changed, things would break. 
  * 
  */
-static_assert(sizeof(StaticEvaluator::value_type) <= sizeof(int));
+static_assert(sizeof(StaticEvaluatorTraits::value_type) <= sizeof(int));
 
 
 /**
