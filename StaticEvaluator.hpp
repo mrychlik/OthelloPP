@@ -16,6 +16,11 @@
  * 
  */
 struct StaticEvaluator {
+  /** 
+   * Board value type
+   * 
+   */
+  typedef int value_type;
 
   /** 
    * @param b
