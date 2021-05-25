@@ -143,6 +143,7 @@ int Board::value() const {
   if( isFilled(7,7) ) {
     val +=  isWhite(7,7) ? cornerVal : -cornerVal;
   }
+
 #endif
 
   return val;
