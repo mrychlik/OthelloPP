@@ -124,27 +124,27 @@ int Board::score () const {
  * @return 
  */
 int Board::value() const {
-  auto value = score();
+  auto val = score();
 
   //maybe add linear change to value of score vs terriory?
 
 #if 0
   const int cornerVal = 8; //how much more valuable is a corner than any other flip
   if( isFilled(0,0) ) {
-    value += isWhite(0,0) ? cornerVal : -cornerVal;
+    val += isWhite(0,0) ? cornerVal : -cornerVal;
   }
   if( isFilled(0,7) ) {
-    value += isWhite(0,7) ? cornerVal : -cornerVal;
+    val += isWhite(0,7) ? cornerVal : -cornerVal;
   }
   if( isFilled(7,0) ) {
-    value += isWhite(7,0) ? cornerVal :  -cornerVal;
+    val += isWhite(7,0) ? cornerVal :  -cornerVal;
   }
   if( isFilled(7,7) ) {
-    value +=  isWhite(7,7) ? cornerVal : -cornerVal;
+    val +=  isWhite(7,7) ? cornerVal : -cornerVal;
   }
 #endif
 
-  return value;
+  return val;
 }
 
 /** 
