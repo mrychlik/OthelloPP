@@ -12,7 +12,7 @@
 #define GAME_TREE_HPP 1
 
 #include "Board.hpp"
-#include "AbstractStaticEvaluator.hpp"
+#include "StaticEvaluator.hpp"
 
 #include <cinttypes>
 #include <forward_list>
