@@ -331,7 +331,7 @@ TreeNode& TreeNode::getComputerMove(int depth) const
     // Choose a random move
     // Reshufle children first
     std::random_shuffle(children_.begin(), children_.end());        
-    return **children.begin();    
+    return children_.begin();    
   }
 }
 
