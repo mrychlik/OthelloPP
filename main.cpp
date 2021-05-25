@@ -12,6 +12,7 @@
 #include <string>
 #include <cstring>
 #include <iomanip>
+#include <ctime>
 
 #include <unistd.h>    /* For sleep */
 
@@ -82,6 +83,7 @@ int play(int game)
 
 int main_loop()
 {
+  std::srand(std::time(nullptr)); // use current time as seed for random generator
   int score[num_games] = {0};
   for(int game = 0; game < num_games; ++game) {
     try {
@@ -110,7 +112,6 @@ int main_loop()
 int main(int argc, char **argv)
 {
   int c;
-
   while (1) {
     //int this_option_optind = optind ? optind : 1;
     int option_index = 0;
