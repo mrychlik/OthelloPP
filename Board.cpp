@@ -206,9 +206,8 @@ bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y,
 {
   bool legal = false;
   for (int ray = 0; ray < 8; ++ray) { //iter over cardinal + diagonals
-    uint8_t distance = 1;
     int8_t end = 0;
-    while (end == 0) {
+    for(uint8_t distance = 1; end == 0; ++distance) {
       int8_t tmpx = x + distance * direction[ray][0];
       int8_t tmpy = y + distance * direction[ray][1];
 
@@ -218,8 +217,6 @@ bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y,
 	end = 2;		//ran into an empty space
       } else if( isWhite(tmpx, tmpy) == (player == WHITE) ) {
 	end = ( distance > 1 ) ? 3 : 4; //ran into own color late vs early
-      } else {
-	++distance;
       }
     }
     if (end == 3) {
