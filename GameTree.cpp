@@ -190,10 +190,7 @@ int TreeNode::minmax(int8_t depth, value_type alpha, value_type beta) const
  */
 bool TreeNode::isLeaf() const
 {
-  // TODO: The code below should work but it does not
-  //return !hasLegalMove(WHITE) && !hasLegalMove(BLACK);
-  // Below is a slow replacement
-  return moves(WHITE).empty() && moves(BLACK).empty();
+  return !hasLegalMove(WHITE) && !hasLegalMove(BLACK);
 }
 
 /** 
