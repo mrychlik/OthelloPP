@@ -22,6 +22,19 @@ struct StaticEvaluator {
    */
   typedef int value_type;
 
+  /**
+   * The top of the node value range. 
+   * 
+   */
+  static const value_type MAX_VAL = std::numeric_limits<value_type>::max();
+
+  /**
+   * The bottom of the node value range.
+   * 
+   */
+  static const value_type MIN_VAL = std::numeric_limits<value_type>::min();
+
+
   /** 
    * @param b
    * @param player
