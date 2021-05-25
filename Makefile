@@ -33,7 +33,6 @@ check: test_suite
 clean: 
 	-@rm *.o
 	-@rm $(PROGRAMS)
-	-@rm .depend
 
 doc: Doxyfile
 	doxygen $<
