@@ -72,7 +72,7 @@ public:
   }
 private:
 
-  static int cornerVal = 8;  /**<  how much more valuable is a corner than any other flip */
+  int cornerVal = 8;  /**<  how much more valuable is a corner than any other flip */
 
 };
 
