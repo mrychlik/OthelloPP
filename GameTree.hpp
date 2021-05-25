@@ -61,7 +61,7 @@ public:
   const children_type& children() const;
 
   TreeNode& getHumanMove(std::istream& s) const;
-  TreeNode& getComputerMove(int depth) const;
+  TreeNode& getComputerMove(StaticEvaluator& evaluator, int depth) const;
 
   int nodeCount(int depth) const;
 
