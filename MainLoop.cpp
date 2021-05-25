@@ -38,7 +38,7 @@ int play(int game)
   
   std::cout << root << std::endl;
   while(!root.isLeaf()) {
-    std::cout << static_cast<Board>(root)
+    std::cout << static_cast<Board>(root) << std::flush
 	      << "----------------------------------------------------------------\n" 
 	      << "Game #" << game << ": Player " << ( root.player() == Board::WHITE ? "WHITE" : "BLACK") << "\n"
 	      << "----------------------------------------------------------------\n"
