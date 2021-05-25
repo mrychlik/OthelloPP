@@ -36,10 +36,10 @@ TreeNode::TreeNode(Player player, const Board& board, int8_t x, int8_t y)
   : Board(board),
     isExpanded(false),
     children_(),
-    player_(player),
     minMaxVal(0),
     minMaxDepth(0),
     minMaxChild(nullptr),
+    player_(player),
     x_(x),
     y_(y)
 {      
