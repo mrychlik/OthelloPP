@@ -10,6 +10,7 @@
 
 #include "Board.hpp"
 #include "GameTree.hpp"
+#include "SimpleStaticEvaluator.hpp"
 
 #include <iostream>
 #include <cmath>
