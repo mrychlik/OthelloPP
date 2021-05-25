@@ -112,6 +112,7 @@ private:
   // As Board currently consumes 24 bytes, the TreeNode only 32
   mutable children_type children_;
 
+  mutable minmaxValue;		/**< Cached value by minmax */
   //// END: Mutable fields
 
   Player player_ : 1;		/**< Player to move  */
