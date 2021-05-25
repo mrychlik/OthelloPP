@@ -153,9 +153,9 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
 
   // The code could be refactored because Min and Max code is so
   // similar
-  TreeNode* bestChild = nullptr;
   if( player() == WHITE ) {	// maximizing player
     value_type bestVal = MIN_VAL;
+    TreeNode* bestChild = nullptr;
     for( auto child : children() ) {
       value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
       bestVal = std::max(bestVal, val);
@@ -169,6 +169,7 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
     minMaxChild = bestChild;
   } else {			// minimizing player
     value_type bestVal = MAX_VAL;
+    TreeNode* bestChild = nullptr;
     for( auto child : children() ) {
       value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
       bestVal = std::min(bestVal, val);
@@ -183,7 +184,7 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
   assert( minMaxVal != MAX_VAL);
   assert( minMaxVal != MIN_VAL);
   assert( minMaxChild != nullptr);
-
+  minMaxDepth = depth;
   return minMaxVal;
 }
 
