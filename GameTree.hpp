@@ -66,10 +66,16 @@ public:
 
   int nodeCount(int depth) const;
 
+  /** 
+   * @return x-coord of last move
+   */
   int TreeNode::x() const {
     return x_;
   }
 
+  /**
+   * @return x-coord of last move
+   */
   int TreeNode::y() const {
     return y_;
   }
