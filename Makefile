@@ -15,7 +15,7 @@ all: $(PROGRAMS)
 depend: .depend
 
 .depend: $(SRCS)
-	@-rm -f "$@"
+	-@rm -f "$@"
 	$(CXX) $(CXXFLAGS) -MM $^ > "$@"
 
 include .depend
