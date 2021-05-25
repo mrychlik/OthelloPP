@@ -12,6 +12,7 @@
 #include "GameTree.hpp"
 #include "SimpleStaticEvaluator.hpp"
 #include "CornerStaticEvaluator.hpp"
+#include "MainLoop.hpp"
 
 #include <iostream>
 #include <cmath>
@@ -155,10 +156,10 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
   }
 }
 
-BOOST_AUTO_TEST_CASE(main_loop)
+BOOST_AUTO_TEST_CASE(main_loop_test)
 {
-  max_depth[WHITE] = 12;
-  max_depth[BLACK] = 12;  
-  num_games = 1;
+  //max_depth[WHITE] = 12;
+  //max_depth[BLACK] = 12;  
+  //num_games = 1;
   mainLoop();
 }
