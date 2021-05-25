@@ -14,7 +14,8 @@
 #include <numeric>
 
 #include "GameTree.hpp"
-#include "SimpleStaticEvaluator.hpp"
+//#include "SimpleStaticEvaluator.hpp"
+#include "CornerStaticEvaluator.hpp"
 
 
 const int DEFAULT_NUM_GAMES = 10; /**< Number of games to play by default */
