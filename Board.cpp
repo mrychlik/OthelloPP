@@ -376,7 +376,7 @@ bool Board::hasLegalMove(Player player) const {
   uint8_t flipRadius[8];
   for(auto x = 0; x < 8; ++x)
     for(auto y = 0; y < 8; ++y)    
-      if( findFlipRadius(player, x, y, flipRadius, true) )
+      if( !isFilled(x, y) && findFlipRadius(player, x, y, flipRadius, true) )
 	return true;
   return false;
 }
