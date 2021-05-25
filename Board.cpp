@@ -64,7 +64,7 @@ static constexpr int direction[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{
  */
 bool Board::print_size_big = true;
 
-bool Board::clear_screen_before_printing = true;
+bool Board::clear_screen_before_printing = false;
 
 /** 
  * Is there a tile at (x,y)?
