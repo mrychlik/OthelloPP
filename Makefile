@@ -23,7 +23,7 @@ OTHELLO_OBJS = main.o Board.o GameTree.o MainLoop.o
 othello: $(OTHELLO_OBJS)
 	$(CXX) $(CXXFLAGS) $(OTHELLO_OBJS) -o $@ $(LDFLAGS)
 
-UNIT_OBJS = unit_tests.o testlib.o Board.o GameTree.o
+UNIT_OBJS = unit_tests.o testlib.o Board.o GameTree.o MainLoop.o
 test_suite: $(UNIT_OBJS)
 	$(CXX) $(CXXFLAGS) $(UNIT_OBJS) -o $@ $(LDFLAGS)
 
