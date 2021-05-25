@@ -28,8 +28,6 @@
  *    2. Generation of moves from any board position for each player
  *    4. Computing the score (the number of white
  *       minus the number of black pieces)
- *    5. Computing heuristic (static) value of the board
- *       position.
  * 
  */
 class Board {
