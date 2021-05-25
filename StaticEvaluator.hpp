@@ -38,9 +38,7 @@ struct StaticEvaluatorTraits {
 /**
  * We use int as return value of functions that in principle should
  * return values in the range [MIN_VAL,MAX_VAL]. If this
- * changed, things would break. The rationale for small
- * value_type is that we may want to cache it in Board
- * instances at some point.
+ * changed, things would break. 
  * 
  */
 static_assert(sizeof(StaticEvaluator::value_type) <= sizeof(int));
