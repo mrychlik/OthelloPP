@@ -146,6 +146,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
+    minMaxChild = this;
     minMaxVal = evaluator(*this, player(), depth);
   } else if(minMaxDepth == depth) { // depth > 0
     assert(minMaxChild == this);
