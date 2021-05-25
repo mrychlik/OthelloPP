@@ -34,8 +34,8 @@
  */
 class Board {
 public:
-  static bool print_size_big;
-  static bool clear_screen_before_printing;
+  static bool print_size_big;	/**< Use big size for printing */
+  static bool clear_screen_before_printing; /**< Clear screen before printing board */
 
   /**
    * A player, definitely not bool.
