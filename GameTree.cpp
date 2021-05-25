@@ -359,12 +359,17 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
   // Delete children other than other;
   // Since children_ is mutable, nothing
   // bad should happen
+  bool isOtherChild = false;
   for(auto child : children_) {
     if(child != &other) {
       delete child;
+    } else {
+      isOtherChild = true;
     }
   }
-
+  if(!isOtherChild) {
+    throw std::logic_error("We can only copy-assign childen");
+  }
   children_.clear();
   isExpanded = false;
   
@@ -385,9 +390,6 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
 
   x_ = other.x_;
   y_ = other.y_;
-
-  minmaxValue = other.minmaxValue;
-  minmaxDepth = other.minmaxDepth;
 
   return *this;
 }
