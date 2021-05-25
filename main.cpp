@@ -132,7 +132,7 @@ int main(int argc, char **argv)
   printf("max_depth[WHITE]: %d\n", max_depth[Board::WHITE]);      
   printf("max_depth[BLACK]: %d\n", max_depth[Board::BLACK]);      
   printf("Board print size: %s\n", Board::print_size_big ? "BIG" : "SMALL");
-  printf("Clear screen before printing: %s", Board::clear_screen_before_printing ? "ON" : "OFF");
+  printf("Clear screen before printing: %s\n", Board::clear_screen_before_printing ? "ON" : "OFF");
 
   exit(main_loop());
 }
