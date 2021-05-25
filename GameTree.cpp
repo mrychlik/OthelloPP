@@ -116,7 +116,6 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << "\nPlayer to move: " << ( ( tree.player() == Board::WHITE ) ? "WHITE" : "BLACK" )
     << "\nLast filled x: " << tree.x()
     << "\nLast filled y: " << tree.y()
-    << "\nStatic value: " << static_cast<int>(tree.value())
     << std::endl;
 
   if(tree.isExpanded && TreeNode::print_recursively) {
