@@ -73,10 +73,10 @@ int play(int game)
     std::cout << root << std::flush
 	      << "BLACK won!!! Score " << root.score()
 	      << std::endl;
-    
-	      
   } else {
-    std::cout << "It's a DRAW!!!\n" << root << std::endl;    
+    std::cout << root << std::flush
+	      << "It's a DRAW!!!\n"
+	      << std::endl;    
   }
   return root.score();
 }
