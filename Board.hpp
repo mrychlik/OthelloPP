@@ -63,7 +63,7 @@ public:
    * Board value type
    * 
    */
-  typedef int8_t value_type;
+  typedef int value_type;
 
 public:
   Board();
