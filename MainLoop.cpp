@@ -49,7 +49,7 @@ int play(int game)
     } else {			// not human
       ::sleep(computer_delay);
       root = root.getComputerMove(max_depth[root.player()]);
-      std::cout << static_cast<Board>(root)
+      std::cout << static_cast<Board>(root) << std::flush
 		<< "----------------------------------------------------------------\n"
 		<< "Game #" << game << ": Computer played: " << root.x() << " " << root.y() << "\n"
 		<< "----------------------------------------------------------------\n" 
