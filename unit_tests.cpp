@@ -161,5 +161,5 @@ BOOST_AUTO_TEST_CASE(main_loop_test)
   //max_depth[WHITE] = 12;
   //max_depth[BLACK] = 12;  
   //num_games = 1;
-  mainLoop();
+  main_loop();
 }
