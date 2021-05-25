@@ -10,14 +10,18 @@
 #ifndef STATIC_EVALUATOR_HPP
 #define STATIC_EVALUATOR_HPP
 
+/**
+ * Virtual base class of all static evaluators
+ * 
+ */
 struct StaticEvaluator {
-  virtual int operator()(const Board& b, Board::Player player, int depth) const;
+  virtual int operator()(const Board& b, Board::Player player, int depth) const = 0;
 };
 
 
 struct StaticEvaluatorSimple : public StaticEvaluator
 {
-  int operator()(const Board& b)  const
+  int operator()(const Board& b, Board::Player player, int depth) const
   {
     return b.score();
   }
