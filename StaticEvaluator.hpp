@@ -39,7 +39,7 @@ struct StaticEvaluatorTraits {
  * We use int as return value of functions that in principle should
  * return values in the range [MIN_VAL,MAX_VAL]. If this
  * changed, things would break. The rationale for small
- * Board::value_type is that we may want to cache it in Board
+ * value_type is that we may want to cache it in Board
  * instances at some point.
  * 
  */
