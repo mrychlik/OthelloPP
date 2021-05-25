@@ -1,3 +1,7 @@
+SRCS = $
+
+.INCLUDE: Makefile.defs
+
 # No threads yet!!!
 #CXXFLAGS = -std=c++20 -O3 -ggdb3 -Wall -fomit-frame-pointer
 CXXFLAGS = -std=c++20 -Og -O0 -ggdb3 -Wall
@@ -8,10 +12,12 @@ PROGRAMS =  othello test_suite
 
 all: $(PROGRAMS)
 
-main.o: Board.hpp MainLoop.hpp
-Board.o: Board.hpp
-GameTree.o: GameTree.hpp Board.hpp
-MainLoop.o: GameTree.hpp SimpleStaticEvaluator.hpp StaticEvaluator.hpp
+# main.o: Board.hpp MainLoop.hpp
+# Board.o: Board.hpp
+# GameTree.o: GameTree.hpp Board.hpp
+# MainLoop.o: GameTree.hpp SimpleStaticEvaluator.hpp StaticEvaluator.hpp
+
+include $(wildcard $(SRCS:.cpp=.d))
 
 OBJS = main.o Board.o GameTree.o MainLoop.o
 othello: $(OBJS)
