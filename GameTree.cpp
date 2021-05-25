@@ -180,11 +180,9 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
     }
   }
   minMaxVal = bestVal;
-  minMaxChild = bestChild;
 
   assert( minMaxVal != MAX_VAL);
   assert( minMaxVal != MIN_VAL);
-  assert( minMaxChild != nullptr);
 
   return minMaxVal;
 }
