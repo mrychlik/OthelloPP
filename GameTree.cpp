@@ -146,24 +146,27 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
-    return evaluator(*this, player(), depth);
-  } else if(minMaxDepth == depth) {
+    minMaxVal = evaluator(*this, player(), depth);
+  } else if(minMaxDepth == depth) { // depth > 0
+    return minMaxVal;
   }
 
   // The code could be refactored because Min and Max code is so
   // similar
-  value_type minMaxVal;
+  TreeNode bestChild;
   if( player() == WHITE ) {	// maximizing player
     value_type bestVal = MIN_VAL;
     for( auto child : children() ) {
       value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
       bestVal = std::max(bestVal, val);
+      bestChild = child;
       alpha = std::max(alpha, bestVal);
       if( beta <= alpha) {
 	break;
       }
     }
     minMaxVal = bestVal;
+    minMaxChild = bestChild;
   } else {			// minimizing player
     value_type bestVal = MAX_VAL;
     for( auto child : children() ) {
@@ -175,6 +178,7 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
       }
     }
     minMaxVal = bestVal;
+    minMaxChild = bestChild;
   }
   assert( minMaxVal != MAX_VAL);
   assert( minMaxVal != MIN_VAL);
