@@ -45,9 +45,9 @@ int play(int game)
 	      << std::endl;
     if( humanPlayer[root.player()] ) {
       root = root.getHumanMove(std::cin);
-      std::cout << static_cast<Board>(root)
-		<< "Human played: " << root.x() << " " << root.y() << std::endl;
+      std::cout << "Human played: " << root.x() << " " << root.y() << std::endl;
     } else {			// not human
+      ::sleep(computer_delay);
       root = root.getComputerMove(max_depth[root.player()]);
       std::cout << static_cast<Board>(root)
 		<< "----------------------------------------------------------------\n"
