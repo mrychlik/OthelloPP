@@ -8,34 +8,39 @@
  * 
  */
 
+struct StaticEvaluator {
+  int operator()(const Board& b)  const = delete; 
+};
+
+
 struct StaticEvaluatorSimple : public StaticEvaluator
 {
-  int opertor()(const Board& b)  const
+  int operator()(const Board& b)  const
   {
-    return b->score();
+    return b.score();
   }
 };
 
 struct StaticEvaluatorWithCorners : StaticEvaluator
 {
-  int opertor()(const Board& b)  const
+  int operator()(const Board& b)  const
   {
-    auto val = score();
+    auto val = b.score();
 
     // NOTE: (M.R.) This handicap seems to disproportionately award WHITE.
     //maybe add linear change to value of score vs terriory?
 
-    static const int cornerVal = ::ceil(0.3 * ( numTiles() - 20)); //how much more valuable is a corner than any other flip
-    if( isFilled(0,0) ) {
-      val += isWhite(0,0) ? cornerVal : -cornerVal;
+    static const int cornerVal = 8; //how much more valuable is a corner than any other flip
+    if( b.isFilled(0,0) ) {
+      val += b.isWhite(0,0) ? cornerVal : -cornerVal;
     }
-    if( isFilled(0,7) ) {
+    if( b.isFilled(0,7) ) {
       val += isWhite(0,7) ? cornerVal : -cornerVal;
     }
-    if( isFilled(7,0) ) {
-      val += isWhite(7,0) ? cornerVal :  -cornerVal;
+    if( b.isFilled(7,0) ) {
+      val += b.isWhite(7,0) ? cornerVal :  -cornerVal;
     }
-    if( isFilled(7,7) ) {
+    if( b.isFilled(7,7) ) {
       val +=  isWhite(7,7) ? cornerVal : -cornerVal;
     }
     return val;
