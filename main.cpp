@@ -9,12 +9,6 @@
  */
 
 #include <iostream>
-#include <string>
-#include <cstring>
-#include <iomanip>
-#include <ctime>
-
-#include <unistd.h>    /* For sleep */
 
 #include "GameTree.hpp"
 #include "Board.hpp"
