@@ -66,8 +66,8 @@ public:
 
   int nodeCount(int depth) const;
 
-  int x() const;		/**< x-coord of the last move */
-  int y() const;		/**< y-coord of the last move */
+  int x() const;
+  int y() const;
 
   Player player() const { return player_; };
 
