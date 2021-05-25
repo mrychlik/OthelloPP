@@ -158,7 +158,6 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
 	break;
       }
     }
-    minmaxValue = bestVal;
   } else {			// minimizing player
     value_type bestVal = MAX_VAL;
     for( auto child : children() ) {
@@ -169,10 +168,7 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
 	break;
       }
     }
-    minmaxValue = bestVal;
   }
-  minmaxDepth = depth;
-
   assert( minmaxValue != MAX_VAL);
   assert( minmaxValue != MIN_VAL);
 
