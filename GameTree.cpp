@@ -141,7 +141,7 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
 {
   if(depth <= 0 || isLeaf() ) {
     return evaluator(*this, player(), depth);
-  } elseif(minmaxDepth == depth) {
+  } else if(minmaxDepth == depth) {
     return minmaxValue;
   }
 
