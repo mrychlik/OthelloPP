@@ -66,6 +66,7 @@ public:
 
   int x() const;
   int y() const;
+
   Player player() const { return player_; };
 
   int minmax(StaticEvaluator& evaluator,
