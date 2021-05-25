@@ -17,7 +17,7 @@
  * Uses score and the value of the corners.
  * 
  */
-class CornerStaticEvaluator : public StaticEvaluator
+class CornerStaticEvaluator : public StaticEvaluator, private StaticEvaluatorTraits
 {
 public:
   static const int DEFAULT_CORNER_VALUE = 8; /**< Default value for corner */
