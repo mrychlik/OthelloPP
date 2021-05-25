@@ -19,9 +19,9 @@ depend: .depend
 include .depend
 ### End of autogeneration of header dependencies
 
-OBJS = main.o Board.o GameTree.o MainLoop.o
-othello: $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDFLAGS)
+OTHELLO_OBJS = main.o Board.o GameTree.o MainLoop.o
+othello: $(OTHELLO_OBJS)
+	$(CXX) $(CXXFLAGS) $(OTHELLO_OBJS) -o $@ $(LDFLAGS)
 
 UNIT_OBJS = unit_tests.o testlib.o Board.o GameTree.o
 test_suite: $(UNIT_OBJS)
