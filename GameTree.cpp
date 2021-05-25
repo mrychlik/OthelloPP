@@ -315,21 +315,23 @@ int TreeNode::nodeCount(int depth) const
 TreeNode& TreeNode::getComputerMove(int depth) const
 {
   assert(!isLeaf());
-  assert(depth >= 1);
+  if(depth >= 1) {
+    std::vector<TreeNode *> bestChildren;
 
-  std::vector<TreeNode *> bestChildren;
-
-  auto bestVal = minmax(depth);
-  for(auto child : children()) {
-    if(child->minmaxValue == bestVal) {
-      bestChildren.push_back(child);
+    auto bestVal = minmax(depth);
+    for(auto child : children()) {
+      if(child->minmaxValue == bestVal) {
+	bestChildren.push_back(child);
+      }
     }
-  }
-  if(bestChildren.empty()) {
-    throw std::logic_error("Asked for computer move when there is none");
-  } else {
+    assert(!bestChildren.empty());
     std::random_shuffle(bestChildren.begin(), bestChildren.end());    
     return **bestChildren.begin();
+  } else {			// depth <= 1
+    // Choose a random move
+    // Reshufle children first
+    std::random_shuffle(children_.begin(), children_.end());        
+    return **children.begin();    
   }
 }
 
