@@ -1,4 +1,4 @@
-SRCS = main.cpp Board.cpp GameTree.cpp MainLoop.cpp unit_tests.cpp testlib.cpp Board.cpp GameTree.cpp
+SRCS = $(wildcard *.cpp)
 
 
 # No threads yet!!!
