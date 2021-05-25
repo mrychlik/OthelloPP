@@ -74,7 +74,7 @@ public:
   }
 
   /**
-   * @return x-coord of last move
+   * @return y-coord of last move
    */
   int TreeNode::y() const {
     return y_;
