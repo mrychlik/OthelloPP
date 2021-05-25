@@ -26,7 +26,7 @@
  *       if the square is occupied (filled) and
  *       what color is the piece
  *    2. Generation of moves from any board position for each player
- *    4. Computint the score (the number of white
+ *    4. Computing the score (the number of white
  *       minus the number of black pieces)
  *    5. Computing heuristic (static) value of the board
  *       position.
