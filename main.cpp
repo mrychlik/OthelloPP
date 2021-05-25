@@ -85,14 +85,14 @@ int main_loop()
     } catch(std::runtime_error& e) {
       std::cout << "Game # " << game << ": "
 		<< e.what() << std::endl;
-      return 1;
+      return EXIT_SUCCESS;
     }
   }
   std::cout << std::setw(5) << "Game" << std::setw(10) << "Score" << std::endl;
   for(int game = 0; game < num_games; ++game) {
     std::cout << std::setw(5) <<  game << std::setw(10) << score[game] << std::endl;
   }
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 
@@ -182,7 +182,7 @@ int main(int argc, char **argv)
     while (optind < argc)
       printf("%s ", argv[optind++]);
     printf("\n");
-    return 1;
+    return exit(EXIT_FAILURE);
   }
 
   // Report on the values of parameters
