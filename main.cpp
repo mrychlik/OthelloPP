@@ -138,7 +138,6 @@ int main(int argc, char **argv)
       break;
     case 'B':
       max_depth[Board::BLACK] = atoi(optarg);
-      printf("max_depth[BLACK]: %d\n", max_depth[Board::WHITE]);      
       break;
 
     case 'D':
