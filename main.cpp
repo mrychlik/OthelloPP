@@ -134,6 +134,6 @@ int main(int argc, char **argv)
   printf("Board print size: %s\n", Board::print_size_big ? "BIG" : "SMALL");
   printf("Clear screen before printing: %s\n", Board::clear_screen_before_printing ? "ON" : "OFF");
 
-  exit(main_loop());
+  exit(main_loop(std::cin, std::cout));
 }
 
