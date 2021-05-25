@@ -31,9 +31,11 @@ int main(int argc, char **argv)
       {"human_plays_white",   no_argument,       0,  'w' },
       {"human_player_black",  no_argument,       0,  'b' },
       {"computer_delay",      required_argument, 0,  'd' },
+      {"print_small",         no_argument,       0,  'p' },
+      {"print_big",           no_argument,       0,  'P' },
       {0,         0,                 0,  0 }
     };
-    c = getopt_long(argc, argv, "d:D:W:B:g:wbn:",
+    c = getopt_long(argc, argv, "d:D:W:B:g:wbn:Pp",
 		    long_options, &option_index);
     if (c == -1)
       break;
