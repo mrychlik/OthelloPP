@@ -119,16 +119,6 @@ int Board::score () const {
 }
 
 /** 
- * Static evaluator?
- * 
- * 
- * @return 
- */
-int Board::value() const {
-  return static_evaluator();
-}
-
-/** 
  * Returns the number of tiles on the board.
  * 
  * 
@@ -301,7 +291,6 @@ std::ostream& Board::printSmall(std::ostream& s) const {
 
   s << " 01234567\n";
   s << "Score: " << score()
-    << "\nStatic value: " << value()
     << "\nNumber of tiles: " << numTiles()
     << "\nNumber of white tiles: " << numWhiteTiles()    
     << "\nNumber of black tiles: " << numBlackTiles()    
@@ -375,52 +364,3 @@ Board::operator std::string() const {
   return buf.str();
 }
 
-
-int Board::staticEvaluatorBasic() const {
-  auto val = score();
-
-  if( numTiles() > 20) {
-    // NOTE: (M.R.) This handicap seems to disproportionately award WHITE.
-    //maybe add linear change to value of score vs terriory?
-
-    static const int cornerVal = ::ceil(0.3 * ( numTiles() - 20)); //how much more valuable is a corner than any other flip
-    if( isFilled(0,0) ) {
-      val += isWhite(0,0) ? cornerVal : -cornerVal;
-    }
-    if( isFilled(0,7) ) {
-      val += isWhite(0,7) ? cornerVal : -cornerVal;
-    }
-    if( isFilled(7,0) ) {
-      val += isWhite(7,0) ? cornerVal :  -cornerVal;
-    }
-    if( isFilled(7,7) ) {
-      val +=  isWhite(7,7) ? cornerVal : -cornerVal;
-    }
-
-  }
-
-  return val;
-}
-
-int Board::staticEvaluatorWithCorners() const {
-  auto val = score();
-
-  // NOTE: (M.R.) This handicap seems to disproportionately award WHITE.
-  //maybe add linear change to value of score vs terriory?
-
-  static const int cornerVal = ::ceil(0.3 * ( numTiles() - 20)); //how much more valuable is a corner than any other flip
-  if( isFilled(0,0) ) {
-    val += isWhite(0,0) ? cornerVal : -cornerVal;
-  }
-  if( isFilled(0,7) ) {
-    val += isWhite(0,7) ? cornerVal : -cornerVal;
-  }
-  if( isFilled(7,0) ) {
-    val += isWhite(7,0) ? cornerVal :  -cornerVal;
-  }
-  if( isFilled(7,7) ) {
-    val +=  isWhite(7,7) ? cornerVal : -cornerVal;
-  }
-
-  return val;
-}
