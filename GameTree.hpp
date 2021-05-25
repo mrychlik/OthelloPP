@@ -70,7 +70,7 @@ public:
 
   Player player() const { return player_; };
 
-  int minmax(StaticEvaluator& evaluator,
+  int minmax(const StaticEvaluator& evaluator,
 	     int8_t depth,
 	     value_type alpha = MIN_VAL,
 	     value_type beta = MAX_VAL) const;
