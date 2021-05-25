@@ -116,9 +116,6 @@ private:
 
   Player player_ : 1;		/**< Player to move  */
 
-  mutable value_type minmaxValue; /**< minmax cached value  */
-  mutable uint8_t minmaxDepth;	  /**< minmax cached depth */
-
   int x_ : 4;			/**< x of last placed piece, or -1 */
   int y_ : 4;			/**< y of last placed piece, or -1 */
 };
