@@ -12,7 +12,7 @@
 #define ABSTRACT_STATIC_EVALUATOR_HPP
 
 /**
- * Virtual base class of all static evaluators
+ * Abstract base class of all static evaluators
  * 
  */
 struct AbstractStaticEvaluator {
