@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_CASE(tree_minmax)
 {
   TreeNode root;
   int depth = 16;
-  StaticEvaluatorSimple evaluator;
+  SimpleStaticEvaluator evaluator;
   std::cout << "\nDepth: " << depth
 	    << "\nMinMax value: " << root.minmax(evaluator, depth)
     	    << std::endl;
