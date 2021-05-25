@@ -98,7 +98,7 @@ bool Board::isWhite(uint8_t x, uint8_t y) const {
  * 
  * @return 
  */
-bool Board::isWhite(uint8_t x, uint8_t y) const {
+bool Board::isBlack(uint8_t x, uint8_t y) const {
   return getbit(filled^white, x, y);
 };
 
