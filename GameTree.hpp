@@ -113,6 +113,7 @@ private:
   mutable children_type children_;
 
   mutable value_type minMaxVal; /**< Cached value by minmax */
+  mutable value_type minMaxDepth; /**< Search depth used by minmax */
   mutable TreeNode* minMaxChild; /**< Best child found by minmax */
   //// END: Mutable fields
 
