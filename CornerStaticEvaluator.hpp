@@ -11,6 +11,8 @@
 #ifndef CORNER_STATIC_EVALUATOR_HPP
 #define CORNER_STATIC_EVALUATOR_HPP
 
+#include "StaticEvaluator.hpp"
+
 /**
  * Uses score and the value of the corners.
  * 
