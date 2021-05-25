@@ -128,6 +128,7 @@ int Board::value() const {
 
 #if 0
 
+  // NOTE: (M.R.) This handicap seems to disproportionately award WHITE.
   //maybe add linear change to value of score vs terriory?
 
   static const int cornerVal = 8; //how much more valuable is a corner than any other flip
