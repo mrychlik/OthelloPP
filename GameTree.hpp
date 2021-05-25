@@ -5,7 +5,7 @@
  * 
  * @brief  Game tree 
  * 
- * 
+ * Generates nodes in a lazy fashion.
  */
 
 #ifndef GAME_TREE_HPP
