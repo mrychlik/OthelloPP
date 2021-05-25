@@ -8,7 +8,6 @@
  * 
  */
 
-#include "GameTree.hpp"
 #include "Board.hpp"
 #include "MainLoop.hpp"
 #include <cstdio>     /* for printf */
