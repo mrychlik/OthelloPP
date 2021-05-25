@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <ctime>
 #include <iomanip>
+#include <numeric>
 
 #include "GameTree.hpp"
 
@@ -95,10 +96,14 @@ int main_loop()
       return EXIT_SUCCESS;
     }
   }
+  auto average = static_cast<float>(std::accumulate(score, score + num_games, 0)) / num_games;
   std::cout << std::setw(5) << "Game" << std::setw(10) << "Score" << std::endl;
   for(int game = 0; game < num_games; ++game) {
     std::cout << std::setw(5) <<  game << std::setw(10) << score[game] << std::endl;
   }
+  std::cout << "-----------------\n"
+	    << "Average: " << std::setprecision(2) << average << std::endl;
+  
   return EXIT_SUCCESS;
 }
 
