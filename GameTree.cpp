@@ -15,7 +15,6 @@
 
 #include "GameTree.hpp"
 #include "Board.hpp"
-#include "StaticEvaluator.hpp"
 
 #include <iostream>
 #include <algorithm>
