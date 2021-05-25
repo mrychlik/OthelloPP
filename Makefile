@@ -11,6 +11,7 @@ PROGRAMS =  othello test_suite
 
 all: $(PROGRAMS)
 
+### A simple way to autogenerate header dependencies
 depend: .depend
 
 .depend: $(SRCS)
@@ -18,6 +19,7 @@ depend: .depend
 	$(CXX) $(CXXFLAGS) -MM $^ > "$@"
 
 include .depend
+### End of autogeneration of header dependencies
 
 OBJS = main.o Board.o GameTree.o MainLoop.o
 othello: $(OBJS)
@@ -33,6 +35,7 @@ check: test_suite
 clean: 
 	-@rm *.o
 	-@rm $(PROGRAMS)
+	-@rm .depend
 
 doc: Doxyfile
 	doxygen $<
