@@ -169,10 +169,10 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
       }
     }
   }
-  assert( minmaxValue != MAX_VAL);
-  assert( minmaxValue != MIN_VAL);
+  assert( bestVal != MAX_VAL);
+  assert( bestVal != MIN_VAL);
 
-  return minmaxValue;
+  return bestVal;
 }
 
 /** 
