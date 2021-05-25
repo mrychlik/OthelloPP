@@ -1,6 +1,5 @@
-SRCS = $
+SRCS = main.cpp Board.cpp GameTree.cpp MainLoop.cpp unit_tests.cpp testlib.cpp Board.cpp GameTree.cpp
 
-.INCLUDE: Makefile.defs
 
 # No threads yet!!!
 #CXXFLAGS = -std=c++20 -O3 -ggdb3 -Wall -fomit-frame-pointer
@@ -12,12 +11,13 @@ PROGRAMS =  othello test_suite
 
 all: $(PROGRAMS)
 
-# main.o: Board.hpp MainLoop.hpp
-# Board.o: Board.hpp
-# GameTree.o: GameTree.hpp Board.hpp
-# MainLoop.o: GameTree.hpp SimpleStaticEvaluator.hpp StaticEvaluator.hpp
+depend: .depend
 
-include $(wildcard $(SRCS:.cpp=.d))
+.depend: $(SRCS)
+	rm -f "$@"
+	$(CXX) $(CXXFLAGS) -MM $^ > "$@"
+
+include .depend
 
 OBJS = main.o Board.o GameTree.o MainLoop.o
 othello: $(OBJS)
