@@ -15,7 +15,7 @@
  * Abstract base class of all static evaluators
  * 
  */
-struct AbstractStaticEvaluator {
+struct StaticEvaluator {
   /** 
    * @param b
    * @param player
