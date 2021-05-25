@@ -21,7 +21,8 @@ public:
   static const int DEFAULT_CORNER_VALUE = 8; /**< Default value for corner */
 
   CornerStaticEvaluator(int cornerVal = DEFAULT_CORNER_VALUE) : cornerVal(cornerVal) { }
-  int operator()(const Board& b)  const
+
+  int operator()(const Board& b, Board::Player player, int depth) const
   {
     auto val = b.score();
 
