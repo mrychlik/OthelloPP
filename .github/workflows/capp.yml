@@ -15,12 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@main
     - name:  Check g++ version
-        run: |
-            g++ -v
+    run: |
+        g++ -v
     - name: Compile
-        run: |
-            pwd
-            make --debug=v
+    run: |
+        pwd
+        make --debug=v
     - name: Execute
-        run: |
-            ./test_suite
+    run: |
+        ./test_suite
