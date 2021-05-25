@@ -83,6 +83,7 @@ int play(int game)
 
 int main_loop()
 {
+  // Seed random number generator, as sometimes we will make random moves
   std::srand(std::time(nullptr)); // use current time as seed for random generator
   int score[num_games] = {0};
   for(int game = 0; game < num_games; ++game) {
