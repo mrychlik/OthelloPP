@@ -129,7 +129,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
 /** 
  * Runs the minmax algorithm with alpha-beta pruning on the
  * tree starting from this node. 
-
+ *
  * We cache these computer values for the node and descendents as
  * minmaxDepth and minmaxValue. However, these values are
  * not valid if the evaluator is changed.
