@@ -117,9 +117,10 @@ int main(int argc, char **argv)
       {"num_games",           required_argument, 0,  'n' },      
       {"human_plays_white",   no_argument,       0,  'w' },
       {"human_player_black",  no_argument,       0,  'b' },
+      {"computer_delay",      required_argument, 0,  'd' },
       {0,         0,                 0,  0 }
     };
-    c = getopt_long(argc, argv, "D:W:B:g:wb",
+    c = getopt_long(argc, argv, "D:W:B:g:wbd:",
 		    long_options, &option_index);
     if (c == -1)
       break;
@@ -143,6 +144,10 @@ int main(int argc, char **argv)
     case 'D':
       max_depth[Board::WHITE] = atoi(optarg);
       max_depth[Board::BLACK] = max_depth[Board::WHITE];
+      break;
+
+    case 'd':
+      computer_delay = atoi(optarg);
       break;
 
     case 'n':
