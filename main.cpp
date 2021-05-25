@@ -36,7 +36,7 @@ int main(int argc, char **argv)
       {"clear_screen",        no_argument,       0,  'C' },
       {0,         0,                 0,  0 }
     };
-    c = getopt_long(argc, argv, "d:D:W:B:g:wbn:Pp",
+    c = getopt_long(argc, argv, "d:D:W:B:g:wbn:PpC",
 		    long_options, &option_index);
     if (c == -1)
       break;
