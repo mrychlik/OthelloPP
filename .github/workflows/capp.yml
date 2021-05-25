@@ -1,4 +1,4 @@
-name: Make C++ project
+name: Make C++ project OthelloPP
 
 on:
   push:
