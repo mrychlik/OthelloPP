@@ -54,7 +54,6 @@ public:
   ~TreeNode();
 
   TreeNode& operator=(const TreeNode& other); 
-
   
   bool isLeaf() const;
 
