@@ -72,6 +72,7 @@ public:
 
   int minmax(const StaticEvaluator& evaluator,
 	     int8_t depth,
+	     bool useCachedValue = true,
 	     value_type alpha = MIN_VAL,
 	     value_type beta = MAX_VAL) const;
 
