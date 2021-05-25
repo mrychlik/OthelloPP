@@ -17,6 +17,14 @@
 #include <stdlib.h>    /* for exit */
 #include <getopt.h>
 
+/** 
+ * 
+ * 
+ * @param argc 
+ * @param argv 
+ * 
+ * @return 
+ */
 int main(int argc, char **argv)
 {
   int c;

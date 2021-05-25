@@ -27,7 +27,7 @@ int num_games = DEFAULT_NUM_GAMES; /**< Number of games to play */
 int computer_delay = DEFAULT_COMPUTER_DELAY; /**< Number of seconds to wait after computer move */
 
 // Static evaluator we will be using
-static const StaticEvaluatorSimple staticEvaluator;
+static const SimpleStaticEvaluator staticEvaluator;
 
 /** 
  * Play a game, return the score.
@@ -85,6 +85,12 @@ int play(int game)
   return root.score();
 }
 
+/** 
+ * 
+ * 
+ * 
+ * @return 
+ */
 int main_loop()
 {
   // Seed random number generator, as sometimes we will make random moves

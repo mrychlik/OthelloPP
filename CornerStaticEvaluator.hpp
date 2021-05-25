@@ -22,6 +22,13 @@ class CornerStaticEvaluator : public StaticEvaluator
 public:
   static const int DEFAULT_CORNER_VALUE = 8; /**< Default value for corner */
 
+  /** 
+   * Constructor.
+   * 
+   * @param cornerVal 
+   * 
+   * @return 
+   */
   CornerStaticEvaluator(int cornerVal = DEFAULT_CORNER_VALUE) : cornerVal(cornerVal) { }
 
   int operator()(const Board& b, Board::Player player, int depth) const

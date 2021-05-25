@@ -341,13 +341,6 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluator& evaluator, int depth)
   }
 }
 
-int TreeNode::x() const {
-  return x_;
-}
-
-int TreeNode::y() const {
-  return y_;
-}
 
 /** 
  * This copy assignment notably allows a copy from

@@ -1,6 +1,7 @@
 # OthelloPP
+A C++ implementation of the game *Othello*.
 
-== The original author's README
+## The original author's README
 
 This is a rewrite of my original java othello playing script.
 
