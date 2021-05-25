@@ -38,6 +38,7 @@ TreeNode::TreeNode(Player player, const Board& board, int8_t x, int8_t y)
     children_(),
     player_(player),
     minMaxVal(0),
+    minMaxDepth(0),
     minMaxChild(nullptr),
     x_(x),
     y_(y)
