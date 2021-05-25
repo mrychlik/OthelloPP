@@ -11,7 +11,7 @@
 #define STATIC_EVALUATOR_HPP
 
 struct StaticEvaluator {
-  int operator()(const Board& b)  const = delete; 
+  virtual int operator()(const Board& b, Board::Player player, int depth) const;
 };
 
 
