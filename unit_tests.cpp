@@ -120,6 +120,17 @@ BOOST_AUTO_TEST_CASE(tree_minmax)
     	    << std::endl;
 }
 
+BOOST_AUTO_TEST_CASE(tree_minmax_corners)
+{
+  TreeNode root;
+  int depth = 16;
+  CornerStaticEvaluator evaluator;
+  std::cout << "\nDepth: " << depth
+	    << "\nMinMax value: " << root.minmax(evaluator, depth)
+    	    << std::endl;
+}
+
+
 BOOST_AUTO_TEST_CASE(tree_node_count)
 {
   TreeNode root;
