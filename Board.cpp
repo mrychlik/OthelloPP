@@ -204,6 +204,8 @@ bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y,
 			   uint8_t flipRadius[8],
 			   bool shortCircuit) const
 {
+  assert(!isFilled(x, y));
+
   bool legal = false;
   for (int ray = 0; ray < 8; ++ray) { //iter over cardinal + diagonals
     int8_t end = 0;
