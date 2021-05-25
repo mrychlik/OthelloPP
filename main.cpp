@@ -161,11 +161,12 @@ int main(int argc, char **argv)
 
     case 'w':
       humanPlayer[Board::WHITE] = true;
-      printf("WHITE played by Human.\n");
+      printf("User set for WHITE to be played by Human.\n");
       break;
 
     case 'b':
       humanPlayer[Board::BLACK] = true;
+      printf("User set for BLACK to be played by Human.\n");
       break;
 
     case '?':
