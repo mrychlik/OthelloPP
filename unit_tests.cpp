@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(tree_minmax_and_print)
 {
   TreeNode root;
   int depth = 5;
-  StaticEvaluatorSimple evaluator;
+  SimpleStaticEvaluator evaluator;
   root.minmax(evaluator, depth);
   std::cout << "\nDepth : " << depth << "\n"
 	    << root
