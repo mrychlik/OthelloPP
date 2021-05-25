@@ -26,6 +26,9 @@ bool humanPlayer[2] = {false, false}; /**< Which player is human? */
 int num_games = DEFAULT_NUM_GAMES; /**< Number of games to play */
 int computer_delay = DEFAULT_COMPUTER_DELAY; /**< Number of seconds to wait after computer move */
 
+// Static evaluator we will be using
+static const StaticEvaluatorSimple staticEvaluator;
+
 /** 
  * Play a game, return the score.
  * 
@@ -49,7 +52,7 @@ int play(int game)
       std::cout << "Human played: " << root.x() << " " << root.y() << std::endl;
     } else {			// not human
       ::sleep(computer_delay);
-      root = root.getComputerMove(max_depth[root.player()]);
+      root = root.getComputerMove(staticEvaluator, max_depth[root.player()]);
       std::cout << static_cast<Board>(root) << std::flush
 		<< "----------------------------------------------------------------\n"
 		<< "Game #" << game << ": Computer played: " << root.x() << " " << root.y() << "\n"
