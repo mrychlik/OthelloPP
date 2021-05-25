@@ -120,7 +120,7 @@ int main(int argc, char **argv)
       {"computer_delay",      required_argument, 0,  'd' },
       {0,         0,                 0,  0 }
     };
-    c = getopt_long(argc, argv, "D:W:B:g:wbd:",
+    c = getopt_long(argc, argv, "d:D:W:B:g:wb",
 		    long_options, &option_index);
     if (c == -1)
       break;
