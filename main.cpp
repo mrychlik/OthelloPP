@@ -16,7 +16,7 @@
 /* From this point on this is good old-fashioned C */
 
 
-#include <stdio.h>     /* for printf */
+#include <cstdio>     /* for printf */
 #include <stdlib.h>    /* for exit */
 #include <getopt.h>
 
