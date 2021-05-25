@@ -11,11 +11,11 @@
 #include "Board.hpp"
 #include "MainLoop.hpp"
 #include <cstdio>     /* for printf */
-#include <iostream>
+#include <cstdlib>    /* for exit */
 
 /* From this point on this is good old-fashioned C */
 
-#include <stdlib.h>    /* for exit */
+
 #include <getopt.h>
 
 /** 
@@ -135,6 +135,6 @@ int main(int argc, char **argv)
   printf("Board print size: %s\n", Board::print_size_big ? "BIG" : "SMALL");
   printf("Clear screen before printing: %s\n", Board::clear_screen_before_printing ? "ON" : "OFF");
 
-  exit(main_loop(std::cin, std::cout));
+  exit(main_loop());
 }
 
