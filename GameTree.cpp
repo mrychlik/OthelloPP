@@ -119,7 +119,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
     << "\nStatic value: " << static_cast<int>(tree.value())
     << "\nMinmax value: " << static_cast<int>(tree.minmaxValue)
     << "\nMinmax depth: " << static_cast<int>(tree.minmaxDepth)
-    << "\n----------------" << std::endl;
+    << std::endl;
 
   if(tree.isExpanded && TreeNode::print_recursively) {
     for(auto child : tree.children()) {
