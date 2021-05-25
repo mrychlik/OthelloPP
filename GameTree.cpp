@@ -15,6 +15,8 @@
 
 #include "GameTree.hpp"
 #include "Board.hpp"
+#include "StaticEvaluator.hpp"
+
 #include <iostream>
 #include <algorithm>
 #include <cassert>
@@ -36,8 +38,6 @@ TreeNode::TreeNode(Player player, const Board& board, int8_t x, int8_t y)
     isExpanded(false),
     children_(),
     player_(player),
-    minmaxValue(board.value()),
-    minmaxDepth(0),
     x_(x),
     y_(y)
 {      
@@ -133,13 +133,14 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
  * Runs the minmax algorithm with alpha-beta pruning on the
  * tree starting from this node. 
  * 
+ * @param evaluator Static evaluator to use
  * @param depth Traverse descendents up to this depth
  * @param alpha Most max can hope for
  * @param beta  Least min can hope for
  * 
  * @return Minmax value of this node
  */
-int TreeNode::minmax(int8_t depth, value_type alpha, value_type beta) const
+int TreeNode::minmax(StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
     minmaxValue = value();
