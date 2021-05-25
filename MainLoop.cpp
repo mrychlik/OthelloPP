@@ -123,7 +123,7 @@ int main_loop(std::istream& ins, std::ostream& os)
  * reads from std::cin and writes to std::cout
  *
  * NOTE: Having it makes it possible not to #include <iostream>
- * in main.hpp
+ * in MainLoop.hpp
  * 
  * 
  * @return 
