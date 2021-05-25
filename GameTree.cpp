@@ -141,7 +141,8 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
  */
 int TreeNode::minmax(int8_t depth, value_type alpha, value_type beta) const
 {
-  if( depth <= 0 || isLeaf() ) {
+  assert(depth >= 1);
+  if(isLeaf() ) {
     minmaxValue = value();
     minmaxDepth = 0;
     return minmaxValue;
