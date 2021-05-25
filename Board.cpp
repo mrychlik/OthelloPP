@@ -207,7 +207,8 @@ bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y,
   bool legal = false;
   for (int ray = 0; ray < 8; ++ray) { //iter over cardinal + diagonals
     int8_t end = 0;
-    for(uint8_t distance = 1; end == 0; ++distance) {
+    uint8_t distance = 1;
+    for(/* Empty */; end == 0; ++distance) {
       int8_t tmpx = x + distance * direction[ray][0];
       int8_t tmpy = y + distance * direction[ray][1];
 
