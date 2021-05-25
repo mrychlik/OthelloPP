@@ -10,7 +10,7 @@ main.o: Board.hpp GameTree.o
 Board.o: Board.hpp
 GameTree.o: GameTree.hpp Board.hpp
 
-OBJS = main.o Board.o GameTree.o
+OBJS = main.o Board.o GameTree.o MainLoop.o
 othello: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
