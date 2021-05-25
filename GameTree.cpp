@@ -141,6 +141,8 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
 {
   if(depth <= 0 || isLeaf() ) {
     return evaluator(*this, player(), depth);
+  } elseif(minmaxDepth == depth) {
+    return minmaxValue;
   }
 
   // The code could be refactored because Min and Max code is so
@@ -313,7 +315,7 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluator& evaluator, int depth)
 
     auto bestVal = minmax(evaluator, depth);
     for(auto child : children()) {
-      if(child->minmaxValue == bestVal) {
+      if(child->minmax(evaluator, depth-1) == bestVal) {
 	bestChildren.push_back(child);
       }
     }
