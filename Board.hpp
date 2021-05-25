@@ -5,7 +5,7 @@
  * 
  * @brief  Othello game board
  * 
- * 
+ * Uses 64-bit integer as an array of bits
  */
 
 #ifndef BOARD_HPP
@@ -56,12 +56,6 @@ public:
    * 
    */
   typedef std::forward_list<move_type> move_bag_type;
-
-  /** 
-   * Board value type
-   * 
-   */
-  typedef int value_type;
 
 public:
   Board();
@@ -127,15 +121,5 @@ private:
 inline Board::Player operator~(Board::Player player) {
   return player == Board::WHITE ? Board::BLACK : Board::WHITE;
 }
-
-/**
- * We use int as return value of functions that in principle should
- * return values in the range [Board::MIN_VAL,Board::MAX_VAL]. If this
- * changed, things would break. The rationale for small
- * Board::value_type is that we may want to cache it in Board
- * instances at some point.
- * 
- */
-static_assert(sizeof(Board::value_type) <= sizeof(int));
 
 #endif // BOARD_HPP
