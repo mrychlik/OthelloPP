@@ -38,7 +38,7 @@ int play(int game)
   
   std::cout << root << std::endl;
   while(!root.isLeaf()) {
-    std::cout << root
+    std::cout << static_cast<Board>(root)
 	      << "----------------------------------------------------------------\n" 
 	      << "Game #" << game << ": Player " << ( root.player() == Board::WHITE ? "WHITE" : "BLACK") << "\n"
 	      << "----------------------------------------------------------------\n"
@@ -48,7 +48,7 @@ int play(int game)
       std::cout << "Human played: " << root.x() << " " << root.y() << std::endl;
     } else {			// not human
       root = root.getComputerMove(max_depth[root.player()]);
-      std::cout << root
+      std::cout << static_cast<Board>(root)
 		<< "----------------------------------------------------------------\n"
 		<< "Game #" << game << ": Computer played: " << root.x() << " " << root.y() << "\n"
 		<< "----------------------------------------------------------------\n" 
