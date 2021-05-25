@@ -135,17 +135,18 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
  * not valid if the evaluator is changed.
  * 
  * @param evaluator Static evaluator to use
+ * @param useCachedValue Use value stored in the previous run
  * @param depth Traverse descendents up to this depth
  * @param alpha Most max can hope for
  * @param beta  Least min can hope for
  * 
  * @return Minmax value of this node
  */
-int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
+int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, bool useCachedValue, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
     return evaluator(*this, player(), depth);
-  } else if(minmaxDepth == depth) { // We have the cached value
+  } else if(minmaxDepth == depth && useCachedValue) { // We have the cached value
     return minmaxValue;
   }
 
