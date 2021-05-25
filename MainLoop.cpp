@@ -118,3 +118,14 @@ int main_loop(std::istream& ins, std::ostream& os)
   return EXIT_SUCCESS;
 }
 
+/** 
+ * A specialization of main_loop that
+ * reads from std::cin and writes to std::cout
+ * 
+ * 
+ * @return 
+ */
+int main_loop()
+{
+  return main_loop(std::cin, std::cout);
+}
