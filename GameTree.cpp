@@ -37,7 +37,6 @@ TreeNode::TreeNode(Player player, const Board& board, int8_t x, int8_t y)
     isExpanded(false),
     children_(),
     minMaxVal(0),
-    minMaxDepth(0),
     minMaxChild(this),
     player_(player),
     x_(x),
@@ -161,7 +160,6 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
       value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
       if(val > bestVal) {
 	bestVal = val;
-	bestChild = child;
       }
       alpha = std::max(alpha, bestVal);
       if( beta <= alpha) {
@@ -174,7 +172,6 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
       value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
       if(val < bestVal) {
 	bestVal = val;
-	bestChild = child;
       }
       beta = std::min(alpha, bestVal);
       if( beta <= alpha) {
@@ -184,10 +181,11 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
   }
   minMaxVal = bestVal;
   minMaxChild = bestChild;
+
   assert( minMaxVal != MAX_VAL);
   assert( minMaxVal != MIN_VAL);
   assert( minMaxChild != nullptr);
-  minMaxDepth = depth;
+
   return minMaxVal;
 }
 
