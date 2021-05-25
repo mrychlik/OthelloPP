@@ -84,6 +84,16 @@ int main(int argc, char **argv)
       printf("User set for BLACK to be played by Human.\n");
       break;
 
+    case 'p':
+      Board::print_size_big = false;
+      printf("User set for small board printing.\n");
+      break;
+
+    case 'P':
+      Board::print_size_big = true;
+      printf("User set for big board printing.\n");
+      break;
+
     case '?':
       break;
 
