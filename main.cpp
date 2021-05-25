@@ -33,6 +33,7 @@ int main(int argc, char **argv)
       {"computer_delay",      required_argument, 0,  'd' },
       {"print_small",         no_argument,       0,  'p' },
       {"print_big",           no_argument,       0,  'P' },
+      {"clear_screen",        no_argument,       0,  'C' },
       {0,         0,                 0,  0 }
     };
     c = getopt_long(argc, argv, "d:D:W:B:g:wbn:Pp",
