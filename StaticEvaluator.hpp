@@ -13,22 +13,6 @@
 #include "AbstractStaticEvaluator.hpp"
 
 /**
- * Virtual base class of all static evaluators
- * 
- */
-struct StaticEvaluator {
-  /** 
-   * @param b
-   * @param player
-   * @param depth
-   *
-   * @return 
-   */
-  virtual int operator()(const Board& b, Board::Player player, int depth) const = 0;
-};
-
-
-/**
  * Uses score as value of the board. 
  * 
  */
