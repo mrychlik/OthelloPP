@@ -11,6 +11,7 @@
 #include "Board.hpp"
 #include "MainLoop.hpp"
 #include <cstdio>     /* for printf */
+#include <iostream>
 
 /* From this point on this is good old-fashioned C */
 
