@@ -319,7 +319,7 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluator& evaluator, int depth)
 
     auto bestVal = minmax(evaluator, depth);
     for(auto child : children()) {
-      if(child->minmaxValue(evaluator, depth-1) == bestVal) {
+      if(child->minmax(evaluator, depth-1) == bestVal) {
 	bestChildren.push_back(child);
       }
     }
