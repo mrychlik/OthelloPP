@@ -3,6 +3,7 @@ CXXFLAGS = -std=c++2a
 #CXXFLAGS += -O3 -ggdb3 -Wall -fomit-frame-pointer
 CXXFLAGS +=-Og -O0 -ggdb3 -Wall
 #CXXFLAGS += -Ofast -ggdb3 -Wall
+
 LDFLAGS  = -lm -lboost_unit_test_framework
 
 SRCS = $(wildcard *.cpp)
