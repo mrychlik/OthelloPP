@@ -64,7 +64,7 @@ int play(int game)
 	    << "----------------------------------------------------------------\n"
 	    << "Game #" << game << ": THE GAME ENDED.\n"
 	    << "----------------------------------------------------------------\n"
-	    <<
+	    << std::endl;
   if( root.score() > 0) {
     std::cout << "WHITE won!!! Score " << root.score() << "\n"
 	      << root << std::endl;    
