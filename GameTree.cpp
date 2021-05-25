@@ -176,8 +176,10 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
     TreeNode* bestChild = nullptr;
     for( auto child : children() ) {
       value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
-      bestVal = std::min(bestVal, val);
-      bestChild = child;
+      if(val > bestVal) {
+	bestVal = val;
+	bestChild = child;
+      }
       beta = std::min(alpha, bestVal);
       if( beta <= alpha) {
 	break;
