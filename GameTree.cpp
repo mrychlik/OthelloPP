@@ -135,7 +135,6 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
  * 
  * @param evaluator Static evaluator to use
  * @param depth Traverse descendents up to this depth
- * @param useCachedValue Use value stored in the previous run
  * @param alpha Most max can hope for
  * @param beta  Least min can hope for
  * 
