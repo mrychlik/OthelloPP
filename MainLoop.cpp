@@ -27,10 +27,6 @@ bool humanPlayer[2] = {false, false}; /**< Which player is human? */
 int num_games = DEFAULT_NUM_GAMES; /**< Number of games to play */
 int computer_delay = DEFAULT_COMPUTER_DELAY; /**< Number of seconds to wait after computer move */
 
-// Static evaluator we will be using
-static const SimpleStaticEvaluator staticEvaluator;
-//static const CornerStaticEvaluator staticEvaluator;
-
 /** 
  * Play a game, return the score.
  * 
@@ -38,7 +34,7 @@ static const SimpleStaticEvaluator staticEvaluator;
  * 
  * @return Score
  */
-int play(int game)
+int play(int game, const StaticEvaluatorTable& evaluator)
 {
   TreeNode root;
   
@@ -54,7 +50,7 @@ int play(int game)
       std::cout << "Human played: " << root.x() << " " << root.y() << std::endl;
     } else {			// not human
       ::sleep(computer_delay);
-      root = root.getComputerMove(staticEvaluator, max_depth[root.player()]);
+      root = root.getComputerMove(evaluator, max_depth[root.player()]);
       std::cout << static_cast<Board>(root) << std::flush
 		<< "----------------------------------------------------------------\n"
 		<< "Game #" << game << ": Computer played: " << root.x() << " " << root.y() << "\n"
@@ -97,14 +93,14 @@ int play(int game)
  * 
  * @return Status value
  */
-int main_loop(std::istream& ins, std::ostream& os, std::ostream& logs)
+int main_loop(const StaticEvaluatorTable& evaluator, std::istream& ins, std::ostream& os, std::ostream& logs)
 {
   // Seed random number generator, as sometimes we will make random moves
   std::srand(std::time(nullptr)); // use current time as seed for random generator
   int score[num_games] = {0};
   for(int game = 0; game < num_games; ++game) {
     try {
-      score[game] = play(game);
+      score[game] = play(game, evaluator);
     } catch(std::runtime_error& e) {
       os << "Game # " << game << ": "
 		<< e.what() << std::endl;
@@ -125,6 +121,7 @@ int main_loop(std::istream& ins, std::ostream& os, std::ostream& logs)
 /** 
  * A specialization of main_loop that
  * reads from std::cin and writes to std::cout
+ * and logs to std::clog.
  *
  * NOTE: Having it makes it possible not to #include <iostream>
  * in MainLoop.hpp
@@ -132,7 +129,19 @@ int main_loop(std::istream& ins, std::ostream& os, std::ostream& logs)
  * 
  * @return 
  */
-int main_loop()
+int main_loop(const StaticEvaluatorTable& evaluator)
 {
-  return main_loop(std::cin, std::cout, std::clog);
+  return main_loop(evaluator, std::cin, std::cout, std::clog);
 }
+
+/**
+ * Default evaluator.
+ * 
+ */
+static const SimpleStaticEvaluator DEFAULT_EVALUATOR;
+
+/**
+ * Default evaluator table, one evaluator for each player.
+ * 
+ */
+const StaticEvaluatorTable DEFAULT_EVALUATOR_TABLE = {&DEFAULT_EVALUATOR, &DEFAULT_EVALUATOR};
