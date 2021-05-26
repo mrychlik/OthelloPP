@@ -17,3 +17,5 @@ jobs:
       run: sudo apt-get install libboost-all-dev
     - name: make
       run: make
+    - name: unit-testing
+      run: ./test_suite
