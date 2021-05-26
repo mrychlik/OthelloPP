@@ -40,30 +40,74 @@ public:
     return &mainLoopSingleton;
   }
   
+  /** 
+   * Set game depth for a player.
+   * 
+   * @param player 
+   * @param depth 
+   * 
+   * @return this
+   */
   auto setMaxDepth(Board::Player player, int depth) const {
     max_depth[player] = depth;
     return this;
   }
 
+  /** 
+   * Designates player to be human, or otherwise
+   * capable of interactive play.
+   * 
+   * @param player 
+   * @param isHuman 
+   * 
+   * @return this
+   */
   auto setHumanPlayer(Board::Player player, bool isHuman) const {
     humanPlayer[player] = isHuman;
     return this;
   }
 
+  /** 
+   * Set computer delay before and after move.
+   * 
+   * @param delay 
+   * 
+   * @return this
+   */
   auto setComputerDelay(int delay) const {
     computer_delay = delay;
     return this;
   }
 
+  /** 
+   * Sets the number of games
+   * 
+   * @param numGames 
+   * 
+   * @return this
+   */
   auto setNumGames(int numGames) const {
     num_games = numGames;
     return this;
   }
 
+  /** 
+   * Sets clearing screen before printing next position.
+   * 
+   * @param clear 
+   * 
+   * @return this
+   */
   auto setClearScreenBbeforePrinting(bool clear) const {
     Board::clear_screen_before_printing = clear;
   }
 
+  /** 
+   * Reports current settings
+   * 
+   * 
+   * @return this
+   */
   const MainLoop* reportSettings() const ;
 
 private:
