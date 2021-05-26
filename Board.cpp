@@ -419,3 +419,31 @@ Board::operator std::string() const {
   return buf.str();
 }
 
+uint8_t Board::w_ = 8;
+uint8_t Board::h_ = 8;
+
+/** 
+ * Set board width
+ * 
+ * @param w 
+ */
+void Board::setW(uint8_t w)
+{
+  if(w > 8 || w % 2 != 0) {
+    throw std::logic_error("Unsupported board width");
+  }
+  Board::w_ = w;
+}
+
+/** 
+ * Set board height
+ * 
+ * @param h 
+ */
+void Board::setH(uint8_t h)
+{
+  if(h > 8 || h % 2 != 0) {
+    throw std::logic_error("Unsupported board height");
+  }
+  Board::h_ = h;
+}
