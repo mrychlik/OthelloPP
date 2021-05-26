@@ -13,10 +13,10 @@
  *
  */
 
-#include "GameTree.hpp"
-#include "Board.hpp"
-#include "StaticEvaluator.hpp"
 #include "SimpleStaticEvaluator.hpp"
+#include "GameTree.hpp"
+#include "StaticEvaluator.hpp"
+
 
 #include <iostream>
 #include <algorithm>
