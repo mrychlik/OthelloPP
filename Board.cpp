@@ -385,7 +385,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
     }  
     s << reset << "\n";
   }
-  s << "  0  1  2  3  4  5  6  7 \n";
+  s << "  " << rowlabel.substr(0, 2*w()) << "\n";
   return s;
 }
 
