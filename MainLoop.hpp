@@ -16,14 +16,14 @@
 
 /**
  * This class runs the game loop and controls 
- * numerous game settings. It provides "fluid" style interface for ease of use,
+ * numerous game settings. It provides "fluent" style interface for ease of use,
  * e.g.:
  *
  * MainLoop::getInstance()
- *   ->setMaxDepth(Board::WHITE, 12)
- *   ->setMaxDepth(Board::BLACK, 12)  
- *   ->setNumGames(1)
- *   ->run();
+ *   .setMaxDepth(Board::WHITE, 12)
+ *   .setMaxDepth(Board::BLACK, 12)  
+ *   .setNumGames(1)
+ *   .run();
 */
 class MainLoop {
 private:
@@ -34,11 +34,13 @@ private:
 
 public:
 
-  static const MainLoop* getInstance() {
-    // The only instance this class will ever have
-    static MainLoop mainLoopSingleton;
-    return &mainLoopSingleton;
-  }
+  /** 
+   * Get pointer to the only instance of this class.
+   * 
+   * 
+   * @return 
+   */
+  static const MainLoop& getInstance();
   
   /** 
    * Set game depth for a player.
@@ -46,12 +48,9 @@ public:
    * @param player 
    * @param depth 
    * 
-   * @return this
+   * @return *this
    */
-  auto setMaxDepth(Board::Player player, int depth) const {
-    max_depth[player] = depth;
-    return this;
-  }
+  const MainLoop& setMaxDepth(BoardTraits::Player player, int depth) const;
 
   /** 
    * Designates player to be human, or otherwise
@@ -60,55 +59,72 @@ public:
    * @param player 
    * @param isHuman 
    * 
-   * @return this
+   * @return *this
    */
-  auto setHumanPlayer(Board::Player player, bool isHuman) const {
-    humanPlayer[player] = isHuman;
-    return this;
-  }
+  const MainLoop& setHumanPlayer(BoardTraits::Player player, bool isHuman) const;
 
   /** 
    * Set computer delay before and after move.
    * 
    * @param delay 
    * 
-   * @return this
+   * @return *this
    */
-  auto setComputerDelay(int delay) const {
-    computer_delay = delay;
-    return this;
-  }
+  const MainLoop& setComputerDelay(int delay) const;
 
   /** 
    * Sets the number of games
    * 
    * @param numGames 
    * 
-   * @return this
+   * @return *this
    */
-  auto setNumGames(int numGames) const {
-    num_games = numGames;
-    return this;
-  }
+  const MainLoop& setNumGames(int numGames) const; 
+
+  /** 
+   * Set board print size to big or small
+   * 
+   * @param printBig 
+   * 
+   * @return 
+   */
+  const MainLoop& setPrintSizeBig(bool printBig) const;
 
   /** 
    * Sets clearing screen before printing next position.
    * 
    * @param clear 
    * 
-   * @return this
+   * @return *this
    */
-  auto setClearScreenBbeforePrinting(bool clear) const {
-    Board::clear_screen_before_printing = clear;
-  }
+  const MainLoop& setClearScreenBbeforePrinting(bool clear) const;
+
+  /** 
+   * Sets board width
+   * 
+   * @param width 
+   * 
+   * @return 
+   */
+  const MainLoop& setBoardWidth(int width) const;
+
+  /** 
+   * Sets board height
+   * 
+   * @param width 
+   * 
+   * @return 
+   */
+  const MainLoop& setBoardHeight(int width) const;
+
 
   /** 
    * Reports current settings
    * 
    * 
-   * @return this
+   * @return *this
    */
-  const MainLoop* reportSettings() const ;
+  const MainLoop& reportSettings() const ;
 
 private:
   MainLoop() = default;
