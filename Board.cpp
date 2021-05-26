@@ -146,13 +146,17 @@ Board::Board() :
   filled{0},			
   white{0}
 {
+  assert( (w() >= 4) && ( h() >= 4 ) && ( w() <= 8) && ( h() <= 8) );
+  assert(w()%1==0);
+  assert(h()%1==0);
+
   auto half_width = w()/2;
   auto half_height = w()/2;
   // Standard Othello board initialization
-  setWhite(half_width, half_height +1);
-  setWhite(half_width+1,half_height);
+  setWhite(half_width, half_height -1);
+  setWhite(half_width-1,half_height);
   setBlack(half_width, half_height);
-  setBlack(half_width+1, half_height+1);  
+  setBlack(half_width-1, half_height-1);  
 }
   
 
@@ -352,14 +356,14 @@ std::ostream& Board::printBig(std::ostream& s) const {
     << "[0J"
     << "  0  1  2  3  4  5  6  7 \n";
 
-  for (int y = 0; y < 8; y++) {
+  for (int y = 0; y < h(); y++) {
     s << " ";
-    for (int c = 0; c < 8; c++) {
+    for (int c = 0; c < w(); c++) {
       auto bg = (c%2 == y%2)? "42":"43";
       s << esc << "[;" << bg << "m   ";
     }  
     s << reset << "\n" << y;
-    for (int x = 0; x < 8; x++) {
+    for (int x = 0; x < w(); x++) {
       auto bg = (y%2 == x%2) ? "42" : "43";
       auto fg = isWhite(x,y) ? "37" : "30";
       auto tile = isFilled(x,y)
@@ -370,7 +374,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
     }
     s << reset << y << "\n"
       << " ";
-    for (int c = 0; c < 8; c++) {
+    for (int c = 0; c < w(); c++) {
       auto bg = (c%2 == y%2)? "42":"43";
       s << esc
 	<< '['
@@ -393,8 +397,8 @@ std::ostream& Board::printBig(std::ostream& s) const {
  */
 bool Board::hasLegalMove(Player player) const {
   uint8_t flipRadius[8];
-  for(auto x = 0; x < 8; ++x)
-    for(auto y = 0; y < 8; ++y)    
+  for(auto x = 0; x < w(); ++x)
+    for(auto y = 0; y < h(); ++y)    
       if( !isFilled(x, y) && findFlipRadius(player, x, y, flipRadius, true) )
 	return true;
   return false;
