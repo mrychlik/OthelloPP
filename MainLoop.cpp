@@ -145,7 +145,7 @@ static const SimpleStaticEvaluator DEFAULT_EVALUATOR;
  */
 const StaticEvaluatorTable& MainLoop::DEFAULT_EVALUATOR_TABLE = {&DEFAULT_EVALUATOR, &DEFAULT_EVALUATOR};
 
-const MainLoop* MainLoop::reportSettings() const
+const MainLoop& MainLoop::reportSettings() const
 {
   // Report on the values of parameters
   std::cout
@@ -159,5 +159,6 @@ const MainLoop* MainLoop::reportSettings() const
     << "\nBoard width: " <<  Board::w()
     << "\nBoard height: " << Board::h()
     << std::endl;
-return this;
+
+  return *this;
 }
