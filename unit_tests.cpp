@@ -140,9 +140,9 @@ BOOST_AUTO_TEST_CASE(tree_minmax_corners)
  * @param h  Board height
  * @param max_depth Maximum depth
  */
-static void node_count(uint8_t w, uint8_t h, int max_depth)
+static void node_count(unsigned w, unsigned h, int max_depth)
 {
-  std::cout << boost::format("Node count for board size %u x %u\n") % w % h;
+  std::cout << boost::format("Node count for board size %u x %u, max. depth: %u\n") % w % h % max_depth;
   Board::setW(w);
   Board::setH(h);  
   TreeNode root;
@@ -168,17 +168,17 @@ static void node_count(uint8_t w, uint8_t h, int max_depth)
 
 BOOST_AUTO_TEST_CASE(tree_node_count)
 {
-  node_cout(8, 8, 11);
+  node_count(8, 8, 11);
 }
 
 BOOST_AUTO_TEST_CASE(tree_node_count_4x4)
 {
-  node_cout(4, 4, 16);
+  node_count(4, 4, 20);
 }
 
 BOOST_AUTO_TEST_CASE(tree_node_count_6x6)
 {
-  node_cout(6, 6, 36);
+  node_count(6, 6, 10);
 }
 
 BOOST_AUTO_TEST_CASE(main_loop_test)
