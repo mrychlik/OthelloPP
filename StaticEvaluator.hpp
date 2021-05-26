@@ -12,14 +12,21 @@
 #define STATIC_EVALUATOR_HPP
 
 
-#include <limits>
+#include "BoardTraits.hpp"
 
+#include <limits>
+#include <cinttypes>
+
+/**
+ * Provides some traits for all static evaluators
+ * 
+ */
 struct StaticEvaluatorTraits {
   /** 
    * Board value type
    * 
    */
-  typedef int value_type;
+  typedef int8_t value_type;
 
   /**
    * The top of the node value range. 
@@ -45,6 +52,12 @@ static_assert(sizeof(StaticEvaluatorTraits::value_type) <= sizeof(int));
 
 
 /**
+ * A forward declaration suffices
+ * 
+ */
+class Board;
+
+/**
  * Abstract base class of all static evaluators
  * 
  */
@@ -57,9 +70,13 @@ struct StaticEvaluator {
    *
    * @return 
    */
-  virtual int operator()(const Board& b, Board::Player player, int depth) const = 0;
+  virtual StaticEvaluatorTraits::value_type operator()(const Board& b, BoardTraits::Player player, int depth) const = 0;
 };
 
-
+/**
+ * Provides a separate evaluator for each player.
+ * 
+ */
+typedef const StaticEvaluator* StaticEvaluatorTable[2];
 
 #endif
