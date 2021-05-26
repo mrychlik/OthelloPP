@@ -8,9 +8,7 @@
  * 
  */
 
-#include "Board.hpp"
 #include "MainLoop.hpp"
-#include "SimpleStaticEvaluator.hpp"
 #include <cstdio>     /* for printf */
 #include <cstdlib>    /* for exit */
 
@@ -62,64 +60,64 @@ int main(int argc, char **argv)
       break;
 
     case 'W':
-      max_depth[Board::WHITE] = atoi(optarg);
-      printf("User set max_depth[WHITE] to %d.\n", max_depth[Board::WHITE]);      
+      MainLoop::getInstance()
+	.setMaxDepth(Board::WHITE, atoi(optarg));
       break;
 
     case 'B':
-      max_depth[Board::BLACK] = atoi(optarg);
-      printf("User set max_depth[BLACK] to %d.\n", max_depth[Board::BLACK]);      
+      MainLoop::getInstance()
+	.setMaxDepth(Board::BLACK, atoi(optarg));
       break;
 
     case 'D':
-      max_depth[Board::WHITE] = atoi(optarg);
-      max_depth[Board::BLACK] = max_depth[Board::WHITE];
-      printf("User set max_depth[(both players)] to %d.\n", max_depth[Board::WHITE]);
+      MainLoop::getInstance()
+	.setMaxDepth(Board::WHITE, atoi(optarg))
+	.setMaxDepth(Board::BLACK, atoi(optarg));
       break;
 
     case 'd':
-      computer_delay = atoi(optarg);
-      printf("User set computer delay to %d seconds.\n", max_depth[Board::WHITE]);
+      MainLoop::getInstance()
+	.setComputerDelay(atoi(optarg));
       break;
 
     case 'n':
-      num_games = atoi(optarg);
-      printf("User set num_games to %d.\n",num_games);
+      MainLoop::getInstance()
+	.setNumGames(atoi(optarg));
       break;
 
     case 'w':
-      humanPlayer[Board::WHITE] = true;
-      printf("User set for WHITE to be played by Human.\n");
+      MainLoop::getInstance()
+	.setHumanPlayer(Board::WHITE, true);
       break;
 
     case 'b':
-      humanPlayer[Board::BLACK] = true;
-      printf("User set for BLACK to be played by Human.\n");
+      MainLoop::getInstance()
+	.setHumanPlayer(Board::BLACK, true);
       break;
 
     case 'C':
-      Board::clear_screen_before_printing = true;
-      printf("User set clearing screen before printing on.\n");      
+      MainLoop::getInstance()
+	.setClearScreenBbeforePrinting(true);
       break;
 
     case 'p':
-      Board::print_size_big = false;
-      printf("User set for small board printing.\n");
+      MainLoop::getInstance()
+	.setPrintSizeBig(false);
       break;
 
     case 'P':
-      Board::print_size_big = true;
-      printf("User set for big board printing.\n");
+      MainLoop::getInstance()
+	.setPrintSizeBig(true);
       break;
 
     case 'c':
-      Board::setW(atoi(optarg));
-      printf("User set board width to %u.\n", Board::w());      
+      MainLoop::getInstance()
+	.setBoardWidth(atoi(optarg));
       break;
 
     case 'r':
-      Board::setH(atoi(optarg));
-      printf("User set board height to %u.\n", Board::h());      
+      MainLoop::getInstance()
+	.setBoardHeight(atoi(optarg));
       break;
 
     case '?':
@@ -138,18 +136,10 @@ int main(int argc, char **argv)
     exit(EXIT_FAILURE);
   }
 
-  // Report on the values of parameters
-  printf("max_depth[WHITE]: %d\n", max_depth[Board::WHITE]);      
-  if(humanPlayer[Board::BLACK]) printf("BLACK played by Human.\n");
-  if(humanPlayer[Board::WHITE]) printf("WHITE played by Human.\n");
-  printf("Number of games to play: %d\n", num_games);      
-  printf("max_depth[WHITE]: %d\n", max_depth[Board::WHITE]);      
-  printf("max_depth[BLACK]: %d\n", max_depth[Board::BLACK]);      
-  printf("Board print size: %s\n", Board::print_size_big ? "BIG" : "SMALL");
-  printf("Clear screen before printing: %s\n", Board::clear_screen_before_printing ? "ON" : "OFF");
-  printf("Board width: %u\n", Board::w());
-  printf("Board height: %u\n", Board::h());
+  auto status = MainLoop::getInstance()
+    .reportSettings()
+    .run();
 
-  exit(main_loop());
+  exit(status);
 }
 
