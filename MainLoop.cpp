@@ -14,8 +14,8 @@
 #include <numeric>
 
 #include "GameTree.hpp"
-//#include "SimpleStaticEvaluator.hpp"
-#include "CornerStaticEvaluator.hpp"
+#include "SimpleStaticEvaluator.hpp"
+//#include "CornerStaticEvaluator.hpp"
 
 
 const int DEFAULT_NUM_GAMES = 10; /**< Number of games to play by default */
@@ -28,8 +28,8 @@ int num_games = DEFAULT_NUM_GAMES; /**< Number of games to play */
 int computer_delay = DEFAULT_COMPUTER_DELAY; /**< Number of seconds to wait after computer move */
 
 // Static evaluator we will be using
-//static const SimpleStaticEvaluator staticEvaluator;
-static const CornerStaticEvaluator staticEvaluator;
+static const SimpleStaticEvaluator staticEvaluator;
+//static const CornerStaticEvaluator staticEvaluator;
 
 /** 
  * Play a game, return the score.
@@ -130,5 +130,5 @@ int main_loop(std::istream& ins, std::ostream& os, std::ostream& logs)
  */
 int main_loop()
 {
-  return main_loop(std::cin, std::cout);
+  return main_loop(std::cin, std::cout, std::clog);
 }
