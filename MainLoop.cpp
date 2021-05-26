@@ -162,3 +162,52 @@ const MainLoop& MainLoop::reportSettings() const
 
   return *this;
 }
+
+const MainLoop& MainLoop::getInstance() {
+  // The only instance this class will ever have
+  static MainLoop mainLoopSingleton;
+  return mainLoopSingleton;
+}
+  
+const MainLoop& MainLoop::setMaxDepth(BoardTraits::Player player, int depth) const {
+  max_depth[player] = depth;
+  return *this;
+}
+
+const MainLoop& MainLoop::setHumanPlayer(BoardTraits::Player player, bool isHuman) const {
+  humanPlayer[player] = isHuman;
+  return *this;
+}
+
+const MainLoop& MainLoop::setComputerDelay(int delay) const {
+  computer_delay = delay;
+  return *this;
+}
+
+const MainLoop& MainLoop::setNumGames(int numGames) const {
+  num_games = numGames;
+  return *this;
+}
+
+const MainLoop& MainLoop::setPrintSizeBig(bool printBig) const {
+  Board::print_size_big = printBig;
+  return *this;
+}
+
+const MainLoop& MainLoop::setClearScreenBbeforePrinting(bool clear) const {
+  Board::clear_screen_before_printing = clear;
+  return *this;
+}
+
+const MainLoop& MainLoop::setBoardWidth(int width) const {
+  Board::setW(width);
+  return *this;
+}
+
+const MainLoop& MainLoop::setBoardHeight(int width) const {
+  Board::setH(width);
+  return *this;
+}
+
+
+
