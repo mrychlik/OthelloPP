@@ -13,10 +13,9 @@
  *
  */
 
-#include "SimpleStaticEvaluator.hpp"
 #include "GameTree.hpp"
 #include "StaticEvaluator.hpp"
-
+#include "SimpleStaticEvaluator.hpp"
 
 #include <iostream>
 #include <algorithm>
