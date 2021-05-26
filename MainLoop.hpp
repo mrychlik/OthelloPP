@@ -14,16 +14,31 @@
 #include <iosfwd>
 #include "StaticEvaluator.hpp"
 
-extern int  max_depth[2];
-extern bool humanPlayer[2];
-extern int num_games;
-extern int computer_delay;
-extern const StaticEvaluatorTable& DEFAULT_EVALUATOR_TABLE;
+class MainLoop {
+private:
 
-extern int main_loop(std::istream& ins,
+  static const int DEFAULT_NUM_GAMES = 10; /**< Number of games to play by default */
+  static const int DEFAULT_MAX_DEPTH = 12; /**< Depth to which examine the tree to compute the best move */
+  static const int DEFAULT_COMPUTER_DELAY = 0; /**< Amount of delay in sec. after computer move */
+
+public:
+  static int  max_depth[2]; ; /**< Max. depth for minmax play for each player*/
+  static bool humanPlayer[2]; /**< Which player is human? */
+  static int  num_games;      /**< Number of games to play */
+  static int  computer_delay; /**< Number of seconds to wait after computer move */
+
+  static const StaticEvaluatorTable& DEFAULT_EVALUATOR_TABLE;
+
+  static int main_loop(std::istream& ins,
 		     std::ostream& os,
 		     std::ostream& logs,
 		     const StaticEvaluatorTable& evaluatorTab = DEFAULT_EVALUATOR_TABLE);
-extern int main_loop(const StaticEvaluatorTable& evaluatorTab = DEFAULT_EVALUATOR_TABLE);
+
+  static int main_loop(const StaticEvaluatorTable& evaluatorTab = DEFAULT_EVALUATOR_TABLE);
+
+private:
+
+  static int play(int game, const StaticEvaluatorTable& evaluatorTab);
+};
 
 #endif /* MAIN_LOOP */
