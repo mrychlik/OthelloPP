@@ -18,9 +18,12 @@ extern int  max_depth[2];
 extern bool humanPlayer[2];
 extern int num_games;
 extern int computer_delay;
+extern const StaticEvaluatorTable& DEFAULT_EVALUATOR_TABLE;
 
-extern int main_loop(const StaticEvaluatorTable& evaluator, std::istream& ins, std::ostream& os, std::ostream& logs);
-extern int main_loop(const StaticEvaluatorTable& evaluator);
-extern int main_loop();
+extern int main_loop(std::istream& ins,
+		     std::ostream& os,
+		     std::ostream& logs,
+		     const StaticEvaluatorTable& evaluatorTab = DEFAULT_EVALUATOR_TABLE);
+extern int main_loop(const StaticEvaluatorTable& evaluatorTab = DEFAULT_EVALUATOR_TABLE);
 
 #endif /* MAIN_LOOP */
