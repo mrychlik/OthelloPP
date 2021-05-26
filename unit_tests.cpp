@@ -133,10 +133,20 @@ BOOST_AUTO_TEST_CASE(tree_minmax_corners)
 }
 
 
-BOOST_AUTO_TEST_CASE(tree_node_count)
+/** 
+ * Compute node count for given board size.
+ * 
+ * @param w  Board width
+ * @param h  Board height
+ * @param max_depth Maximum depth
+ */
+static void node_count(uint8_t w, uint8_t h, int max_depth)
 {
+  std::cout << boost::format("Node count for board size %u x %u\n") % w % h;
+  Board::setW(w);
+  Board::setH(h);  
   TreeNode root;
-  int max_depth = 11;
+
   std::cout << boost::format("%5s %10s %10s %10s\n") % "Depth" % "Node Count" % "Fanout" % "Bar plot";
 
   for(auto depth = 0; depth < max_depth; ++depth) {
@@ -154,6 +164,21 @@ BOOST_AUTO_TEST_CASE(tree_node_count)
       std::cerr << "Something bad happened at depth: " << depth << "\n";
     }
   }
+}
+
+BOOST_AUTO_TEST_CASE(tree_node_count)
+{
+  node_cout(8, 8, 11);
+}
+
+BOOST_AUTO_TEST_CASE(tree_node_count_4x4)
+{
+  node_cout(4, 4, 16);
+}
+
+BOOST_AUTO_TEST_CASE(tree_node_count_6x6)
+{
+  node_cout(6, 6, 36);
 }
 
 BOOST_AUTO_TEST_CASE(main_loop_test)
