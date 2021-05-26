@@ -47,7 +47,7 @@ public:
   const children_type& children() const;
 
   TreeNode& getHumanMove(std::istream& s) const;
-  TreeNode& getComputerMove(const StaticEvaluator& evaluator, int depth) const;
+  TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
 
   int nodeCount(int depth) const;
 
@@ -101,7 +101,7 @@ private:
   mutable value_type minMaxVal; /**< Cached value by minmax */
   //// END: Mutable fields
 
-  Player player_;		/**< Player to move  */
+  Player player_ : 1;		/**< Player to move  */
 
   int x_ : 4;			/**< x of last placed piece, or -1 */
   int y_ : 4;			/**< y of last placed piece, or -1 */
