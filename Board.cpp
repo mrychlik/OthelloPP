@@ -146,9 +146,10 @@ Board::Board() :
   filled{0},			
   white{0}
 {
+  // Board sizes of 4, 6, 8 are supported, others are not
   assert( (w() >= 4) && ( h() >= 4 ) && ( w() <= 8) && ( h() <= 8) );
-  assert(w()%1==0);
-  assert(h()%1==0);
+  assert( w() % 1 == 0);	// Board width must be even
+  assert( h() % 1 == 0);	// Board height must be even
 
   auto half_width = w()/2;
   auto half_height = w()/2;
