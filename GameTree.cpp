@@ -33,7 +33,7 @@ bool TreeNode::print_recursively = false;
  *
  * 
  */
-TreeNode::TreeNode(Player player, const Board& board, int8_t x, int8_t y)
+TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int8_t y)
   : Board(board),
     isExpanded(false),
     children_(),
