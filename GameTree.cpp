@@ -76,7 +76,7 @@ void TreeNode::expandOneLevel(bool verbose) const
       // If the other player has a move
       // make it his turn
       if( hasLegalMove(~player()) ) {
-	addChild(new TreeNode(~player_, *this));
+	addChild(new TreeNode(~player(), *this));
       }
     } else {			// There are moves, we must make one
       for (auto m : move_bag) {
@@ -84,7 +84,7 @@ void TreeNode::expandOneLevel(bool verbose) const
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(~player_, childBoard, x, y));
+	addChild(new TreeNode(~player(), childBoard, x, y));
       }
     }
     isExpanded = true;
