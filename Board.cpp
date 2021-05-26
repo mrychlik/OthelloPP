@@ -329,7 +329,7 @@ std::ostream& Board::print(std::ostream& s, bool big) const {
 }
 
 std::ostream& Board::printSmall(std::ostream& s) const {
-  static const std::string rowlabel = std::string("01234567").substr(0,w());
+  auto rowlabel = std::string("01234567").substr(0,w());
   s << " " << rowlabel.substr(0,w()) << "\n";
   for (int y = 0; y < h(); y++) {
     s << y;
@@ -376,7 +376,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
     }
     s << reset << y << "\n"
       << " ";
-    for (int c = 0; c < h(); c++) {
+    for (int c = 0; c < w(); c++) {
       auto bg = (c%2 == y%2)? "42":"43";
       s << esc
 	<< '['
