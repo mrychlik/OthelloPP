@@ -329,7 +329,8 @@ std::ostream& Board::print(std::ostream& s, bool big) const {
 }
 
 std::ostream& Board::printSmall(std::ostream& s) const {
-  s << " 01234567\n";
+  static const std::string rowlabel("01234567");
+  s << " " << rowlabel.substr(0,w()) << "\n";
   for (int y = 0; y < h(); y++) {
     s << y;
     for (int x = 0; x < w(); x++) {
@@ -342,8 +343,7 @@ std::ostream& Board::printSmall(std::ostream& s) const {
     }
     s << esc << "[0m" << y << "\n";
   }
-
-  s << " 01234567\n";
+  s << " " << rowlabel.substr(0,w()) << "\n";
   s << "Score: " << score()
     << "\nNumber of tiles: " << numTiles()
     << "\nNumber of white tiles: " << numWhiteTiles()    
