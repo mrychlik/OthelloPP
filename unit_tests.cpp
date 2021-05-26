@@ -188,3 +188,14 @@ BOOST_AUTO_TEST_CASE(main_loop_test)
   num_games = 1;
   main_loop();
 }
+
+BOOST_AUTO_TEST_CASE(solution_4x4)
+{
+  std::cout << "Solves the 4x4 case" << std::endl;
+  Board::setH(4);
+  Board::setW(4);
+  max_depth[Board::WHITE] = 18;
+  max_depth[Board::BLACK] = 18;  
+  num_games = 1;
+  main_loop();
+}
