@@ -2,7 +2,7 @@
 CXXFLAGS = -std=c++2a
 #CXXFLAGS += -O3 -ggdb3 -Wall -fomit-frame-pointer
 #CXXFLAGS +=-Og -O0 -ggdb3 -Wall
-CXXFLAGS += -Ofast -ggdb3 -Wall -msse4 -DNDEBUG=1
+CXXFLAGS += -Ofast -ggdb3 -Wall -msse4 -DNDEBUG=1 -fomit-frame-pointer
 
 LDFLAGS  = -lm -lboost_unit_test_framework
 
