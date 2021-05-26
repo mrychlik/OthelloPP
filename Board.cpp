@@ -376,7 +376,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
     }
     s << reset << y << "\n"
       << " ";
-    for (int c = 0; c < w(); c++) {
+    for (int c = 0; c < h(); c++) {
       auto bg = (c%2 == y%2)? "42":"43";
       s << esc
 	<< '['
