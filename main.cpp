@@ -8,6 +8,7 @@
  * 
  */
 
+#include "BoardTraits.hpp"
 #include "MainLoop.hpp"
 #include <cstdio>     /* for printf */
 #include <cstdlib>    /* for exit */
@@ -61,18 +62,18 @@ int main(int argc, char **argv)
 
     case 'W':
       MainLoop::getInstance()
-	.setMaxDepth(Board::WHITE, atoi(optarg));
+	.setMaxDepth(BoardTraits::WHITE, atoi(optarg));
       break;
 
     case 'B':
       MainLoop::getInstance()
-	.setMaxDepth(Board::BLACK, atoi(optarg));
+	.setMaxDepth(BoardTraits::BLACK, atoi(optarg));
       break;
 
     case 'D':
       MainLoop::getInstance()
-	.setMaxDepth(Board::WHITE, atoi(optarg))
-	.setMaxDepth(Board::BLACK, atoi(optarg));
+	.setMaxDepth(BoardTraits::WHITE, atoi(optarg))
+	.setMaxDepth(BoardTraits::BLACK, atoi(optarg));
       break;
 
     case 'd':
@@ -87,12 +88,12 @@ int main(int argc, char **argv)
 
     case 'w':
       MainLoop::getInstance()
-	.setHumanPlayer(Board::WHITE, true);
+	.setHumanPlayer(BoardTraits::WHITE, true);
       break;
 
     case 'b':
       MainLoop::getInstance()
-	.setHumanPlayer(Board::BLACK, true);
+	.setHumanPlayer(BoardTraits::BLACK, true);
       break;
 
     case 'C':
