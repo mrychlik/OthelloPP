@@ -148,8 +148,8 @@ Board::Board() :
 {
   // Board sizes of 4, 6, 8 are supported, others are not
   assert( (w() >= 4) && ( h() >= 4 ) && ( w() <= 8) && ( h() <= 8) );
-  assert( w() % 1 == 0);	// Board width must be even
-  assert( h() % 1 == 0);	// Board height must be even
+  assert( w() % 1 == 0);	// Board width must be even; why?
+  assert( h() % 1 == 0);	// Board height must be even; why?
 
   auto half_width = w()/2;
   auto half_height = w()/2;
