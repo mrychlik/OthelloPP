@@ -93,7 +93,7 @@ int play(int game)
  * 
  * @return 
  */
-int main_loop(std::istream& ins, std::ostream& os)
+int main_loop(std::istream& ins, std::ostream& os, std::ostream& logs)
 {
   // Seed random number generator, as sometimes we will make random moves
   std::srand(std::time(nullptr)); // use current time as seed for random generator
@@ -108,11 +108,11 @@ int main_loop(std::istream& ins, std::ostream& os)
     }
   }
   auto average = static_cast<float>(std::accumulate(score, score + num_games, 0)) / num_games;
-  os << std::setw(5) << "Game" << std::setw(10) << "Score" << std::endl;
+  logs << std::setw(5) << "Game" << std::setw(10) << "Score" << std::endl;
   for(int game = 0; game < num_games; ++game) {
-    os << std::setw(5) <<  game << std::setw(10) << score[game] << std::endl;
+    logs << std::setw(5) <<  game << std::setw(10) << score[game] << std::endl;
   }
-  os << "-----------------\n"
+  logs << "-----------------\n"
 	    << "Average: " << std::setprecision(2) << average << std::endl;
   
   return EXIT_SUCCESS;
