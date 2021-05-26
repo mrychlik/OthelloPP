@@ -11,6 +11,7 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP 1
 
+#include "BoardTraits.hpp"
 #include <string>
 #include <iosfwd>
 #include <cinttypes>
@@ -30,19 +31,10 @@
  *       minus the number of black pieces)
  * 
  */
-class Board {
+class Board : public BoardTraits {
 public:
   static bool print_size_big;	/**< Use big size for printing if true*/
   static bool clear_screen_before_printing; /**< Clear screen before printing board if true */
-
-  /**
-   * A player, definitely not bool.
-   * 
-   */
-  enum Player {
-    BLACK =  0,
-    WHITE =  1,
-  };
 
   /** 
    * Type move_type is a triple (x, y, Board)
@@ -81,8 +73,27 @@ public:
   static void setW(uint8_t w);
   static void setH(uint8_t h);  
 
-  static uint8_t w() { return Board::w_;}
-  static uint8_t h() { return Board::h_;}
+  /** 
+   * Board width
+   * 
+   * 
+   * @return 
+   */
+  static uint8_t w()
+  {
+    return Board::w_;
+  }
+
+  /** 
+   * Board height
+   * 
+   * 
+   * @return 
+   */
+  static uint8_t h()
+  {
+    return Board::h_;
+  }
 
 public:
 
@@ -117,16 +128,5 @@ private:
   static uint8_t w_;		/**< Board width */
   static uint8_t h_;		/**< Board height */
 };
-
-/** 
- * Toggles player to the opponent.
- * 
- * @param player 
- * 
- * @return The opponent.
- */
-inline Board::Player operator~(Board::Player player) {
-  return player == Board::WHITE ? Board::BLACK : Board::WHITE;
-}
 
 #endif // BOARD_HPP
