@@ -88,10 +88,14 @@ int play(int game)
 }
 
 /** 
+ * Plays the game of Othello, possibly taking
+ * input from the user.
+ *
+ * @param is Input stream
+ * @param os Output stream
+ * @param logs Log stream
  * 
- * 
- * 
- * @return 
+ * @return Status value
  */
 int main_loop(std::istream& ins, std::ostream& os, std::ostream& logs)
 {
