@@ -311,21 +311,20 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return 
  */
-TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluator, int depth) const
+TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
 {
   assert(!isLeaf());
-  if(depth >= 1) {
-    std::vector<TreeNode *> bestChildren;
 
-    auto bestVal = minmax(*evaluator[player()], depth);
+  std::vector<TreeNode *> bestChildren;
+
+  if(depth >= 1) {
+    auto bestVal = minmax(*evaluatorTab[player()], depth);
     for(auto child : children()) {
       if(child->minMaxVal == bestVal) {
 	bestChildren.push_back(child);
       }
     }
     assert(!bestChildren.empty());
-    std::random_shuffle(bestChildren.begin(), bestChildren.end());    
-    return **bestChildren.begin();
   } else {			// depth <= 0
     // We are very misinformed here because we don't
     // know which child is promising. We choose a random move
@@ -334,11 +333,10 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluator, int d
     std::vector<TreeNode *> bestChildren(sz);
     // Every child is best
     std::copy(children().begin(), children().end(), bestChildren.begin());
-
-    // Reshufle children first
-    std::random_shuffle(bestChildren.begin(), bestChildren.end());    
-    return **bestChildren.begin();
   }
+
+  std::random_shuffle(bestChildren.begin(), bestChildren.end());    
+  return **bestChildren.begin();
 }
 
 
