@@ -14,6 +14,7 @@
  */
 
 #include "GameTree.hpp"
+#include "BoardTraits.hpp"
 #include "StaticEvaluator.hpp"
 #include "SimpleStaticEvaluator.hpp"
 
