@@ -13,19 +13,16 @@
 #include <iomanip>
 #include <numeric>
 
+#include "MainLoop.hpp"
 #include "GameTree.hpp"
 #include "SimpleStaticEvaluator.hpp"
 //#include "CornerStaticEvaluator.hpp"
 
 
-const int DEFAULT_NUM_GAMES = 10; /**< Number of games to play by default */
-const int DEFAULT_MAX_DEPTH = 12; /**< Depth to which examine the tree to compute the best move */
-const int DEFAULT_COMPUTER_DELAY = 0; /**< Amount of delay in sec. after computer move */
-
-int  max_depth[2] = { DEFAULT_MAX_DEPTH, DEFAULT_MAX_DEPTH } ; /**< Max. depth for minmax play for each player*/
-bool humanPlayer[2] = {false, false}; /**< Which player is human? */
-int num_games = DEFAULT_NUM_GAMES; /**< Number of games to play */
-int computer_delay = DEFAULT_COMPUTER_DELAY; /**< Number of seconds to wait after computer move */
+int  MainLoop::max_depth[2]   = { MainLoop::DEFAULT_MAX_DEPTH, MainLoop::DEFAULT_MAX_DEPTH } ; /**< Max. depth for minmax play for each player*/
+bool MainLoop::humanPlayer[2] = {false, false}; /**< Which player is human? */
+int MainLoop::num_games       = DEFAULT_NUM_GAMES; /**< Number of games to play */
+int MainLoop::computer_delay  = DEFAULT_COMPUTER_DELAY; /**< Number of seconds to wait after computer move */
 
 /** 
  * Play a game, return the score.
@@ -34,7 +31,7 @@ int computer_delay = DEFAULT_COMPUTER_DELAY; /**< Number of seconds to wait afte
  * 
  * @return Score
  */
-int play(int game, const StaticEvaluatorTable& evaluator)
+int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab)
 {
   TreeNode root;
   
@@ -50,7 +47,7 @@ int play(int game, const StaticEvaluatorTable& evaluator)
       std::cout << "Human played: " << root.x() << " " << root.y() << std::endl;
     } else {			// not human
       ::sleep(computer_delay);
-      root = root.getComputerMove(evaluator, max_depth[root.player()]);
+      root = root.getComputerMove(evaluatorTab, max_depth[root.player()]);
       std::cout << static_cast<Board>(root) << std::flush
 		<< "----------------------------------------------------------------\n"
 		<< "Game #" << game << ": Computer played: " << root.x() << " " << root.y() << "\n"
@@ -87,20 +84,22 @@ int play(int game, const StaticEvaluatorTable& evaluator)
  * Plays the game of Othello, possibly taking
  * input from the user.
  *
+ * @param evaluatorTab Evaluator table
  * @param is Input stream
  * @param os Output stream
  * @param logs Log stream
  * 
  * @return Status value
  */
-int main_loop(const StaticEvaluatorTable& evaluator, std::istream& ins, std::ostream& os, std::ostream& logs)
+int MainLoop::main_loop(std::istream& ins, std::ostream& os, std::ostream& logs,
+			const StaticEvaluatorTable& evaluatorTab)
 {
   // Seed random number generator, as sometimes we will make random moves
   std::srand(std::time(nullptr)); // use current time as seed for random generator
   int score[num_games] = {0};
   for(int game = 0; game < num_games; ++game) {
     try {
-      score[game] = play(game, evaluator);
+      score[game] = play(game, evaluatorTab);
     } catch(std::runtime_error& e) {
       os << "Game # " << game << ": "
 		<< e.what() << std::endl;
@@ -129,9 +128,9 @@ int main_loop(const StaticEvaluatorTable& evaluator, std::istream& ins, std::ost
  * 
  * @return 
  */
-int main_loop(const StaticEvaluatorTable& evaluator)
+int MainLoop::main_loop(const StaticEvaluatorTable& evaluatorTab)
 {
-  return main_loop(evaluator, std::cin, std::cout, std::clog);
+  return MainLoop::main_loop(std::cin, std::cout, std::clog, evaluatorTab);
 }
 
 /**
@@ -144,4 +143,4 @@ static const SimpleStaticEvaluator DEFAULT_EVALUATOR;
  * Default evaluator table, one evaluator for each player.
  * 
  */
-const StaticEvaluatorTable DEFAULT_EVALUATOR_TABLE = {&DEFAULT_EVALUATOR, &DEFAULT_EVALUATOR};
+const StaticEvaluatorTable& MainLoop::DEFAULT_EVALUATOR_TABLE = {&DEFAULT_EVALUATOR, &DEFAULT_EVALUATOR};
