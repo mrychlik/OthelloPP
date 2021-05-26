@@ -106,6 +106,8 @@ private:
   uint64_t filled;		/**< Is a square is occupied? */
   uint64_t white;		/**< Is a square occupied by white? */
 
+  static const uint8_t w_ = 4;	/**< Board width */
+  static const uint8_t h_ = 4;  /**< Board height */
 };
 
 /** 
