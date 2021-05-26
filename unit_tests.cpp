@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_CASE(board_move_text)
   // move bag as test cases
 
   Board b;
-  auto move_bag = b.moves(Board::WHITE);
+  auto move_bag = b.moves(BoardTraits::WHITE);
   for( auto& m : move_bag) {
     auto [x, y, board] = m;
     std::cout << "x: " << x << ", "
@@ -194,11 +194,11 @@ BOOST_AUTO_TEST_CASE(main_loop_test)
 BOOST_AUTO_TEST_CASE(solution_4x4)
 {
   std::cout << "Solves the 4x4 case" << std::endl;
-  Board::setH(4);
-  Board::setW(4);
   MainLoop::getInstance()
-    .setMaxDepth(Board::WHITE, 18)
-    .setMaxDepth(Board::BLACK, 18)  
+    .setBoardWidth(4)
+    .setBoardHeight(4)
+    .setMaxDepth(BoardTraits::WHITE, 18)
+    .setMaxDepth(BoardTraits::BLACK, 18)  
     .setNumGames(1)
     .run();
 }
@@ -206,11 +206,11 @@ BOOST_AUTO_TEST_CASE(solution_4x4)
 BOOST_AUTO_TEST_CASE(solution_4x6)
 {
   std::cout << "Solves the 4x6 case" << std::endl;
-  Board::setH(4);
-  Board::setW(6);
   MainLoop::getInstance()
-    .setMaxDepth(Board::WHITE, 26)
-    .setMaxDepth(Board::BLACK, 26)  
+    .setBoardWidth(4)
+    .setBoardHeight(6)
+    .setMaxDepth(BoardTraits::WHITE, 26)
+    .setMaxDepth(BoardTraits::BLACK, 26)  
     .setNumGames(1)
     .run();
 }
@@ -218,11 +218,11 @@ BOOST_AUTO_TEST_CASE(solution_4x6)
 BOOST_AUTO_TEST_CASE(solution_6x4)
 {
   std::cout << "Solves the 6x4 case" << std::endl;
-  Board::setH(6);
-  Board::setW(4);
   MainLoop::getInstance()
-    .setMaxDepth(Board::WHITE, 26)
-    .setMaxDepth(Board::BLACK, 26)  
+    .setBoardWidth(6)
+    .setBoardHeight(4)
+    .setMaxDepth(BoardTraits::WHITE, 26)
+    .setMaxDepth(BoardTraits::BLACK, 26)  
     .setNumGames(1)
     .run();
 }
