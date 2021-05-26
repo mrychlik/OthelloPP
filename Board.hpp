@@ -81,8 +81,8 @@ public:
   static void setW(uint8_t w);
   static void setH(uint8_t h);  
 
-  static uint8_t w() { return w_;}
-  static uint8_t h() { return h_;}
+  static uint8_t w() { return Board::w_;}
+  static uint8_t h() { return Board::h_;}
 
 public:
 
