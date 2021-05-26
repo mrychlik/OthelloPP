@@ -76,6 +76,9 @@ public:
   move_bag_type moves(Player player) const;
   bool hasLegalMove(Player player) const;
 
+  static uint8_t w() { return w_;}
+  static uint8_t h() { return h_;}
+
 public:
 
   friend std::ostream& operator<<(std::ostream& s, const Board& b);  
