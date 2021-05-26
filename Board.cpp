@@ -353,7 +353,7 @@ std::ostream& Board::printSmall(std::ostream& s) const {
 }
 
 std::ostream& Board::printBig(std::ostream& s) const {
-  auto rowlabel = std::string("0  1  2  3  4  5  6  7").substr(0, 2*w());
+  auto rowlabel = std::string("0  1  2  3  4  5  6  7").substr(0, 3*w());
   s << esc << "[1;1H" << esc
     << "[0J"
     << "  " << rowlabel << " \n";
