@@ -18,7 +18,7 @@ extern bool humanPlayer[2];
 extern int num_games;
 extern int computer_delay;
 
-extern int main_loop(std::istream& ins, std::ostream& os);
+extern int main_loop(std::istream& ins, std::ostream& os, std::ostream& logs);
 extern int main_loop();
 
 #endif /* MAIN_LOOP */
