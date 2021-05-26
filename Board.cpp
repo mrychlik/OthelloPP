@@ -154,10 +154,10 @@ Board::Board() :
   auto half_width = w() / 2;
   auto half_height = w() / 2;
   // Standard Othello board initialization
-  setWhite(half_width, half_height -1);
-  setWhite(half_width-1,half_height);
+  setWhite(half_width, half_height - 1);
+  setWhite(half_width-1, half_height);
   setBlack(half_width, half_height);
-  setBlack(half_width-1, half_height-1);  
+  setBlack(half_width-1, half_height - 1);  
 }
   
 
