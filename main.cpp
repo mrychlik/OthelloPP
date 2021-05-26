@@ -10,8 +10,10 @@
 
 #include "Board.hpp"
 #include "MainLoop.hpp"
+#include "SimpleStaticEvaluator.hpp"
 #include <cstdio>     /* for printf */
 #include <cstdlib>    /* for exit */
+
 
 /* From this point on this is good old-fashioned C */
 
@@ -42,9 +44,11 @@ int main(int argc, char **argv)
       {"print_small",         no_argument,       0,  'p' },
       {"print_big",           no_argument,       0,  'P' },
       {"clear_screen",        no_argument,       0,  'C' },
+      {"board_width",         required_argument, 0,  'c' },
+      {"board_height",        required_argument, 0,  'r' },
       {0,         0,                 0,  0 }
     };
-    c = getopt_long(argc, argv, "d:D:W:B:g:wbn:PpC",
+    c = getopt_long(argc, argv, "d:D:W:B:g:wbn:PpCc:r:",
 		    long_options, &option_index);
     if (c == -1)
       break;
@@ -108,6 +112,16 @@ int main(int argc, char **argv)
       printf("User set for big board printing.\n");
       break;
 
+    case 'c':
+      Board::setW(atoi(optarg));
+      printf("User set board width to %u.\n", Board::w());      
+      break;
+
+    case 'r':
+      Board::setH(atoi(optarg));
+      printf("User set board height to %u.\n", Board::h());      
+      break;
+
     case '?':
       break;
 
@@ -133,6 +147,8 @@ int main(int argc, char **argv)
   printf("max_depth[BLACK]: %d\n", max_depth[Board::BLACK]);      
   printf("Board print size: %s\n", Board::print_size_big ? "BIG" : "SMALL");
   printf("Clear screen before printing: %s\n", Board::clear_screen_before_printing ? "ON" : "OFF");
+  printf("Board width: %u\n", Board::w());
+  printf("Board height: %u\n", Board::h());
 
   exit(main_loop());
 }
