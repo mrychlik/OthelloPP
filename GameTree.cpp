@@ -16,6 +16,7 @@
 #include "GameTree.hpp"
 #include "Board.hpp"
 #include "StaticEvaluator.hpp"
+#include "SimpleStaticEvaluator.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -310,13 +311,13 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return 
  */
-TreeNode& TreeNode::getComputerMove(const StaticEvaluator& evaluator, int depth) const
+TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluator, int depth) const
 {
   assert(!isLeaf());
   if(depth >= 1) {
     std::vector<TreeNode *> bestChildren;
 
-    auto bestVal = minmax(evaluator, depth);
+    auto bestVal = minmax(*evaluator[player()], depth);
     for(auto child : children()) {
       if(child->minMaxVal == bestVal) {
 	bestChildren.push_back(child);
