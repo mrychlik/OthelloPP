@@ -13,6 +13,7 @@
 #include "SimpleStaticEvaluator.hpp"
 #include "CornerStaticEvaluator.hpp"
 #include "MainLoop.hpp"
+#include "StaticEvaluator.hpp"
 
 #include <iostream>
 #include <cmath>
@@ -183,10 +184,11 @@ BOOST_AUTO_TEST_CASE(tree_node_count_6x6)
 
 BOOST_AUTO_TEST_CASE(main_loop_test)
 {
-  max_depth[Board::WHITE] = 12;
-  max_depth[Board::BLACK] = 12;  
-  num_games = 1;
-  main_loop();
+  MainLoop::getInstance()
+    .setMaxDepth(Board::WHITE, 12)
+    .setMaxDepth(Board::BLACK, 12)  
+    .setNumGames(1)
+    .run();
 }
 
 BOOST_AUTO_TEST_CASE(solution_4x4)
@@ -194,8 +196,33 @@ BOOST_AUTO_TEST_CASE(solution_4x4)
   std::cout << "Solves the 4x4 case" << std::endl;
   Board::setH(4);
   Board::setW(4);
-  max_depth[Board::WHITE] = 18;
-  max_depth[Board::BLACK] = 18;  
-  num_games = 1;
-  main_loop();
+  MainLoop::getInstance()
+    .setMaxDepth(Board::WHITE, 18)
+    .setMaxDepth(Board::BLACK, 18)  
+    .setNumGames(1)
+    .run();
+}
+
+BOOST_AUTO_TEST_CASE(solution_4x6)
+{
+  std::cout << "Solves the 4x6 case" << std::endl;
+  Board::setH(4);
+  Board::setW(6);
+  MainLoop::getInstance()
+    .setMaxDepth(Board::WHITE, 26)
+    .setMaxDepth(Board::BLACK, 26)  
+    .setNumGames(1)
+    .run();
+}
+
+BOOST_AUTO_TEST_CASE(solution_6x4)
+{
+  std::cout << "Solves the 6x4 case" << std::endl;
+  Board::setH(6);
+  Board::setW(4);
+  MainLoop::getInstance()
+    .setMaxDepth(Board::WHITE, 26)
+    .setMaxDepth(Board::BLACK, 26)  
+    .setNumGames(1)
+    .run();
 }
