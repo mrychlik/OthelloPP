@@ -76,6 +76,11 @@ public:
   move_bag_type moves(Player player) const;
   bool hasLegalMove(Player player) const;
 
+public:
+
+  static void setW(uint8_t w);
+  static void setH(uint8_t h);  
+
   static uint8_t w() { return w_;}
   static uint8_t h() { return h_;}
 
@@ -109,8 +114,8 @@ private:
   uint64_t filled;		/**< Is a square is occupied? */
   uint64_t white;		/**< Is a square occupied by white? */
 
-  static const uint8_t w_ = 6;	/**< Board width */
-  static const uint8_t h_ = 6;  /**< Board height */
+  static uint8_t w_ = 6;	/**< Board width */
+  static uint8_t h_ = 6;  /**< Board height */
 };
 
 /** 
