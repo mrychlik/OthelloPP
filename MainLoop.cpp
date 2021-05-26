@@ -19,10 +19,10 @@
 //#include "CornerStaticEvaluator.hpp"
 
 
-int  MainLoop::max_depth[2]   = { MainLoop::DEFAULT_MAX_DEPTH, MainLoop::DEFAULT_MAX_DEPTH } ; /**< Max. depth for minmax play for each player*/
-bool MainLoop::humanPlayer[2] = {false, false}; /**< Which player is human? */
-int MainLoop::num_games       = DEFAULT_NUM_GAMES; /**< Number of games to play */
-int MainLoop::computer_delay  = DEFAULT_COMPUTER_DELAY; /**< Number of seconds to wait after computer move */
+int  MainLoop::max_depth[2]   = { MainLoop::DEFAULT_MAX_DEPTH, MainLoop::DEFAULT_MAX_DEPTH };
+bool MainLoop::humanPlayer[2] = {false, false}; 
+int MainLoop::num_games       = DEFAULT_NUM_GAMES; 
+int MainLoop::computer_delay  = DEFAULT_COMPUTER_DELAY;
 
 /** 
  * Play a game, return the score.
@@ -85,13 +85,13 @@ int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab)
  * input from the user.
  *
  * @param evaluatorTab Evaluator table
- * @param is Input stream
+ * @param ins Input stream
  * @param os Output stream
  * @param logs Log stream
  * 
  * @return Status value
  */
-int MainLoop::main_loop(std::istream& ins, std::ostream& os, std::ostream& logs,
+int MainLoop::run(std::istream& ins, std::ostream& os, std::ostream& logs,
 			const StaticEvaluatorTable& evaluatorTab)
 {
   // Seed random number generator, as sometimes we will make random moves
@@ -122,15 +122,15 @@ int MainLoop::main_loop(std::istream& ins, std::ostream& os, std::ostream& logs,
  * reads from std::cin and writes to std::cout
  * and logs to std::clog.
  *
- * NOTE: Having it makes it possible not to #include <iostream>
+ * NOTE: Having it makes it possible not to include iostream
  * in MainLoop.hpp
  * 
  * 
  * @return 
  */
-int MainLoop::main_loop(const StaticEvaluatorTable& evaluatorTab)
+int MainLoop::run(const StaticEvaluatorTable& evaluatorTab)
 {
-  return MainLoop::main_loop(std::cin, std::cout, std::clog, evaluatorTab);
+  return MainLoop::run(std::cin, std::cout, std::clog, evaluatorTab);
 }
 
 /**
@@ -144,3 +144,20 @@ static const SimpleStaticEvaluator DEFAULT_EVALUATOR;
  * 
  */
 const StaticEvaluatorTable& MainLoop::DEFAULT_EVALUATOR_TABLE = {&DEFAULT_EVALUATOR, &DEFAULT_EVALUATOR};
+
+const MainLoop* MainLoop::reportSettings() const
+{
+  // Report on the values of parameters
+  std::cout
+    << "WHIE played by " << ( humanPlayer[Board::WHITE] ? "Human" : "Computer")
+    << "BLACK played by " << ( humanPlayer[Board::BLACK] ? "Human" : "Computer" )
+    << "\nNumber of games to play: " << num_games
+    << "\nMax depth for WHITE: " << max_depth[Board::WHITE]
+    << "\nMax depth for BLACK: " << max_depth[Board::BLACK]
+    << "\nBoard print size: " << ( Board::print_size_big ? "BIG" : "SMALL" )
+    << "\nClear screen before printing: " << ( Board::clear_screen_before_printing ? "ON" : "OFF" )
+    << "\nBoard width: " <<  Board::w()
+    << "\nBoard height: " << Board::h()
+    << std::endl;
+return this;
+}
