@@ -329,7 +329,7 @@ std::ostream& Board::print(std::ostream& s, bool big) const {
 }
 
 std::ostream& Board::printSmall(std::ostream& s) const {
-  static const std::string rowlabel("01234567");
+  static const std::string rowlabel = std::string("01234567").substr(0,w());
   s << " " << rowlabel.substr(0,w()) << "\n";
   for (int y = 0; y < h(); y++) {
     s << y;
@@ -343,7 +343,7 @@ std::ostream& Board::printSmall(std::ostream& s) const {
     }
     s << esc << "[0m" << y << "\n";
   }
-  s << " " << rowlabel.substr(0,w()) << "\n";
+  s << " " << rowlabel << "\n";
   s << "Score: " << score()
     << "\nNumber of tiles: " << numTiles()
     << "\nNumber of white tiles: " << numWhiteTiles()    
@@ -353,9 +353,10 @@ std::ostream& Board::printSmall(std::ostream& s) const {
 }
 
 std::ostream& Board::printBig(std::ostream& s) const {
+  auto rowlabel = std::string("0  1  2  3  4  5  6  7").substr(0, 2*w());
   s << esc << "[1;1H" << esc
     << "[0J"
-    << "  0  1  2  3  4  5  6  7 \n";
+    << "  " << rowlabel << " \n";
 
   for (int y = 0; y < h(); y++) {
     s << " ";
@@ -385,7 +386,7 @@ std::ostream& Board::printBig(std::ostream& s) const {
     }  
     s << reset << "\n";
   }
-  s << "  " << rowlabel.substr(0, 2*w()) << "\n";
+  s << "  " << rowlabel << " \n";
   return s;
 }
 
