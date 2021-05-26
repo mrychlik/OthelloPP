@@ -101,7 +101,7 @@ private:
   mutable value_type minMaxVal; /**< Cached value by minmax */
   //// END: Mutable fields
 
-  Player player_ : 1;		/**< Player to move  */
+  Player player_;		/**< Player to move  */
 
   int x_ : 4;			/**< x of last placed piece, or -1 */
   int y_ : 4;			/**< y of last placed piece, or -1 */
