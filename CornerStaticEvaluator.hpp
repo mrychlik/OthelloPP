@@ -31,7 +31,7 @@ public:
    */
   CornerStaticEvaluator(int cornerVal = DEFAULT_CORNER_VALUE) : cornerVal(cornerVal) { }
 
-  int operator()(const Board& b, Board::Player player, int depth) const
+  StaticEvaluatorTraits::value_type operator()(const Board& b, Board::Player player, int depth) const
   {
     auto val = b.score();
 
@@ -42,14 +42,14 @@ public:
     if( b.isFilled(0,0) ) {
       val += b.isWhite(0,0) ? cornerVal : -cornerVal;
     }
-    if( b.isFilled(0,7) ) {
-      val += b.isWhite(0,7) ? cornerVal : -cornerVal;
+    if( b.isFilled(0, Board::h()) ) {
+      val += b.isWhite(0,Board::h()) ? cornerVal : -cornerVal;
     }
-    if( b.isFilled(7,0) ) {
-      val += b.isWhite(7,0) ? cornerVal :  -cornerVal;
+    if( b.isFilled(Board::w(), 0) ) {
+      val += b.isWhite(Board::w(),0) ? cornerVal :  -cornerVal;
     }
-    if( b.isFilled(7,7) ) {
-      val +=  b.isWhite(7,7) ? cornerVal : -cornerVal;
+    if( b.isFilled(Board::w(), Board::h()) ) {
+      val +=  b.isWhite(Board::w(),Board::h()) ? cornerVal : -cornerVal;
     }
     return val;
   }
