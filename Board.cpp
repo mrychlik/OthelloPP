@@ -89,7 +89,7 @@ bool Board::isFilled(uint8_t x, uint8_t y) const {
  * @return 
  */
 bool Board::validCoords(int8_t x, int8_t y) const {
-  return ( x >= 0 ) && ( x < w()) && ( y >= 0 ) && ( y < h() );
+  return ( x >= 0 ) && ( x < w() ) && ( y >= 0 ) && ( y < h() );
 }
 
 /** 
