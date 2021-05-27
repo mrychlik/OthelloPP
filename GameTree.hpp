@@ -74,7 +74,7 @@ public:
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
 
 private:
-
+  static const int DEFAULT_EXPANSION_DEPTH = 3;	/**< Depth when expanding a node */
 
   //// NOTE: const methods that operate on mutable fields
 
@@ -85,7 +85,7 @@ private:
   void expandOneLevel(bool verbose = false) const;
 
   // Expad by several levels
-  void expandNode(int numLevels = 3, bool verbose = false) const;
+  void expandNode(int numLevels = DEFAULT_EXPANSION_DEPTH, bool verbose = false) const;
 
   // Delete all children
   void deleteChildren() const;
