@@ -110,10 +110,10 @@ BOOST_AUTO_TEST_CASE(tree_node_count_6x6)
 
 BOOST_AUTO_TEST_CASE(tree_node_count_6x4)
 {
-  node_count(6, 4, 10);
+  node_count(6, 4, 12);
 }
 
 BOOST_AUTO_TEST_CASE(tree_node_count_4x6)
 {
-  node_count(4, 6, 10);
+  node_count(4, 6, 12);
 }
