@@ -84,6 +84,9 @@ private:
   // Add children of a node
   void expandOneLevel(bool verbose = false) const;
 
+  // Expad by several levels
+  void expandNode(int numLevels = 3, bool verbose = false) const;
+
   // Delete all children
   void deleteChildren() const;
 
