@@ -397,6 +397,7 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
 
   // Copy base class object
   static_cast<Board&>(*this) = static_cast<const Board&>(other);
+
   // Copy normal fields
   player_ = other.player_;
 
