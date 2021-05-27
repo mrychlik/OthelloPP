@@ -79,6 +79,20 @@ bool Board::isFilled(uint8_t x, uint8_t y) const {
 };
 
 /** 
+ * Checks if coordinates are in range.  It works with a signed type as
+ * in calculations we may produce invalid coordinates by
+ * icrement/decrement, etc.
+ * 
+ * @param x 
+ * @param y 
+ * 
+ * @return 
+ */
+bool Board::validCoords(int8_t x, int8_t y) const {
+  return ( x < 0 ) || ( x >= w()) || ( y < 0 ) || ( y >= h() );
+}
+
+/** 
  * Is the tile at (x,y) white?
  * 
  * @param x 
@@ -237,7 +251,7 @@ bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y,
       int8_t tmpx = x + distance * direction[ray][0];
       int8_t tmpy = y + distance * direction[ray][1];
 
-      if ( ( tmpx < 0 ) || ( tmpx >= w()) || ( tmpy < 0 ) || ( tmpy >= h() ) ) {
+      if ( validCoords(tmpx, tmpy) ) {
 	end = 1;		//ran off edge
       } else if( !isFilled(tmpx,tmpy) ) {
 	end = 2;		//ran into an empty space
