@@ -251,7 +251,7 @@ bool Board::findFlipRadius(Player player, uint8_t x, uint8_t y,
       int8_t tmpx = x + distance * direction[ray][0];
       int8_t tmpy = y + distance * direction[ray][1];
 
-      if ( validCoords(tmpx, tmpy) ) {
+      if ( !validCoords(tmpx, tmpy) ) {
 	end = 1;		//ran off edge
       } else if( !isFilled(tmpx,tmpy) ) {
 	end = 2;		//ran into an empty space
