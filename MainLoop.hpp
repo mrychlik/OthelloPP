@@ -11,7 +11,6 @@
 #define MAIN_LOOP_H
 
 #include <iosfwd>
-#include <memory>
 #include "StaticEvaluator.hpp"
 
 /**
