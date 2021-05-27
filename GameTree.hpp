@@ -74,7 +74,7 @@ public:
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
 
 private:
-  static const int DEFAULT_EXPANSION_DEPTH = 3;	/**< Depth when expanding a node */
+  static const int DEFAULT_EXPANSION_DEPTH = 2;	/**< Depth when expanding a node */
 
   //// NOTE: const methods that operate on mutable fields
 
