@@ -381,7 +381,7 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
     }
   }
   if(!isOtherChild) {
-    throw std::logic_error("We can only copy-assign from childen");
+    throw std::logic_error("We can only copy-assign from childen.");
   }
   children_.clear();
   isExpanded = false;
