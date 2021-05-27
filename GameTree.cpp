@@ -344,7 +344,8 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, in
     // know which child is promising. We choose a random move
 
     auto sz = std::distance(children().begin(), children().end());
-    std::vector<TreeNode *> bestChildren(sz);
+    assert(sz > 0);
+    bestChildren.resize(sz);
     // Every child is best
     std::copy(children().begin(), children().end(), bestChildren.begin());
   }
