@@ -371,27 +371,25 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
 {
   if(this == &other) return *this;
   // Delete children other than other;
-  // Since children_ is mutable, nothing
-  // bad should happen
-  bool isOtherChild = false;
+  // Since children_ are mutable, nothing
+  // bad should happen, right?
+  if( std::find(children_.begin(), children_.end(), &other) == children_.end()) {
+    throw std::logic_error("We can only copy-assign from childen.");
+  }
+  // Now do delete other children
   for(auto child : children_) {
     if(child != &other) {
       delete child;
-    } else {
-      isOtherChild = true;
     }
-  }
-  if(!isOtherChild) {
-    throw std::logic_error("We can only copy-assign from childen.");
   }
   children_.clear();
   isExpanded = false;
   
   if(other.isExpanded) {
+    // Steal other's children
     children_ = other.children_;
-    // Now that we took other's children,
-    // we need to inform other
-    // that he has none
+    // Now that we took other's children, we need to inform other that
+    // he has none
     other.children_.clear();
     other.isExpanded = false;
     isExpanded = true;
