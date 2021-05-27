@@ -98,6 +98,22 @@ void TreeNode::expandOneLevel(bool verbose) const
 }
 
 
+/** 
+ * Expand a node by several levels
+ * 
+ * @param numLevels 
+ * @param verbose 
+ */
+void TreeNode::expandNode(int numLevels, bool verbose) const
+{
+  if(numLevels >= 1) {
+    expandOneLevel();
+    for( auto child : children_ ) {
+      child->expandNode(numLevels - 1, verbose);
+    }
+  }
+}
+
 void TreeNode::addChild(TreeNode* child) const
 {
   children_.push_front(child);
@@ -214,11 +230,10 @@ void TreeNode::deleteChildren() const
 const TreeNode::children_type& TreeNode::children() const
 {
   if(!isExpanded) {
-    expandOneLevel();
+    expandNode();
   }
   return children_;
 }
-
 
 /** 
  * Reads player move from a stream.
