@@ -21,11 +21,10 @@
 #include <utility>
 
 /**
- * Class TreeNode represents the node of the game tree. In this
- * implementation TreeNode derives from class Board, as exactly one
- * instance of the Board is associated with a TreeNode.  This
- * introduces a compile-time dependency on the Board class, which is
- * undesirable but it seems harmless at this time.
+ * This implementation of abstract TreeNode derives from class Board,
+ * as exactly one instance of the Board is associated with a TreeNodeSimple.
+ * This introduces a compile-time dependency on the Board class, which
+ * is undesirable but it seems harmless at this time.
  * 
  */
 class TreeNodeSimple : public TreeNode, public Board {
@@ -42,31 +41,14 @@ public:
   const children_type& children() const;
   TreeNode& getHumanMove(std::istream& s) const;
   TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
-
   int nodeCount(int depth) const;
-
-  /** 
-   * @return x-coord of last move
-   */
   int x() const { return x_; }
-
-  /**
-   * @return y-coord of last move
-   */
   int y() const { return y_; }
-
-  /** 
-   * @return The player to move.
-   */
   Player player() const { return player_; };
-
   int minmax(const StaticEvaluator& evaluator,
 	     int8_t depth,
 	     value_type alpha = MIN_VAL,
 	     value_type beta = MAX_VAL) const;
-
-
-  friend std::ostream& operator<<(std::ostream& s, const TreeNodeSimple& tree);
 
 private:
   static const int DEFAULT_EXPANSION_DEPTH = 2;	/**< Depth when expanding a node */
