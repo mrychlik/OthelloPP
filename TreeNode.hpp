@@ -65,7 +65,15 @@ public:
   TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
   int nodeCount(int depth) const;
 
+
+  /** 
+   * @return x-coord of last move
+   */
   int x() const { return x_; }
+
+  /**
+   * @return y-coord of last move
+   */
   int y() const { return y_; }
 
   Player player() const { return player_; };
