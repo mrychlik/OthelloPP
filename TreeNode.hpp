@@ -85,9 +85,7 @@ public:
    * @return True if this node is a leaf
    */
   virtual bool isLeaf() const = 0;
-
   
-
   /** 
    * Reads player move from a stream.
    * Validates the move.
@@ -131,25 +129,43 @@ public:
 
   /** 
    * Runs the minmax algorithm with alpha-beta pruning on the
-   * tree starting from this node. 
+   * tree starting from this node. If depth == 0, the
+   * board static score is returned.
    *
    * @param evaluator Static evaluator to use
    * @param depth Traverse descendents up to this depth
    * @param alpha The most the maximizing player is guaranteed
    * @param beta  The least the minimizing player is guaranteed
    * 
-   * @return The best child of this node
+   * @return The best child of this node from the point
+   *         of view of the current player.
    */
   virtual int minmax(const StaticEvaluator& evaluator,
 	     int8_t depth,
 	     value_type alpha = MIN_VAL,
 	     value_type beta = MAX_VAL) const = 0;
 
-  virtual std::ostream& print(std::ostream& s) const = 0;
-
+  /** 
+   * Output this node. Simply calls print method which should
+   * be customized by all TreeNode implementations.
+   * 
+   * @param s 
+   * @param tree 
+   * 
+   * @return 
+   */
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree) {
     return tree.print(s);
   };
+protected:
+  /** 
+   * Print this node
+   * 
+   * @param s 
+   * 
+   * @return 
+   */
+  virtual std::ostream& print(std::ostream& s) const = 0;
 };
 
 #endif	// ABSTRACT_TREE_NODE_HPP
