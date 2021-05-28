@@ -17,10 +17,11 @@
 
 #include <iosfwd>
 #include <cinttypes>
-#include <forward_list>
 
 /**
  * Class representing the node of the game tree.
+ * This class also serves as a child container, by
+ * exposing a const iterator interface.
  * 
  */
 class TreeNode : public StaticEvaluatorTraits, public BoardTraits {
@@ -45,7 +46,7 @@ public:
 			  const Board& board = Board(),
 			  int8_t x = -1,
 			  int8_t y = -1);
-  virtual ~TreeNode();
+  virtual ~TreeNode() {};
 
   /** 
    * Read access to the board of this node
@@ -85,7 +86,7 @@ public:
    */
   virtual bool isLeaf() const = 0;
 
-  virtual const children_type& children() const = 0;
+  
 
   /** 
    * Reads player move from a stream.
@@ -121,6 +122,24 @@ public:
    */
   virtual Player player() const  = 0;
 
+  /**
+   * Read only access to child container
+   *
+   * @return Children.
+   */
+  virtual const children_type& children() const = 0;
+
+  /** 
+   * Runs the minmax algorithm with alpha-beta pruning on the
+   * tree starting from this node. 
+   *
+   * @param evaluator Static evaluator to use
+   * @param depth Traverse descendents up to this depth
+   * @param alpha Most max can hope for
+   * @param beta  Least min can hope for
+   * 
+   * @return The best child of this node
+   */
   virtual int minmax(const StaticEvaluator& evaluator,
 	     int8_t depth,
 	     value_type alpha = MIN_VAL,
@@ -132,7 +151,5 @@ public:
     return tree.print(s);
   };
 };
-
-inline TreeNode::~TreeNode() {};
 
 #endif	// ABSTRACT_TREE_NODE_HPP
