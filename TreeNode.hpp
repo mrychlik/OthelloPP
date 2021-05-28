@@ -135,8 +135,8 @@ public:
    *
    * @param evaluator Static evaluator to use
    * @param depth Traverse descendents up to this depth
-   * @param alpha Most max is guaranteed
-   * @param beta  Least min is guaranteed
+   * @param alpha Most maximizing player is guaranteed
+   * @param beta Least minimizing player is guaranteed
    * 
    * @return The best child of this node
    */
