@@ -41,7 +41,10 @@ public:
    * 
    * @return 
    */
-  static TreeNode *create(BoardTraits::Player player = WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
+  static TreeNode *create(BoardTraits::Player player = WHITE,
+			  const Board& board = Board(),
+			  int8_t x = -1,
+			  int8_t y = -1);
   virtual ~TreeNode();
 
   /** 
