@@ -8,11 +8,12 @@
  * 
  */
 
-#include "GameTree.hpp"
+#include "TreeNode.hpp"
 #include "SimpleStaticEvaluator.hpp"
 #include "CornerStaticEvaluator.hpp"
 #include "StaticEvaluator.hpp"
 
+#include <memory>
 #include <iostream>
 #include <cmath>
 #include <iomanip>
@@ -24,13 +25,13 @@
 
 BOOST_AUTO_TEST_CASE(tree_node_size)
 {
-  TreeNode* tree = TreeNode::makeTreeNode();
-  std::cout << "TreeNode size: " << sizeof(*tree) << std::endl;
+  std::unique_ptr<TreeNode> root(TreeNode::create());
+  std::cout << "TreeNode size: " << sizeof(*root) << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(tree_minmax_and_print)
 {
-  TreeNode *root = TreeNode::makeTreeNode();
+  std::unique_ptr<TreeNode> root(TreeNode::create());
   int depth = 5;
   SimpleStaticEvaluator evaluator;
   root->minmax(evaluator, depth);
@@ -41,7 +42,7 @@ BOOST_AUTO_TEST_CASE(tree_minmax_and_print)
 
 BOOST_AUTO_TEST_CASE(tree_minmax)
 {
-  TreeNode* root = TreeNode::makeTreeNode();
+  std::unique_ptr<TreeNode> root(TreeNode::create());
   int depth = 15;
   SimpleStaticEvaluator evaluator;
   std::cout << "\nDepth: " << depth
@@ -51,7 +52,7 @@ BOOST_AUTO_TEST_CASE(tree_minmax)
 
 BOOST_AUTO_TEST_CASE(tree_minmax_corners)
 {
-  TreeNode* root = TreeNode::makeTreeNode();
+  std::unique_ptr<TreeNode> root(TreeNode::create());
   int depth = 15;
   CornerStaticEvaluator evaluator;
   std::cout << "\nDepth: " << depth
@@ -72,7 +73,7 @@ static void node_count(unsigned w, unsigned h, int max_depth)
   std::cout << boost::format("Node count for board size %u x %u, max. depth: %u\n") % w % h % max_depth;
   Board::setW(w);
   Board::setH(h);  
-  TreeNode* root = TreeNode::makeTreeNode();
+  std::unique_ptr<TreeNode> root(TreeNode::create());
 
   std::cout << boost::format("%5s %10s %10s %10s\n") % "Depth" % "Node Count" % "Fanout" % "Bar plot";
 
@@ -122,7 +123,8 @@ BOOST_AUTO_TEST_CASE(tree_copy_assign_throw)
 {
   // Ensure that we can copy-assign with rv being a child only
 
-  TreeNode *t1 = TreeNode::makeTreeNode(), *t2 = TreeNode::makeTreeNode();		// Two unrelated nodes
+  std::unique_ptr<TreeNode> t1(TreeNode::create()),
+    t2(TreeNode::create());		// Two unrelated nodes
 
   // Do some computations to cause expansion
   SimpleStaticEvaluator evaluator;
@@ -137,8 +139,8 @@ BOOST_AUTO_TEST_CASE(tree_copy_assign_throw)
 BOOST_AUTO_TEST_CASE(tree_copy_assign_nothrow)
 {
   // Ensure that we can copy-assign from a child
-  TreeNode* t1 = TreeNode::makeTreeNode();		
-  const TreeNode* t2 = *t1->children().begin();
+  std::unique_ptr<TreeNode> t1(TreeNode::create());
+  std::unique_ptr<const TreeNode> t2 (*t1->children().begin());
 
   //BOOST_CHECK_NO_THROW (expression)
   BOOST_REQUIRE_NO_THROW( *t1 = *t2 );

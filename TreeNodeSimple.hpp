@@ -1,5 +1,5 @@
 /**
- * @file   GameTree.hpp
+ * @file   TreeNodeSimple.hpp
  * @author Marek Rychlik <marek@cannonball.lan>
  * @date   Wed May 19 18:26:10 2021
  * 
@@ -8,8 +8,8 @@
  * Generates nodes in a lazy fashion.
  */
 
-#ifndef GAME_TREE_HPP
-#define GAME_TREE_HPP 1
+#ifndef TREE_NODE_SIMPLE_HPP
+#define TREE_NODE_SIMPLE_HPP 1
 
 #include "TreeNode.hpp"
 #include "Board.hpp"
@@ -17,7 +17,6 @@
 
 #include <cinttypes>
 #include <forward_list>
-#include <utility>
 
 /**
  * This implementation of abstract TreeNode derives from class Board,
@@ -37,7 +36,6 @@ public:
   const Board& board() const;
   int score() const;
   bool isLeaf() const;
-  const children_type& children() const;
   TreeNode& getHumanMove(std::istream& s) const;
   TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
   int nodeCount(int depth) const;
@@ -50,6 +48,8 @@ public:
 	     value_type beta = MAX_VAL) const;
 
 private:
+  const children_type& children() const;
+
   static const int DEFAULT_EXPANSION_DEPTH = 2;	/**< Depth when expanding a node */
 
   std::ostream& print(std::ostream& s) const;
@@ -90,4 +90,4 @@ private:
   int y_ : 4;			/**< y of last placed piece, or -1 */
 };
 
-#endif
+#endif	// TREE_NODE_SIMPLE_HPP

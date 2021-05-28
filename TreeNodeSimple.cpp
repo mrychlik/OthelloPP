@@ -1,5 +1,5 @@
 /**
- * @file   GameTree.cpp
+ * @file   TreeNodeSimple.cpp
  * @author Marek Rychlik <marek@cannonball.lan>
  * @date   Wed May 19 18:34:21 2021
  * 
@@ -13,7 +13,7 @@
  *
  */
 
-#include "GameTree.hpp"
+#include "TreeNodeSimple.hpp"
 #include "BoardTraits.hpp"
 #include "StaticEvaluator.hpp"
 #include "SimpleStaticEvaluator.hpp"
@@ -220,7 +220,7 @@ void TreeNodeSimple::deleteChildren() const
  * 
  * @return 
  */
-const TreeNodeSimple::children_type& TreeNodeSimple::children() const
+const TreeNode::children_type& TreeNodeSimple::children() const
 {
   if(!isExpanded) {
     expandNode();
