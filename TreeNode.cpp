@@ -138,7 +138,7 @@ std::ostream& TreeNode::print(std::ostream& s) const
 
   if(isExpanded && print_recursively) {
     for(auto child : children()) {
-      dynamic_cast<const TreeNode *>(child)->print(s);
+      child->print(s);
     }
   }
   return s;
@@ -335,7 +335,7 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, in
   if(depth >= 1) {
     auto bestVal = minmax(*evaluatorTab[player()], depth);
     for(auto child : children()) {
-      if(dynamic_cast<TreeNode*>(child)->minMaxVal == bestVal) {
+      if(child->minMaxVal == bestVal) {
 	bestChildren.push_back(child);
       }
     }
@@ -410,8 +410,4 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
 const Board& TreeNode::board() const
 {
   return static_cast<const Board&>(*this);
-}
-
-int TreeNode::score() const {
-  return this->Board::score();
 }
