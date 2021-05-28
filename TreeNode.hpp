@@ -15,9 +15,9 @@
 #include "Board.hpp"
 #include "StaticEvaluator.hpp"
 
+#include <iosfwd>
 #include <cinttypes>
 #include <forward_list>
-#include <utility>
 
 /**
  * Class representing the node of the game tree.
