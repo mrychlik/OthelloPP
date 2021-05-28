@@ -11,8 +11,10 @@
 #ifndef GAME_TREE_HPP
 #define GAME_TREE_HPP 1
 
+#include "TreeNode.hpp"
 #include "Board.hpp"
 #include "StaticEvaluator.hpp"
+
 
 #include <cinttypes>
 #include <forward_list>
@@ -26,22 +28,16 @@
  * undesirable but it seems harmless at this time.
  * 
  */
-class TreeNode : public Board, private StaticEvaluatorTraits {
+class TreeNodeSimple : public TreeNode, public Board {
 public:
   static bool print_recursively; /**< Print childen of the node */
 
-  /**
-   * The type of children container
-   * 
-   */
-  typedef std::forward_list<TreeNode*> children_type;
-
-  TreeNode(Player player = WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
-  TreeNode(const TreeNode& other) = delete;
-  ~TreeNode();
-
-  TreeNode& operator=(const TreeNode& other); 
-  
+  TreeNodeSimple(Player player = WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
+  TreeNodeSimple(const TreeNodeSimple& other) = delete;
+  virtual ~TreeNodeSimple();
+  TreeNode& operator=(const TreeNode& other);
+  const Board& board() const;
+  int score() const;
   bool isLeaf() const;
 
   const children_type& children() const;
@@ -71,15 +67,20 @@ public:
 	     value_type alpha = MIN_VAL,
 	     value_type beta = MAX_VAL) const;
 
-  friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree);
+
+  friend std::ostream& operator<<(std::ostream& s, const TreeNodeSimple& tree);
 
 private:
   static const int DEFAULT_EXPANSION_DEPTH = 2;	/**< Depth when expanding a node */
 
+  std::ostream& print(std::ostream& s) const;
+
+  TreeNodeSimple& operator=(const TreeNodeSimple& other); 
+
   //// NOTE: const methods that operate on mutable fields
 
   // Installs a new child node
-  void addChild(TreeNode* child) const;
+  void addChild(TreeNodeSimple* child) const;
 
   // Add children of a node
   void expandOneLevel(bool verbose = false) const;
@@ -98,7 +99,7 @@ private:
 
   // NOTE: Using deque for this would use 80 bytes of memory
   // under GCC, vector uses only 24 bytes, forward_list 8 bytes.
-  // As Board currently consumes 24 bytes, the TreeNode only 32
+  // As Board currently consumes 24 bytes, the TreeNodeSimple only 32
   mutable children_type children_;
 
   mutable value_type minMaxVal; /**< Cached value by minmax */
