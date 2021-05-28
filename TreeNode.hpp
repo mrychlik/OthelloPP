@@ -157,6 +157,7 @@ public:
   friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree) {
     return tree.print(s);
   };
+
 protected:
   /** 
    * Print this node
