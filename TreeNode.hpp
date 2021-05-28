@@ -9,8 +9,8 @@
  * implementation classes.
  */
 
-#ifndef ABSTRACT_TREE_NODE_HPP
-#define ABSTRACT_TREE_NODE_HPP 1
+#ifndef TREE_NODE_HPP
+#define TREE_NODE_HPP 1
 
 #include "Board.hpp"
 #include "StaticEvaluator.hpp"
@@ -169,4 +169,4 @@ protected:
   virtual std::ostream& print(std::ostream& s) const = 0;
 };
 
-#endif	// ABSTRACT_TREE_NODE_HPP
+#endif	// TREE_NODE_HPP
