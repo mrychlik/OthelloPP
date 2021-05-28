@@ -3,170 +3,98 @@
  * @author Marek Rychlik <marek@cannonball.lan>
  * @date   Wed May 19 18:26:10 2021
  * 
- * @brief  Abstract game tree 
+ * @brief  Game tree 
  * 
- * Provides abstract base class TreeNode for all game tree node
- * implementation classes.
+ * Generates nodes in a lazy fashion.
  */
 
-#ifndef TREE_NODE_HPP
-#define TREE_NODE_HPP 1
+#ifndef TREE_NODE_SIMPLE_HPP
+#define TREE_NODE_SIMPLE_HPP 1
 
+//#include "TreeNode.hpp"
 #include "Board.hpp"
 #include "StaticEvaluator.hpp"
 
-#include <iosfwd>
+
 #include <cinttypes>
+#include <forward_list>
 
 /**
- * Class representing the node of the game tree.
- * This class also serves as a child container, by
- * exposing a const iterator interface.
+ * This implementation of abstract TreeNode derives from class Board,
+ * as exactly one instance of the Board is associated with a TreeNode.
+ * This introduces a compile-time dependency on the Board class, which
+ * is undesirable but it seems harmless at this time.
  * 
  */
-class TreeNode : public StaticEvaluatorTraits, public BoardTraits {
+class TreeNode : public Board, public StaticEvaluatorTraits {
 public:
   /**
    * The type of children container
    * 
    */
   typedef std::forward_list<TreeNode*> children_type;
+  typedef StaticEvaluatorTraits::value_type value_type;
 
-  /** 
-   * Implements TreeNode factory function.
-   * 
-   * @param player 
-   * @param board 
-   * @param x 
-   * @param y 
-   * 
-   * @return 
-   */
-  static TreeNode *create(BoardTraits::Player player = WHITE,
-			  const Board& board = Board(),
-			  int8_t x = -1,
-			  int8_t y = -1);
-  virtual ~TreeNode() {};
+  static bool print_recursively; /**< Print childen of the node */
 
-  /** 
-   * Read access to the board of this node
-   * 
-   * 
-   * @return 
-   */
-  virtual const Board& board() const = 0;
+  TreeNode(Player player = WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
+  TreeNode(const TreeNode& other) = delete;
+  ~TreeNode();
+  TreeNode& operator=(const TreeNode& other);
+  const Board& board() const;
+  int score() const;
+  bool isLeaf() const;
+  TreeNode& getHumanMove(std::istream& s) const;
+  TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
+  int nodeCount(int depth) const;
+  int x() const { return x_; }
+  int y() const { return y_; }
+  Player player() const { return player_; };
+  const children_type& children() const;
 
-  /** 
-   * Yields the static score of this node.
-   * Must be equivalent to 
-   *   return this->board().score;
-   * 
-   * @return 
-   */
-  virtual int score() const = 0;
-
-  /** 
-   * This copy assignment allows copy assignmet from
-   * a child of the current node and disallows
-   * copying from unrelated nodes.
-   * 
-   * @param other 
-   * 
-   * @return 
-   */
-  virtual TreeNode& operator=(const TreeNode& other) = 0; 
-
-  /** 
-   * A leaf node is the final node
-   * of the game, i.e. neither player has
-   * a valid move.
-   * 
-   * 
-   * @return True if this node is a leaf
-   */
-  virtual bool isLeaf() const = 0;
-  
-  /** 
-   * Reads player move from a stream.
-   * Validates the move.
-   * 
-   * @param s 
-   * 
-   * @return Child node after the move
-   */
-  virtual TreeNode& getHumanMove(std::istream& s) const = 0;
-  
-  /** 
-   * Find the best move for the computer.
-   * 
-   * 
-   * @return The best child node.
-   */
-  virtual TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const = 0;
-
-  virtual int nodeCount(int depth) const = 0;
-  /** 
-   * @return x-coord of last move
-   */
-  virtual int x() const = 0;
-
-  /**
-   * @return y-coord of last move
-   */
-  virtual int y() const = 0;
-
-  /** 
-   * @return The player to move.
-   */
-  virtual Player player() const  = 0;
-
-  /**
-   * Read only access to child container
-   *
-   * @return Children.
-   */
-  virtual const children_type& children() const = 0;
-
-  /** 
-   * Runs the minmax algorithm with alpha-beta pruning on the
-   * tree starting from this node. If depth == 0, the
-   * board static score is returned.
-   *
-   * @param evaluator Static evaluator to use
-   * @param depth Traverse descendents up to this depth
-   * @param alpha The most the maximizing player is guaranteed
-   * @param beta  The least the minimizing player is guaranteed
-   * 
-   * @return The best child of this node from the point
-   *         of view of the current player.
-   */
-  virtual int minmax(const StaticEvaluator& evaluator,
+  int minmax(const StaticEvaluator& evaluator,
 	     int8_t depth,
 	     value_type alpha = MIN_VAL,
-	     value_type beta = MAX_VAL) const = 0;
+	     value_type beta = MAX_VAL) const;
 
-  /** 
-   * Output this node. Simply calls print method which should
-   * be customized by all TreeNode implementations.
-   * 
-   * @param s 
-   * @param tree 
-   * 
-   * @return 
-   */
-  friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree) {
-    return tree.print(s);
-  };
+private:
 
-protected:
-  /** 
-   * Print this node
-   * 
-   * @param s 
-   * 
-   * @return 
-   */
-  virtual std::ostream& print(std::ostream& s) const = 0;
+  static const int DEFAULT_EXPANSION_DEPTH = 2;	/**< Depth when expanding a node */
+
+  std::ostream& print(std::ostream& s) const;
+
+  //// NOTE: const methods that operate on mutable fields
+
+  // Installs a new child node
+  void addChild(TreeNode* child) const;
+
+  // Add children of a node
+  void expandOneLevel(bool verbose = false) const;
+
+  // Expad by several levels
+  void expandNode(int numLevels = DEFAULT_EXPANSION_DEPTH, bool verbose = false) const;
+
+  // Delete all children
+  void deleteChildren() const;
+
+  //// END: const methods that operate on mutable fields
+
+  //// NOTE: Mutable fields
+
+  mutable bool isExpanded : 1;	/**< Have the children been added */
+
+  // NOTE: Using deque for this would use 80 bytes of memory
+  // under GCC, vector uses only 24 bytes, forward_list 8 bytes.
+  // As Board currently consumes 24 bytes, the TreeNode only 32
+  mutable children_type children_;
+
+  mutable value_type minMaxVal; /**< Cached value by minmax */
+  //// END: Mutable fields
+
+  Player player_ : 1;		/**< Player to move  */
+
+  int x_ : 4;			/**< x of last placed piece, or -1 */
+  int y_ : 4;			/**< y of last placed piece, or -1 */
 };
 
-#endif	// TREE_NODE_HPP
+#endif	// TREE_NODE_SIMPLE_HPP
