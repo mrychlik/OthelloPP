@@ -125,8 +125,8 @@ private:
   uint64_t filled;		/**< Is a square is occupied? */
   uint64_t white;		/**< Is a square occupied by white? */
 
-  static uint8_t w_;		/**< Board width */
-  static uint8_t h_;		/**< Board height */
+  static uint8_t w_ = 8;	/**< Board width */
+  static uint8_t h_ = 8;	/**< Board height */
 };
 
 #endif // BOARD_HPP
