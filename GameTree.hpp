@@ -13,7 +13,6 @@
 
 #include "TreeNode.hpp"
 #include "Board.hpp"
-#include "StaticEvaluator.hpp"
 
 
 #include <cinttypes>
