@@ -88,6 +88,18 @@ public:
 	     value_type alpha = MIN_VAL,
 	     value_type beta = MAX_VAL) const;
 
+  /** 
+   * Output this node. Simply calls print method.
+   * 
+   * @param s 
+   * @param tree 
+   * 
+   * @return 
+   */
+  friend std::ostream& operator<<(std::ostream& s, const TreeNode& tree) {
+    return tree.print(s);
+  };
+
 private:
 
   static const int DEFAULT_EXPANSION_DEPTH = 2;	/**< Depth when expanding a node */
