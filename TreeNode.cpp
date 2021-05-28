@@ -292,6 +292,15 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
   throw std::runtime_error("Failed to get a valid move from human.");
 }
 
+
+/** 
+ * Returns the node count of the nodes below and including
+ * this node, up to given depth.
+ * 
+ * @param depth 
+ * 
+ * @return The node count
+ */
 int TreeNode::nodeCount(int depth) const
 {
   int count = 1;		// Count this node
