@@ -228,6 +228,7 @@ const TreeNode::children_type& TreeNode::children() const
   return children_;
 }
 
+
 TreeNode& TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
@@ -285,14 +286,6 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
   throw std::runtime_error("Failed to get a valid move from human.");
 }
 
-/** 
- * Returns the node count of the nodes below and including
- * this node, up to given depth.
- * 
- * @param depth 
- * 
- * @return The node count
- */
 int TreeNode::nodeCount(int depth) const
 {
   int count = 1;		// Count this node
@@ -304,6 +297,12 @@ int TreeNode::nodeCount(int depth) const
   return count;
 }
 
+/** 
+ * Find the best move for the computer.
+ * 
+ * 
+ * @return The best child node.
+ */
 TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
 {
   assert(!isLeaf());
