@@ -156,8 +156,8 @@ const MainLoop& MainLoop::reportSettings() const
     << "\nMax depth for BLACK: " << max_depth[Board::BLACK]
     << "\nBoard print size: " << ( Board::print_size_big ? "BIG" : "SMALL" )
     << "\nClear screen before printing: " << ( Board::clear_screen_before_printing ? "ON" : "OFF" )
-    << "\nBoard width: " <<  Board::w()
-    << "\nBoard height: " << Board::h()
+    << "\nBoard width: " <<  static_cast<unsigned>(Board::w())
+    << "\nBoard height: " << static_cast<unsigned>(Board::h())
     << std::endl;
 
   return *this;
