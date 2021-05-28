@@ -14,6 +14,7 @@
  */
 
 #include "GameTree.hpp"
+#include "BoardTraits.hpp"
 #include "StaticEvaluator.hpp"
 #include "SimpleStaticEvaluator.hpp"
 
@@ -21,7 +22,7 @@
 #include <algorithm>
 #include <cassert>
 
-bool TreeNode::print_recursively = false;
+bool TreeNodeSimple::print_recursively = false;
 
 /** 
  * Constructor of a node with a given player and board.
@@ -33,7 +34,7 @@ bool TreeNode::print_recursively = false;
  *
  * 
  */
-TreeNode::TreeNode(Board::Player player, const Board& board, int8_t x, int8_t y)
+TreeNodeSimple::TreeNodeSimple(BoardTraits::Player player, const Board& board, int8_t x, int8_t y)
   : Board(board),
     isExpanded(false),
     children_(),
@@ -48,7 +49,7 @@ TreeNode::TreeNode(Board::Player player, const Board& board, int8_t x, int8_t y)
  * Destructor. Deletes a tree node and its children
  * 
  */
-TreeNode::~TreeNode()
+TreeNodeSimple::~TreeNodeSimple()
 {
   if(isExpanded) {
     for( auto child : children() ) {
@@ -66,7 +67,7 @@ TreeNode::~TreeNode()
  * 
  * @return 
  */
-void TreeNode::expandOneLevel(bool verbose) const
+void TreeNodeSimple::expandOneLevel(bool verbose) const
 {
   if(isExpanded) return;
   auto move_bag = moves(player());
@@ -76,7 +77,7 @@ void TreeNode::expandOneLevel(bool verbose) const
       // If the other player has a move
       // make it his turn
       if( hasLegalMove(~player()) ) {
-	addChild(new TreeNode(~player(), *this));
+	addChild(new TreeNodeSimple(~player(), *this));
       }
     } else {			// There are moves, we must make one
       for (auto m : move_bag) {
@@ -84,7 +85,7 @@ void TreeNode::expandOneLevel(bool verbose) const
 	if(verbose) {
 	  std::clog << ".";
 	}
-	addChild(new TreeNode(~player(), childBoard, x, y));
+	addChild(new TreeNodeSimple(~player(), childBoard, x, y));
       }
     }
     isExpanded = true;
@@ -104,17 +105,17 @@ void TreeNode::expandOneLevel(bool verbose) const
  * @param numLevels 
  * @param verbose 
  */
-void TreeNode::expandNode(int numLevels, bool verbose) const
+void TreeNodeSimple::expandNode(int numLevels, bool verbose) const
 {
   if(numLevels >= 1) {
     expandOneLevel();
     for( auto child : children_ ) {
-      child->expandNode(numLevels - 1, verbose);
+      dynamic_cast<TreeNodeSimple *>(child)->expandNode(numLevels - 1, verbose);
     }
   }
 }
 
-void TreeNode::addChild(TreeNode* child) const
+void TreeNodeSimple::addChild(TreeNodeSimple* child) const
 {
   children_.push_front(child);
 }
@@ -127,17 +128,17 @@ void TreeNode::addChild(TreeNode* child) const
  * 
  * @return 
  */
-std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
+std::ostream& TreeNodeSimple::print(std::ostream& s) const
 {
-  s << static_cast<const Board&>(tree)
-    << "\nPlayer to move: " << ( ( tree.player() == Board::WHITE ) ? "WHITE" : "BLACK" )
-    << "\nLast filled x: " << tree.x()
-    << "\nLast filled y: " << tree.y()
+  s << board()
+    << "\nPlayer to move: " << ( ( player() == Board::WHITE ) ? "WHITE" : "BLACK" )
+    << "\nLast filled x: " << x()
+    << "\nLast filled y: " << y()
     << std::endl;
 
-  if(tree.isExpanded && TreeNode::print_recursively) {
-    for(auto child : tree.children()) {
-      s << *child;
+  if(isExpanded && print_recursively) {
+    for(auto child : children()) {
+      dynamic_cast<const TreeNodeSimple *>(child)->print(s);
     }
   }
   return s;
@@ -158,7 +159,7 @@ std::ostream& operator<<(std::ostream& s, const TreeNode& tree)
  * 
  * @return The best child of this node
  */
-int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
+int TreeNodeSimple::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
     minMaxVal = evaluator(*this, player(), depth);
@@ -197,15 +198,7 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
   return minMaxVal;
 }
 
-/** 
- * A leaf node is the final node
- * of the game, i.e. neither player has
- * a valid move.
- * 
- * 
- * @return 
- */
-bool TreeNode::isLeaf() const
+bool TreeNodeSimple::isLeaf() const
 {
   return !hasLegalMove(WHITE) && !hasLegalMove(BLACK);
 }
@@ -215,7 +208,7 @@ bool TreeNode::isLeaf() const
  * the node unexpanded
  * 
  */
-void TreeNode::deleteChildren() const
+void TreeNodeSimple::deleteChildren() const
 {
   for(auto child : children_ ) {
     delete child;
@@ -227,7 +220,7 @@ void TreeNode::deleteChildren() const
  * 
  * @return 
  */
-const TreeNode::children_type& TreeNode::children() const
+const TreeNodeSimple::children_type& TreeNodeSimple::children() const
 {
   if(!isExpanded) {
     expandNode();
@@ -235,15 +228,7 @@ const TreeNode::children_type& TreeNode::children() const
   return children_;
 }
 
-/** 
- * Reads player move from a stream.
- * Validates the move.
- * 
- * @param s 
- * 
- * @return Child node after the move
- */
-TreeNode& TreeNode::getHumanMove(std::istream& s) const
+TreeNode& TreeNodeSimple::getHumanMove(std::istream& s) const
 {
   int x,y;
   TreeNode *selectedChild = nullptr;
@@ -260,8 +245,8 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
       throw std::runtime_error("Input stream bad during input of x and y.");
     }
     std::cout << "You, Human, entered: " << x << " " << y << std::endl;
-    if( !(x >= 0 && x <= 7 && y >= 0 && y <= 7) && !(x == -1 && y == -1) ) {
-      std::cout << "Input value x or y out of range 0-7: " << x << " " << y << std::endl;
+    if( !(x >= 0 && x < w() && y >= 0 && y < h()) && !(x == -1 && y == -1) ) {
+      std::cout << "Input value x or y out of range: " << x << " " << y << std::endl;
       continue;
     } else {
       for( auto child : children() ) {
@@ -308,7 +293,7 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
  * 
  * @return The node count
  */
-int TreeNode::nodeCount(int depth) const
+int TreeNodeSimple::nodeCount(int depth) const
 {
   int count = 1;		// Count this node
   if(depth >= 1) {
@@ -319,13 +304,7 @@ int TreeNode::nodeCount(int depth) const
   return count;
 }
 
-/** 
- * Find best move for the computer
- * 
- * 
- * @return 
- */
-TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
+TreeNode& TreeNodeSimple::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
 {
   assert(!isLeaf());
 
@@ -334,7 +313,7 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, in
   if(depth >= 1) {
     auto bestVal = minmax(*evaluatorTab[player()], depth);
     for(auto child : children()) {
-      if(child->minMaxVal == bestVal) {
+      if(dynamic_cast<TreeNodeSimple*>(child)->minMaxVal == bestVal) {
 	bestChildren.push_back(child);
       }
     }
@@ -354,6 +333,10 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, in
   return **bestChildren.begin();
 }
 
+TreeNode& TreeNodeSimple::operator=(const TreeNode& other) {
+  return *this = dynamic_cast<const TreeNodeSimple&>(other);
+}
+  
 
 /** 
  * This copy assignment notably allows a copy from
@@ -367,7 +350,7 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, in
  * 
  * @return 
  */
-TreeNode& TreeNode::operator=(const TreeNode& other)
+TreeNodeSimple& TreeNodeSimple::operator=(const TreeNodeSimple& other)
 {
   if(this == &other) return *this;
   // Delete children other than other;
@@ -405,4 +388,13 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
   y_ = other.y_;
 
   return *this;
+}
+
+const Board& TreeNodeSimple::board() const
+{
+  return static_cast<const Board&>(*this);
+}
+
+int TreeNodeSimple::score() const {
+  return this->Board::score();
 }
