@@ -5,7 +5,7 @@
  * 
  * @brief  Abstract game tree 
  * 
- * Provides base class AbtractTreeNode for all game tree node
+ * Provides abstract base class TreeNode for all game tree node
  * implementation classes.
  */
 
@@ -20,7 +20,7 @@
 #include <utility>
 
 /**
- * Class TreeNode represents the node of the game tree.
+ * Class representing the node of the game tree.
  * 
  */
 class TreeNode : public StaticEvaluatorTraits, public BoardTraits {
