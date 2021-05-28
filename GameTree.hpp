@@ -34,7 +34,7 @@ public:
 
   TreeNodeSimple(Player player = WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
   TreeNodeSimple(const TreeNodeSimple& other) = delete;
-  virtual ~TreeNodeSimple();
+  ~TreeNodeSimple();
   TreeNode& operator=(const TreeNode& other);
   const Board& board() const;
   int score() const;
