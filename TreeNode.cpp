@@ -229,6 +229,12 @@ const TreeNode::children_type& TreeNode::children() const
 }
 
 
+/** 
+ * Find the best move for the computer.
+ * 
+ * 
+ * @return The best child node.
+ */
 TreeNode& TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
