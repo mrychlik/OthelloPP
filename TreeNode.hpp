@@ -19,6 +19,10 @@
 #include <forward_list>
 #include <utility>
 
+/**
+ * Class TreeNode represents the node of the game tree.
+ * 
+ */
 class TreeNode : public StaticEvaluatorTraits, public BoardTraits {
 public:
   /**
@@ -80,8 +84,16 @@ public:
 
   virtual const children_type& children() const = 0;
 
+  /** 
+   * Reads player move from a stream.
+   * Validates the move.
+   * 
+   * @param s 
+   * 
+   * @return Child node after the move
+   */
   virtual TreeNode& getHumanMove(std::istream& s) const = 0;
-
+  
   /** 
    * Find the best move for the computer.
    * 
