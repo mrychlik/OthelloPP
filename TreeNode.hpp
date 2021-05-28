@@ -37,6 +37,11 @@ public:
    * 
    */
   typedef std::forward_list<TreeNode*> children_type;
+
+  /**
+   * Type of value returned by the static evaluator
+   * 
+   */
   typedef StaticEvaluatorTraits::value_type value_type;
 
   static bool print_recursively; /**< Print childen of the node */
@@ -45,9 +50,31 @@ public:
   TreeNode(const TreeNode& other) = delete;
   ~TreeNode();
   TreeNode& operator=(const TreeNode& other);
+
+  /** 
+   * Read access to the board of this node
+   * 
+   * 
+   * @return 
+   */
   const Board& board() const;
-  int score() const;
+
+  /** 
+   * A leaf node is the final node
+   * of the game, i.e. neither player has
+   * a valid move.
+   * 
+   * 
+   * @return True if this node is a leaf
+   */
   bool isLeaf() const;
+
+  /** 
+   * Find the best move for the computer.
+   * 
+   * 
+   * @return The best child node.
+   */
   TreeNode& getHumanMove(std::istream& s) const;
   TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
   int nodeCount(int depth) const;
