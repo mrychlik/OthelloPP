@@ -76,7 +76,11 @@ public:
    */
   int y() const { return y_; }
 
+  /** 
+   * @return The player to move.
+   */
   Player player() const { return player_; };
+
   const children_type& children() const;
 
   int minmax(const StaticEvaluator& evaluator,
