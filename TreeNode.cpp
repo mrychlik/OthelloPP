@@ -9,19 +9,9 @@
  */
 
 #include "TreeNode.hpp"
-#include "GameTree.hpp"
+#include "TreeNodeSimple.hpp"
 
-/** 
- * Implements TreeNode factory function.
- * 
- * @param player 
- * @param board 
- * @param x 
- * @param y 
- * 
- * @return 
- */
-TreeNode *TreeNode::create(BoardTraits::Player player, const Board& board, int8_t x, int8_t y)
+ TreeNode *TreeNode::create(BoardTraits::Player player, const Board& board, int8_t x, int8_t y)
 {
   return new TreeNodeSimple(player, board, x, y);
 }
