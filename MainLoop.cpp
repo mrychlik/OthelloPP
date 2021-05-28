@@ -149,8 +149,8 @@ const MainLoop& MainLoop::reportSettings() const
 {
   // Report on the values of parameters
   std::cout
-    << "WHIE played by " << ( humanPlayer[Board::WHITE] ? "Human" : "Computer")
-    << "\nBLACK played by " << ( humanPlayer[Board::BLACK] ? "Human" : "Computer" )
+    << "WHIE played by " << ( humanPlayer[Board::WHITE] ? "HUMAN" : "COMPUTER")
+    << "\nBLACK played by " << ( humanPlayer[Board::BLACK] ? "HUMAN" : "COMPUTER" )
     << "\nNumber of games to play: " << num_games
     << "\nMax depth for WHITE: " << max_depth[Board::WHITE]
     << "\nMax depth for BLACK: " << max_depth[Board::BLACK]
