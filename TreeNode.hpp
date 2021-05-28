@@ -59,27 +59,15 @@ public:
    */
   const Board& board() const;
 
-  /** 
-   * A leaf node is the final node
-   * of the game, i.e. neither player has
-   * a valid move.
-   * 
-   * 
-   * @return True if this node is a leaf
-   */
   bool isLeaf() const;
 
-  /** 
-   * Find the best move for the computer.
-   * 
-   * 
-   * @return The best child node.
-   */
   TreeNode& getHumanMove(std::istream& s) const;
   TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
   int nodeCount(int depth) const;
+
   int x() const { return x_; }
   int y() const { return y_; }
+
   Player player() const { return player_; };
   const children_type& children() const;
 
