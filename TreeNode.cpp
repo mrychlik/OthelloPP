@@ -198,6 +198,14 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
   return minMaxVal;
 }
 
+/** 
+ * A leaf node is the final node
+ * of the game, i.e. neither player has
+ * a valid move.
+ * 
+ * 
+ * @return True if this node is a leaf
+ */
 bool TreeNode::isLeaf() const
 {
   return !hasLegalMove(WHITE) && !hasLegalMove(BLACK);
