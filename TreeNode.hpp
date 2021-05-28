@@ -20,7 +20,11 @@
 #include <forward_list>
 
 /**
- * This implementation of abstract TreeNode derives from class Board,
+ * Class representing the node of the game tree.
+ * This class also serves as a child container, by
+ * exposing a const iterator interface.
+ * 
+ * This implementation derives from class Board,
  * as exactly one instance of the Board is associated with a TreeNode.
  * This introduces a compile-time dependency on the Board class, which
  * is undesirable but it seems harmless at this time.
