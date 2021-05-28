@@ -166,7 +166,7 @@ Board::Board() :
   assert( h() % 1 == 0);	// Board height must be even; why?
 
   auto half_width = w() / 2;
-  auto half_height = w() / 2;
+  auto half_height = h() / 2;
   // Standard Othello board initialization
   setWhite(half_width, half_height - 1);
   setWhite(half_width-1, half_height);
