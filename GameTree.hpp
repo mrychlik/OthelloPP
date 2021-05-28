@@ -39,9 +39,7 @@ public:
   const Board& board() const;
   int score() const;
   bool isLeaf() const;
-
   const children_type& children() const;
-
   TreeNode& getHumanMove(std::istream& s) const;
   TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
 
