@@ -14,7 +14,7 @@
 #include <numeric>
 
 #include "MainLoop.hpp"
-#include "GameTree.hpp"
+#include "TreeNode.hpp"
 #include "SimpleStaticEvaluator.hpp"
 //#include "CornerStaticEvaluator.hpp"
 
@@ -33,24 +33,24 @@ int MainLoop::computer_delay  = DEFAULT_COMPUTER_DELAY;
  */
 int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab)
 {
-  TreeNode root;
+  TreeNode *root = TreeNode::create();
   
-  std::cout << root << std::endl;
-  while(!root.isLeaf()) {
-    std::cout << static_cast<Board>(root) << std::flush
+  std::cout << *root << std::endl;
+  while(!root->isLeaf()) {
+    std::cout << root->board() << std::flush
 	      << "----------------------------------------------------------------\n" 
-	      << "Game #" << game << ": Player " << ( root.player() == Board::WHITE ? "WHITE" : "BLACK") << "\n"
+	      << "Game #" << game << ": Player " << ( root->player() == Board::WHITE ? "WHITE" : "BLACK") << "\n"
 	      << "----------------------------------------------------------------\n"
 	      << std::endl;
-    if( humanPlayer[root.player()] ) {
-      root = root.getHumanMove(std::cin);
-      std::cout << "Human played: " << root.x() << " " << root.y() << std::endl;
+    if( humanPlayer[root->player()] ) {
+      *root = root->getHumanMove(std::cin);
+      std::cout << "Human played: " << root->x() << " " << root->y() << std::endl;
     } else {			// not human
       ::sleep(computer_delay);
-      root = root.getComputerMove(evaluatorTab, max_depth[root.player()]);
-      std::cout << static_cast<Board>(root) << std::flush
+      *root = root->getComputerMove(evaluatorTab, max_depth[root->player()]);
+      std::cout << root->board() << std::flush
 		<< "----------------------------------------------------------------\n"
-		<< "Game #" << game << ": Computer played: " << root.x() << " " << root.y() << "\n"
+		<< "Game #" << game << ": Computer played: " << root->x() << " " << root->y() << "\n"
 		<< "----------------------------------------------------------------\n" 
 		<< std::endl;
       if(computer_delay > 0) {
@@ -59,25 +59,25 @@ int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab)
       }
     }
   }
-  std::cout <<  root << std::flush
+  std::cout <<  *root << std::flush
 	    << "----------------------------------------------------------------\n"
 	    << "Game #" << game << ": THE GAME ENDED.\n"
 	    << "----------------------------------------------------------------\n"
 	    << std::endl;
-  if( root.score() > 0) {
-    std::cout << root << std::flush
-	      << "WHITE won!!! Score " << root.score()
+  if( root->score() > 0) {
+    std::cout << *root << std::flush
+	      << "WHITE won!!! Score " << root->score()
 	      << std::endl;    
-  } else if( root.score() < 0) {
+  } else if( root->score() < 0) {
     std::cout << root << std::flush
-	      << "BLACK won!!! Score " << root.score()
+	      << "BLACK won!!! Score " << root->score()
 	      << std::endl;
   } else {
-    std::cout << root << std::flush
+    std::cout << *root << std::flush
 	      << "It's a DRAW!!!\n"
 	      << std::endl;    
   }
-  return root.score();
+  return root->score();
 }
 
 /** 
