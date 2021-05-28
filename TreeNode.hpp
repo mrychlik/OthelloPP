@@ -136,7 +136,7 @@ public:
    * @param evaluator Static evaluator to use
    * @param depth Traverse descendents up to this depth
    * @param alpha Most max can hope for
-   * @param beta  Least min can hope for
+   * @param beta Least min can hope for
    * 
    * @return The best child of this node
    */
