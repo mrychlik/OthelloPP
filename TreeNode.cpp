@@ -110,7 +110,7 @@ void TreeNode::expandNode(int numLevels, bool verbose) const
   if(numLevels >= 1) {
     expandOneLevel();
     for( auto child : children_ ) {
-      dynamic_cast<TreeNode *>(child)->expandNode(numLevels - 1, verbose);
+      child->expandNode(numLevels - 1, verbose);
     }
   }
 }
