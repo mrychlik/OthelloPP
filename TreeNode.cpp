@@ -232,7 +232,7 @@ void TreeNode::deleteChildren() const
 const TreeNode::children_type& TreeNode::children() const
 {
   if(!isExpanded) {
-    expandOneLevel();
+    expandNode();
   }
   return children_;
 }
