@@ -51,12 +51,7 @@ TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int
  */
 TreeNode::~TreeNode()
 {
-  if(isExpanded) {
-    while(!children_.empty()) {
-      delete children_.front();
-      children_.pop_front();
-    }
-  }
+  deleteChildren();
 }
 
 /** 
@@ -108,7 +103,7 @@ void TreeNode::expandOneLevel(bool verbose) const
 void TreeNode::expandNode(int numLevels, bool verbose) const
 {
   if(numLevels >= 1) {
-    expandNode(numLevels - 1, verbose);
+    expandOneLevel();
     for( const auto& child : children_ ) {
       child->expandNode(numLevels - 1, verbose);
     }
@@ -231,9 +226,7 @@ void TreeNode::deleteChildren() const
  */
 const TreeNode::children_type& TreeNode::children() const
 {
-  if(!isExpanded) {
-    expandNode();
-  }
+  assert(isExpanded);
   return children_;
 }
 
@@ -330,6 +323,7 @@ int TreeNode::nodeCount(int depth) const
 const TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
 {
   assert(!isLeaf());
+  expandOneLevel();
 
   std::vector<const TreeNode*> bestChildren;
 
