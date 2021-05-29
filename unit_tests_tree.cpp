@@ -25,38 +25,38 @@
 
 BOOST_AUTO_TEST_CASE(tree_node_size)
 {
-  std::unique_ptr<TreeNode> root(TreeNode::create());
-  std::cout << "TreeNode size: " << sizeof(*root) << std::endl;
+  TreeNode root;
+  std::cout << "TreeNode size: " << sizeof(root) << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(tree_minmax_and_print)
 {
-  std::unique_ptr<TreeNode> root(TreeNode::create());
+  TreeNode root;
   int depth = 5;
   SimpleStaticEvaluator evaluator;
-  root->minmax(evaluator, depth);
+  root.minmax(evaluator, depth);
   std::cout << "\nDepth : " << depth << "\n"
-	    << *root
+	    << root
 	    << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(tree_minmax)
 {
-  std::unique_ptr<TreeNode> root(TreeNode::create());
+  TreeNode root;
   int depth = 15;
   SimpleStaticEvaluator evaluator;
   std::cout << "\nDepth: " << depth
-	    << "\nMinMax value: " << root->minmax(evaluator, depth)
+	    << "\nMinMax value: " << root.minmax(evaluator, depth)
     	    << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(tree_minmax_corners)
 {
-  std::unique_ptr<TreeNode> root(TreeNode::create());
+  TreeNode root;
   int depth = 15;
   CornerStaticEvaluator evaluator;
   std::cout << "\nDepth: " << depth
-	    << "\nMinMax value: " << root->minmax(evaluator, depth)
+	    << "\nMinMax value: " << root.minmax(evaluator, depth)
     	    << std::endl;
 }
 
@@ -73,13 +73,13 @@ static void node_count(unsigned w, unsigned h, int max_depth)
   std::cout << boost::format("Node count for board size %u x %u, max. depth: %u\n") % w % h % max_depth;
   Board::setW(w);
   Board::setH(h);  
-  std::unique_ptr<TreeNode> root(TreeNode::create());
+  TreeNode root;
 
   std::cout << boost::format("%5s %10s %10s %10s\n") % "Depth" % "Node Count" % "Fanout" % "Bar plot";
 
   for(auto depth = 0; depth < max_depth; ++depth) {
     try {
-      auto count = root->nodeCount(depth);
+      auto count = root.nodeCount(depth);
       auto fanout = (::log(count)/depth/log(2));
       int bar_len = ::round(10*fanout);
       std::cout << boost::format("%5d %10d %10g ") % depth % count % fanout
@@ -123,25 +123,24 @@ BOOST_AUTO_TEST_CASE(tree_copy_assign_throw)
 {
   // Ensure that we can copy-assign with rv being a child only
 
-  std::unique_ptr<TreeNode> t1(TreeNode::create()),
-    t2(TreeNode::create());		// Two unrelated nodes
+  TreeNode t1, t2;			// Two unrelated nodes
 
   // Do some computations to cause expansion
   SimpleStaticEvaluator evaluator;
   int depth = 3;
-  t1->minmax(evaluator, depth);
-  t2->minmax(evaluator, depth);
+  t1.minmax(evaluator, depth);
+  t2.minmax(evaluator, depth);
 
   //BOOST_CHECK_THROW (expression, an_exception_type);
-  BOOST_REQUIRE_THROW( *t1 = *t2, std::logic_error );
+  BOOST_REQUIRE_THROW( t1 = t2, std::logic_error );
 }
 
 BOOST_AUTO_TEST_CASE(tree_copy_assign_nothrow)
 {
   // Ensure that we can copy-assign from a child
-  std::unique_ptr<TreeNode> t1(TreeNode::create());
-  std::unique_ptr<const TreeNode> t2 (*t1->children().begin());
+  TreeNode t1;
+  const TreeNode *t2 = *t1.children().begin();
 
   //BOOST_CHECK_NO_THROW (expression)
-  BOOST_REQUIRE_NO_THROW( *t1 = *t2 );
+  BOOST_REQUIRE_NO_THROW( t1 = *t2 );
 }
