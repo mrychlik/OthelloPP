@@ -52,8 +52,9 @@ TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int
 TreeNode::~TreeNode()
 {
   if(isExpanded) {
-    for( const auto& child : children() ) {
-      delete child;
+    while(!children_.empty()) {
+      delete children_.front();
+      children_.pop_front();
     }
   }
 }
@@ -70,8 +71,8 @@ TreeNode::~TreeNode()
 void TreeNode::expandOneLevel(bool verbose) const
 {
   if(isExpanded) return;
-  const auto&& move_bag(moves(player()));
-
+  auto&& move_bag(moves(player()));
+  
   try {
     if( move_bag.empty() ) {	// We have no moves
       // If the other player has a move
@@ -80,12 +81,11 @@ void TreeNode::expandOneLevel(bool verbose) const
 	addChild(new TreeNode(~player(), *this));
       }
     } else {			// There are moves, we must make one
-      for (auto& m : move_bag) {
-	auto& [x, y, childBoard ] = m;
-	if(verbose) {
-	  std::clog << ".";
-	}
+      while( !move_bag.empty() ) {
+	const auto& m  = move_bag.front();
+	const auto& [x, y, childBoard ] = m;
 	addChild(new TreeNode(~player(), childBoard, x, y));
+	move_bag.pop_front();
       }
     }
     isExpanded = true;
@@ -108,7 +108,7 @@ void TreeNode::expandOneLevel(bool verbose) const
 void TreeNode::expandNode(int numLevels, bool verbose) const
 {
   if(numLevels >= 1) {
-    expandOneLevel();
+    expandNode(numLevels - 1, verbose);
     for( const auto& child : children_ ) {
       child->expandNode(numLevels - 1, verbose);
     }
@@ -221,6 +221,7 @@ void TreeNode::deleteChildren() const
   for(const auto& child : children_ ) {
     delete child;
   }
+  isExpanded = false;
 }
 
 /** 
@@ -383,6 +384,8 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
     }
   }
   children_.clear();
+
+  // Steal other's children
   children_.swap(other.children_);
   isExpanded = other.isExpanded;
   other.isExpanded = false;
