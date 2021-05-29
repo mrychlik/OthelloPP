@@ -1,1 +1,5 @@
 *.o
+othello
+docs
+test_suite
+TAGS
