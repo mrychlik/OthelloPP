@@ -52,7 +52,7 @@ TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int
 TreeNode::~TreeNode()
 {
   if(isExpanded) {
-    for( auto& child : children() ) {
+    for( const auto& child : children() ) {
       delete child;
     }
   }
@@ -70,7 +70,7 @@ TreeNode::~TreeNode()
 void TreeNode::expandOneLevel(bool verbose) const
 {
   if(isExpanded) return;
-  auto move_bag(moves(player()));
+  const auto&& move_bag(moves(player()));
 
   try {
     if( move_bag.empty() ) {	// We have no moves
@@ -109,13 +109,13 @@ void TreeNode::expandNode(int numLevels, bool verbose) const
 {
   if(numLevels >= 1) {
     expandOneLevel();
-    for( auto& child : children_ ) {
+    for( const auto& child : children_ ) {
       child->expandNode(numLevels - 1, verbose);
     }
   }
 }
 
-void TreeNode::addChild(TreeNode* child) const
+void TreeNode::addChild(const TreeNode* child) const
 {
   children_.push_front(child);
 }
@@ -137,7 +137,7 @@ std::ostream& TreeNode::print(std::ostream& s) const
     << std::endl;
 
   if(isExpanded && print_recursively) {
-    for(auto& child : children()) {
+    for(const auto& child : children()) {
       child->print(s);
     }
   }
@@ -171,7 +171,7 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
   value_type bestVal;
   if( player() == WHITE ) {	// maximizing player
     bestVal = MIN_VAL;
-    for( auto& child : children() ) {
+    for( const auto& child : children() ) {
       value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
       bestVal = std::max(bestVal, val);
       alpha = std::max(alpha, bestVal);
@@ -181,7 +181,7 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
     }
   } else {			// minimizing player
     bestVal = MAX_VAL;
-    for( auto& child : children() ) {
+    for( const auto& child : children() ) {
       value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
       bestVal = std::min(bestVal,val);
       beta = std::min(alpha, bestVal);
@@ -218,7 +218,7 @@ bool TreeNode::isLeaf() const
  */
 void TreeNode::deleteChildren() const
 {
-  for(auto& child : children_ ) {
+  for(const auto& child : children_ ) {
     delete child;
   }
 }
@@ -243,10 +243,10 @@ const TreeNode::children_type& TreeNode::children() const
  * 
  * @return The best child node.
  */
-TreeNode& TreeNode::getHumanMove(std::istream& s) const
+const TreeNode& TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
-  TreeNode *selectedChild = nullptr;
+  const TreeNode *selectedChild = nullptr;
   while(std::cin) {
     std::cout << "Human, make your move!!\n"
 	      << "(Like this: x  y <ENTER>)\n"
@@ -264,7 +264,7 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
       std::cout << "Input value x or y out of range: " << x << " " << y << std::endl;
       continue;
     } else {
-      for( auto& child : children() ) {
+      for( const auto& child : children() ) {
 	if( child->x() == x && child->y() == y) {
 	  selectedChild = child;
 	}
@@ -272,7 +272,7 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
       if(selectedChild == nullptr) {
 	std::cout << "Move is invalid: " << x << " " << y << std::endl;
 	std::cout << "Valid moves:\n";
-	for( auto& child : children()) {
+	for( const auto& child : children()) {
 	  std::cout << child->x() << " " << child->y() << std::endl; 
 	}
 	std::cout << "Would you like to try again? (say: Y/N/Q)" << std::endl;
@@ -326,15 +326,15 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return The best child node.
  */
-TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
+const TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
 {
   assert(!isLeaf());
 
-  std::vector<TreeNode *> bestChildren;
+  std::vector<const TreeNode*> bestChildren;
 
   if(depth >= 1) {
     auto bestVal = minmax(*evaluatorTab[player()], depth);
-    for(auto& child : children()) {
+    for(const auto& child : children()) {
       if(child->minMaxVal == bestVal) {
 	bestChildren.push_back(child);
       }
@@ -377,7 +377,7 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
     throw std::logic_error("We can only copy-assign from childen.");
   }
   // Now do delete other children
-  for(auto& child : children_) {
+  for(const auto& child : children_) {
     if(child != &other) {
       delete child;
     }
@@ -403,6 +403,8 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
 
   x_ = other.x_;
   y_ = other.y_;
+
+  minMaxVal = other.minMaxVal;
 
   return *this;
 }
