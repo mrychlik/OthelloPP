@@ -54,7 +54,7 @@ public:
   //TreeNode& operator=(const TreeNode& other) = delete;
   TreeNode& operator=(TreeNode&& other);
   //TreeNode& operator=(TreeNode& other) = delete;
-  //TreeNode& operator=(TreeNode other) = delete;
+  TreeNode& operator=(const TreeNode& other);
 
   /** 
    * Read access to the board of this node
@@ -126,8 +126,11 @@ private:
   // Expad by several levels
   void expandNode(int numLevels = DEFAULT_EXPANSION_DEPTH) const;
 
-  // Delete all children
-  void deleteChildren() const;
+  // Delete all descendents
+  void deleteDescendents() const;
+
+  // Delete all descendents except for other
+  void deleteDescendentsExceptFor(const TreeNode *other) const;
 
   //// END: const methods that operate on mutable fields
 
@@ -149,9 +152,6 @@ private:
 
   int x_;			/**< x of last placed piece, or -1 */
   int y_;			/**< y of last placed piece, or -1 */
-
-  int id_;
-  static int id;
 
   void swap(TreeNode& other) noexcept;
 };
