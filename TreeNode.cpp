@@ -365,19 +365,21 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
   // Delete children other than other;
   // Since children_ are mutable, nothing
   // bad should happen, right?
-  if( std::find(children_.begin(), children_.end(), &other) == children_.end()) {
+  auto child = std::find(children_.begin(), children_.end(), &other);
+  if( child == children_.end()) {
     throw std::logic_error("We can only copy-assign from childen.");
   }
-  // Now do delete other children
-  for(const auto& child : children_) {
-    if(child != &other) {
-      delete child;
-    }
-  }
+  // Make other first child
+  std::iter_swap(children_.begin(), child);
+  // Get rid of other
+  children_.pop_front();
+  // Delete remaining children
+  std::for_each(children_.begin(), children_.end(), [&] (auto ch) { delete ch; });
+  // Clear child container
   children_.clear();
 
   // Steal other's children
-  children_.swap(other.children_);
+  other.children_.swap(children_);
   isExpanded = other.isExpanded;
   other.isExpanded = false;
 
