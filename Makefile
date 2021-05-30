@@ -5,7 +5,7 @@ CXXFLAGS += -ggdb3
 #CXXFLAGS += -Og -O0 -Wall
 #CXXFLAGS += -Ofast -Og -Wall
 #CXXFLAGS += -Ofast -Og -Wall -fomit-frame-pointer
-CXXFLAGS += -Ofast -Wall -msse4 -DNDEBUG=1 -fomit-frame-pointer
+#CXXFLAGS += -Ofast -Wall -msse4 -DNDEBUG=1 -fomit-frame-pointer
 
 LDFLAGS  = -lm -lboost_unit_test_framework
 
