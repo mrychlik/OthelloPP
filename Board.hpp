@@ -129,4 +129,6 @@ private:
   static uint8_t h_;		/**< Board height */
 };
 
+  
+
 #endif // BOARD_HPP
