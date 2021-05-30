@@ -101,7 +101,7 @@ void TreeNode::expandNode(int numLevels) const
 {
   if(numLevels >= 1) {
     expandOneLevel();
-    for( const auto& child : children() ) {
+    for( const auto& child : children_ ) {
       child->expandNode(numLevels - 1);
     }
   }
