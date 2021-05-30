@@ -436,9 +436,7 @@ int TreeNode::score() const {
 
 void TreeNode::swap(TreeNode& other) noexcept
 {
-  std::cerr << __func__ << ": " << this << " <-> " << &other << std::endl;
   if(this == &other) return;
-
   std::swap(children_, other.children_);
   std::swap(isExpanded, other.isExpanded);
   std::swap(board_, other.board_);
