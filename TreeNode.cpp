@@ -226,7 +226,7 @@ void TreeNode::deleteChildren() const
  */
 const TreeNode::children_type& TreeNode::children() const
 {
-  assert(isExpanded);
+  expandOneLevel();
   return children_;
 }
 

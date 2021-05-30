@@ -42,14 +42,14 @@ public:
     if( b.isFilled(0,0) ) {
       val += b.isWhite(0,0) ? cornerVal : -cornerVal;
     }
-    if( b.isFilled(0, Board::h()) ) {
-      val += b.isWhite(0,Board::h()) ? cornerVal : -cornerVal;
+    if( b.isFilled(0, Board::h()-1) ) {
+      val += b.isWhite(0,Board::h()-1) ? cornerVal : -cornerVal;
     }
-    if( b.isFilled(Board::w(), 0) ) {
-      val += b.isWhite(Board::w(),0) ? cornerVal :  -cornerVal;
+    if( b.isFilled(Board::w()-1, 0) ) {
+      val += b.isWhite(Board::w()-1,0) ? cornerVal :  -cornerVal;
     }
-    if( b.isFilled(Board::w(), Board::h()) ) {
-      val +=  b.isWhite(Board::w(),Board::h()) ? cornerVal : -cornerVal;
+    if( b.isFilled(Board::w()-1, Board::h()-1) ) {
+      val +=  b.isWhite(Board::w()-1,Board::h()-1) ? cornerVal : -cornerVal;
     }
     return val;
   }
