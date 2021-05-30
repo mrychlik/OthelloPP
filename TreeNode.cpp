@@ -35,14 +35,16 @@ bool TreeNode::print_recursively = false;
  * 
  */
 TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int8_t y)
-  : Board(board),
+  : board_(board),
     isExpanded(false),
     children_(),
     minMaxVal(0),
     player_(player),
     x_(x),
-    y_(y)
+    y_(y),
+    id_(id++)
 {      
+  std::clog << "Created: " << id_ << " " << this << std::endl;
 }
 
 /** 
@@ -52,6 +54,7 @@ TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int
 TreeNode::~TreeNode()
 {
   deleteChildren();
+  std::clog << "Destroyed: " << id_ << " " << this << std::endl;
 }
 
 /** 
@@ -70,7 +73,7 @@ void TreeNode::expandOneLevel() const
       // If the other player has a move
       // make it his turn
       if( hasLegalMove(~player()) ) {
-	addChild(new TreeNode(~player(), *this));
+	addChild(new TreeNode(~player(), board()));
       }
     } else {			// There are moves, we must make one
       while( !move_bag.empty() ) {
@@ -154,14 +157,14 @@ std::ostream& TreeNode::print(std::ostream& s) const
 int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
-    minMaxVal = evaluator(*this, player(), depth);
+    minMaxVal = evaluator(board(), player(), depth);
     return minMaxVal;
   } 
 
   // The code could be refactored because Min and Max code is so
   // similar
   value_type bestVal;
-  if( player() == WHITE ) {	// maximizing player
+  if( player() == Board::WHITE ) {	// maximizing player
     bestVal = MIN_VAL;
     for( const auto& child : children() ) {
       value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
@@ -200,7 +203,7 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
  */
 bool TreeNode::isLeaf() const
 {
-  return !hasLegalMove(WHITE) && !hasLegalMove(BLACK);
+  return !hasLegalMove(Board::WHITE) && !hasLegalMove(Board::BLACK);
 }
 
 /** 
@@ -251,7 +254,7 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
       throw std::runtime_error("Input stream bad during input of x and y.");
     }
     std::cout << "You, Human, entered: " << x << " " << y << std::endl;
-    if( !(x >= 0 && x < w() && y >= 0 && y < h()) && !(x == -1 && y == -1) ) {
+    if( !(x >= 0 && x < board().w() && y >= 0 && y < board().h()) && !(x == -1 && y == -1) ) {
       std::cout << "Input value x or y out of range: " << x << " " << y << std::endl;
       continue;
     } else {
@@ -361,7 +364,9 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, in
  */
 TreeNode& TreeNode::operator=(TreeNode& other)
 {
-  if(this == &other) return *this;
+  if(this == &other) {
+    throw std::logic_error("We cannot copy-assign from ourselves.");
+  }
   // Delete children other than other;
   // Since children_ are mutable, nothing
   // bad should happen, right?
@@ -374,7 +379,7 @@ TreeNode& TreeNode::operator=(TreeNode& other)
   // Get rid of other
   children_.pop_front();
   // Delete remaining children
-  std::for_each(children_.begin(), children_.end(), [&] (auto ch) { delete ch; });
+  std::for_each(children_.begin(), children_.end(), [] (auto& ch) { delete ch; });
   // Clear child container
   children_.clear();
 
@@ -384,7 +389,7 @@ TreeNode& TreeNode::operator=(TreeNode& other)
   other.isExpanded = false;
 
   // Copy base class object
-  std::swap(static_cast<Board&>(*this), static_cast<Board&>(other));
+  std::swap(board_, other.board_);
 
   // Copy normal fields
   player_ = other.player_;
@@ -399,5 +404,40 @@ TreeNode& TreeNode::operator=(TreeNode& other)
 
 const Board& TreeNode::board() const
 {
-  return static_cast<const Board&>(*this);
+  return board_;
 }
+
+/** 
+ * Delegated to Board.
+ * 
+ * @param player 
+ * 
+ * @return 
+ */
+Board::move_bag_type TreeNode::moves(Board::Player player) const {
+  return board().moves(player);
+}
+
+/** 
+ * Delegated to Board
+ * 
+ * @param player 
+ * 
+ * @return 
+ */
+bool TreeNode::hasLegalMove(Board::Player player) const {
+  return board().hasLegalMove(player);
+}
+
+/** 
+ * Delegated to Board
+ * 
+ * @param player 
+ * 
+ * @return 
+ */
+int TreeNode::score() const {
+  return board().score();
+}
+
+int TreeNode::id = 0;
