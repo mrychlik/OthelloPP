@@ -380,7 +380,6 @@ TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int
  */
 TreeNode& TreeNode::operator=(TreeNode&& other)
 {
-  std::cerr << __func__ << "(1): " << this << " <- " << &other << std::endl;
   if(this == &other) return *this;
   //deleteChildren();
   other.swap(*this);
@@ -389,7 +388,6 @@ TreeNode& TreeNode::operator=(TreeNode&& other)
 
 TreeNode& TreeNode::operator=(const TreeNode& other)
 {
-  std::cerr << __func__ << "(2): " << this << " <- " << &other << std::endl;
   if(this == &other) {
     return *this;
   } else {
