@@ -74,17 +74,17 @@ public:
   /** 
    * @return x-coord of last move
    */
-  int x() const { return x_; }
+  int x() const { return bits.x; }
 
   /**
    * @return y-coord of last move
    */
-  int y() const { return y_; }
+  int y() const { return bits.y; }
 
   /** 
    * @return The player to move.
    */
-  BoardTraits::Player player() const { return player_; };
+  BoardTraits::Player player() const { return bits.player; };
 
   int score() const;
   bool hasLegalMove(Board::Player player) const;
@@ -123,6 +123,22 @@ private:
   // Add children of a node
   void expandOneLevel() const;
 
+  bool isExpanded() const {
+    return bits.isExpanded;
+  }
+
+  void setIsExpanded(bool val) const {
+    bits.isExpanded = val;
+  }
+
+  value_type minMaxVal() const {
+    return bits.minMaxVal;
+  }
+
+  void setMinMaxVal(value_type val) const {
+    bits.minMaxVal = val;
+  }
+
   // Expad by several levels
   void expandNode(int numLevels = DEFAULT_EXPANSION_DEPTH) const;
 
@@ -138,20 +154,20 @@ private:
 
   Board board_;			/**< The board */
 
-  mutable bool isExpanded;	/**< Have the children been added */
-
   // NOTE: Using deque for this would use 80 bytes of memory
   // under GCC, vector uses only 24 bytes, forward_list 8 bytes.
   // As Board currently consumes 24 bytes, the TreeNode only 32
   mutable children_type children_;
 
-  mutable value_type minMaxVal; /**< Cached value by minmax */
-  //// END: Mutable fields
+  struct {
+    mutable value_type minMaxVal : 8;	/**< Cached value by minmax */
+    mutable bool isExpanded      : 1;	/**< Have the children been added */
+    BoardTraits::Player player   : 1;	/**< Player to move  */
+    int x : 4;			/**< x of last placed piece, or -1 */
+    int y : 4;			/**< y of last placed piece, or -1 */
 
-  BoardTraits::Player player_; /**< Player to move  */
-
-  int x_;			/**< x of last placed piece, or -1 */
-  int y_;			/**< y of last placed piece, or -1 */
+  } bits;
+    
 
   void swap(TreeNode& other) noexcept;
 };

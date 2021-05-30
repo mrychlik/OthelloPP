@@ -36,12 +36,14 @@ bool TreeNode::print_recursively = false;
  */
 TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int8_t y)
   : board_(board),
-    isExpanded(false),
     children_(),
-    minMaxVal(0),
-    player_(player),
-    x_(x),
-    y_(y)
+    bits({
+      .minMaxVal =  0,
+      .isExpanded = false,
+      .player    = player,
+      .x = x,
+      .y = y,
+    })
 {      
 }
 
@@ -67,7 +69,7 @@ TreeNode::~TreeNode()
  */
 void TreeNode::expandOneLevel() const
 {
-  if(isExpanded) return;
+  if(isExpanded()) return;
   auto&& move_bag(moves(player()));
   
   try {
@@ -85,7 +87,7 @@ void TreeNode::expandOneLevel() const
 	move_bag.pop_front();
       }
     }
-    isExpanded = true;
+    setIsExpanded(true);
   } catch(std::bad_alloc& e) {
     std::cerr << e.what() << "\n";
     // Now we have only some children, so not
@@ -133,7 +135,7 @@ std::ostream& TreeNode::print(std::ostream& s) const
     << "\nLast filled y: " << y()
     << std::endl;
 
-  if(isExpanded && print_recursively) {
+  if(isExpanded() && print_recursively) {
     for(const auto& child : children()) {
       child->print(s);
     }
@@ -159,8 +161,8 @@ std::ostream& TreeNode::print(std::ostream& s) const
 int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
-    minMaxVal = evaluator(board(), player(), depth);
-    return minMaxVal;
+    setMinMaxVal(evaluator(board(), player(), depth));
+    return minMaxVal();
   } 
 
   // The code could be refactored because Min and Max code is so
@@ -187,12 +189,12 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
       }
     }
   }
-  minMaxVal = bestVal;
+  setMinMaxVal(bestVal);
 
   assert( minMaxVal != MAX_VAL);
   assert( minMaxVal != MIN_VAL);
 
-  return minMaxVal;
+  return minMaxVal();
 }
 
 /** 
@@ -218,7 +220,7 @@ void TreeNode::deleteDescendents() const
   for(const auto& child : children_ ) {
     delete child;
   }
-  isExpanded = false;
+  setIsExpanded(false);
 }
 
 /** 
@@ -232,7 +234,7 @@ void TreeNode::deleteDescendentsExceptFor(const TreeNode *other) const
       child->deleteDescendentsExceptFor(other);
     }
   }
-  isExpanded = false;
+  setIsExpanded(false);
 }
 
 /** 
@@ -346,7 +348,7 @@ TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int
   if(depth >= 1) {
     auto bestVal = minmax(*evaluatorTab[player()], depth);
     for(const auto& child : children()) {
-      if(child->minMaxVal == bestVal) {
+      if(child->minMaxVal() == bestVal) {
 	bestChildren.push_back(child);
       }
     }
@@ -438,10 +440,6 @@ void TreeNode::swap(TreeNode& other) noexcept
 {
   if(this == &other) return;
   std::swap(children_, other.children_);
-  std::swap(isExpanded, other.isExpanded);
   std::swap(board_, other.board_);
-  std::swap(player_, other.player_);
-  std::swap(x_, other.x_);
-  std::swap(y_, other.y_);
-  std::swap(minMaxVal, other.minMaxVal);
+  std::swap(bits, other.bits);
 }
