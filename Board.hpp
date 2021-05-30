@@ -65,7 +65,7 @@ public:
   bool isWhite(uint8_t x, uint8_t y) const;
   bool isBlack(uint8_t x, uint8_t y) const;   
   int numTiles() const;
-  move_bag_type moves(Player player) const;
+  Board::move_bag_type moves(Board::Player player) const;
   bool hasLegalMove(Player player) const;
 
 public:

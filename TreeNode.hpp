@@ -30,7 +30,7 @@
  * is undesirable but it seems harmless at this time.
  * 
  */
-class TreeNode : public Board, public StaticEvaluatorTraits {
+class TreeNode : public StaticEvaluatorTraits {
 public:
   /**
    * The type of children container
@@ -46,10 +46,15 @@ public:
 
   static bool print_recursively; /**< Print childen of the node */
 
-  TreeNode(Player player = WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
-  TreeNode(const TreeNode& other) = delete;
+  TreeNode(BoardTraits::Player player = BoardTraits::WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
+  TreeNode(TreeNode&& other);
+  //TreeNode(TreeNode& other) = delete;
+  //TreeNode(const TreeNode& other) = delete;
   ~TreeNode();
-  TreeNode& operator=(const TreeNode& other);
+  //TreeNode& operator=(const TreeNode& other) = delete;
+  TreeNode& operator=(TreeNode&& other);
+  //TreeNode& operator=(TreeNode& other) = delete;
+  //TreeNode& operator=(TreeNode other) = delete;
 
   /** 
    * Read access to the board of this node
@@ -61,8 +66,8 @@ public:
 
   bool isLeaf() const;
 
-  const TreeNode& getHumanMove(std::istream& s) const;
-  const TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
+  TreeNode getHumanMove(std::istream& s) const;
+  TreeNode getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
   int nodeCount(int depth) const;
 
 
@@ -79,7 +84,11 @@ public:
   /** 
    * @return The player to move.
    */
-  Player player() const { return player_; };
+  BoardTraits::Player player() const { return player_; };
+
+  int score() const;
+  bool hasLegalMove(Board::Player player) const;
+  Board::move_bag_type moves(Board::Player player) const;
 
   const children_type& children() const;
 
@@ -102,7 +111,7 @@ public:
 
 private:
 
-  static const int DEFAULT_EXPANSION_DEPTH = 2;	/**< Depth when expanding a node */
+  static const int DEFAULT_EXPANSION_DEPTH = 1;	/**< Depth when expanding a node */
 
   std::ostream& print(std::ostream& s) const;
 
@@ -124,7 +133,9 @@ private:
 
   //// NOTE: Mutable fields
 
-  mutable bool isExpanded : 1;	/**< Have the children been added */
+  Board board_;			/**< The board */
+
+  mutable bool isExpanded;	/**< Have the children been added */
 
   // NOTE: Using deque for this would use 80 bytes of memory
   // under GCC, vector uses only 24 bytes, forward_list 8 bytes.
@@ -134,10 +145,15 @@ private:
   mutable value_type minMaxVal; /**< Cached value by minmax */
   //// END: Mutable fields
 
-  Player player_ : 1;		/**< Player to move  */
+  BoardTraits::Player player_; /**< Player to move  */
 
-  int x_ : 4;			/**< x of last placed piece, or -1 */
-  int y_ : 4;			/**< y of last placed piece, or -1 */
+  int x_;			/**< x of last placed piece, or -1 */
+  int y_;			/**< y of last placed piece, or -1 */
+
+  int id_;
+  static int id;
+
+  void swap(TreeNode& other) noexcept;
 };
 
 #endif	// TREE_NODE_SIMPLE_HPP

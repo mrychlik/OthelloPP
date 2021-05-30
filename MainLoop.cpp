@@ -12,6 +12,7 @@
 #include <ctime>
 #include <iomanip>
 #include <numeric>
+#include <memory>
 
 #include "MainLoop.hpp"
 #include "TreeNode.hpp"

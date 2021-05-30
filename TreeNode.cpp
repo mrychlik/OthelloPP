@@ -44,7 +44,13 @@ TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int
     y_(y),
     id_(id++)
 {      
-  std::clog << "Created: " << id_ << " " << this << std::endl;
+  std::cerr << __func__ << "(1): Created: " << id_ << " " << this << std::endl;
+}
+
+TreeNode::TreeNode(TreeNode&& other) : id_(id++)
+{
+  other.swap(*this);
+  std::cerr << __func__ << "(2): Created: " << id_ << " " << this << std::endl;
 }
 
 /** 
@@ -237,7 +243,7 @@ const TreeNode::children_type& TreeNode::children() const
  * 
  * @return The best child node.
  */
-TreeNode& TreeNode::getHumanMove(std::istream& s) const
+TreeNode TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
   TreeNode *selectedChild = nullptr;
@@ -287,7 +293,7 @@ TreeNode& TreeNode::getHumanMove(std::istream& s) const
 	  continue;
 	}
       } else {			// Found valid move
-	return *selectedChild;
+	return std::move(*selectedChild);
       }
     }
   }
@@ -320,7 +326,7 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return The best child node.
  */
-TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
+TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
 {
   assert(!isLeaf());
   expandOneLevel();
@@ -347,7 +353,7 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, in
   }
 
   std::random_shuffle(bestChildren.begin(), bestChildren.end());    
-  return **bestChildren.begin();
+  return std::move(**bestChildren.begin());
 }
   
 /** 
@@ -362,11 +368,11 @@ TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, in
  * 
  * @return 
  */
-TreeNode& TreeNode::operator=(TreeNode& other)
+TreeNode& TreeNode::operator=(TreeNode&& other)
 {
-  if(this == &other) {
-    throw std::logic_error("We cannot copy-assign from ourselves.");
-  }
+  std::cerr << __func__ << ": " << this << " <- " << &other << std::endl;
+  if(this == &other) return *this;
+
   // Delete children other than other;
   // Since children_ are mutable, nothing
   // bad should happen, right?
@@ -441,3 +447,18 @@ int TreeNode::score() const {
 }
 
 int TreeNode::id = 0;
+
+void TreeNode::swap(TreeNode& other) noexcept
+{
+  std::cerr << __func__ << ": " << this << " <-> " << &other << std::endl;
+  if(this == &other) return;
+
+  std::swap(children_, other.children_);
+  std::swap(isExpanded, other.isExpanded);
+  std::swap(board_, other.board_);
+  std::swap(player_, other.player_);
+  std::swap(x_, other.x_);
+  std::swap(y_, other.y_);
+  std::swap(minMaxVal, other.minMaxVal);
+  std::swap(id_, other.id_);
+}
