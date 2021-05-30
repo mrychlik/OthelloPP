@@ -97,12 +97,12 @@ void TreeNode::expandOneLevel() const
  * @param numLevels 
  * @param verbose 
  */
-void TreeNode::expandNode(int numLevels, bool verbose) const
+void TreeNode::expandNode(int numLevels) const
 {
   if(numLevels >= 1) {
     expandOneLevel();
     for( const auto& child : children_ ) {
-      child->expandNode(numLevels - 1, verbose);
+      child->expandNode(numLevels - 1);
     }
   }
 }
