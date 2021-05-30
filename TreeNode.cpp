@@ -110,7 +110,7 @@ void TreeNode::expandNode(int numLevels, bool verbose) const
   }
 }
 
-void TreeNode::addChild(const TreeNode* child) const
+void TreeNode::addChild(TreeNode* child) const
 {
   children_.push_front(child);
 }

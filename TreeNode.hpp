@@ -61,8 +61,8 @@ public:
 
   bool isLeaf() const;
 
-  TreeNode& getHumanMove(std::istream& s) const;
-  TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
+  const TreeNode& getHumanMove(std::istream& s) const;
+  const TreeNode& getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
   int nodeCount(int depth) const;
 
 
