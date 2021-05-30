@@ -112,7 +112,7 @@ private:
   void addChild(TreeNode* child) const;
 
   // Add children of a node
-  void expandOneLevel(bool verbose = false) const;
+  void expandOneLevel() const;
 
   // Expad by several levels
   void expandNode(int numLevels = DEFAULT_EXPANSION_DEPTH, bool verbose = false) const;
