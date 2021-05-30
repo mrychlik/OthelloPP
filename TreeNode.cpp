@@ -101,7 +101,7 @@ void TreeNode::expandNode(int numLevels) const
 {
   if(numLevels >= 1) {
     expandOneLevel();
-    for( const auto& child : children_ ) {
+    for( const auto& child : children() ) {
       child->expandNode(numLevels - 1);
     }
   }
@@ -234,10 +234,10 @@ const TreeNode::children_type& TreeNode::children() const
  * 
  * @return The best child node.
  */
-const TreeNode& TreeNode::getHumanMove(std::istream& s) const
+TreeNode& TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
-  const TreeNode *selectedChild = nullptr;
+  TreeNode *selectedChild = nullptr;
   while(std::cin) {
     std::cout << "Human, make your move!!\n"
 	      << "(Like this: x  y <ENTER>)\n"
@@ -317,12 +317,12 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return The best child node.
  */
-const TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
+TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
 {
   assert(!isLeaf());
   expandOneLevel();
 
-  std::vector<const TreeNode*> bestChildren;
+  std::vector<TreeNode*> bestChildren;
 
   if(depth >= 1) {
     auto bestVal = minmax(*evaluatorTab[player()], depth);
@@ -359,7 +359,7 @@ const TreeNode& TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorT
  * 
  * @return 
  */
-TreeNode& TreeNode::operator=(const TreeNode& other)
+TreeNode& TreeNode::operator=(TreeNode& other)
 {
   if(this == &other) return *this;
   // Delete children other than other;
@@ -384,7 +384,7 @@ TreeNode& TreeNode::operator=(const TreeNode& other)
   other.isExpanded = false;
 
   // Copy base class object
-  static_cast<Board&>(*this) = static_cast<const Board&>(other);
+  std::swap(static_cast<Board&>(*this), static_cast<Board&>(other));
 
   // Copy normal fields
   player_ = other.player_;
