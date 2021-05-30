@@ -115,7 +115,7 @@ private:
   void expandOneLevel() const;
 
   // Expad by several levels
-  void expandNode(int numLevels = DEFAULT_EXPANSION_DEPTH, bool verbose = false) const;
+  void expandNode(int numLevels = DEFAULT_EXPANSION_DEPTH) const;
 
   // Delete all children
   void deleteChildren() const;
