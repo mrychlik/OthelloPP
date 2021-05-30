@@ -226,6 +226,19 @@ void TreeNode::deleteChildren() const
 }
 
 /** 
+ * 
+ */
+void TreeNode::deleteChildrenExceptFor(const TreeNode *other) const
+{
+  for(const auto& child : children_ ) {
+    if(child != other) {
+      delete child;
+    }
+  }
+  isExpanded = false;
+}
+
+/** 
  * Returns a reference to the children (container).
  * 
  * @return 
@@ -372,39 +385,8 @@ TreeNode& TreeNode::operator=(TreeNode&& other)
 {
   std::cerr << __func__ << ": " << this << " <- " << &other << std::endl;
   if(this == &other) return *this;
-
-  // Delete children other than other;
-  // Since children_ are mutable, nothing
-  // bad should happen, right?
-  auto child = std::find(children_.begin(), children_.end(), &other);
-  if( child == children_.end()) {
-    throw std::logic_error("We can only copy-assign from childen.");
-  }
-  // Make other first child
-  std::iter_swap(children_.begin(), child);
-  // Get rid of other
-  children_.pop_front();
-  // Delete remaining children
-  std::for_each(children_.begin(), children_.end(), [] (auto& ch) { delete ch; });
-  // Clear child container
-  children_.clear();
-
-  // Steal other's children
-  other.children_.swap(children_);
-  isExpanded = other.isExpanded;
-  other.isExpanded = false;
-
-  // Copy base class object
-  std::swap(board_, other.board_);
-
-  // Copy normal fields
-  player_ = other.player_;
-
-  x_ = other.x_;
-  y_ = other.y_;
-
-  minMaxVal = other.minMaxVal;
-
+  //deleteChildren();
+  other.swap(*this);
   return *this;
 }
 
