@@ -41,16 +41,13 @@ TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int
     minMaxVal(0),
     player_(player),
     x_(x),
-    y_(y),
-    id_(id++)
+    y_(y)
 {      
-  std::cerr << __func__ << "(1): Created: " << id_ << " " << this << std::endl;
 }
 
-TreeNode::TreeNode(TreeNode&& other) : id_(id++)
+TreeNode::TreeNode(TreeNode&& other)
 {
   other.swap(*this);
-  std::cerr << __func__ << "(2): Created: " << id_ << " " << this << std::endl;
 }
 
 /** 
@@ -59,8 +56,7 @@ TreeNode::TreeNode(TreeNode&& other) : id_(id++)
  */
 TreeNode::~TreeNode()
 {
-  deleteChildren();
-  std::clog << "Destroyed: " << id_ << " " << this << std::endl;
+  deleteDescendents();
 }
 
 /** 
@@ -95,7 +91,7 @@ void TreeNode::expandOneLevel() const
     // Now we have only some children, so not
     // we cannot determine accurate value.
     // NOTE: sets isExpanded to false.
-    deleteChildren();
+    deleteDescendents();
   }
 }
 
@@ -217,7 +213,7 @@ bool TreeNode::isLeaf() const
  * the node unexpanded
  * 
  */
-void TreeNode::deleteChildren() const
+void TreeNode::deleteDescendents() const
 {
   for(const auto& child : children_ ) {
     delete child;
@@ -228,11 +224,12 @@ void TreeNode::deleteChildren() const
 /** 
  * 
  */
-void TreeNode::deleteChildrenExceptFor(const TreeNode *other) const
+void TreeNode::deleteDescendentsExceptFor(const TreeNode *other) const
 {
+  if(this == other) return;
   for(const auto& child : children_ ) {
     if(child != other) {
-      delete child;
+      child->deleteDescendentsExceptFor(other);
     }
   }
   isExpanded = false;
@@ -383,10 +380,21 @@ TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int
  */
 TreeNode& TreeNode::operator=(TreeNode&& other)
 {
-  std::cerr << __func__ << ": " << this << " <- " << &other << std::endl;
+  std::cerr << __func__ << "(1): " << this << " <- " << &other << std::endl;
   if(this == &other) return *this;
   //deleteChildren();
   other.swap(*this);
+  return *this;
+}
+
+TreeNode& TreeNode::operator=(const TreeNode& other)
+{
+  std::cerr << __func__ << "(2): " << this << " <- " << &other << std::endl;
+  if(this == &other) {
+    return *this;
+  } else {
+    throw std::logic_error("Copy assignment implements self-copy only.");
+  }
   return *this;
 }
 
@@ -428,8 +436,6 @@ int TreeNode::score() const {
   return board().score();
 }
 
-int TreeNode::id = 0;
-
 void TreeNode::swap(TreeNode& other) noexcept
 {
   std::cerr << __func__ << ": " << this << " <-> " << &other << std::endl;
@@ -442,5 +448,4 @@ void TreeNode::swap(TreeNode& other) noexcept
   std::swap(x_, other.x_);
   std::swap(y_, other.y_);
   std::swap(minMaxVal, other.minMaxVal);
-  std::swap(id_, other.id_);
 }
