@@ -57,13 +57,10 @@ TreeNode::~TreeNode()
 /** 
  * Add child nodes
  *
- * @param verbose If true print board, else '.'.
- * 
- * @param player
  * 
  * @return 
  */
-void TreeNode::expandOneLevel(bool verbose) const
+void TreeNode::expandOneLevel() const
 {
   if(isExpanded) return;
   auto&& move_bag(moves(player()));
