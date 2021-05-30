@@ -35,8 +35,8 @@ test_suite: $(UNIT_OBJS)
 check: test_suite
 	./test_suite
 
-check_leaks:
-	valgrind -s --leak-check=full --show-leak-kinds=all  ./othello -D 0 -r 6 -c 6 -n 1 > /dev/null
+check_leaks: othello
+	valgrind -s --leak-check=full --show-leak-kinds=all  ./othello -D 0 -r 6 -c 6 -n 1 > /dev/null 
 
 clean: 
 	-@rm *.o
