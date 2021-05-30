@@ -87,9 +87,9 @@ static void node_count(unsigned w, unsigned h, int max_depth)
 		<< std::endl;
 
     } catch(std::bad_alloc& e) {
-      std::cerr << e.what();
+      std::cerr << e.what() << "\n";
     } catch(...) {
-      std::cerr << "Something bad happened at depth: " << depth << "\n";
+      std::cerr << "Something unexpectd and bad happened at depth: " << depth << "\n";
     }
   }
 }
