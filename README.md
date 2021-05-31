@@ -28,7 +28,7 @@ reports that for the 6x6 board the game of Othello was strongly solved,
 and that white wins with optimal game. The result required
 100 hours of distributed computation, according to this source.
 
-## Usage
+## Program usage
 You can view the program options like this:
 
     [you@yourbox]$ ./othello --help
