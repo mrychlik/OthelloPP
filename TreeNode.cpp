@@ -255,10 +255,12 @@ const TreeNode::children_type& TreeNode::children() const
 
 
 /** 
- * Find the best move for the computer.
+ * Find the best move for the human (interactive) player.
+ * We engage in dialog with the user, by prompting to
+ * std::cout and reading input from a stream.
  * 
  * 
- * @return The best child node.
+ * @return The node that user selected
  */
 TreeNode TreeNode::getHumanMove(std::istream& s) const
 {
