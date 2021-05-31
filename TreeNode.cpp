@@ -185,7 +185,7 @@ inline int TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, bool
       std::for_each(children().begin(), children().end(),[bestVal](auto& ch) { ch->setMinMaxVal(bestVal); });
     }
     for( auto child = children().begin(); child != children().end(); ++child ) {
-      value_type value = (*child)->alphabeta(evaluator, depth - 1, alpha, beta, prune);
+      value_type value = (*child)->alphabeta(evaluator, depth - 1, prune, alpha, beta);
       bestVal = std::max(bestVal, value);
       if(prune) {
 	alpha = std::max(alpha, bestVal);
@@ -203,7 +203,7 @@ inline int TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, bool
       std::for_each(children().begin(), children().end(),[bestVal](auto& ch) { ch->setMinMaxVal(bestVal); });
     }
     for( auto child = children().begin(); child != children().end(); ++child ) {
-      value_type value = (*child)->alphabeta(evaluator, depth - 1, alpha, beta, prune);
+      value_type value = (*child)->alphabeta(evaluator, depth - 1, prune, alpha, beta);
       bestVal = std::min(bestVal, value);
       if(prune) {
 	beta = std::min(beta, bestVal);
