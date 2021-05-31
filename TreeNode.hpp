@@ -93,12 +93,25 @@ public:
 
   const children_type& children() const;
 
-  int minmax(const StaticEvaluator& evaluator) const;
-  int alphabeta(const StaticEvaluator& evaluator,
+  void minmax() const;
+  void alphabeta_helper(const StaticEvaluator& evaluator, int depth, bool prune, value_type alpha, value_type beta) const;
+  void alphabeta(const StaticEvaluator& evaluator,
 		int depth,
-		bool prune = false,
+		 bool prune = false,
 		value_type alpha = MIN_VAL,
 		value_type beta = MAX_VAL) const;
+
+  /** 
+   * Returns the node value according
+   * to the last run of minmax or alphabeta.
+   * 
+   * 
+   * @return The optimized node value
+   */
+  value_type minMaxVal() const {
+    return bits.minMaxVal;
+  }
+
 
   /** 
    * Output this node. Simply calls print method.
@@ -136,11 +149,6 @@ private:
     bits.isExpanded = val;
   }
 
-  // Returns minmax value of this node
-  value_type minMaxVal() const {
-    return bits.minMaxVal;
-  }
-
   // Sets minmax value of this node
   void setMinMaxVal(value_type val) const {
     bits.minMaxVal = val;
@@ -167,7 +175,7 @@ private:
   mutable children_type children_;
 
   struct {
-    mutable value_type minMaxVal : 8;	/**< Cached value by minmax */
+    mutable int minMaxVal : 8;	/**< Cached value by minmax */
     mutable bool isExpanded      : 1;	/**< Have the children been added */
     BoardTraits::Player player   : 1;	/**< Player to move  */
     int x                        : 4; /**< x of last placed piece, or -1 */
