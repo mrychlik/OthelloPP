@@ -26,7 +26,7 @@ void usage(char *prog) {
 	 "  -B, --max_depth_black=N    - maximum search depth for black (default: 12)\n"
 	 "  -w, --human_plays_white    - human plays white (default: NO, computer plays white)\n"
 	 "  -b, --human_plays_black    - human plays black (default: NO, computer plays black)\n"
-	 "  -n, --num_games=N          - number of games (default:10)\n"
+	 "  -n, --num_games=N          - number of games (default: 10)\n"
 	 "  -P, --print_big            - print a big board (default: ON)\n"
 	 "  -p, --print_small          - print a small board (default: OFF)\n"
 	 "  -C, --clear_screen         - clear screen before printing next move (default: OFF)\n"
