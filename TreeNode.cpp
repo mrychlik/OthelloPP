@@ -38,11 +38,12 @@ TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int
   : board_(board),
     children_(),
     bits({
-      .minMaxVal =  0,
+      .minMaxVal  =  0,
       .isExpanded = false,
-      .player    = player,
-      .x = x,
-      .y = y,
+      .isMarked   = false;
+      .player     = player,
+      .x          = x,
+      .y          = y,
     })
 {      
 }
@@ -172,32 +173,30 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
 
   // The code could be refactored because Min and Max code is so
   // similar
-  value_type bestVal;
   if( player() == Board::WHITE ) {	// maximizing player
-    bestVal = MIN_VAL;
+    auto value = MIN_VAL;
     for( const auto& child : children() ) {
-      value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
-      bestVal = std::max(bestVal, val);
-      alpha = std::max(alpha, bestVal);
+      value = child->minmax(evaluator, depth - 1, alpha, beta);
+      alpha = std::max(alpha, value);
       if( beta <= alpha) {
 	break;
       }
     }
+    setMinMaxVal(value);
   } else {			// minimizing player
-    bestVal = MAX_VAL;
+    auto value = MAX_VAL;
     for( const auto& child : children() ) {
-      value_type val = child->minmax(evaluator, depth - 1, alpha, beta);
-      bestVal = std::min(bestVal, val);
-      beta = std::min(beta, bestVal);
+      value = child->minmax(evaluator, depth - 1, alpha, beta);
+      beta = std::min(beta, value);
       if( beta <= alpha) {
 	break;
       }
     }
+    setMinMaxVal(value);
   }
-  setMinMaxVal(bestVal);
+  assert( minMaxVal() != MAX_VAL);
+  assert( minMaxVal() != MIN_VAL);
 
-  assert( minMaxVal != MAX_VAL);
-  assert( minMaxVal != MIN_VAL);
 
   return minMaxVal();
 }
@@ -371,7 +370,7 @@ TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int
     std::copy(children().begin(), children().end(), bestChildren.begin());
   }
 
-  std::random_shuffle(bestChildren.begin(), bestChildren.end());    
+  //std::random_shuffle(bestChildren.begin(), bestChildren.end());    
   return std::move(**bestChildren.begin());
 }
   
