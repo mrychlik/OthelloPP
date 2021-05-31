@@ -32,21 +32,21 @@ and that white wins with optimal game. The result required
 You can view the program options like this:
 
     [you@yourbox]$ ./othello --help
-    Usage: othello [OPTIONS]...
-    where OPTIONS may be one of the following:
-      -D, --max_depth          - maximum search depth for minmax
-      -d, --computer_delay     - number of seconds to wait between moves
-      -W, --max_depth_white    - maximum search depth for white
-      -B, --max_depth_black    - maximum search depth for black
-      -w, --human_plays_white  - human plays white
-      -b, --human_plays_black  - human plays black
-      -n, --num_games          - number of games
-      -P, --print_big          - print a big board
-      -p, --print_small        - print a small board
-      -C, --clear_screen       - clear screen before printing next move
-      -c, --board_width        - board width
-      -r, --board_height       - board height
-      -h, --help               - print this message and quit
+	Usage: othello [OPTIONS]...
+	where OPTIONS may be one of the following:
+	  -D, --max_depth=N          - maximum search depth for computer (default: 12)
+	  -d, --computer_delay=N     - number of seconds to wait between moves (default:0)
+	  -W, --max_depth_white=N    - maximum search depth for white (default:12)
+	  -B, --max_depth_black=N    - maximum search depth for black (default:12)
+	  -w, --human_plays_white    - human plays white (default: NO, computer plays white)
+	  -b, --human_plays_black    - human plays black (default: NO, computer plays black)
+	  -n, --num_games=N          - number of games (default:10)
+	  -P, --print_big            - print a big board (default)
+	  -p, --print_small          - print a small board
+	  -C, --clear_screen         - clear screen before printing next move
+	  -c, --board_width=N        - board width (N=4,6 or 8, default:8)
+	  -r, --board_height=N       - board height (N=4,6 or 8, default:8)
+	  -h, --help                 - print this message and quit
     [you@yourbox]$
 
 ## The original author's README
