@@ -17,6 +17,11 @@
 
 /* From this point on this is good old-fashioned C */
 
+/** 
+ * Produce a usage message.
+ * 
+ * @param prog 
+ */
 void usage(char *prog) {
   printf("Usage: %s [OPTIONS]...\n"
 	 "where OPTIONS may be one of the following:\n"
@@ -32,7 +37,7 @@ void usage(char *prog) {
 	 "  -C, --clear_screen         - clear screen before printing next move (default: OFF)\n"
 	 "  -c, --board_width=N        - board width (N=4,6 or 8, default: 8)\n"
 	 "  -r, --board_height=N       - board height (N=4,6 or 8, default: 8)\n"
-	 "  -A, --prune=WORD           - use alpha-beta pruning (WORD=ON or OFF, default: ON)
+	 "  -A, --prune=N              - use alpha-beta pruning (N=0 or 1, default: 1)\n"
 	 "  -h, --help                 - print this message and quit\n"	 
 	 , prog);
 }
@@ -68,10 +73,11 @@ int main(int argc, char **argv)
       {"clear_screen",        no_argument,       0,  'C' },
       {"board_width",         required_argument, 0,  'c' },
       {"board_height",        required_argument, 0,  'r' },
+      {"prune",               required_argument, 0,  'A' },
       {"help",                no_argument,       0,  'h' },
       {0,         0,                 0,  0 }
     };
-    c = getopt_long(argc, argv, "d:D:W:B:wbn:PpCc:r:h",
+    c = getopt_long(argc, argv, "d:D:W:B:wbn:PpCc:r:hA:",
 		    long_options, &option_index);
     if (c == -1)
       break;
@@ -152,6 +158,11 @@ int main(int argc, char **argv)
     case 'r':
       MainLoop::getInstance()
 	.setBoardHeight(atoi(optarg));
+      break;
+
+    case 'A':
+      MainLoop::getInstance()
+	.setPruning(atoi(optarg));
       break;
 
     case 'h':
