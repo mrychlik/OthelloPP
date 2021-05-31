@@ -300,7 +300,7 @@ void TreeNode::deleteDescendentsExceptFor(const TreeNode *other) const
  * 
  * @return 
  */
-inline const TreeNode::children_type& TreeNode::children() const
+const TreeNode::children_type& TreeNode::children() const
 {
   expandOneLevel();
   return children_;
