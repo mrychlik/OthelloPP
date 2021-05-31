@@ -47,7 +47,11 @@ public:
 
   static bool print_recursively; /**< Print childen of the node */
 
-  TreeNode(BoardTraits::Player player = BoardTraits::WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
+  TreeNode(BoardTraits::Player player = BoardTraits::BLACK,
+	   const Board& board = Board(),
+	   int8_t x = -1,
+	   int8_t y = -1);
+
   TreeNode(TreeNode&& other);
   ~TreeNode();
   TreeNode& operator=(TreeNode&& other);
@@ -64,7 +68,7 @@ public:
   bool isLeaf() const;
 
   TreeNode getHumanMove(std::istream& s) const;
-  TreeNode getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const;
+  TreeNode getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth, bool prune) const;
   int nodeCount(int depth) const;
 
 
@@ -89,11 +93,12 @@ public:
 
   const children_type& children() const;
 
+  int minmax(const StaticEvaluator& evaluator) const;
   int alphabeta(const StaticEvaluator& evaluator,
-		int8_t depth,
+		int depth,
+		bool prune = false,
 		value_type alpha = MIN_VAL,
-		value_type beta = MAX_VAL,
-		bool prune = true) const;
+		value_type beta = MAX_VAL) const;
 
   /** 
    * Output this node. Simply calls print method.
