@@ -38,9 +38,15 @@ check: test_suite
 check-for-leaks: othello
 	valgrind -s --leak-check=full --show-leak-kinds=all  ./othello -D 0 -r 6 -c 6 -n 1 > /dev/null 
 
-clean: 
+clean-binaries: 
 	-@rm *.o
 	-@rm $(PROGRAMS)
+
+clean-docs:
+	-@rm docs/html/*
+	-@rm docs/latex/*
+
+clean: clean-binaries clean-docs
 
 doc: Doxyfile
 	doxygen $<
