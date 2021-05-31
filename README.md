@@ -23,6 +23,10 @@ The program renders a *strong solution* of the game for 4x4, 4x6 and
 6x4 game, demonstrating that white wins by moving optimally. The
 program runs out of memory for 6x6 and above boards on a computer with
 16GB of memory (+8GB swap space) in about 1.5 minutes.
+The page [Computer Othello](https://en.wikipedia.org/wiki/Computer_Othello)
+reports that for the 6x6 board the game of Othello was strongly solved,
+and that white wins with optimal game. The result required
+100 hours of distributed computation, according to this source.
 
 
 ## The original author's README
