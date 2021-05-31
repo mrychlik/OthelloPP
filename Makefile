@@ -42,12 +42,14 @@ clean-binaries:
 	-@rm *.o
 	-@rm $(PROGRAMS)
 
-clean-docs:
-	-@rm docs/html/*
-	-@rm docs/latex/*
+clean-doc:
+	-@rm ./docs/html/*
+	-@rm ./docs/html/search/*
+	-@rm ./docs/latex/*
 
-clean: clean-binaries clean-docs
+
+clean: clean-binaries
 
 doc: Doxyfile
 	doxygen $<
-
+	(cd ./docs/latex; make )
