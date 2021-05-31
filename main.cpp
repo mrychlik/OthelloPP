@@ -20,7 +20,7 @@
 /** 
  * Produce a usage message.
  * 
- * @param prog 
+ * @param prog The executable name
  */
 void usage(char *prog) {
   printf("Usage: %s [OPTIONS]...\n"
