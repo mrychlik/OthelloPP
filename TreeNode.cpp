@@ -162,12 +162,14 @@ std::ostream& TreeNode::print(std::ostream& s) const
  *
  * @param evaluator Static evaluator to use
  * @param depth Traverse descendents up to this depth
+ * @param prune If true, do pruning, else do not, thus
+ *              reverting to mimax.
  * @param alpha Most max can hope for
  * @param beta  Least min can hope for
  * 
  * @return The best child of this node
  */
-int TreeNode::alphabeta(const StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
+int TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, bool prune, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
     setMinMaxVal(evaluator(board(), player(), depth));
@@ -177,25 +179,39 @@ int TreeNode::alphabeta(const StaticEvaluator& evaluator, int8_t depth, value_ty
   // The code could be refactored because Min and Max code is so
   // similar
   if( player() == Board::WHITE ) {	// maximizing player
-    auto value = MIN_VAL;
-    for( const auto& child : children() ) {
-      value = child->alphabeta(evaluator, depth - 1, alpha, beta);
-      alpha = std::max(alpha, value);
-      if( beta <= alpha) {
-	break;
+    value_type bestValue = MIN_VAL;
+    if(prune) {
+      // Mark all children as suboptimal as not all will be searched
+      std::for_each(children().begin(), children().end(),[bestValue](auto& ch) { ch->setMinMaxVal(MIN_VAL); });
+    }
+    for( auto child = children().begin(); child != children().end(); ++child ) {
+      value_type value = (*child)->alphabeta(evaluator, depth - 1, alpha, beta, prune);
+      bestValue = std::max(bestValue, value);
+      alpha = std::max(alpha, bestValue);
+      if(prune) {
+	if(beta <= alpha) {
+	  break;
+	}
       }
     }
-    setMinMaxVal(value);
+    setMinMaxVal(bestValue);
   } else {			// minimizing player
-    auto value = MAX_VAL;
-    for( const auto& child : children() ) {
-      value = child->alphabeta(evaluator, depth - 1, alpha, beta);
-      beta = std::min(beta, value);
-      if( beta <= alpha) {
-	break;
+    auto bestValue = MAX_VAL;
+    if(prune) {
+      // Mark all children as suboptimal as not all will be searched
+      std::for_each(children().begin(), children().end(),[](auto& ch) { ch->setMinMaxVal(MAX_VAL); });
+    }
+    for( auto child = children().begin(); child != children().end(); ++child ) {
+      value_type value = (*child)->alphabeta(evaluator, depth - 1, alpha, beta, prune);
+      bestValue = std::min(bestValue, value);
+      beta = std::min(beta, bestValue);
+      if(prune) {
+	if(beta <= alpha) {
+	  break;
+	}
       }
     }
-    setMinMaxVal(value);
+    setMinMaxVal(bestValue);
   }
   assert( minMaxVal() != MAX_VAL);
   assert( minMaxVal() != MIN_VAL);
@@ -343,11 +359,14 @@ int TreeNode::nodeCount(int depth) const
 
 /** 
  * Find the best move for the computer.
- * 
+ *
+ * @param evaluatorTab The table of (2) evaluators, one for each player.
+ * @param depth Depth of the search.
+ * @param prune If true, use alpha-beta pruning.
  * 
  * @return The best child node.
  */
-TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth) const
+TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth, bool prune) const
 {
   assert(!isLeaf());
   expandOneLevel();
@@ -355,7 +374,7 @@ TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int
   std::vector<TreeNode*> bestChildren;
 
   if(depth >= 1) {
-    auto bestVal = alphabeta(*evaluatorTab[player()], depth);
+    auto bestVal = alphabeta(*evaluatorTab[player()], depth, prune);
     for(const auto& child : children()) {
       if(child->minMaxVal() == bestVal) {
 	bestChildren.push_back(child);
@@ -373,7 +392,7 @@ TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int
     std::copy(children().begin(), children().end(), bestChildren.begin());
   }
 
-  //std::random_shuffle(bestChildren.begin(), bestChildren.end());    
+  std::random_shuffle(bestChildren.begin(), bestChildren.end());    
   return std::move(**bestChildren.begin());
 }
   
