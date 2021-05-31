@@ -29,7 +29,7 @@ void usage(char *prog) {
 	 "  -n, --num_games=N          - number of games (default:10)\n"
 	 "  -P, --print_big            - print a big board (default)\n"
 	 "  -p, --print_small          - print a small board\n"
-	 "  -C, --clear_screen         - clear screen before printing next move\n"
+	 "  -C, --clear_screen         - clear screen before printing next move (default: OFF)\n"
 	 "  -c, --board_width=N        - board width (N=4,6 or 8, default:8)\n"
 	 "  -r, --board_height=N       - board height (N=4,6 or 8, default:8)\n"
 	 "  -h, --help                 - print this message and quit\n"	 
