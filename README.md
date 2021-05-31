@@ -49,6 +49,10 @@ You can view the program options like this:
 	  -h, --help                 - print this message and quit
     [you@yourbox]$
 
+With the default values, the program is in autoplay mode, i.e. both
+players are played by computer, using minimax to depth 12, on a
+standard 8-by-8 board. To follow the moves, one may use option '-d 2'.
+
 ## The original author's README
 
 This is a rewrite of my original java othello playing script.
