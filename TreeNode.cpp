@@ -38,9 +38,8 @@ TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int
   : board_(board),
     children_(),
     bits({
-      .minMaxVal  =  0,
+      .minMaxVal  = 0,
       .isExpanded = false,
-      .isMarked   = false;
       .player     = player,
       .x          = x,
       .y          = y,
@@ -150,13 +149,17 @@ std::ostream& TreeNode::print(std::ostream& s) const
 }
 
 /** 
- * Runs the minmax algorithm with alpha-beta pruning on the
- * tree starting from this node. 
+ * Runs the minmax algorithm with alpha-beta pruning on the tree
+ * starting from this node. We note that the alpha-beta pruning
+ * algorithm is not guaranteed to find the optimal winning move, only
+ * one that produces a better possible value than the opponent's. To
+ * produce the highest score, we must perform full minmax with
+ * sufficiently high depth.
  *
- * We cache these computer values for the node and descendents as
- * minmaxDepth and minmaxValue. However, these values are
- * not valid if the evaluator is changed.
- * 
+ * This implementation caches the computed value so that the value of
+ * a child can be easily retrieved by calling child's minMaxVal()
+ * method.
+ *
  * @param evaluator Static evaluator to use
  * @param depth Traverse descendents up to this depth
  * @param alpha Most max can hope for
@@ -164,7 +167,7 @@ std::ostream& TreeNode::print(std::ostream& s) const
  * 
  * @return The best child of this node
  */
-int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
+int TreeNode::alphabeta(const StaticEvaluator& evaluator, int8_t depth, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
     setMinMaxVal(evaluator(board(), player(), depth));
@@ -176,7 +179,7 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
   if( player() == Board::WHITE ) {	// maximizing player
     auto value = MIN_VAL;
     for( const auto& child : children() ) {
-      value = child->minmax(evaluator, depth - 1, alpha, beta);
+      value = child->alphabeta(evaluator, depth - 1, alpha, beta);
       alpha = std::max(alpha, value);
       if( beta <= alpha) {
 	break;
@@ -186,7 +189,7 @@ int TreeNode::minmax(const StaticEvaluator& evaluator, int8_t depth, value_type 
   } else {			// minimizing player
     auto value = MAX_VAL;
     for( const auto& child : children() ) {
-      value = child->minmax(evaluator, depth - 1, alpha, beta);
+      value = child->alphabeta(evaluator, depth - 1, alpha, beta);
       beta = std::min(beta, value);
       if( beta <= alpha) {
 	break;
@@ -352,7 +355,7 @@ TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int
   std::vector<TreeNode*> bestChildren;
 
   if(depth >= 1) {
-    auto bestVal = minmax(*evaluatorTab[player()], depth);
+    auto bestVal = alphabeta(*evaluatorTab[player()], depth);
     for(const auto& child : children()) {
       if(child->minMaxVal() == bestVal) {
 	bestChildren.push_back(child);
