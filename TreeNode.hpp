@@ -48,12 +48,8 @@ public:
 
   TreeNode(BoardTraits::Player player = BoardTraits::WHITE, const Board& board = Board(), int8_t x = -1, int8_t y = -1);
   TreeNode(TreeNode&& other);
-  //TreeNode(TreeNode& other) = delete;
-  //TreeNode(const TreeNode& other) = delete;
-  ~TreeNode();
-  //TreeNode& operator=(const TreeNode& other) = delete;
+    ~TreeNode();
   TreeNode& operator=(TreeNode&& other);
-  //TreeNode& operator=(TreeNode& other) = delete;
   TreeNode& operator=(const TreeNode& other);
 
   /** 
