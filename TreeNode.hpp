@@ -18,6 +18,7 @@
 
 #include <cinttypes>
 #include <forward_list>
+#include <cassert>
 
 /**
  * Class representing the node of the game tree.
@@ -88,10 +89,11 @@ public:
 
   const children_type& children() const;
 
-  int minmax(const StaticEvaluator& evaluator,
-	     int8_t depth,
-	     value_type alpha = MIN_VAL,
-	     value_type beta = MAX_VAL) const;
+  int alphabeta(const StaticEvaluator& evaluator,
+		int8_t depth,
+		value_type alpha = MIN_VAL,
+		value_type beta = MAX_VAL,
+		bool prune = true) const;
 
   /** 
    * Output this node. Simply calls print method.
@@ -163,9 +165,8 @@ private:
     mutable value_type minMaxVal : 8;	/**< Cached value by minmax */
     mutable bool isExpanded      : 1;	/**< Have the children been added */
     BoardTraits::Player player   : 1;	/**< Player to move  */
-    int x : 4;			/**< x of last placed piece, or -1 */
-    int y : 4;			/**< y of last placed piece, or -1 */
-
+    int x                        : 4; /**< x of last placed piece, or -1 */
+    int y                        : 4; /**< y of last placed piece, or -1 */
   } bits;
     
 
