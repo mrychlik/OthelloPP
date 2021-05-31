@@ -187,8 +187,8 @@ int TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, bool prune,
     for( auto child = children().begin(); child != children().end(); ++child ) {
       value_type value = (*child)->alphabeta(evaluator, depth - 1, alpha, beta, prune);
       bestValue = std::max(bestValue, value);
-      alpha = std::max(alpha, bestValue);
       if(prune) {
+	alpha = std::max(alpha, bestValue);
 	if(beta <= alpha) {
 	  break;
 	}
@@ -204,8 +204,8 @@ int TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, bool prune,
     for( auto child = children().begin(); child != children().end(); ++child ) {
       value_type value = (*child)->alphabeta(evaluator, depth - 1, alpha, beta, prune);
       bestValue = std::min(bestValue, value);
-      beta = std::min(beta, bestValue);
       if(prune) {
+	beta = std::min(beta, bestValue);
 	if(beta <= alpha) {
 	  break;
 	}
