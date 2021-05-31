@@ -1,6 +1,30 @@
 # OthelloPP
 A C++ implementation of the game *Othello*.
 
+## The origin
+The project code implementing computations related to the
+game Othello was derived from the code in the project:
+[TCCQ/Othello](https://github.com/TCCQ/Othello).
+
+Most of the design of the C++ code is different, however.
+Therefore, the code should not be considered a fork of
+the original project.
+
+## Highlights
+The binary program othello plays a game of Othello using the minmax
+algorithm with alpha/beta pruning. The program can use any M-by-N board
+where M, N are in the set {4, 6, 8}. For each of these sizes 
+the initial position of the 4 pieces is at the center of the board.
+
+The game can be human against human, human against computer or
+computer against computer (automatic play).
+
+The program renders a *strong solution* of the game for 4x4, 4x6 and
+6x4 game, demonstrating that white wins by moving optimally. The
+program runs out of memory for 6x6 and above boards on a computer with
+16GB of memory (+8GB swap space) in about 1.5 minutes.
+
+
 ## The original author's README
 
 This is a rewrite of my original java othello playing script.
