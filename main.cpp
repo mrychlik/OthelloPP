@@ -33,7 +33,7 @@ void usage(char *prog) {
 	 "  -c, --board_width=N        - board width (N=4,6 or 8, default:8)\n"
 	 "  -r, --board_height=N       - board height (N=4,6 or 8, default:8)\n"
 	 "  -h, --help                 - print this message and quit\n"	 
-	 ,prog);
+	 , prog);
 }
 
 
