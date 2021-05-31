@@ -119,18 +119,22 @@ private:
   // Add children of a node
   void expandOneLevel() const;
 
+  // Is the node expanded?
   bool isExpanded() const {
     return bits.isExpanded;
   }
 
+  // Set isExpanded flag
   void setIsExpanded(bool val) const {
     bits.isExpanded = val;
   }
 
+  // Returns minmax value of this node
   value_type minMaxVal() const {
     return bits.minMaxVal;
   }
 
+  // Sets minmax value of this node
   void setMinMaxVal(value_type val) const {
     bits.minMaxVal = val;
   }
