@@ -28,6 +28,26 @@ reports that for the 6x6 board the game of Othello was strongly solved,
 and that white wins with optimal game. The result required
 100 hours of distributed computation, according to this source.
 
+## Usage
+You can view the program options like this:
+
+    [you@yourbox]$ ./othello --help
+    Usage: othello [OPTIONS]...
+    where OPTIONS may be one of the following:
+      -D, --max_depth          - maximum search depth for minmax
+      -d, --computer_delay     - number of seconds to wait between moves
+      -W, --max_depth_white    - maximum search depth for white
+      -B, --max_depth_black    - maximum search depth for black
+      -w, --human_plays_white  - human plays white
+      -b, --human_plays_black  - human plays black
+      -n, --num_games          - number of games
+      -P, --print_big          - print a big board
+      -p, --print_small        - print a small board
+      -C, --clear_screen       - clear screen before printing next move
+      -c, --board_width        - board width
+      -r, --board_height       - board height
+      -h, --help               - print this message and quit
+    [you@yourbox]$
 
 ## The original author's README
 
