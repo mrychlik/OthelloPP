@@ -255,7 +255,7 @@ const TreeNode::children_type& TreeNode::children() const
 
 
 /** 
- * The move of the human (interactive) player.
+ * Get the move of the human (interactive) player.
  * We engage in dialog with the user, by prompting to
  * std::cout and reading input from a stream.
  * 
