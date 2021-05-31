@@ -47,6 +47,11 @@ TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int
 {      
 }
 
+/** 
+ * Move constructor.
+ * 
+ * @param other 
+ */
 TreeNode::TreeNode(TreeNode&& other)
 {
   other.swap(*this);
@@ -388,6 +393,15 @@ TreeNode& TreeNode::operator=(TreeNode&& other)
   return *this;
 }
 
+/** 
+ * Copy assignment that that not modify the source.  We only allow
+ * self-assignment here and the only reason for its presence is for
+ * aesthetic reasons.
+ * 
+ * @param other 
+ * 
+ * @return 
+ */
 TreeNode& TreeNode::operator=(const TreeNode& other)
 {
   if(this == &other) {
