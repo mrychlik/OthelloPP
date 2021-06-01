@@ -72,8 +72,8 @@ BOOST_AUTO_TEST_CASE(solution_attempt_6x4)
   MainLoop::getInstance()
     .setBoardWidth(6)
     .setBoardHeight(4)
-    .setMaxDepth(BoardTraits::WHITE, 12)
-    .setMaxDepth(BoardTraits::BLACK, 12)  
+    .setMaxDepth(BoardTraits::WHITE, 10)
+    .setMaxDepth(BoardTraits::BLACK, 10)  
     .setNumGames(1)
     .run();
 }
