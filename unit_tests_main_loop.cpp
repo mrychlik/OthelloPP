@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(solution_4x4)
     .run();
 }
 
-BOOST_AUTO_TEST_CASE(solution_4x6)
+BOOST_AUTO_TEST_CASE(solution_attempt_4x6)
 {
   std::cout << "Solves the 4x6 case" << std::endl;
   MainLoop::getInstance()
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_CASE(solution_4x6)
     .run();
 }
 
-BOOST_AUTO_TEST_CASE(solution_6x4)
+BOOST_AUTO_TEST_CASE(solution_attempt_6x4)
 {
   std::cout << "Solves the 6x4 case" << std::endl;
   MainLoop::getInstance()
