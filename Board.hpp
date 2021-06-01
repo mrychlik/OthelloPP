@@ -129,6 +129,67 @@ private:
   static uint8_t h_;		/**< Board height */
 };
 
+static_assert(sizeof(uint64_t) == sizeof(unsigned long));
+
+/** 
+ *  We use a non-portable, GCC specific function
+ * but there are many portable implementations
+ * which are quite efficient. There are issues
+ * close to hardware bugs and poor compiler
+ * design around them; here is a discussion.
+ * https://stackoverflow.com/questions/25078285/replacing-a-32-bit-loop-counter-with-64-bit-introduces-crazy-performance-deviati
+ *
+ * 
+ * @param x 
+ * 
+ * @return 
+ */
+static inline
+uint32_t popcount(const uint64_t x)
+{
+  return __builtin_popcountl(x);
+}
+
+/** 
+ * # of white tiles - # black tiles
+ * 
+ * 
+ * @return 
+ */
+inline int Board::score () const { 
+  return numWhiteTiles() - numBlackTiles();
+}
+
+/** 
+ * Returns the number of tiles on the board.
+ * 
+ * 
+ * @return 
+ */
+inline int Board::numTiles () const {
+  return popcount(filled);
+}
+
+/** 
+ * Returns the number of white tiles on the board.
+ * 
+ * 
+ * @return 
+ */
+inline int Board::numWhiteTiles () const {
+  return popcount(white);
+}
+
+/** 
+ * Returns the number of black tiles on the board.
+ * 
+ * 
+ * @return 
+ */
+inline int Board::numBlackTiles () const {
+  return numTiles() - numWhiteTiles();
+}
+
   
 
 #endif // BOARD_HPP
