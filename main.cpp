@@ -39,6 +39,12 @@ void usage(char *prog) {
 	 "  -r, --board_height=N       - board height (N=4,6 or 8, default: 8)\n"
 	 "  -A, --prune=N              - use alpha-beta pruning (N=0 or 1, default: 1)\n"
 	 "  -h, --help                 - print this message and quit\n"	 
+	 "NOTES:\n"
+	 "  1. With alpha-beta pruning enabled, i.e. --prune=1, there is no guarantee\n"
+	 "of score optimization, only achieving a winning score when the reachable winning\n"
+	 "position is found with the imposed depth constraints.\n"
+	 "  2. When --prune=0 is used, all positions are searched to given depth, and therefore\n"
+	 "an optimal, reachable winning position is found.\n"
 	 , prog);
 }
 
