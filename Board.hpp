@@ -129,6 +129,8 @@ private:
   static uint8_t h_;		/**< Board height */
 };
 
+//// Some inlined methods, for efficiency
+
 /**
  * 
  * If this is changed sometime in the future, this
