@@ -186,9 +186,9 @@ private:
   void swap(TreeNode& other) noexcept;
 
   template <typename Compare>
-  void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator, int depth, bool prune, value_type alpha, value_type beta,
-				  value_type worst_val, Compare better) const;
-
+  void alphabeta_helper(const StaticEvaluator& evaluator, int depth, bool prune, value_type alpha, value_type beta,
+			value_type worst_val, Compare better) const;
+  
 
 };
 
