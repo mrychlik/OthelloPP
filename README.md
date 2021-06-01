@@ -32,21 +32,31 @@ and that white wins with optimal game. The result required
 You can view the program options like this:
 
     [you@yourbox]$ ./othello --help
-	Usage: othello [OPTIONS]...
-	where OPTIONS may be one of the following:
-	  -D, --max_depth=N          - maximum search depth for computer (default: 12)
-	  -d, --computer_delay=N     - number of seconds to wait between moves (default:0)
-	  -W, --max_depth_white=N    - maximum search depth for white (default:12)
-	  -B, --max_depth_black=N    - maximum search depth for black (default:12)
-	  -w, --human_plays_white    - human plays white (default: NO, computer plays white)
-	  -b, --human_plays_black    - human plays black (default: NO, computer plays black)
-	  -n, --num_games=N          - number of games (default:10)
-	  -P, --print_big            - print a big board (default)
-	  -p, --print_small          - print a small board
-	  -C, --clear_screen         - clear screen before printing next move
-	  -c, --board_width=N        - board width (N=4,6 or 8, default:8)
-	  -r, --board_height=N       - board height (N=4,6 or 8, default:8)
-	  -h, --help                 - print this message and quit
+    Usage: othello [OPTIONS]...
+    where OPTIONS may be one of the following:
+      -D, --max_depth=N          - maximum search depth for computer (default: 12)
+      -d, --computer_delay=N     - number of seconds to wait between moves (default: 0)
+      -W, --max_depth_white=N    - maximum search depth for white (default: 12)
+      -B, --max_depth_black=N    - maximum search depth for black (default: 12)
+      -w, --human_plays_white    - human plays white (default: NO, computer plays white)
+      -b, --human_plays_black    - human plays black (default: NO, computer plays black)
+      -n, --num_games=N          - number of games (default: 10)
+      -P, --print_big            - print a big board (default: ON)
+      -p, --print_small          - print a small board (default: OFF)
+      -C, --clear_screen         - clear screen before printing next move (default: OFF)
+      -c, --board_width=N        - board width (N=4,6 or 8, default: 8)
+      -r, --board_height=N       - board height (N=4,6 or 8, default: 8)
+      -A, --prune=N              - use alpha-beta pruning (N=0 or 1, default: 1)
+      -h, --help                 - print this message and quit
+    NOTES:
+      1. With alpha-beta pruning enabled, i.e. --prune=1, there is no guarantee
+    of score optimization, only achieving a winning score when the reachable winning
+    position is found with the imposed depth constraints.
+      2. When --prune=0 is used, all positions are searched to given depth, and therefore
+    an optimal, reachable winning position is found.
+      3. When --prune=0 and --depth=128 or higher is used then minmax algorithm is
+    used, which provides a guarantee, given enough time or memory, that the highest
+    scoring moves will be selected by the computer.
     [you@yourbox]$
 
 With the default values, the program is in autoplay mode, i.e. both
