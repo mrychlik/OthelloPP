@@ -45,6 +45,9 @@ void usage(char *prog) {
 	 "position is found with the imposed depth constraints.\n"
 	 "  2. When --prune=0 is used, all positions are searched to given depth, and therefore\n"
 	 "an optimal, reachable winning position is found.\n"
+	 "  3. When --prune=0 and --depth=128 or higher is used then minmax algorithm is\n"
+	 "used, which provides a guarantee, given enough time or memory, that the highest\"
+	 "scoring moves will be selected by the computer.\n"
 	 , prog);
 }
 
