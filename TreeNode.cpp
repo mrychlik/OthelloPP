@@ -210,7 +210,7 @@ void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
  * 
  * @return 
  */
-inline void TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, bool prune, value_type alpha, value_type beta) const
+void TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, bool prune, value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
     setMinMaxVal(evaluator(board(), player(), depth));
