@@ -46,8 +46,8 @@ BOOST_AUTO_TEST_CASE(solution_4x6)
   MainLoop::getInstance()
     .setBoardWidth(4)
     .setBoardHeight(6)
-    .setMaxDepth(BoardTraits::WHITE, 26)
-    .setMaxDepth(BoardTraits::BLACK, 26)  
+    .setMaxDepth(BoardTraits::WHITE, 15)
+    .setMaxDepth(BoardTraits::BLACK, 15)  
     .setNumGames(1)
     .run();
 }
@@ -58,8 +58,8 @@ BOOST_AUTO_TEST_CASE(solution_6x4)
   MainLoop::getInstance()
     .setBoardWidth(6)
     .setBoardHeight(4)
-    .setMaxDepth(BoardTraits::WHITE, 26)
-    .setMaxDepth(BoardTraits::BLACK, 26)  
+    .setMaxDepth(BoardTraits::WHITE, 15)
+    .setMaxDepth(BoardTraits::BLACK, 15)  
     .setNumGames(1)
     .run();
 }
