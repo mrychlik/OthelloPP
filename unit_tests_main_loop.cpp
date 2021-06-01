@@ -56,7 +56,8 @@ BOOST_AUTO_TEST_CASE(solution_4x4_minmax)
 
 BOOST_AUTO_TEST_CASE(solution_attempt_4x6)
 {
-  std::cout << "Solves the 4x6 case" << std::endl;
+  const int depth = 10;
+  std::cout << "Solution attempt, the 4x6 case, depth " << depth << std::endl;
   MainLoop::getInstance()
     .setBoardWidth(4)
     .setBoardHeight(6)
@@ -68,12 +69,14 @@ BOOST_AUTO_TEST_CASE(solution_attempt_4x6)
 
 BOOST_AUTO_TEST_CASE(solution_attempt_6x4)
 {
-  std::cout << "Solves the 6x4 case" << std::endl;
+  const int depth = 10;
+  std::cout << "Solution attempt, the 6x4 case, depth " << depth << std::endl;
+
   MainLoop::getInstance()
     .setBoardWidth(6)
     .setBoardHeight(4)
-    .setMaxDepth(BoardTraits::WHITE, 10)
-    .setMaxDepth(BoardTraits::BLACK, 10)  
+    .setMaxDepth(BoardTraits::WHITE, depth)
+    .setMaxDepth(BoardTraits::BLACK, depth)  
     .setNumGames(1)
     .run();
 }
