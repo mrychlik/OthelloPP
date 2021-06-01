@@ -149,9 +149,25 @@ std::ostream& TreeNode::print(std::ostream& s) const
 }
 
 
+/** 
+ * This alpha-beta algorithm helper function is useful to capture the
+ * common logic for both players.
+ * 
+ * @param evaluator 
+ * @param depth 
+ * @param prune 
+ * @param alpha 
+ * @param beta 
+ * @param worst_val 
+ * @param better 
+ */
 template <typename Compare>
-void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator, int depth, bool prune, value_type alpha, value_type beta,
-				value_type worst_val, Compare better) const
+void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
+				int depth,
+				bool prune,
+				value_type alpha, value_type beta,
+				value_type worst_val,
+				Compare better) const
 {
   value_type bestVal = worst_val;
   if(prune) {
@@ -204,9 +220,9 @@ inline void TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, boo
   // The code could be refactored because Min and Max code is so
   // similar
   if( player() == Board::WHITE ) {	// maximizing player
-    alphabeta_helper(evaluator, depth, prune, alpha, beta, MIN_VAL, std::greater_equal<value_type>());
+    alphabeta_helper(evaluator, depth, prune, alpha, beta, MIN_VAL, std::less<value_type>());
   } else {			// minimizing player
-    alphabeta_helper(evaluator, depth, prune, alpha, beta, MAX_VAL, std::less_equal<value_type>());
+    alphabeta_helper(evaluator, depth, prune, alpha, beta, MAX_VAL, std::greater<value_type>());
   }
 }
 
