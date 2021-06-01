@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(tree_alphabeta_and_print)
 BOOST_AUTO_TEST_CASE(tree_alphabeta)
 {
   TreeNode root;
-  int depth = 15;
+  int depth = 10;
   SimpleStaticEvaluator evaluator;
   root.alphabeta(evaluator, depth);
   std::cout << "\nDepth: " << depth
@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE(tree_alphabeta)
 BOOST_AUTO_TEST_CASE(tree_minmax_corners)
 {
   TreeNode root;
-  int depth = 15;
+  int depth = 10;
   CornerStaticEvaluator evaluator;
   root.alphabeta(evaluator, depth);
   std::cout << "\nDepth: " << depth
