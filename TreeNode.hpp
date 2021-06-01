@@ -94,7 +94,7 @@ public:
   const children_type& children() const;
 
   void minmax() const;
-  void alphabeta_helper(const StaticEvaluator& evaluator, int depth, bool prune, value_type alpha, value_type beta) const;
+
   void alphabeta(const StaticEvaluator& evaluator,
 		int depth,
 		 bool prune = false,
@@ -184,6 +184,12 @@ private:
     
 
   void swap(TreeNode& other) noexcept;
+
+  template <typename Compare>
+  void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator, int depth, bool prune, value_type alpha, value_type beta,
+				  value_type worst_val, Compare better) const;
+
+
 };
 
 #endif	// TREE_NODE_SIMPLE_HPP
