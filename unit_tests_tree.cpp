@@ -29,24 +29,25 @@ BOOST_AUTO_TEST_CASE(tree_node_size)
   std::cout << "TreeNode size: " << sizeof(root) << std::endl;
 }
 
-BOOST_AUTO_TEST_CASE(tree_minmax_and_print)
+BOOST_AUTO_TEST_CASE(tree_alphabeta_and_print)
 {
   TreeNode root;
   int depth = 5;
   SimpleStaticEvaluator evaluator;
-  root.minmax(evaluator, depth);
+  root.alphabeta(evaluator, depth);
   std::cout << "\nDepth : " << depth << "\n"
 	    << root
 	    << std::endl;
 }
 
-BOOST_AUTO_TEST_CASE(tree_minmax)
+BOOST_AUTO_TEST_CASE(tree_alphabeta)
 {
   TreeNode root;
   int depth = 15;
   SimpleStaticEvaluator evaluator;
+  root.alphabeta(evaluator, depth);
   std::cout << "\nDepth: " << depth
-	    << "\nMinMax value: " << root.minmax(evaluator, depth)
+	    << "\nAlphaBeta value: " << root.minMaxVal()
     	    << std::endl;
 }
 
@@ -55,8 +56,9 @@ BOOST_AUTO_TEST_CASE(tree_minmax_corners)
   TreeNode root;
   int depth = 15;
   CornerStaticEvaluator evaluator;
+  root.alphabeta(evaluator, depth);
   std::cout << "\nDepth: " << depth
-	    << "\nMinMax value: " << root.minmax(evaluator, depth)
+	    << "\nAlphaBeta value: " << root.minMaxVal()
     	    << std::endl;
 }
 
@@ -128,8 +130,8 @@ BOOST_AUTO_TEST_CASE(tree_copy_assign_throw)
   // Do some computations to cause expansion
   SimpleStaticEvaluator evaluator;
   int depth = 3;
-  t1.minmax(evaluator, depth);
-  t2.minmax(evaluator, depth);
+  t1.alphabeta(evaluator, depth);
+  t2.alphabeta(evaluator, depth);
 
   //BOOST_CHECK_THROW (expression, an_exception_type);
   BOOST_REQUIRE_THROW( t1 = t2, std::logic_error );

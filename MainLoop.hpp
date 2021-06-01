@@ -30,6 +30,7 @@ private:
   static const int DEFAULT_NUM_GAMES = 10; /**< Number of games to play by default */
   static const int DEFAULT_MAX_DEPTH = 12; /**< Depth to which examine the tree to compute the best move */
   static const int DEFAULT_COMPUTER_DELAY = 0; /**< Amount of delay in sec. after computer move */
+  static const bool DEFAULT_PRUNE = true; /**< Whether we use alpha-beta pruning */
 
 public:
 
@@ -103,7 +104,7 @@ public:
    * 
    * @param width 
    * 
-   * @return 
+   * @return *this
    */
   const MainLoop& setBoardWidth(int width) const;
 
@@ -112,9 +113,18 @@ public:
    * 
    * @param width 
    * 
-   * @return 
+   * @return *this
    */
   const MainLoop& setBoardHeight(int width) const;
+
+  /** 
+   * Turn alpha-beta pruning on or off.
+   * 
+   * @param value if non-zero, ON, else, OFF.
+   * 
+   * @return *this
+   */
+  const MainLoop& setPruning(int value) const;
 
 
   /** 
@@ -132,8 +142,9 @@ private:
   static bool humanPlayer[2]; /**< Which player is human? */
   static int  num_games;      /**< Number of games to play */
   static int  computer_delay; /**< Number of seconds to wait after computer move */
-  static const StaticEvaluatorTable& DEFAULT_EVALUATOR_TABLE;
+  static bool prune;	      /**< Whether use alpha-beta prunig */
 
+  static const StaticEvaluatorTable& DEFAULT_EVALUATOR_TABLE;
 public:
   static int run(std::istream& ins,
 		 std::ostream& os,

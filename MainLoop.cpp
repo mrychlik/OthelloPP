@@ -20,10 +20,11 @@
 //#include "CornerStaticEvaluator.hpp"
 
 
-int  MainLoop::max_depth[2]   = { MainLoop::DEFAULT_MAX_DEPTH, MainLoop::DEFAULT_MAX_DEPTH };
-bool MainLoop::humanPlayer[2] = {false, false}; 
-int MainLoop::num_games       = DEFAULT_NUM_GAMES; 
-int MainLoop::computer_delay  = DEFAULT_COMPUTER_DELAY;
+int  MainLoop::max_depth[2]   = { DEFAULT_MAX_DEPTH, DEFAULT_MAX_DEPTH };
+bool MainLoop::humanPlayer[2] = { false, false }; 
+int  MainLoop::num_games      = DEFAULT_NUM_GAMES; 
+int  MainLoop::computer_delay = DEFAULT_COMPUTER_DELAY;
+bool MainLoop::prune          = DEFAULT_PRUNE;
 
 /** 
  * Play a game, return the score.
@@ -50,7 +51,7 @@ int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab)
       std::clog << root.x() << ' ' << root.y() << "\t// Game #:" << game << ",  " << p << ", " << 'H' << "\n";
     } else {			// not human
       ::sleep(computer_delay);
-      root = root.getComputerMove(evaluatorTab, max_depth[root.player()]);
+      root = root.getComputerMove(evaluatorTab, max_depth[root.player()], prune);
       std::cout << root.board() << std::flush
 		<< "----------------------------------------------------------------\n"
 		<< "Game #" << game << ": Computer played: " << root.x() << " " << root.y() << "\n"
@@ -165,6 +166,7 @@ const MainLoop& MainLoop::reportSettings() const
     << "\nClear screen before printing: " << ( Board::clear_screen_before_printing ? "ON" : "OFF" )
     << "\nBoard width: " <<  static_cast<unsigned>(Board::w())
     << "\nBoard height: " << static_cast<unsigned>(Board::h())
+    << "\nUse alpha beta pruning: " << std::boolalpha << prune
     << std::endl;
 
   return *this;
@@ -216,5 +218,8 @@ const MainLoop& MainLoop::setBoardHeight(int width) const {
   return *this;
 }
 
-
+const MainLoop& MainLoop::setPruning(int value) const {
+  prune = value;
+  return *this;
+}
 

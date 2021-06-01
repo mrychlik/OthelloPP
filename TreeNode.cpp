@@ -162,7 +162,7 @@ std::ostream& TreeNode::print(std::ostream& s) const
  * @param better 
  */
 template <typename Compare>
-void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
+inline void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
 				int depth,
 				bool prune,
 				value_type alpha, value_type beta,
