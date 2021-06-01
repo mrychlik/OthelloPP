@@ -28,14 +28,28 @@ BOOST_AUTO_TEST_CASE(main_loop_test)
     .run();
 }
 
-BOOST_AUTO_TEST_CASE(solution_4x4)
+BOOST_AUTO_TEST_CASE(solution_4x4_alpha_beta)
 {
   std::cout << "Solves the 4x4 case" << std::endl;
   MainLoop::getInstance()
     .setBoardWidth(4)
     .setBoardHeight(4)
-    .setMaxDepth(BoardTraits::WHITE, 18)
-    .setMaxDepth(BoardTraits::BLACK, 18)  
+    .setPruning(0)
+    .setMaxDepth(BoardTraits::WHITE, 128)
+    .setMaxDepth(BoardTraits::BLACK, 128)  
+    .setNumGames(1)
+    .run();
+}
+
+BOOST_AUTO_TEST_CASE(solution_4x4_minmax)
+{
+  std::cout << "Solves the 4x4 case" << std::endl;
+  MainLoop::getInstance()
+    .setBoardWidth(4)
+    .setBoardHeight(4)
+    .setPruning(0)
+    .setMaxDepth(BoardTraits::WHITE, 100)
+    .setMaxDepth(BoardTraits::BLACK, 100)  
     .setNumGames(1)
     .run();
 }
@@ -46,8 +60,8 @@ BOOST_AUTO_TEST_CASE(solution_attempt_4x6)
   MainLoop::getInstance()
     .setBoardWidth(4)
     .setBoardHeight(6)
-    .setMaxDepth(BoardTraits::WHITE, 15)
-    .setMaxDepth(BoardTraits::BLACK, 15)  
+    .setMaxDepth(BoardTraits::WHITE, 10)
+    .setMaxDepth(BoardTraits::BLACK, 10)  
     .setNumGames(1)
     .run();
 }
@@ -58,8 +72,8 @@ BOOST_AUTO_TEST_CASE(solution_attempt_6x4)
   MainLoop::getInstance()
     .setBoardWidth(6)
     .setBoardHeight(4)
-    .setMaxDepth(BoardTraits::WHITE, 15)
-    .setMaxDepth(BoardTraits::BLACK, 15)  
+    .setMaxDepth(BoardTraits::WHITE, 12)
+    .setMaxDepth(BoardTraits::BLACK, 12)  
     .setNumGames(1)
     .run();
 }
