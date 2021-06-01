@@ -129,6 +129,11 @@ private:
   static uint8_t h_;		/**< Board height */
 };
 
+/**
+ * 
+ * If this is changed sometime in the future, this
+ * would break popcount.
+ */
 static_assert(sizeof(uint64_t) == sizeof(unsigned long));
 
 /** 
@@ -140,7 +145,7 @@ static_assert(sizeof(uint64_t) == sizeof(unsigned long));
  * https://stackoverflow.com/questions/25078285/replacing-a-32-bit-loop-counter-with-64-bit-introduces-crazy-performance-deviati
  *
  * 
- * @param x 
+ * @param x A 64-it integer
  * 
  * @return 
  */
