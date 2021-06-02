@@ -127,6 +127,12 @@ private:
 
   static uint8_t w_;		/**< Board width */
   static uint8_t h_;		/**< Board height */
+
+private: 
+  static uint32_t popcount(const uint64_t x);
+  static bool getbit(const uint64_t& u, uint8_t x, uint8_t y);
+  static void setbit(uint64_t& u, uint8_t x, uint8_t y);
+  static void unsetbit(uint64_t& u, uint8_t x, uint8_t y);
 };
 
 //// Some inlined methods, for efficiency
@@ -151,11 +157,35 @@ static_assert(sizeof(uint64_t) == sizeof(unsigned long));
  * 
  * @return 
  */
-static inline
-uint32_t popcount(const uint64_t x)
+inline
+uint32_t Board::popcount(const uint64_t x)
 {
   return __builtin_popcountl(x);
 }
+
+#include <cassert>
+
+inline
+bool Board::getbit(const uint64_t& u, uint8_t x, uint8_t y)
+{
+  assert(x < 8);  assert(y < 8);  
+  return ( u >> ( (y << 3) | x ) ) & 1U;
+}
+
+inline
+void Board::setbit(uint64_t& u, uint8_t x, uint8_t y)
+{
+  assert(x < 8);  assert(y < 8);  
+  u |= 1UL << ( (y << 3) | x );
+}
+
+inline
+void Board::unsetbit(uint64_t& u, uint8_t x, uint8_t y)
+{
+  assert(x < 8);  assert(y < 8);  
+  u &= ~( 1UL << ( (y << 3) | x ) );
+}
+
 
 /** 
  * # of white tiles - # black tiles
@@ -197,6 +227,63 @@ inline int Board::numBlackTiles () const {
   return numTiles() - numWhiteTiles();
 }
 
+/** 
+ * Is the tile at (x,y) white?
+ * 
+ * @param x 
+ * @param y 
+ * 
+ * @return 
+ */
+inline bool Board::isWhite(uint8_t x, uint8_t y) const {
+  return getbit(white, x, y);
+};
+
+/** 
+ * Is the tile at (x,y) black?
+ * 
+ * @param x 
+ * @param y 
+ * 
+ * @return 
+ */
+inline bool Board::isBlack(uint8_t x, uint8_t y) const {
+  return getbit(filled^white, x, y);
+};
+
+/** 
+ * Set the tile at (x,y) to white.
+ * 
+ * @param x 
+ * @param y 
+ */
+inline void Board::setWhite(uint8_t x, uint8_t y) {
+  setbit(filled, x, y);
+  setbit(white, x, y);
+};
+
+/** 
+ * Set the tile at (x,y) to black
+ * 
+ * @param x 
+ * @param y 
+ */
+inline void Board::setBlack(uint8_t x, uint8_t y) {
+  setbit(filled, x, y);
+  unsetbit(white, x, y);
+};
+
+/** 
+ * Is there a tile at (x,y)?
+ * 
+ * @param x 
+ * @param y 
+ * 
+ * @return 
+ */
+inline bool Board::isFilled(uint8_t x, uint8_t y) const {
+  return getbit(filled, x, y);
+};
   
 
 #endif // BOARD_HPP
