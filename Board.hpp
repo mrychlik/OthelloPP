@@ -184,7 +184,7 @@ bool Board::getbit(const uint64_t& u, uint8_t x, uint8_t y)
 
 /**
  * A table of powers of 2
- * and their complements. 
+ * and their bitwise complements. 
  */
 struct PowersOfTwo {
   constexpr PowersOfTwo() {
