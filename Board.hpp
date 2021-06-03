@@ -165,6 +165,16 @@ uint32_t Board::popcount(const uint64_t x)
 
 #include <cassert>
 
+/** 
+ * Get bit with index 8*y+x from a 64-bit unsigned integer.
+ * Most significant bit has index 0.
+ * 
+ * @param u 
+ * @param x 
+ * @param y 
+ * 
+ * @return The bit as a boolean value.
+ */
 inline
 bool Board::getbit(const uint64_t& u, uint8_t x, uint8_t y)
 {
@@ -172,18 +182,54 @@ bool Board::getbit(const uint64_t& u, uint8_t x, uint8_t y)
   return ( u >> ( (y << 3) | x ) ) & 1U;
 }
 
+/**
+ * A table of powers of 2
+ * and their complements. 
+ */
+struct PowersOfTwo {
+  constexpr PowersOfTwo() {
+    for(int j=0;j<64;++j){
+      tbl[j] = 1UL << j;
+      ctbl[j] = ~tbl[j];
+    }
+  }
+  uint64_t tbl[64];
+  uint64_t ctbl[64];
+} constexpr pot;
+
+
+/** 
+ * Set bit with index 8*y+x in a 64-bit unsigned integer u.
+ * Most significant bit has index 0.
+ * 
+ * @param u 
+ * @param x 
+ * @param y 
+ * 
+ * @return 
+ */
 inline
 void Board::setbit(uint64_t& u, uint8_t x, uint8_t y)
 {
   assert(x < 8);  assert(y < 8);  
-  u |= 1UL << ( (y << 3) | x );
+  u |= pot.tbl[ (y << 3) | x ];
 }
 
+/** 
+ * Unset bit with index 8*y+x in a 64-bit unsigned integer u.
+ * Most significant bit has index 0.
+ * 
+ * @param u 
+ * @param x 
+ * @param y 
+ * 
+ * @return 
+ */
 inline
 void Board::unsetbit(uint64_t& u, uint8_t x, uint8_t y)
 {
   assert(x < 8);  assert(y < 8);  
-  u &= ~( 1UL << ( (y << 3) | x ) );
+  u &= pot.ctbl[ (y << 3) | x  ];
 }
 
 
