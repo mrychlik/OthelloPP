@@ -41,8 +41,8 @@ check-for-leaks: othello
 # Using prof, requires Linux kernel 2.6+
 # Must be run in a terminal capable of terminal graphics
 profile: othello
-	prof record -g ./othello -D 8 -r 4 -c 6 -n 1 > /dev/null
-	prof report
+	perf record -g ./othello -D 8 -r 4 -c 6 -n 1 > /dev/null
+	perf report
 
 clean-binaries: 
 	-@rm *.o
