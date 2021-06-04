@@ -171,16 +171,17 @@ uint32_t Board::popcount(const uint64_t x)
 #include <cassert>
 
 #if USE_LUT
+
 /**
- * A lookup table of powers of 2
- * and their bitwise complements. 
+ * A lookup table of powers of 2 and their bitwise complements.
  *
- * NOTE: Some G++ versions seem to have
- * trouble if there is no brace initializer in
- * the constructor. In practice, the use of lookup
+ * NOTE: Some G++ versions seem to have trouble if there is no brace
+ * initializer in the constructor. In practice, the use of lookup
  * table is questionable, as it produces no performance
- * enhancements. Inlining the calculation and presumably
- * doing the arithmetic in registers in setbit
+ * enhancements. Inlining the calculation and presumably doing the
+ * arithmetic in registers in setbit will beat the memory access, even
+ * if the table is cached near the CPU. Our interest is purely "academic"
+ * in this solution.
  *
  */
 static constexpr
