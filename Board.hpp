@@ -194,7 +194,7 @@ bool Board::getbit(const uint64_t& u, uint8_t x, uint8_t y)
  */
 static constexpr
 struct PowersOfTwo {
-  constexpr PowersOfTwo() {
+  constexpr PowersOfTwo() : tbl{0}, ctbl{0} {
     for(int j=0;j<64;++j){
       tbl[j] = 1UL << j;
       ctbl[j] = ~tbl[j];
