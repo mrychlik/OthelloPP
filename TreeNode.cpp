@@ -176,9 +176,9 @@ inline void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
   }
   for( auto child = children().begin(); child != children().end(); ++child ) {
     (*child)->alphabeta(evaluator, depth - 1, prune, alpha, beta);
-    bestVal = std::max(bestVal, (*child)->minMaxVal(), better);
+    bestVal = std::max((*child)->minMaxVal(), bestVal, better);
     if(prune) {
-      alpha = std::max(alpha, bestVal, better);
+      alpha = std::max(bestVal, alpha, better);
       if(beta <= alpha) {
 	break;
       }
