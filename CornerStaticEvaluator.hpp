@@ -35,7 +35,6 @@ public:
   {
     auto val = b.score();
 
-    // NOTE: (M.R.) This handicap seems to disproportionately award WHITE.
     //maybe add linear change to value of score vs terriory?
 
 
