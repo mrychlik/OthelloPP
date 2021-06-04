@@ -20,37 +20,6 @@
 static const char esc = '';
 static const std::string reset = "[0m";
 
-static_assert(sizeof(uint64_t) == sizeof(unsigned long));
-
-static inline
-uint32_t popcount(const uint64_t x)
-{
-  // We use a non-portable, GCC specific function
-  // but there are many portable implementations
-  // which are quite efficient
-  return __builtin_popcountl(x);
-}
-
-static inline
-bool getbit(const uint64_t& u, uint8_t x, uint8_t y)
-{
-  assert(x < 8);  assert(y < 8);  
-  return ( u >> ( (y << 3) | x ) ) & 1U;
-}
-
-static inline
-void setbit(uint64_t& u, uint8_t x, uint8_t y)
-{
-  assert(x < 8);  assert(y < 8);  
-  u |= 1UL << ( (y << 3) | x );
-}
-
-static inline
-void unsetbit(uint64_t& u, uint8_t x, uint8_t y)
-{
-  assert(x < 8);  assert(y < 8);  
-  u &= ~( 1UL << ( (y << 3) | x ) );
-}
 
 /**
  * 8 directions  (vectors) on the board.
@@ -66,17 +35,6 @@ bool Board::print_size_big = true;
 
 bool Board::clear_screen_before_printing = false;
 
-/** 
- * Is there a tile at (x,y)?
- * 
- * @param x 
- * @param y 
- * 
- * @return 
- */
-bool Board::isFilled(uint8_t x, uint8_t y) const {
-  return getbit(filled, x, y);
-};
 
 /** 
  * Checks if coordinates are in range.  It works with a signed type as
@@ -92,51 +50,6 @@ bool Board::validCoords(int8_t x, int8_t y) const {
   return ( x >= 0 ) && ( x < w() ) && ( y >= 0 ) && ( y < h() );
 }
 
-/** 
- * Is the tile at (x,y) white?
- * 
- * @param x 
- * @param y 
- * 
- * @return 
- */
-bool Board::isWhite(uint8_t x, uint8_t y) const {
-  return getbit(white, x, y);
-};
-
-/** 
- * Is the tile at (x,y) black?
- * 
- * @param x 
- * @param y 
- * 
- * @return 
- */
-bool Board::isBlack(uint8_t x, uint8_t y) const {
-  return getbit(filled^white, x, y);
-};
-
-/** 
- * Set the tile at (x,y) to white.
- * 
- * @param x 
- * @param y 
- */
-void Board::setWhite(uint8_t x, uint8_t y) {
-  setbit(filled, x, y);
-  setbit(white, x, y);
-};
-
-/** 
- * Set the tile at (x,y) to black
- * 
- * @param x 
- * @param y 
- */
-void Board::setBlack(uint8_t x, uint8_t y) {
-  setbit(filled, x, y);
-  unsetbit(white, x, y);
-};
 
 /** 
  * Set tile at (x,y) to a particular color
@@ -173,49 +86,6 @@ Board::Board() :
   setBlack(half_width, half_height);
   setBlack(half_width-1, half_height - 1);  
 }
-  
-
-
-/** 
- * # of white tiles - # black tiles
- * 
- * 
- * @return 
- */
-int Board::score () const { 
-  return numWhiteTiles() - numBlackTiles();
-}
-
-/** 
- * Returns the number of tiles on the board.
- * 
- * 
- * @return 
- */
-int Board::numTiles () const {
-  return popcount(filled);
-}
-
-/** 
- * Returns the number of white tiles on the board.
- * 
- * 
- * @return 
- */
-int Board::numWhiteTiles () const {
-  return popcount(white);
-}
-
-/** 
- * Returns the number of black tiles on the board.
- * 
- * 
- * @return 
- */
-int Board::numBlackTiles () const {
-  return numTiles() - numWhiteTiles();
-}
-
 
 /** 
  * For a given board square and each of the 8 rays from that square
