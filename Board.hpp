@@ -191,6 +191,9 @@ bool Board::getbit(const uint64_t& u, uint8_t x, uint8_t y)
 /**
  * A lookup table of powers of 2
  * and their bitwise complements. 
+ * NOTE: Some G++ versions seem to have
+ * trouble if there is no brace initializer in
+ * the constructor.
  */
 static constexpr
 struct PowersOfTwo {
