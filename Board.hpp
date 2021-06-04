@@ -135,9 +135,12 @@ private:
   static bool getbit(const uint64_t& u, uint8_t x, uint8_t y);
   static void setbit(uint64_t& u, uint8_t x, uint8_t y);
   static void unsetbit(uint64_t& u, uint8_t x, uint8_t y);
+  
 };
 
+
 //// Some inlined methods, for efficiency
+
 
 /**
  * 
@@ -182,13 +185,14 @@ bool Board::getbit(const uint64_t& u, uint8_t x, uint8_t y)
 {
   assert(x < 8);  assert(y < 8);  
   return ( u >> ( (y << 3) | x ) ) & 1U;
-}
+};
 
 #if USE_LUT
 /**
  * A lookup table of powers of 2
  * and their bitwise complements. 
  */
+static constexpr
 struct PowersOfTwo {
   constexpr PowersOfTwo() {
     for(int j=0;j<64;++j){
@@ -198,8 +202,9 @@ struct PowersOfTwo {
   }
   uint64_t tbl[64];
   uint64_t ctbl[64];
-} constexpr pot;
+} pot;
 #endif
+
 
 /** 
  * Set bit with index 8*y+x in a 64-bit unsigned integer u.
