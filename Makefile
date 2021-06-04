@@ -1,7 +1,7 @@
 # No threads yet!!!
 CXXFLAGS = -std=c++2a
 CXXFLAGS += -ggdb3
-CXXFLAGS += -DUSE_LUT=1	   #Use lookup table
+#CXXFLAGS += -DUSE_LUT=1	   #Use lookup table
 #CXXFLAGS += -O3 -Wall -fomit-frame-pointer
 #CXXFLAGS += -Og -O0 -Wall
 #CXXFLAGS += -Ofast -Og -Wall
