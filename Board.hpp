@@ -170,6 +170,32 @@ uint32_t Board::popcount(const uint64_t x)
 
 #include <cassert>
 
+#if USE_LUT
+/**
+ * A lookup table of powers of 2
+ * and their bitwise complements. 
+ *
+ * NOTE: Some G++ versions seem to have
+ * trouble if there is no brace initializer in
+ * the constructor. In practice, the use of lookup
+ * table is questionable, as it produces no performance
+ * enhancements. Inlining the calculation and presumably
+ * doing the arithmetic in registers in setbit
+ *
+ */
+static constexpr
+struct PowersOfTwo {
+  constexpr PowersOfTwo() : tbl{0}, ctbl{0} {
+    for(int j=0; j < 64; ++j){
+      tbl[j] = 1UL << j;
+      ctbl[j] = ~tbl[j];
+    }
+  }
+  uint64_t tbl[64];
+  uint64_t ctbl[64];
+} pot;
+#endif
+
 /** 
  * Get bit with index 8*y+x from a 64-bit unsigned integer.
  * Most significant bit has index 0.
@@ -184,29 +210,12 @@ inline
 bool Board::getbit(const uint64_t& u, uint8_t x, uint8_t y)
 {
   assert(x < 8);  assert(y < 8);  
-  return ( u >> ( (y << 3) | x ) ) & 1U;
-};
-
 #if USE_LUT
-/**
- * A lookup table of powers of 2
- * and their bitwise complements. 
- * NOTE: Some G++ versions seem to have
- * trouble if there is no brace initializer in
- * the constructor.
- */
-static constexpr
-struct PowersOfTwo {
-  constexpr PowersOfTwo() : tbl{0}, ctbl{0} {
-    for(int j=0;j<64;++j){
-      tbl[j] = 1UL << j;
-      ctbl[j] = ~tbl[j];
-    }
-  }
-  uint64_t tbl[64];
-  uint64_t ctbl[64];
-} pot;
+  return u & pot.tbl[ (y << 3) | x ]; 
+#else
+  return ( u >> ( (y << 3) | x ) ) & 1U;
 #endif
+};
 
 
 /** 
