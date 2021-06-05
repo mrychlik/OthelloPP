@@ -176,10 +176,11 @@ inline void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
   }
   for( auto child = children().begin(); child != children().end(); ++child ) {
     (*child)->alphabeta(evaluator, depth - 1, prune, alpha, beta);
-    bestVal = std::max((*child)->minMaxVal(), bestVal, better);
+    // NOTE: std::max is like f(a,b) -> ( better(a,b) ? b : a ) and better == operator< 
+    bestVal = std::max(bestVal, (*child)->minMaxVal(), better);
     if(prune) {
-      alpha = std::max(bestVal, alpha, better);
-      if(beta <= alpha) {
+      alpha = std::max(alpha, bestVal, better);
+      if(!better(alpha, beta)) {
 	break;
       }
     }
@@ -222,7 +223,7 @@ void TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, bool prune
   if( player() == Board::WHITE ) {	// maximizing player
     alphabeta_helper(evaluator, depth, prune, alpha, beta, MIN_VAL, std::less<value_type>());
   } else {			// minimizing player
-    alphabeta_helper(evaluator, depth, prune, alpha, beta, MAX_VAL, std::greater<value_type>());
+    alphabeta_helper(evaluator, depth, prune, beta, alpha, MAX_VAL, std::greater<value_type>());
   }
 }
 
