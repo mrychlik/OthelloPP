@@ -211,7 +211,9 @@ inline void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
  * 
  * @return 
  */
-void TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, bool prune, value_type alpha, value_type beta) const
+void TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth,
+			 bool prune,
+			 value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
     setMinMaxVal(evaluator(board(), player(), depth));
@@ -221,11 +223,46 @@ void TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, bool prune
   // The code could be refactored because Min and Max code is so
   // similar
   if( player() == Board::WHITE ) {	// maximizing player
-    alphabeta_helper(evaluator, depth, prune, alpha, beta, MIN_VAL,
-		     std::less<value_type>());
+    auto worst_val = MIN_VAL;
+
+    value_type bestVal = worst_val;
+    if(prune) {
+      // Mark all children as suboptimal as not all will be searched
+      std::for_each(children().begin(), children().end(),
+		    [bestVal](auto& ch) { ch->setMinMaxVal(bestVal); });
+    }
+    for( auto child = children().begin(); child != children().end(); ++child ) {
+      (*child)->alphabeta(evaluator, depth - 1, prune, alpha, beta);
+      bestVal = std::max(bestVal, (*child)->minMaxVal());
+      if(prune) {
+	alpha = std::max(alpha, bestVal);
+	if(beta <= alpha) {
+	  break;
+	}
+      }
+    }
+    assert( bestVal != worst_val);
+    setMinMaxVal(bestVal);
   } else {			// minimizing player
-    alphabeta_helper(evaluator, depth, prune, beta, alpha, MAX_VAL,
-		     std::greater<value_type>());
+    auto worst_val = MAX_VAL;
+    value_type bestVal = worst_val;
+    if(prune) {
+      // Mark all children as suboptimal as not all will be searched
+      std::for_each(children().begin(), children().end(),
+		    [bestVal](auto& ch) { ch->setMinMaxVal(bestVal); });
+    }
+    for( auto child = children().begin(); child != children().end(); ++child ) {
+      (*child)->alphabeta(evaluator, depth - 1, prune, alpha, beta);
+      bestVal = std::min(bestVal, (*child)->minMaxVal());
+      if(prune) {
+	beta = std::min(beta, bestVal);
+	if(beta <= alpha) {
+	  break;
+	}
+      }
+    }
+    assert( bestVal != worst_val);
+    setMinMaxVal(bestVal);
   }
 }
 
