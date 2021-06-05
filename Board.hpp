@@ -12,6 +12,7 @@
 #define BOARD_HPP 1
 
 #ifndef USE_LUT
+/// If set, use a lookup table of powers of 2
 #define USE_LUT 0
 #endif
 
