@@ -221,9 +221,11 @@ void TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth, bool prune
   // The code could be refactored because Min and Max code is so
   // similar
   if( player() == Board::WHITE ) {	// maximizing player
-    alphabeta_helper(evaluator, depth, prune, alpha, beta, MIN_VAL, std::less<value_type>());
+    alphabeta_helper(evaluator, depth, prune, alpha, beta, MIN_VAL,
+		     std::less<value_type>());
   } else {			// minimizing player
-    alphabeta_helper(evaluator, depth, prune, beta, alpha, MAX_VAL, std::greater<value_type>());
+    alphabeta_helper(evaluator, depth, prune, beta, alpha, MAX_VAL,
+		     std::greater<value_type>());
   }
 }
 
