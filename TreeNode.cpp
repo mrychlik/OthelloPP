@@ -151,36 +151,44 @@ std::ostream& TreeNode::print(std::ostream& s) const
 
 /** 
  * This alpha-beta algorithm helper function is useful to capture the
- * common logic for both players.
+ * common logic for both players. The parameters changing and fixed
+ * deserve an explanation. These are references to alpha and beta,
+ * one a const reference. Depending on whether the player is Max
+ * or Min, one of alpha or beta is changing, and the other is fixed.
  * 
  * @param evaluator 
  * @param depth 
  * @param prune 
  * @param alpha 
  * @param beta 
+ * @param changing
+ * @param fixed
  * @param worst_val 
  * @param better 
  */
 template <typename Compare>
 inline void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
-				int depth,
-				bool prune,
-				value_type alpha, value_type beta,
-				value_type worst_val,
-				Compare better) const
+				       int depth,
+				       bool prune,
+				       value_type alpha, value_type beta,
+				       value_type& changing,
+				       const value_type& fixed,
+				       value_type worst_val,
+				       Compare better) const
 {
   value_type bestVal = worst_val;
   if(prune) {
     // Mark all children as suboptimal as not all will be searched
-    std::for_each(children().begin(), children().end(),[bestVal](auto& ch) { ch->setMinMaxVal(bestVal); });
+    std::for_each(children().begin(), children().end(),
+		  [bestVal](auto& ch) { ch->setMinMaxVal(bestVal); });
   }
-  for( auto child = children().begin(); child != children().end(); ++child ) {
-    (*child)->alphabeta(evaluator, depth - 1, prune, alpha, beta);
+  for( auto child : children() ) {
+    child->alphabeta(evaluator, depth - 1, prune, alpha, beta);
     // NOTE: std::max is like f(a,b) -> ( better(a,b) ? b : a ) and better == operator< 
-    bestVal = std::max(bestVal, (*child)->minMaxVal(), better);
+    bestVal = std::max(bestVal, child->minMaxVal(), better);
     if(prune) {
-      alpha = std::max(alpha, bestVal, better);
-      if(!better(alpha, beta)) {
+      changing = std::max(changing, bestVal, better);
+      if(!better(changing, fixed)) {
 	break;
       }
     }
@@ -223,46 +231,18 @@ void TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth,
   // The code could be refactored because Min and Max code is so
   // similar
   if( player() == Board::WHITE ) {	// maximizing player
-    auto worst_val = MIN_VAL;
-
-    value_type bestVal = worst_val;
-    if(prune) {
-      // Mark all children as suboptimal as not all will be searched
-      std::for_each(children().begin(), children().end(),
-		    [bestVal](auto& ch) { ch->setMinMaxVal(bestVal); });
-    }
-    for( auto child = children().begin(); child != children().end(); ++child ) {
-      (*child)->alphabeta(evaluator, depth - 1, prune, alpha, beta);
-      bestVal = std::max(bestVal, (*child)->minMaxVal());
-      if(prune) {
-	alpha = std::max(alpha, bestVal);
-	if(beta <= alpha) {
-	  break;
-	}
-      }
-    }
-    assert( bestVal != worst_val);
-    setMinMaxVal(bestVal);
+    alphabeta_helper(evaluator, depth, prune,
+		     alpha, beta,
+		     alpha, beta,
+		     MIN_VAL,
+		     std::less<value_type>());
   } else {			// minimizing player
-    auto worst_val = MAX_VAL;
-    value_type bestVal = worst_val;
-    if(prune) {
-      // Mark all children as suboptimal as not all will be searched
-      std::for_each(children().begin(), children().end(),
-		    [bestVal](auto& ch) { ch->setMinMaxVal(bestVal); });
-    }
-    for( auto child = children().begin(); child != children().end(); ++child ) {
-      (*child)->alphabeta(evaluator, depth - 1, prune, alpha, beta);
-      bestVal = std::min(bestVal, (*child)->minMaxVal());
-      if(prune) {
-	beta = std::min(beta, bestVal);
-	if(beta <= alpha) {
-	  break;
-	}
-      }
-    }
-    assert( bestVal != worst_val);
-    setMinMaxVal(bestVal);
+    assert(player() == Board::BLACK);
+    alphabeta_helper(evaluator, depth, prune,
+		     alpha, beta,
+		     beta, alpha,
+		     MAX_VAL,
+		     std::greater<value_type>());
   }
 }
 
