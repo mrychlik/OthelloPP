@@ -156,10 +156,11 @@ std::ostream& TreeNode::print(std::ostream& s) const
  * one a const reference. Depending on whether the player is Max
  * or Min, one of alpha or beta is changing, and the other is fixed.
  * The pay-off is that the helper allows a common implementation of
- * 1. plain minmax, when prune is set to false;
- * 2. alpha-abeta pruning when prune is set to true;
- * 3. same code working for Min and Max without performance penalty, which
- *    would result from using conditionals.
+ *
+ * -# plain minmax, when prune is set to false;
+ * -#. alpha-abeta pruning when prune is set to true;
+ * -#. same code working for Min and Max without performance penalty, which
+ *     would result from using conditionals.
  * 
  * @param evaluator 
  * @param depth 
