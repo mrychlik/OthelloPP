@@ -187,14 +187,14 @@ private:
 
   template <typename Compare>
   void alphabeta_helper(const StaticEvaluator& evaluator,
-			int depth,
-			bool prune,
-			value_type alpha,
-			value_type beta,
-			value_type worst_val,
-			Compare better) const;
+				       int depth,
+				       bool prune,
+				       value_type alpha, value_type beta,
+				       value_type& changing,
+				       const value_type& fixed,
+				       value_type worst_val,
+				       Compare better) const;
   
-
 };
 
 #endif	// TREE_NODE_SIMPLE_HPP
