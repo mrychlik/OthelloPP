@@ -8,9 +8,6 @@
  * The game Othello is nicely discribed in this YouTube video:
  *     https://www.youtube.com/watch?v=xDnYEOsjZnM
  *
- * This pseudocode is adapted from below 
- * source:
- *
  */
 
 #include "TreeNode.hpp"
