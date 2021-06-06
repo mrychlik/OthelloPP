@@ -283,10 +283,24 @@ std::ostream& Board::printBig(std::ostream& s) const {
  */
 bool Board::hasLegalMove(Player player) const {
   uint8_t flipRadius[8];
+#if 0
   for(auto x = 0; x < w(); ++x)
     for(auto y = 0; y < h(); ++y)    
       if( !isFilled(x, y) && findFlipRadius(player, x, y, flipRadius, true) )
 	return true;
+#endif
+
+  uint8_t j = 0;
+  for(uint64_t u = ~filled; u != 0; ) {
+    auto i = __builtin_clzl(u);
+    j += i + 1;
+    uint8_t x = j & 0x07;
+    uint8_t y = (j >> 3) & 0x07;
+    if( findFlipRadius(player, x, y, flipRadius, true) ) {
+      return true;
+    }
+    u <<= i + 1;
+  }
   return false;
 }
 
@@ -391,7 +405,7 @@ struct PowersOfTwo {
 
 /** 
  * Get bit with index 8*y+x from a 64-bit unsigned integer.
- * Most significant bit has index 0.
+ * Least significant bit has index 0.
  * 
  * @param u 
  * @param x 
