@@ -6,10 +6,10 @@ CXXFLAGS += -Wall -Wextra
 #CXXFLAGS += -O3-fomit-frame-pointer
 
 ## Use the next set of flags for debugging
-#CXXFLAGS += -Og -O0
+CXXFLAGS += -Og -O0
 
 ## Use the next set of flags for performance
-CXXFLAGS += -Ofast -msse4 -DNDEBUG=1 -fomit-frame-pointer
+#CXXFLAGS += -Ofast -msse4 -DNDEBUG=1 -fomit-frame-pointer
 
 
 #CXXFLAGS += -Ofast -Og
