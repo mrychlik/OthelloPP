@@ -4,14 +4,17 @@ CXXFLAGS += -ggdb3
 CXXFLAGS += -Wall -Wextra
 #CXXFLAGS += -DUSE_LUT=1	   #Use lookup table
 #CXXFLAGS += -O3-fomit-frame-pointer
+
 ## Use the next set of flags for debugging
 #CXXFLAGS += -Og -O0
+
+## Use the next set of flags for performance
+CXXFLAGS += -Ofast -msse4 -DNDEBUG=1 -fomit-frame-pointer
+
 
 #CXXFLAGS += -Ofast -Og
 #CXXFLAGS += -Ofast -Og -fomit-frame-pointer
 
-## Use the next set of flags for performance
-CXXFLAGS += -Ofast -msse4 -DNDEBUG=1 -fomit-frame-pointer
 
 LDFLAGS  = -lm -lboost_unit_test_framework
 
