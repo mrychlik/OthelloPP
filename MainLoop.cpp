@@ -85,6 +85,7 @@ int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab, std::istr
 	      << std::endl;    
     std::clog << "// Game #" << game << ": Score " << root->score() << ", " << "Draw" << "\n";
   }
+
   return root->score();
 }
 
