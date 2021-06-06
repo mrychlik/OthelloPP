@@ -75,12 +75,12 @@ int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab, std::istr
 	      << std::endl;    
     std::clog << "// Game #" << game << ": Score " << root->score() << ", " << "White wins" << "\n";
   } else if( root->score() < 0) {
-    std::cout << root << std::flush
+    std::cout << *root << std::flush
 	      << "BLACK won!!! Score " << root->score()
 	      << std::endl;
     std::clog << "// Game #" << game << ": Score " << root->score() << ", " << "Black wins" << "\n";
   } else {
-    std::cout << root << std::flush
+    std::cout << *root << std::flush
 	      << "It's a DRAW!!!\n"
 	      << std::endl;    
     std::clog << "// Game #" << game << ": Score " << root->score() << ", " << "Draw" << "\n";
