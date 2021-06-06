@@ -183,8 +183,9 @@ int main(int argc, char **argv)
       /* missing option argument */
       fprintf(stderr, "%s: option '-%c' requires an argument\n",
 	      argv[0], optopt);
-
+      __attribute__((fallthrough));
     case '?':
+      __attribute__((fallthrough));
     default:
       /* invalid option */
       usage(basename(argv[0]));
