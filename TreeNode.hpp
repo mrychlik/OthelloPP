@@ -62,6 +62,7 @@ public:
 	   int8_t y = -1);
 
   TreeNode(TreeNode&& other);
+  ~TreeNode() { children_.clear(); }
   TreeNode& operator=(TreeNode&& other);
 
   /** 
