@@ -122,6 +122,10 @@ BOOST_AUTO_TEST_CASE(tree_node_count_4x6)
   node_count(4, 6, 12);
 }
 
+#if 0
+// We no longer throw when copying a node onto
+// another, regardless whether it is a child or
+// not, due to move semantics.
 BOOST_AUTO_TEST_CASE(tree_copy_assign_throw)
 {
   // Ensure that we can copy-assign with rv being a child only
@@ -139,6 +143,7 @@ BOOST_AUTO_TEST_CASE(tree_copy_assign_throw)
   //BOOST_CHECK_THROW (expression, an_exception_type);
   BOOST_REQUIRE_THROW( *t1 = std::move(*t2), std::logic_error );
 }
+#endif
 
 BOOST_AUTO_TEST_CASE(tree_copy_assign_nothrow)
 {
