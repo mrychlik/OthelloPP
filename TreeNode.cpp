@@ -98,7 +98,7 @@ void TreeNode::expand() const
 void TreeNode::trim() const
 {
   if(bits.isExpanded) {
-    children.clear();
+    children_.clear();
     bits.isExpanded = false;
   }
 }
