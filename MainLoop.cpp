@@ -35,9 +35,9 @@ bool MainLoop::prune          = DEFAULT_PRUNE;
  */
 int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab, std::istream& ins)
 {
-  std::shared_ptr<TreeNode> root(new TreeNode());
+  auto root = TreeNode::createInstance();
   
-  std::cout << root << std::endl;
+  std::cout << *root << std::endl;
   while(!root->isLeaf()) {
     char p = root->player() == Board::WHITE ? 'W' : 'B';
     std::cout << root->board() << std::flush
