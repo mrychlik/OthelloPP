@@ -17,6 +17,7 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+#include <type_traits>
 
 #include <boost/test/unit_test.hpp>
 //#include <boost/test/auto_unit_test.hpp>
@@ -25,27 +26,27 @@
 
 BOOST_AUTO_TEST_CASE(tree_node_size)
 {
-  TreeNode root;
-  std::cout << "TreeNode size: " << sizeof(root) << std::endl;
+  auto root = TreeNode::createInstance();
+  std::cout << "TreeNode size: " << sizeof(*root) << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(tree_alphabeta_and_print)
 {
-  TreeNode root;
+  auto root = TreeNode::createInstance();
   int depth = 5;
   SimpleStaticEvaluator evaluator;
-  root.alphabeta(evaluator, depth);
+  root->alphabeta(evaluator, depth);
   std::cout << "\nDepth : " << depth << "\n"
-	    << root
+	    << *root
 	    << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(tree_alphabeta)
 {
-  TreeNode root;
+  auto root = TreeNode::createInstance();
   int depth = 10;
   SimpleStaticEvaluator evaluator;
-  auto minMaxResult = root.alphabeta(evaluator, depth);
+  auto minMaxResult = root->alphabeta(evaluator, depth);
   std::cout << "\nDepth: " << depth
 	    << "\nAlphaBeta value: " << minMaxResult.first
     	    << std::endl;
@@ -53,10 +54,10 @@ BOOST_AUTO_TEST_CASE(tree_alphabeta)
 
 BOOST_AUTO_TEST_CASE(tree_minmax_corners)
 {
-  TreeNode root;
+  auto root = TreeNode::createInstance();
   int depth = 10;
   CornerStaticEvaluator evaluator;
-  auto minMaxResult = root.alphabeta(evaluator, depth);
+  auto minMaxResult = root->alphabeta(evaluator, depth);
   std::cout << "\nDepth: " << depth
 	    << "\nAlphaBeta value: " << minMaxResult.first
     	    << std::endl;
@@ -75,13 +76,13 @@ static void node_count(unsigned w, unsigned h, int max_depth)
   std::cout << boost::format("Node count for board size %u x %u, max. depth: %u\n") % w % h % max_depth;
   Board::setW(w);
   Board::setH(h);  
-  TreeNode root;
+  auto root = TreeNode::createInstance();
 
   std::cout << boost::format("%5s %10s %10s %10s\n") % "Depth" % "Node Count" % "Fanout" % "Bar plot";
 
   for(auto depth = 0; depth < max_depth; ++depth) {
     try {
-      auto count = root.nodeCount(depth);
+      auto count = root->nodeCount(depth);
       auto fanout = (::log(count)/depth/log(2));
       int bar_len = ::round(10*fanout);
       std::cout << boost::format("%5d %10d %10g ") % depth % count % fanout
@@ -125,35 +126,42 @@ BOOST_AUTO_TEST_CASE(tree_copy_assign_throw)
 {
   // Ensure that we can copy-assign with rv being a child only
 
-  TreeNode t1, t2;			// Two unrelated nodes
+  auto 
+    t1 = TreeNode::createInstance(),
+    t2 = TreeNode::createInstance(); // Two unrelated nodes
 
   // Do some computations to cause expansion
   SimpleStaticEvaluator evaluator;
   int depth = 3;
-  t1.alphabeta(evaluator, depth);
-  t2.alphabeta(evaluator, depth);
+  t1->alphabeta(evaluator, depth);
+  t2->alphabeta(evaluator, depth);
 
   //BOOST_CHECK_THROW (expression, an_exception_type);
-  BOOST_REQUIRE_THROW( t1 = std::move(t2), std::logic_error );
+  BOOST_REQUIRE_THROW( *t1 = std::move(*t2), std::logic_error );
 }
 
 BOOST_AUTO_TEST_CASE(tree_copy_assign_nothrow)
 {
   // Ensure that we can copy-assign from a child
-  TreeNode t1;
-  auto t2 = *t1.children().begin();
+  auto t1 = TreeNode::createInstance();
+  auto t2 = *t1->children().begin();
+
+  static_assert(std::is_same<decltype(t2), std::shared_ptr<TreeNode>>());
 
   //BOOST_CHECK_NO_THROW (expression)
-  BOOST_REQUIRE_NO_THROW( t1 = std::move(*t2) );
+  BOOST_REQUIRE_NO_THROW( *t1 = std::move(*t2) );
 }
 
 BOOST_AUTO_TEST_CASE(tree_copy_assign_nothrow_level_2)
 {
   // Ensure that we can copy-assign from a grandchild
-  TreeNode t1;
-  auto t2 = *t1.children().begin();
+  auto t1 = TreeNode::createInstance();
+  auto t2 = *t1->children().begin();
   auto t3 = *t2->children().begin();
 
+  static_assert(std::is_same<decltype(t2), std::shared_ptr<TreeNode>>());
+  static_assert(std::is_same<decltype(t3), std::shared_ptr<TreeNode>>());
+
   //BOOST_CHECK_NO_THROW (expression)
-  BOOST_REQUIRE_NO_THROW( t1 = std::move(*t3) );
+  BOOST_REQUIRE_NO_THROW( *t1 = std::move(*t3) );
 }
