@@ -140,6 +140,7 @@ private:
     
 
   void expand() const;
+  void trim() const;
   bool isExpanded() { return bits.isExpanded; }
   void swap(TreeNode& other) noexcept;
 
