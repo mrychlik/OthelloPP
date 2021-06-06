@@ -25,13 +25,11 @@ depend: .depend
 include .depend
 ### End of autogeneration of header dependencies
 
-OTHELLO_OBJS = main.o Board.o TreeNode.o MainLoop.o
-othello: $(OTHELLO_OBJS)
-	$(CXX) $(CXXFLAGS) $(OTHELLO_OBJS) -o $@ $(LDFLAGS)
+othello: main.o Board.o TreeNode.o MainLoop.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
-UNIT_OBJS = unit_tests_board.o unit_tests_tree.o unit_tests_main_loop.o testlib.o Board.o MainLoop.o TreeNode.o
-test_suite: $(UNIT_OBJS)
-	$(CXX) $(CXXFLAGS) $(UNIT_OBJS) -o $@ $(LDFLAGS)
+test_suite: unit_tests_board.o unit_tests_tree.o unit_tests_main_loop.o testlib.o Board.o MainLoop.o TreeNode.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 check: test_suite
 	./test_suite
