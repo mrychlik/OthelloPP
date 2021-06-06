@@ -31,13 +31,13 @@ bool TreeNode::print_recursively = false;
  *
  * 
  */
-TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int8_t y)
+TreeNode::TreeNode(BoardTraits::Player player_, const Board& board, int8_t x_, int8_t y_)
   : board_(board),
     bits({
+      .player     = player_,
       .isExpanded = 0,
-      .player     = player,
-      .x          = x,
-      .y          = y,
+      .x          = x_,
+      .y          = y_,
     })
 {      
 }
