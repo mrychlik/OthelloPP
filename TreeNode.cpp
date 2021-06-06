@@ -53,7 +53,7 @@ TreeNode::TreeNode(TreeNode&& other)
 }
 
 /** 
- * Add child nodes
+ * Generare and add child nodes
  *
  * 
  * @return 
@@ -88,6 +88,21 @@ void TreeNode::expand() const
     bits.isExpanded = false;
   }
 }
+
+/** 
+ * Release child resources.
+ *
+ * 
+ * @return 
+ */
+void TreeNode::trim() const
+{
+  if(bits.isExpanded) {
+    children.clear();
+    bits.isExpanded = false;
+  }
+}
+
 
 /** 
  * Output a TreeNode.
@@ -280,16 +295,16 @@ TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
   std::shared_ptr<TreeNode> selectedChild;
-  while(std::cin) {
+  while(s) {
     std::cout << "Human, make your move!!\n"
 	      << "(Like this: x  y <ENTER>)\n"
 	      << "(... or -1 -1 <ENTER>, if you want me, the Computer, to move...)"
 	      << std::endl;
-    std::cin >> x >> y ; 
-    if(std::cin.fail()) {
+    s >> x >> y ; 
+    if(s.fail()) {
       std::cout << "Invalid format of x or y (should be a number 0-7)" << std::endl;
       continue;
-    } else if(std::cin.bad()) {
+    } else if(s.bad()) {
       throw std::runtime_error("Input stream bad during input of x and y.");
     }
     std::cout << "You, Human, entered: " << x << " " << y << std::endl;
@@ -311,8 +326,8 @@ TreeNode::getHumanMove(std::istream& s) const
 	}
 	std::cout << "Would you like to try again? (say: Y/N/Q)" << std::endl;
 	char c;
-	std::cin >> c;
-	if(std::cin.bad() || std::cin.fail()) {
+	s >> c;
+	if(s.bad() || s.fail()) {
 	  throw std::runtime_error("Invalid human response to Y/N query.");
 	}
 	if(c == 'Y') {
