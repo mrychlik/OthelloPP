@@ -68,13 +68,13 @@ void TreeNode::expand() const
       // If the other player has a move
       // make it his turn
       if( hasLegalMove(~player()) ) {
-	children_.emplace_front(new TreeNode(~player(), board()));
+	children_.push_front(createInstance(~player(), board()));
       }
     } else {			// There are moves, we must make one
       while( !move_bag.empty() ) {
 	const auto& m  = move_bag.front();
 	const auto& [x, y, childBoard ] = m;
-	children_.emplace_front(new TreeNode(~player(), childBoard, x, y));
+	children_.push_front(createInstance(~player(), childBoard, x, y));
 	move_bag.pop_front();
       }
     }
@@ -482,4 +482,22 @@ void TreeNode::swap(TreeNode& other) noexcept
   std::swap(board_, other.board_);
   std::swap(children_, other.children_);  
   std::swap(bits, other.bits);
+}
+
+/** 
+ * The factory method
+ * 
+ * @param player 
+ * @param y 
+ * 
+ * @return 
+ */
+TreeNode::pointer_type
+TreeNode::createInstance(BoardTraits::Player player,
+			 const Board& board,
+			 int8_t x,
+			 int8_t y)
+{
+  // Place holder. This is where we would set-up a caching strategy
+  return pointer_type(new TreeNode(player, board, x, y));
 }
