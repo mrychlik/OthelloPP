@@ -44,7 +44,7 @@ public:
    * The type of children container
    * 
    */
-  typedef std::forward_list<ptr_type> children_type;
+  typedef std::forward_list<pointer_type> children_type;
 
   /**
    * The type of minimax family of functions, which return
