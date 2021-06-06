@@ -34,6 +34,7 @@ bool TreeNode::print_recursively = false;
 TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int8_t y)
   : board_(board),
     bits({
+      .isExpanded = 0,
       .player     = player,
       .x          = x,
       .y          = y,
