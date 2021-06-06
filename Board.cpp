@@ -17,6 +17,10 @@
 #include <cassert>
 #include <cmath>
 
+#if !NDEBUG
+#include <bitset>
+#endif
+
 static const char esc = '';
 static const std::string reset = "[0m";
 
@@ -290,16 +294,19 @@ bool Board::hasLegalMove(Player player) const {
 	return true;
 #endif
 
-  uint8_t j = 0;
+  int j = -1;
   for(uint64_t u = ~filled; u != 0; ) {
-    auto i = __builtin_clzl(u);
+    std::clog << std::bitset<64>(u) << std::endl;
+    int i = __builtin_ctzl(u);
     j += i + 1;
-    uint8_t x = j & 0x07;
-    uint8_t y = (j >> 3) & 0x07;
+    unsigned x = j & 0x07U;
+    unsigned y = (j >> 3) & 0x07U;
+    std::clog << i << ", " << j << ", x = " << x << ", y = " << y <<  std::endl;
+    assert(!isFilled(x, y));
     if( findFlipRadius(player, x, y, flipRadius, true) ) {
       return true;
     }
-    u <<= i + 1;
+    u >>= i + 1;
   }
   return false;
 }
