@@ -35,10 +35,16 @@
 class TreeNode : public StaticEvaluatorTraits {
 public:
   /**
+   * The type of (smart) pointer to node
+   * 
+   */
+  typedef std::shared_ptr<TreeNode> ptr_type;
+
+  /**
    * The type of children container
    * 
    */
-  typedef std::forward_list<std::shared_ptr<TreeNode>> children_type;
+  typedef std::forward_list<ptr_type> children_type;
 
   /**
    * The type of minimax family of functions, which return
