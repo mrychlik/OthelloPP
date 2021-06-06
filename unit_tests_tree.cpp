@@ -134,26 +134,26 @@ BOOST_AUTO_TEST_CASE(tree_copy_assign_throw)
   t2.alphabeta(evaluator, depth);
 
   //BOOST_CHECK_THROW (expression, an_exception_type);
-  BOOST_REQUIRE_THROW( t1 = t2, std::logic_error );
+  BOOST_REQUIRE_THROW( t1 = std::move(t2), std::logic_error );
 }
 
 BOOST_AUTO_TEST_CASE(tree_copy_assign_nothrow)
 {
   // Ensure that we can copy-assign from a child
   TreeNode t1;
-  auto& t2 = *t1.children().begin();
+  auto t2 = *t1.children().begin();
 
   //BOOST_CHECK_NO_THROW (expression)
-  BOOST_REQUIRE_NO_THROW( t1 = *t2 );
+  BOOST_REQUIRE_NO_THROW( t1 = std::move(*t2) );
 }
 
 BOOST_AUTO_TEST_CASE(tree_copy_assign_nothrow_level_2)
 {
-  // Ensure that we can copy-assign from a child
+  // Ensure that we can copy-assign from a grandchild
   TreeNode t1;
-  auto& t2 = *t1.children().begin();
-  auto& t3 = *t2->children().begin();
+  auto t2 = *t1.children().begin();
+  auto t3 = *t2->children().begin();
 
   //BOOST_CHECK_NO_THROW (expression)
-  BOOST_REQUIRE_NO_THROW( t1 = *t3 );
+  BOOST_REQUIRE_NO_THROW( t1 = std::move(*t3) );
 }

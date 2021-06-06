@@ -57,10 +57,10 @@ TreeNode::TreeNode(TreeNode&& other)
  * 
  * @return 
  */
-inline TreeNode::children_type TreeNode::children() const
+void TreeNode::expand() const
 {
+  if(bits.isExpanded) return;
   auto&& move_bag(moves(player()));
-  children_type children_;
   
   try {
     if( move_bag.empty() ) {	// We have no moves
@@ -77,14 +77,15 @@ inline TreeNode::children_type TreeNode::children() const
 	move_bag.pop_front();
       }
     }
+    bits.isExpanded = true;
   } catch(std::bad_alloc& e) {
     std::cerr << e.what() << "\n";
     // Now we have only some children, so not
     // we cannot determine accurate value.
     // NOTE: sets isExpanded to false.
     children_.clear();
+    bits.isExpanded = false;
   }
-  return children_;
 }
 
 /** 
@@ -142,14 +143,14 @@ TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
 			   Compare better) const
 {
   value_type bestVal = worst_val;
-  std::unique_ptr<TreeNode> bestChild;
+  std::shared_ptr<TreeNode> bestChild;
   auto children_ = children();
   for( auto& child : children_ ) {
     auto [value, aNode] = child->alphabeta(evaluator, depth - 1, prune, alpha, beta);
     // NOTE: std::max is like f(a,b) -> ( better(a,b) ? b : a ) and better == operator< 
     if( better(bestVal, value) ) {
       bestVal = value;
-      bestChild = std::move(child);
+      bestChild = child;
     }
     if(prune) {
       changing = std::max(changing, bestVal, better);
@@ -159,7 +160,7 @@ TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
     }
   }
   assert( bestVal != worst_val);
-  return search_result_type(bestVal, std::move(bestChild));
+  return search_result_type(bestVal, bestChild);
 }
 
 
@@ -224,7 +225,7 @@ TreeNode::minmax() const
   } 
 
   value_type bestVal;
-  std::unique_ptr<TreeNode> bestChild;
+  std::shared_ptr<TreeNode> bestChild;
 
   auto children_ = children();
   if( player() == Board::WHITE ) {	// maximizing player
@@ -233,7 +234,7 @@ TreeNode::minmax() const
       auto [value, aNode] = child->minmax();
       if(value > bestVal) {
 	bestVal = value;
-	bestChild = std::move(child);
+	bestChild = child;
       }
     }
     assert( bestVal != MIN_VAL);
@@ -243,12 +244,12 @@ TreeNode::minmax() const
       auto [value, aNode] = child->minmax();
       if(value < bestVal) {
 	bestVal = value;
-	bestChild = std::move(child);
+	bestChild = child;
       }
     }
     assert( bestVal != MAX_VAL);
   }
-  return search_result_type(bestVal, std::move(bestChild));
+  return search_result_type(bestVal, bestChild);
 }
 
 
@@ -273,10 +274,11 @@ bool TreeNode::isLeaf() const
  * 
  * @return The node that user selected.
  */
-TreeNode TreeNode::getHumanMove(std::istream& s) const
+std::shared_ptr<TreeNode>
+TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
-  std::unique_ptr<TreeNode> selectedChild;
+  std::shared_ptr<TreeNode> selectedChild;
   while(std::cin) {
     std::cout << "Human, make your move!!\n"
 	      << "(Like this: x  y <ENTER>)\n"
@@ -297,7 +299,7 @@ TreeNode TreeNode::getHumanMove(std::istream& s) const
       auto children_ = children();
       for( auto& child : children_ ) {
 	if( child->x() == x && child->y() == y) {
-	  selectedChild = std::move(child);
+	  selectedChild = child;
 	}
       }
       if(selectedChild == nullptr) {
@@ -324,7 +326,7 @@ TreeNode TreeNode::getHumanMove(std::istream& s) const
 	  continue;
 	}
       } else {			// Found valid move
-	return std::move(*selectedChild);
+	return selectedChild;
       }
     }
   }
@@ -360,11 +362,11 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return The best child node.
  */
-TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth, bool prune) const
+std::shared_ptr<TreeNode> TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth, bool prune) const
 {
   assert(!isLeaf());
 
-  std::vector<std::unique_ptr<TreeNode>> bestChildren;
+  std::vector<std::shared_ptr<TreeNode>> bestChildren;
 
   if(depth >= 1) {
     search_result_type bestResult;
@@ -392,7 +394,7 @@ TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int
   }
 
   std::random_shuffle(bestChildren.begin(), bestChildren.end());    
-  return std::move(**bestChildren.begin());
+  return *bestChildren.begin();
 }
   
 /** 
@@ -412,25 +414,6 @@ TreeNode& TreeNode::operator=(TreeNode&& other)
   if(this == &other) return *this;
   //deleteChildren();
   other.swap(*this);
-  return *this;
-}
-
-/** 
- * Copy assignment that that not modify the source.  We only allow
- * self-assignment here and the only reason for its presence is for
- * aesthetic reasons.
- * 
- * @param other 
- * 
- * @return 
- */
-TreeNode& TreeNode::operator=(const TreeNode& other)
-{
-  if(this == &other) {
-    return *this;
-  } else {
-    throw std::logic_error("Copy assignment implements self-copy only.");
-  }
   return *this;
 }
 
@@ -476,5 +459,6 @@ void TreeNode::swap(TreeNode& other) noexcept
 {
   if(this == &other) return;
   std::swap(board_, other.board_);
+  std::swap(children_, other.children_);  
   std::swap(bits, other.bits);
 }

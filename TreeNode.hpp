@@ -38,14 +38,14 @@ public:
    * The type of children container
    * 
    */
-  typedef std::forward_list<std::unique_ptr<TreeNode>> children_type;
+  typedef std::forward_list<std::shared_ptr<TreeNode>> children_type;
 
   /**
    * The type of minimax family of functions, which return
    * both the optimal value as well as the pointer to the best child node.
    * 
    */
-  typedef std::pair<value_type, std::unique_ptr<TreeNode>> search_result_type;
+  typedef std::pair<value_type, std::shared_ptr<TreeNode>> search_result_type;
 
 
   /**
@@ -63,7 +63,6 @@ public:
 
   TreeNode(TreeNode&& other);
   TreeNode& operator=(TreeNode&& other);
-  TreeNode& operator=(const TreeNode& other);
 
   /** 
    * Read access to the board of this node
@@ -75,8 +74,8 @@ public:
 
   bool isLeaf() const;
 
-  TreeNode getHumanMove(std::istream& s) const;
-  TreeNode getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth, bool prune) const;
+  std::shared_ptr<TreeNode> getHumanMove(std::istream& s) const;
+  std::shared_ptr<TreeNode> getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth, bool prune) const;
   int nodeCount(int depth) const;
 
 
@@ -99,7 +98,7 @@ public:
   bool hasLegalMove(Board::Player player) const;
   Board::move_bag_type moves(Board::Player player) const;
 
-  children_type children() const;
+  const children_type& children() const { expand(); return children_; }
 
   search_result_type minmax() const;
 
@@ -129,14 +128,18 @@ private:
   std::ostream& print(std::ostream& s) const;
 
   Board board_;			/**< The board */
+  mutable children_type children_; /**< The children */
 
   struct {
     BoardTraits::Player player   : 1;	/**< Player to move  */
+    mutable bool isExpanded      : 1; /**< Are the children found? */
     int x                        : 4; /**< x of last placed piece, or -1 */
     int y                        : 4; /**< y of last placed piece, or -1 */
   } bits;
     
 
+  void expand() const;
+  bool isExpanded() { return bits.isExpanded; }
   void swap(TreeNode& other) noexcept;
 
   template <typename Compare>
