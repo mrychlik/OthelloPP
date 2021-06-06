@@ -45,9 +45,9 @@ BOOST_AUTO_TEST_CASE(tree_alphabeta)
   TreeNode root;
   int depth = 10;
   SimpleStaticEvaluator evaluator;
-  root.alphabeta(evaluator, depth);
+  auto minMaxResult = root.alphabeta(evaluator, depth);
   std::cout << "\nDepth: " << depth
-	    << "\nAlphaBeta value: " << root.minMaxVal()
+	    << "\nAlphaBeta value: " << minMaxResult.first
     	    << std::endl;
 }
 
@@ -56,9 +56,9 @@ BOOST_AUTO_TEST_CASE(tree_minmax_corners)
   TreeNode root;
   int depth = 10;
   CornerStaticEvaluator evaluator;
-  root.alphabeta(evaluator, depth);
+  auto minMaxResult = root.alphabeta(evaluator, depth);
   std::cout << "\nDepth: " << depth
-	    << "\nAlphaBeta value: " << root.minMaxVal()
+	    << "\nAlphaBeta value: " << minMaxResult.first
     	    << std::endl;
 }
 
@@ -141,19 +141,19 @@ BOOST_AUTO_TEST_CASE(tree_copy_assign_nothrow)
 {
   // Ensure that we can copy-assign from a child
   TreeNode t1;
-  TreeNode *t2 = *t1.children().begin();
+  auto& t2 = *t1.children().begin();
 
   //BOOST_CHECK_NO_THROW (expression)
-  BOOST_REQUIRE_NO_THROW( t1 = std::move(*t2) );
+  BOOST_REQUIRE_NO_THROW( t1 = *t2 );
 }
 
 BOOST_AUTO_TEST_CASE(tree_copy_assign_nothrow_level_2)
 {
   // Ensure that we can copy-assign from a child
   TreeNode t1;
-  TreeNode *t2 = *t1.children().begin();
-  TreeNode *t3 = *t2->children().begin();
+  auto& t2 = *t1.children().begin();
+  auto& t3 = *t2->children().begin();
 
   //BOOST_CHECK_NO_THROW (expression)
-  BOOST_REQUIRE_NO_THROW( t1 = std::move(*t3) );
+  BOOST_REQUIRE_NO_THROW( t1 = *t3 );
 }
