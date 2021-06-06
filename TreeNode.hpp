@@ -62,13 +62,44 @@ public:
 
   static bool print_recursively; /**< Print childen of the node */
 
+private:
+  /** 
+   * The constructor.
+   * 
+   * @param player 
+   * @param y 
+   * 
+   * @return 
+   */
   TreeNode(BoardTraits::Player player = BoardTraits::BLACK,
 	   const Board& board = Board(),
 	   int8_t x = -1,
 	   int8_t y = -1);
 
+  /** 
+   * The move copy constructor
+   * 
+   * @param other 
+   * 
+   * @return 
+   */
   TreeNode(TreeNode&& other);
+
+public:
+
+  pointer_type
+  createInstance(BoardTraits::Player player = BoardTraits::BLACK,
+		 const Board& board = Board(),
+		 int8_t x = -1,
+		 int8_t y = -1);
+  /** 
+   * The destructor.
+   * 
+   * 
+   * @return 
+   */
   ~TreeNode() { children_.clear(); }
+
   TreeNode& operator=(TreeNode&& other);
 
   /** 
