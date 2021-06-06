@@ -41,7 +41,7 @@ check-for-leaks-random-moves: othello
 	valgrind -s --leak-check=full --show-leak-kinds=all  ./othello -D 0 -r 6 -c 6 -n 1 > /dev/null 
 
 check-for-leaks-alphabeta: othello
-	valgrind -s --leak-check=full --show-leak-kinds=all  ./othello -D 6 -r 6 -c 6 -n 1 > /dev/null 
+	valgrind -s --leak-check=full --show-leak-kinds=all  ./othello -D 4 -r 4 -c 6 -n 1 > /dev/null 
 
 check-for-leaks-full-minmax: othello
 	valgrind -s --leak-check=full --show-leak-kinds=all  ./othello -D 1000 -A 1 -r 4 -c 4 -n 1 > /dev/null 
