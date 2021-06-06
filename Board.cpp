@@ -287,27 +287,27 @@ std::ostream& Board::printBig(std::ostream& s) const {
  */
 bool Board::hasLegalMove(Player player) const {
   uint8_t flipRadius[8];
-#if 0
+#if 1
   for(auto x = 0; x < w(); ++x)
     for(auto y = 0; y < h(); ++y)    
       if( !isFilled(x, y) && findFlipRadius(player, x, y, flipRadius, true) )
 	return true;
-#endif
+#else
 
-  int j = -1;
+  unsigned j = -1;
   for(uint64_t u = ~filled; u != 0; ) {
-    std::clog << std::bitset<64>(u) << std::endl;
     int i = __builtin_ctzl(u);
     j += i + 1;
     unsigned x = j & 0x07U;
     unsigned y = (j >> 3) & 0x07U;
-    std::clog << i << ", " << j << ", x = " << x << ", y = " << y <<  std::endl;
-    assert(!isFilled(x, y));
-    if( findFlipRadius(player, x, y, flipRadius, true) ) {
-      return true;
+    if(x < w() && y < h()) {
+      if( findFlipRadius(player, x, y, flipRadius, true) ) {
+	return true;
+      }
     }
     u >>= i + 1;
   }
+#endif
   return false;
 }
 
