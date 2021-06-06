@@ -33,7 +33,7 @@ bool MainLoop::prune          = DEFAULT_PRUNE;
  * 
  * @return Score
  */
-int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab)
+int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab, std::istream& ins)
 {
   std::shared_ptr<TreeNode> root(new TreeNode());
   
@@ -46,7 +46,7 @@ int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab)
 	      << "----------------------------------------------------------------\n"
 	      << std::endl;
     if( humanPlayer[root->player()] ) {
-      root = root->getHumanMove(std::cin);
+      root = root->getHumanMove(ins);
       std::cout << "Human played: " << root->x() << " " << root->y() << std::endl;
       std::clog << root->x() << ' ' << root->y() << "\t// Game #:" << game << ",  " << p << ", " << 'H' << "\n";
     } else {			// not human
@@ -107,7 +107,7 @@ int MainLoop::run(std::istream& ins, std::ostream& os, std::ostream& logs,
   int score[num_games] = {0};
   for(int game = 0; game < num_games; ++game) {
     try {
-      score[game] = play(game, evaluatorTab);
+      score[game] = play(game, evaluatorTab, ins);
     } catch(std::runtime_error& e) {
       os << "Game # " << game << ": "
 		<< e.what() << std::endl;
