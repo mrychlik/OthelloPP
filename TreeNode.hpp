@@ -16,6 +16,7 @@
 #include "StaticEvaluator.hpp"
 
 
+#include <memory>
 #include <cinttypes>
 #include <forward_list>
 #include <cassert>
@@ -37,7 +38,15 @@ public:
    * The type of children container
    * 
    */
-  typedef std::forward_list<TreeNode*> children_type;
+  typedef std::forward_list<std::unique_ptr<TreeNode>> children_type;
+
+  /**
+   * The type of minimax family of functions, which return
+   * both the optimal value as well as the pointer to the best child node.
+   * 
+   */
+  typedef std::pair<value_type, std::unique_ptr<TreeNode>> search_result_type;
+
 
   /**
    * Type of value returned by the static evaluator
@@ -53,7 +62,6 @@ public:
 	   int8_t y = -1);
 
   TreeNode(TreeNode&& other);
-  ~TreeNode();
   TreeNode& operator=(TreeNode&& other);
   TreeNode& operator=(const TreeNode& other);
 
@@ -91,26 +99,15 @@ public:
   bool hasLegalMove(Board::Player player) const;
   Board::move_bag_type moves(Board::Player player) const;
 
-  const children_type& children() const;
+  children_type children() const;
 
-  void minmax() const;
+  search_result_type minmax() const;
 
-  void alphabeta(const StaticEvaluator& evaluator,
-		 int depth,
-		 bool prune = false,
-		 value_type alpha = MIN_VAL,
-		 value_type beta = MAX_VAL) const;
-
-  /** 
-   * Returns the node value according
-   * to the last run of minmax or alphabeta.
-   * 
-   * 
-   * @return The optimized node value
-   */
-  value_type minMaxVal() const {
-    return bits.minMaxVal;
-  }
+  search_result_type alphabeta(const StaticEvaluator& evaluator,
+			       int depth,
+			       bool prune = false,
+			       value_type alpha = MIN_VAL,
+			       value_type beta = MAX_VAL) const;
 
 
   /** 
@@ -131,52 +128,9 @@ private:
 
   std::ostream& print(std::ostream& s) const;
 
-  //// NOTE: const methods that operate on mutable fields
-
-  // Installs a new child node
-  void addChild(TreeNode* child) const;
-
-  // Add children of a node
-  void expandOneLevel() const;
-
-  // Is the node expanded?
-  bool isExpanded() const {
-    return bits.isExpanded;
-  }
-
-  // Set isExpanded flag
-  void setIsExpanded(bool val) const {
-    bits.isExpanded = val;
-  }
-
-  // Sets minmax value of this node
-  void setMinMaxVal(value_type val) const {
-    bits.minMaxVal = val;
-  }
-
-  // Expad by several levels
-  void expandNode(int numLevels = DEFAULT_EXPANSION_DEPTH) const;
-
-  // Delete all descendents
-  void deleteDescendents() const;
-
-  // Delete all descendents except for other
-  void deleteDescendentsExceptFor(const TreeNode *other) const;
-
-  //// END: const methods that operate on mutable fields
-
-  //// NOTE: Mutable fields
-
   Board board_;			/**< The board */
 
-  // NOTE: Using deque for this would use 80 bytes of memory
-  // under GCC, vector uses only 24 bytes, forward_list 8 bytes.
-  // As Board currently consumes 24 bytes, the TreeNode only 32
-  mutable children_type children_;
-
   struct {
-    mutable int minMaxVal : 8;	/**< Cached value by minmax */
-    mutable bool isExpanded      : 1;	/**< Have the children been added */
     BoardTraits::Player player   : 1;	/**< Player to move  */
     int x                        : 4; /**< x of last placed piece, or -1 */
     int y                        : 4; /**< y of last placed piece, or -1 */
@@ -186,15 +140,14 @@ private:
   void swap(TreeNode& other) noexcept;
 
   template <typename Compare>
-  void alphabeta_helper(const StaticEvaluator& evaluator,
-				       int depth,
-				       bool prune,
-				       value_type alpha, value_type beta,
-				       value_type& changing,
-				       const value_type& fixed,
-				       value_type worst_val,
-				       Compare better) const;
-  
+  search_result_type alphabeta_helper(const StaticEvaluator& evaluator,
+				      int depth,
+				      bool prune,
+				      value_type alpha, value_type beta,
+				      value_type& changing,
+				      const value_type& fixed,
+				      value_type worst_val,
+				      Compare better) const;
 };
 
 #endif	// TREE_NODE_SIMPLE_HPP

@@ -303,6 +303,7 @@ Board::operator std::string() const {
   buf << *this;
   return buf.str();
 }
+#endif
 
 uint8_t Board::w_ = 8;
 uint8_t Board::h_ = 8;

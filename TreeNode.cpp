@@ -33,10 +33,7 @@ bool TreeNode::print_recursively = false;
  */
 TreeNode::TreeNode(BoardTraits::Player player, const Board& board, int8_t x, int8_t y)
   : board_(board),
-    children_(),
     bits({
-      .minMaxVal  = 0,
-      .isExpanded = false,
       .player     = player,
       .x          = x,
       .y          = y,
@@ -55,70 +52,39 @@ TreeNode::TreeNode(TreeNode&& other)
 }
 
 /** 
- * Destructor. Deletes a tree node and its children
- * 
- */
-TreeNode::~TreeNode()
-{
-  deleteDescendents();
-}
-
-/** 
  * Add child nodes
  *
  * 
  * @return 
  */
-inline void TreeNode::expandOneLevel() const
+inline TreeNode::children_type TreeNode::children() const
 {
-  if(isExpanded()) return;
   auto&& move_bag(moves(player()));
+  children_type children_;
   
   try {
     if( move_bag.empty() ) {	// We have no moves
       // If the other player has a move
       // make it his turn
       if( hasLegalMove(~player()) ) {
-	addChild(new TreeNode(~player(), board()));
+	children_.emplace_front(new TreeNode(~player(), board()));
       }
     } else {			// There are moves, we must make one
       while( !move_bag.empty() ) {
 	const auto& m  = move_bag.front();
 	const auto& [x, y, childBoard ] = m;
-	addChild(new TreeNode(~player(), childBoard, x, y));
+	children_.emplace_front(new TreeNode(~player(), childBoard, x, y));
 	move_bag.pop_front();
       }
     }
-    setIsExpanded(true);
   } catch(std::bad_alloc& e) {
     std::cerr << e.what() << "\n";
     // Now we have only some children, so not
     // we cannot determine accurate value.
     // NOTE: sets isExpanded to false.
-    deleteDescendents();
+    children_.clear();
   }
-}
-
-
-/** 
- * Expand a node by several levels
- * 
- * @param numLevels 
- * @param verbose 
- */
-void TreeNode::expandNode(int numLevels) const
-{
-  if(numLevels >= 1) {
-    expandOneLevel();
-    for( const auto& child : children_ ) {
-      child->expandNode(numLevels - 1);
-    }
-  }
-}
-
-void TreeNode::addChild(TreeNode* child) const
-{
-  children_.push_front(child);
+  return children_;
 }
 
 /** 
@@ -131,18 +97,11 @@ void TreeNode::addChild(TreeNode* child) const
  */
 std::ostream& TreeNode::print(std::ostream& s) const
 {
-  s << board()
+  return s << board()
     << "\nPlayer to move: " << ( ( player() == Board::WHITE ) ? "WHITE" : "BLACK" )
     << "\nLast filled x: " << x()
     << "\nLast filled y: " << y()
     << std::endl;
-
-  if(isExpanded() && print_recursively) {
-    for(const auto& child : children()) {
-      child->print(s);
-    }
-  }
-  return s;
 }
 
 
@@ -168,27 +127,30 @@ std::ostream& TreeNode::print(std::ostream& s) const
  * @param fixed
  * @param worst_val 
  * @param better 
+ *
+ * @return The minmax value
  */
 template <typename Compare>
-inline void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
-				       int depth,
-				       bool prune,
-				       value_type alpha, value_type beta,
-				       value_type& changing,
-				       const value_type& fixed,
-				       value_type worst_val,
-				       Compare better) const
+inline TreeNode::search_result_type
+TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
+			   int depth,
+			   bool prune,
+			   value_type alpha, value_type beta,
+			   value_type& changing,
+			   const value_type& fixed,
+			   value_type worst_val,
+			   Compare better) const
 {
   value_type bestVal = worst_val;
-  if(prune) {
-    // Mark all children as suboptimal as not all will be searched
-    std::for_each(children().begin(), children().end(),
-		  [bestVal](auto& ch) { ch->setMinMaxVal(bestVal); });
-  }
-  for( auto child : children() ) {
-    child->alphabeta(evaluator, depth - 1, prune, alpha, beta);
+  std::unique_ptr<TreeNode> bestChild;
+  auto children_ = children();
+  for( auto& child : children_ ) {
+    auto [value, aNode] = child->alphabeta(evaluator, depth - 1, prune, alpha, beta);
     // NOTE: std::max is like f(a,b) -> ( better(a,b) ? b : a ) and better == operator< 
-    bestVal = std::max(bestVal, child->minMaxVal(), better);
+    if( better(bestVal, value) ) {
+      bestVal = value;
+      bestChild = std::move(child);
+    }
     if(prune) {
       changing = std::max(changing, bestVal, better);
       if(!better(changing, fixed)) {
@@ -197,7 +159,7 @@ inline void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
     }
   }
   assert( bestVal != worst_val);
-  setMinMaxVal(bestVal);
+  return search_result_type(bestVal, std::move(bestChild));
 }
 
 
@@ -220,32 +182,32 @@ inline void TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
  * @param alpha Most max can hope for
  * @param beta  Least min can hope for
  * 
- * @return 
+ * @return The minmax value
  */
-void TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth,
-			 bool prune,
-			 value_type alpha, value_type beta) const
+TreeNode::search_result_type
+TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth,
+		    bool prune,
+		    value_type alpha, value_type beta) const
 {
   if(depth <= 0 || isLeaf() ) {
-    setMinMaxVal(evaluator(board(), player(), depth));
-    return;
+    return search_result_type(evaluator(board(), player(), depth), nullptr);
   } 
 
   // The code could be refactored because Min and Max code is so
   // similar
   if( player() == Board::WHITE ) {	// maximizing player
-    alphabeta_helper(evaluator, depth, prune,
-		     alpha, beta,
-		     alpha, beta,
-		     MIN_VAL,
-		     std::less<value_type>());
+    return alphabeta_helper(evaluator, depth, prune,
+			    alpha, beta,
+			    alpha, beta,
+			    MIN_VAL,
+			    std::less<value_type>());
   } else {			// minimizing player
     assert(player() == Board::BLACK);
-    alphabeta_helper(evaluator, depth, prune,
-		     alpha, beta,
-		     beta, alpha,
-		     MAX_VAL,
-		     std::greater<value_type>());
+    return alphabeta_helper(evaluator, depth, prune,
+			    alpha, beta,
+			    beta, alpha,
+			    MAX_VAL,
+			    std::greater<value_type>());
   }
 }
 
@@ -254,30 +216,39 @@ void TreeNode::alphabeta(const StaticEvaluator& evaluator, int depth,
  * 
  * @return MinMax value of the node.
  */
-void TreeNode::minmax() const
+TreeNode::search_result_type
+TreeNode::minmax() const
 {
   if(isLeaf()) {
-    setMinMaxVal(score());
-    return;
+    return search_result_type(score(), nullptr);
   } 
 
+  value_type bestVal;
+  std::unique_ptr<TreeNode> bestChild;
+
+  auto children_ = children();
   if( player() == Board::WHITE ) {	// maximizing player
-    value_type bestVal = MIN_VAL;
-    for( auto& child : children()) {
-      child->minmax();
-      bestVal = std::max(bestVal, child->minMaxVal());
+    bestVal = MIN_VAL;
+    for( auto& child : children_) {
+      auto [value, aNode] = child->minmax();
+      if(value > bestVal) {
+	bestVal = value;
+	bestChild = std::move(child);
+      }
     }
     assert( bestVal != MIN_VAL);
-    setMinMaxVal(bestVal);
   } else {			// minimizing player
-    auto bestVal = MAX_VAL;
-    for( auto child : children()) {
-      child->minmax();
-      bestVal = std::min(bestVal, child->minMaxVal());
+    bestVal = MAX_VAL;
+    for( auto& child : children_) {
+      auto [value, aNode] = child->minmax();
+      if(value < bestVal) {
+	bestVal = value;
+	bestChild = std::move(child);
+      }
     }
     assert( bestVal != MAX_VAL);
-    setMinMaxVal(bestVal);
   }
+  return search_result_type(bestVal, std::move(bestChild));
 }
 
 
@@ -295,45 +266,6 @@ bool TreeNode::isLeaf() const
 }
 
 /** 
- * Deletes all children and marks
- * the node unexpanded
- * 
- */
-void TreeNode::deleteDescendents() const
-{
-  for(const auto& child : children_ ) {
-    delete child;
-  }
-  setIsExpanded(false);
-}
-
-/** 
- * 
- */
-void TreeNode::deleteDescendentsExceptFor(const TreeNode *other) const
-{
-  if(this == other) return;
-  for(const auto& child : children_ ) {
-    if(child != other) {
-      child->deleteDescendentsExceptFor(other);
-    }
-  }
-  setIsExpanded(false);
-}
-
-/** 
- * Returns a reference to the children (container).
- * 
- * @return 
- */
-const TreeNode::children_type& TreeNode::children() const
-{
-  expandOneLevel();
-  return children_;
-}
-
-
-/** 
  * Get the move of the human (interactive) player.
  * We engage in dialog with the user, by prompting to
  * std::cout and reading input from a stream.
@@ -344,7 +276,7 @@ const TreeNode::children_type& TreeNode::children() const
 TreeNode TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
-  TreeNode *selectedChild = nullptr;
+  std::unique_ptr<TreeNode> selectedChild;
   while(std::cin) {
     std::cout << "Human, make your move!!\n"
 	      << "(Like this: x  y <ENTER>)\n"
@@ -362,9 +294,10 @@ TreeNode TreeNode::getHumanMove(std::istream& s) const
       std::cout << "Input value x or y out of range: " << x << " " << y << std::endl;
       continue;
     } else {
-      for( const auto& child : children() ) {
+      auto children_ = children();
+      for( auto& child : children_ ) {
 	if( child->x() == x && child->y() == y) {
-	  selectedChild = child;
+	  selectedChild = std::move(child);
 	}
       }
       if(selectedChild == nullptr) {
@@ -430,25 +363,22 @@ int TreeNode::nodeCount(int depth) const
 TreeNode TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth, bool prune) const
 {
   assert(!isLeaf());
-  expandOneLevel();
 
-  std::vector<TreeNode*> bestChildren;
+  std::vector<std::unique_ptr<TreeNode>> bestChildren;
 
   if(depth >= 1) {
+    search_result_type bestResult;
     if(prune) {
-      alphabeta(*evaluatorTab[player()], depth, true);
+      bestResult = alphabeta(*evaluatorTab[player()], depth, true);
+      bestChildren.push_back(bestResult.second);
     } else if(!prune) {
       if(depth < 128) {
-	alphabeta(*evaluatorTab[player()], depth, false);
+	bestResult = alphabeta(*evaluatorTab[player()], depth, false);
       } else {			// depth >= 128
-	minmax();
+	bestResult = minmax();
       }
     }
-    for(const auto& child : children()) {
-      if(child->minMaxVal() == minMaxVal()) {
-	bestChildren.push_back(child);
-      }
-    }
+    bestChildren.push_back(bestResult.second);
     assert(!bestChildren.empty());
   } else {			// depth <= 0
     // We are very misinformed here because we don't
@@ -545,7 +475,6 @@ int TreeNode::score() const {
 void TreeNode::swap(TreeNode& other) noexcept
 {
   if(this == &other) return;
-  std::swap(children_, other.children_);
   std::swap(board_, other.board_);
   std::swap(bits, other.bits);
 }
