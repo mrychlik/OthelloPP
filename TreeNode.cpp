@@ -159,7 +159,7 @@ TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
 			   Compare better) const
 {
   value_type bestVal = worst_val;
-  std::shared_ptr<TreeNode> bestChild;
+  pointer_type bestChild;
   auto children_ = children();
   for( auto& child : children_ ) {
     auto [value, aNode] = child->alphabeta(evaluator, depth - 1, prune, alpha, beta);
@@ -176,6 +176,8 @@ TreeNode::alphabeta_helper(const StaticEvaluator& evaluator,
     }
   }
   assert( bestVal != worst_val);
+  // Dispose of children
+  trim();
   return search_result_type(bestVal, bestChild);
 }
 
@@ -241,7 +243,7 @@ TreeNode::minmax() const
   } 
 
   value_type bestVal;
-  std::shared_ptr<TreeNode> bestChild;
+  pointer_type bestChild;
 
   auto children_ = children();
   if( player() == Board::WHITE ) {	// maximizing player
@@ -265,6 +267,8 @@ TreeNode::minmax() const
     }
     assert( bestVal != MAX_VAL);
   }
+  // Dispose of children
+  trim();
   return search_result_type(bestVal, bestChild);
 }
 
@@ -290,11 +294,11 @@ bool TreeNode::isLeaf() const
  * 
  * @return The node that user selected.
  */
-std::shared_ptr<TreeNode>
+TreeNode::pointer_type
 TreeNode::getHumanMove(std::istream& s) const
 {
   int x,y;
-  std::shared_ptr<TreeNode> selectedChild;
+  pointer_type selectedChild;
   while(s) {
     std::cout << "Human, make your move!!\n"
 	      << "(Like this: x  y <ENTER>)\n"
@@ -378,11 +382,12 @@ int TreeNode::nodeCount(int depth) const
  * 
  * @return The best child node.
  */
-std::shared_ptr<TreeNode> TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth, bool prune) const
+TreeNode::pointer_type
+TreeNode::getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth, bool prune) const
 {
   assert(!isLeaf());
 
-  std::vector<std::shared_ptr<TreeNode>> bestChildren;
+  std::vector<pointer_type> bestChildren;
 
   if(depth >= 1) {
     search_result_type bestResult;
