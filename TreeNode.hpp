@@ -76,22 +76,17 @@ private:
 	   int8_t x = -1,
 	   int8_t y = -1);
 
-  /** 
-   * The move copy constructor
-   * 
-   * @param other 
-   * 
-   * @return 
-   */
   TreeNode(TreeNode&& other);
 
 public:
 
-  pointer_type
+  static pointer_type
   createInstance(BoardTraits::Player player = BoardTraits::BLACK,
 		 const Board& board = Board(),
 		 int8_t x = -1,
 		 int8_t y = -1);
+
+public:
   /** 
    * The destructor.
    * 

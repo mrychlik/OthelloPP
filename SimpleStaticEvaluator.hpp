@@ -20,7 +20,7 @@
  */
 struct SimpleStaticEvaluator : public StaticEvaluator, public StaticEvaluatorTraits
 {
-  value_type operator()(const Board& b, BoardTraits::Player player, int depth) const
+  value_type operator()(const Board& b, BoardTraits::Player player __attribute__((unused)), int depth __attribute__((unused))) const
   {
     return b.score();
   }

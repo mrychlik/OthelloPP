@@ -31,7 +31,7 @@ public:
    */
   CornerStaticEvaluator(int cornerVal = DEFAULT_CORNER_VALUE) : cornerVal(cornerVal) { }
 
-  StaticEvaluatorTraits::value_type operator()(const Board& b, Board::Player player, int depth) const
+  StaticEvaluatorTraits::value_type operator()(const Board& b, Board::Player player __attribute__((unused)), int depth __attribute__((unused))) const
   {
     auto val = b.score();
 

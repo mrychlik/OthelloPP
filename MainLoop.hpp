@@ -155,7 +155,7 @@ public:
 
 private:
 
-  static int play(int game, const StaticEvaluatorTable& evaluatorTab);
+  static int play(int game, const StaticEvaluatorTable& evaluatorTab, std::istream& ins);
 };
 
 #endif /* MAIN_LOOP */
