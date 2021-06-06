@@ -70,7 +70,7 @@ int MainLoop::play(int game, const StaticEvaluatorTable& evaluatorTab, std::istr
 	    << "----------------------------------------------------------------\n"
 	    << std::endl;
   if( root->score() > 0) {
-    std::cout << root << std::flush
+    std::cout << *root << std::flush
 	      << "WHITE won!!! Score " << root->score()
 	      << std::endl;    
     std::clog << "// Game #" << game << ": Score " << root->score() << ", " << "White wins" << "\n";
