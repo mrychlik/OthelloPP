@@ -1,12 +1,13 @@
 # No threads yet!!!
 CXXFLAGS = -std=c++2a
 CXXFLAGS += -ggdb3
+CXXFLAGS += -Wall -Wextra
 #CXXFLAGS += -DUSE_LUT=1	   #Use lookup table
-#CXXFLAGS += -O3 -Wall -fomit-frame-pointer
-#CXXFLAGS += -Og -O0 -Wall
-#CXXFLAGS += -Ofast -Og -Wall
-#CXXFLAGS += -Ofast -Og -Wall -fomit-frame-pointer
-CXXFLAGS += -Ofast -Wall -msse4 -DNDEBUG=1 -fomit-frame-pointer
+#CXXFLAGS += -O3-fomit-frame-pointer
+#CXXFLAGS += -Og -O0
+#CXXFLAGS += -Ofast -Og
+#CXXFLAGS += -Ofast -Og -fomit-frame-pointer
+CXXFLAGS += -Ofast -msse4 -DNDEBUG=1 -fomit-frame-pointer
 
 LDFLAGS  = -lm -lboost_unit_test_framework
 
