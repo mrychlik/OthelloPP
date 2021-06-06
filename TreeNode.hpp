@@ -38,7 +38,7 @@ public:
    * The type of (smart) pointer to node
    * 
    */
-  typedef std::shared_ptr<TreeNode> ptr_type;
+  typedef std::shared_ptr<TreeNode> pointer_type;
 
   /**
    * The type of children container
@@ -51,7 +51,7 @@ public:
    * both the optimal value as well as the pointer to the best child node.
    * 
    */
-  typedef std::pair<value_type, std::shared_ptr<TreeNode>> search_result_type;
+  typedef std::pair<value_type, pointer_type> search_result_type;
 
 
   /**
@@ -81,8 +81,8 @@ public:
 
   bool isLeaf() const;
 
-  std::shared_ptr<TreeNode> getHumanMove(std::istream& s) const;
-  std::shared_ptr<TreeNode> getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth, bool prune) const;
+  pointer_type getHumanMove(std::istream& s) const;
+  pointer_type getComputerMove(const StaticEvaluatorTable& evaluatorTab, int depth, bool prune) const;
   int nodeCount(int depth) const;
 
 
